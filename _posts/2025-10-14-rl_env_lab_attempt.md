@@ -1,3 +1,8 @@
+---
+title: "RL Environment Lab Attempt"
+date: 2025-10-12
+---
+
 This is going to be a longread post about my recent experience with a certain RL env startup and my application thereto. It's going to contain some autobiographical vignettes, ideas (of variable weirdness) and suggestions to anyone who'd bother to take notice.
 
 
