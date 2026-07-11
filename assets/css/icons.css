@@ -1,0 +1,29 @@
+a[href*="wikipedia.org"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.75em; height: 0.75em;
+  margin-left: 0.15em;
+  background: url("/assets/icons/wikipedia.svg") no-repeat center / contain;
+  vertical-align: middle;
+}
+
+a[href*="github.com"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.75em; height: 0.75em;
+  margin-left: 0.15em;
+  background: url("/assets/icons/github.svg") no-repeat center / contain;
+  vertical-align: middle;
+}
+
+a[href*="arxiv.org"]::after     { content: " [arXiv]"; font-size: 0.7em; opacity: 0.6; }
+a[href*="anthropic.com"]::after { content: " [A]"; font-size: 0.7em; opacity: 0.6; }
+a[href*="openai.com"]::after    { content: " [O]"; font-size: 0.7em; opacity: 0.6; }
+
+/* self-references to your own posts */
+a[href^="/"]::after,
+a[href*="strangetcy.github.io"]::after {
+  content: " 𝔊";
+  font-size: 0.85em;
+  opacity: 0.6;
+}
