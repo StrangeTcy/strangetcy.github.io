@@ -23,7 +23,12 @@ a[href*="openai.com"]::after    { content: " [O]"; font-size: 0.7em; opacity: 0.
 /* self-references to your own posts */
 a[href^="/"]::after,
 a[href*="strangetcy.github.io"]::after {
-  content: " 𝔊";
+  content: "μ";
   font-size: 0.85em;
   opacity: 0.6;
 }
+
+
+.icon-self::after      { content: " μ"; font-size: 0.85em; opacity: 0.6; }
+.icon-anthropic::after { content: " [A]"; font-size: 0.7em; opacity: 0.6; }
+.icon-openai::after    { content: " [O]"; font-size: 0.7em; opacity: 0.6; }
