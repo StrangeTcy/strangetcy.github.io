@@ -1,9 +1,4 @@
 
-/* Links to GitHub */
-a[href*="github.com"]::after    { content: " [GH]"; font-size: 0.7em; opacity: 0.6; }
-
-/* Links to arXiv */
-a[href*="arxiv.org"]::after     { content: " [arXiv]"; font-size: 0.7em; opacity: 0.6; }
 
 /* Links to Gwern's site */
 a[href*="gwern.net"]::after {
@@ -89,4 +84,25 @@ a[href*="wikipedia.org"]::after {
 .icon-openai::after {
   -webkit-mask-image: url("/assets/icons/openai.svg");
           mask-image: url("/assets/icons/openai.svg");
+}
+
+a[href*="wikipedia.org"]::after,
+a[href*="github.com"]::after,
+a[href*="arxiv.org"]::after,
+.icon-anthropic::after,
+.icon-openai::after {
+  content: "";
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  margin-left: 0.2em;
+  vertical-align: -0.05em;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  opacity: 0.75;
 }
