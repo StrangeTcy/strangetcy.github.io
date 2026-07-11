@@ -1,34 +1,27 @@
-a[href*="wikipedia.org"]::after {
-  content: "";
-  display: inline-block;
-  width: 0.75em; height: 0.75em;
-  margin-left: 0.15em;
-  background: url("/assets/icons/wikipedia.svg") no-repeat center / contain;
-  vertical-align: middle;
-}
+/* Links to Wikipedia */
+a[href*="wikipedia.org"]::after { content: " [W]"; font-size: 0.7em; opacity: 0.6; }
 
-a[href*="github.com"]::after {
-  content: "";
-  display: inline-block;
-  width: 0.75em; height: 0.75em;
-  margin-left: 0.15em;
-  background: url("/assets/icons/github.svg") no-repeat center / contain;
-  vertical-align: middle;
-}
+/* Links to GitHub */
+a[href*="github.com"]::after    { content: " [GH]"; font-size: 0.7em; opacity: 0.6; }
 
+/* Links to arXiv */
 a[href*="arxiv.org"]::after     { content: " [arXiv]"; font-size: 0.7em; opacity: 0.6; }
-a[href*="anthropic.com"]::after { content: " [A]"; font-size: 0.7em; opacity: 0.6; }
-a[href*="openai.com"]::after    { content: " [O]"; font-size: 0.7em; opacity: 0.6; }
 
-/* self-references to your own posts */
-a[href^="/"]::after,
-a[href*="strangetcy.github.io"]::after {
-  content: "μ";
+/* Links to Gwern's site */
+a[href*="gwern.net"]::after {
+  content: " 𝔊";
   font-size: 0.85em;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
+/* Links to my own site (self-reference) */
+a[href*="strangetcy.github.io"]::after {
+  content: " μ";
+  font-size: 0.85em;
+  opacity: 0.7;
+}
 
-.icon-self::after      { content: " μ"; font-size: 0.85em; opacity: 0.6; }
+/* Manual, non-link mentions (no href to key off of) */
 .icon-anthropic::after { content: " [A]"; font-size: 0.7em; opacity: 0.6; }
 .icon-openai::after    { content: " [O]"; font-size: 0.7em; opacity: 0.6; }
+.icon-self::after      { content: " μ";  font-size: 0.85em; opacity: 0.7; }
