@@ -1,4 +1,4 @@
-
+/* ===== Text-glyph icons ===== */
 
 /* Links to Gwern's site */
 a[href*="gwern.net"]::after {
@@ -8,71 +8,18 @@ a[href*="gwern.net"]::after {
 }
 
 /* Links to my own site (self-reference) */
-a[href*="strangetcy.github.io"]::after {
+a[href*="strangetcy.github.io"]::after,
+.icon-self::after {
   content: " μ";
   font-size: 0.85em;
   opacity: 0.7;
 }
 
 
-.icon-self::after      { content: " μ";  font-size: 0.85em; opacity: 0.7; }
-
-
-/* Epistemic status / provenance block */
-.epistemic-status {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 0.35em 1.25em;
-  border: 1px solid #ccc;
-  border-left: 3px solid #888;
-  padding: 0.75em 1.1em;
-  margin: 1.5em 0 2em 0;
-  font-size: 0.85em;
-  line-height: 1.5;
-}
-.epistemic-status dt {
-  font-weight: 600;
-  color: #666;
-  white-space: nowrap;
-}
-.epistemic-status dd {
-  margin: 0;
-}
-
-/* Certainty circle: a pure-CSS pie chart via conic-gradient.
-   Set --pct per instance, e.g. style="--pct: 75%" */
-.certainty-circle {
-  display: inline-block;
-  width: 0.85em;
-  height: 0.85em;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  background: conic-gradient(currentColor var(--pct, 50%), transparent 0);
-  vertical-align: middle;
-  margin-right: 0.3em;
-}
-
-
-/* --- SVG icons via mask (inherit text color, so they work on the dark theme) --- */
+/* ===== SVG icons via mask (inherit text color, so they work on the dark theme) ===== */
 a[href*="wikipedia.org"]::after,
-.icon-anthropic::after,
-.icon-openai::after {
-  content: "";
-  display: inline-block;
-  width: 0.85em;
-  height: 0.85em;
-  margin-left: 0.2em;
-  vertical-align: -0.05em;
-  background-color: currentColor;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-          mask-position: center;
-  -webkit-mask-size: contain;
-          mask-size: contain;
-  opacity: 0.75;
-}
-
+a[href*="github.com"]::after,
+a[href*="arxiv.org"]::after,
 .icon-anthropic::after,
 .icon-openai::after {
   content: "";
@@ -95,6 +42,14 @@ a[href*="wikipedia.org"]::after {
   -webkit-mask-image: url("/assets/icons/wikipedia.svg");
           mask-image: url("/assets/icons/wikipedia.svg");
 }
+a[href*="github.com"]::after {
+  -webkit-mask-image: url("/assets/icons/github.svg");
+          mask-image: url("/assets/icons/github.svg");
+}
+a[href*="arxiv.org"]::after {
+  -webkit-mask-image: url("/assets/icons/arxiv.svg");
+          mask-image: url("/assets/icons/arxiv.svg");
+}
 .icon-anthropic::after {
   -webkit-mask-image: url("/assets/icons/anthropic.svg");
           mask-image: url("/assets/icons/anthropic.svg");
@@ -104,16 +59,37 @@ a[href*="wikipedia.org"]::after {
           mask-image: url("/assets/icons/openai.svg");
 }
 
-a[href*="github.com"]::after {
-  -webkit-mask-image: url("/assets/icons/github.svg");
-          mask-image: url("/assets/icons/github.svg");
+
+/* ===== Epistemic status / provenance block ===== */
+.epistemic-status {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35em 1.25em;
+  border: 1px solid #ccc;
+  border-left: 3px solid #888;
+  padding: 0.75em 1.1em;
+  margin: 1.5em 0 2em 0;
+  font-size: 0.85em;
+  line-height: 1.5;
 }
-a[href*="arxiv.org"]::after {
-  -webkit-mask-image: url("/assets/icons/arxiv.svg");
-          mask-image: url("/assets/icons/arxiv.svg");
+.epistemic-status dt {
+  font-weight: 600;
+  color: #666;
+  white-space: nowrap;
+}
+.epistemic-status dd {
+  margin: 0;
 }
 
-a[href*="wikipedia.org"]::after,
-a[href*="github.com"]::after,
-a[href*="arxiv.org"]::after,
-
+/* Certainty circle: pure-CSS pie chart via conic-gradient.
+   Set --pct per instance, e.g. style="--pct: 75%" */
+.certainty-circle {
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  background: conic-gradient(currentColor var(--pct, 50%), transparent 0);
+  vertical-align: middle;
+  margin-right: 0.3em;
+}
