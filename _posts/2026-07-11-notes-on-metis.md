@@ -1,11 +1,31 @@
+
+
+
 ---
 title: "Metis, Not Intelligence"
 date: 2026-07-11
 layout: post
 ---
 
+*by <span class="icon-self">StrangeTcy</span>*
 
-*by *StrangeTcy*{: .icon-self}*
+<dl class="epistemic-status">
+  <dt>Original ideas</dt>
+  <dd>Neal Stephenson (via Enoch Root), Juan Tamariz, <a href="https://gwern.net">Gwern</a> (unseeing, weird machines), and the broader security-research tradition</dd>
+
+  <dt>Synthesis</dt>
+  <dd><span class="icon-self">StrangeTcy</span></dd>
+
+  <dt>Prose</dt>
+  <dd><span class="icon-anthropic">Claude</span> — massaged into readable form from a rough draft</dd>
+
+  <dt>Certainty</dt>
+  <dd><span class="certainty-circle" style="--pct: 75%;"></span>highly likely</dd>
+
+  <dt>Importance</dt>
+  <dd>6/10</dd>
+</dl>
+
 
 I have a running list of things I can't stop thinking about that don't
 obviously belong together: [*Cryptonomicon*](https://www.kulichki.com/moshkow/INOFANT/STEFENSON/cryptonomicon_engl.txt),
@@ -63,15 +83,15 @@ What I actually want to know is whether the model has any metis at all —
 whether it can hold an invariant across a change of representation,
 recognize that two syntactically different problems are the same
 problem, or notice that the framing it was handed is a trap. Most
-current frontier models — *Claude*{: .icon-anthropic} included, and
-*GPT*{: .icon-openai} just as much — are closer to Ares than Athena:
-enormous force, applied with almost no structural awareness of the
-substrate they're operating on. They'll happily generate a fluent,
-confident, wrong taxonomy and not update when you tell them it's wrong,
-fifteen times in a row if you let them. That's not a knock on any one
-lab's models specifically. It's the oldest failure mode there is, just
-now visible at scale, and cheap to elicit on demand: mistaking the
-performance of understanding for understanding.
+current frontier models — <span class="icon-anthropic">Claude</span>
+included, and <span class="icon-openai">GPT</span> just as much — are
+closer to Ares than Athena: enormous force, applied with almost no
+structural awareness of the substrate they're operating on. They'll
+happily generate a fluent, confident, wrong taxonomy and not update when
+you tell them it's wrong, fifteen times in a row if you let them. That's
+not a knock on any one lab's models specifically. It's the oldest failure
+mode there is, just now visible at scale, and cheap to elicit on demand:
+mistaking the performance of understanding for understanding.
 
 The thing I want to get better at — in evaluation design, in
 engineering, in whatever I do next — is the Athena move, not the Ares
