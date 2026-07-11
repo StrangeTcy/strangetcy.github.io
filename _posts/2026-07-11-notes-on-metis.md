@@ -1,7 +1,9 @@
 ---
-layout: default
-title: Metis, Not Intelligence
+title: "Metis, Not Intelligence"
+date: 2026-07-11
+layout: post
 ---
+
 
 *by *StrangeTcy*{: .icon-self}*
 
