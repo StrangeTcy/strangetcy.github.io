@@ -73,22 +73,6 @@ a[href*="wikipedia.org"]::after,
   opacity: 0.75;
 }
 
-a[href*="wikipedia.org"]::after {
-  -webkit-mask-image: url("/assets/icons/wikipedia.svg");
-          mask-image: url("/assets/icons/wikipedia.svg");
-}
-.icon-anthropic::after {
-  -webkit-mask-image: url("/assets/icons/anthropic.svg");
-          mask-image: url("/assets/icons/anthropic.svg");
-}
-.icon-openai::after {
-  -webkit-mask-image: url("/assets/icons/openai.svg");
-          mask-image: url("/assets/icons/openai.svg");
-}
-
-a[href*="wikipedia.org"]::after,
-a[href*="github.com"]::after,
-a[href*="arxiv.org"]::after,
 .icon-anthropic::after,
 .icon-openai::after {
   content: "";
@@ -106,3 +90,30 @@ a[href*="arxiv.org"]::after,
           mask-size: contain;
   opacity: 0.75;
 }
+
+a[href*="wikipedia.org"]::after {
+  -webkit-mask-image: url("/assets/icons/wikipedia.svg");
+          mask-image: url("/assets/icons/wikipedia.svg");
+}
+.icon-anthropic::after {
+  -webkit-mask-image: url("/assets/icons/anthropic.svg");
+          mask-image: url("/assets/icons/anthropic.svg");
+}
+.icon-openai::after {
+  -webkit-mask-image: url("/assets/icons/openai.svg");
+          mask-image: url("/assets/icons/openai.svg");
+}
+
+a[href*="github.com"]::after {
+  -webkit-mask-image: url("/assets/icons/github.svg");
+          mask-image: url("/assets/icons/github.svg");
+}
+a[href*="arxiv.org"]::after {
+  -webkit-mask-image: url("/assets/icons/arxiv.svg");
+          mask-image: url("/assets/icons/arxiv.svg");
+}
+
+a[href*="wikipedia.org"]::after,
+a[href*="github.com"]::after,
+a[href*="arxiv.org"]::after,
+
