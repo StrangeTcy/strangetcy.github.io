@@ -14,6 +14,27 @@ a[href*="strangetcy.github.io"]::after,
   font-size: 0.85em;
   opacity: 0.7;
 }
+/* Text-glyph icons: sites without a clean single-mark logo, or ones
+   not worth building an SVG mask for */
+a[href*="youtube.com"]::after,
+a[href*="youtu.be"]::after        { content: " [▶]";  font-size: 0.7em; opacity: 0.6; }
+
+a[href*="lesswrong.com"]::after   { content: " [LW]"; font-size: 0.7em; opacity: 0.6; }
+
+a[href*="slatestarcodex"]::after,
+a[href*="astralcodexten"]::after  { content: " [SSC]"; font-size: 0.7em; opacity: 0.6; }
+
+a[href$=".pdf"]::after            { content: " [pdf]"; font-size: 0.7em; opacity: 0.6; }
+
+a[href*="opencog"]::after         { content: " [OC]"; font-size: 0.7em; opacity: 0.6; }
+
+/* A few more you'll likely hit in future posts */
+a[href*="reddit.com"]::after      { content: " [R]"; font-size: 0.7em; opacity: 0.6; }
+a[href*="twitter.com"]::after,
+a[href*="x.com"]::after           { content: " [X]"; font-size: 0.7em; opacity: 0.6; }
+a[href*="news.ycombinator.com"]::after { content: " [HN]"; font-size: 0.7em; opacity: 0.6; }
+a[href*="medium.com"]::after      { content: " [M]"; font-size: 0.7em; opacity: 0.6; }
+a[href*="substack.com"]::after    { content: " [SS]"; font-size: 0.7em; opacity: 0.6; }
 
 
 /* ===== SVG icons via mask (inherit text color, so they work on the dark theme) ===== */
