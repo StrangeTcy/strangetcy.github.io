@@ -20,6 +20,8 @@ a[href*="strangetcy.github.io"]::after,
 a[href*="wikipedia.org"]::after,
 a[href*="github.com"]::after,
 a[href*="arxiv.org"]::after,
+a[href*="youtube.com"]::after,
+a[href*="youtu.be"]::after,
 .icon-anthropic::after,
 .icon-openai::after {
   content: "";
@@ -78,7 +80,11 @@ a[href*="arxiv.org"]::after {
   -webkit-mask-image: url("/assets/icons/deepseek.svg");
           mask-image: url("/assets/icons/deepseek.svg");
 }
-
+a[href*="youtube.com"]::after,
+a[href*="youtu.be"]::after {
+  -webkit-mask-image: url("/assets/icons/youtube.svg");
+          mask-image: url("/assets/icons/youtube.svg");
+}
 
 /* ===== Epistemic status / provenance block ===== */
 .epistemic-status {
