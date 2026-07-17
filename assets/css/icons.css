@@ -1,65 +1,45 @@
-/* ===== Text-glyph icons ===== */
+/* =========================================================
+   Text glyphs — only used for typographic signatures
+   (Gwern's Fraktur G, your μ), not for site logos
+   ========================================================= */
 
-/* Links to Gwern's site */
 a[href*="gwern.net"]::after {
   content: " 𝔊";
   font-size: 0.85em;
   opacity: 0.7;
 }
 
-/* Links to my own site (self-reference) */
 a[href*="strangetcy.github.io"]::after,
 .icon-self::after {
   content: " μ";
   font-size: 0.85em;
   opacity: 0.7;
 }
-/* Text-glyph icons: sites without a clean single-mark logo, or ones
-   not worth building an SVG mask for */
-a[href*="youtube.com"]::after,
-a[href*="youtu.be"]::after        { content: " [▶]";  font-size: 0.7em; opacity: 0.6; }
-
-a[href*="lesswrong.com"]::after   { content: " [LW]"; font-size: 0.7em; opacity: 0.6; }
-
-a[href*="slatestarcodex"]::after,
-a[href*="astralcodexten"]::after  { content: " [SSC]"; font-size: 0.7em; opacity: 0.6; }
-
-a[href$=".pdf"]::after            { content: " [pdf]"; font-size: 0.7em; opacity: 0.6; }
-
-a[href*="opencog"]::after         { content: " [OC]"; font-size: 0.7em; opacity: 0.6; }
-
-/* A few more you'll likely hit in future posts */
-a[href*="reddit.com"]::after      { content: " [R]"; font-size: 0.7em; opacity: 0.6; }
-a[href*="twitter.com"]::after,
-a[href*="x.com"]::after           { content: " [X]"; font-size: 0.7em; opacity: 0.6; }
-a[href*="news.ycombinator.com"]::after { content: " [HN]"; font-size: 0.7em; opacity: 0.6; }
-a[href*="medium.com"]::after      { content: " [M]"; font-size: 0.7em; opacity: 0.6; }
-a[href*="substack.com"]::after    { content: " [SS]"; font-size: 0.7em; opacity: 0.6; }
 
 
-/* ===== SVG icons via mask (inherit text color, so they work on the dark theme) ===== */
+/* =========================================================
+   SVG icons via mask (inherit currentColor — works on the
+   hacker theme's dark background without manual recoloring)
+   ========================================================= */
+
 a[href*="wikipedia.org"]::after,
 a[href*="github.com"]::after,
 a[href*="arxiv.org"]::after,
 a[href*="youtube.com"]::after,
 a[href*="youtu.be"]::after,
+a[href*="reddit.com"]::after,
+a[href*="twitter.com"]::after,
+a[href*="x.com"]::after,
+a[href*="news.ycombinator.com"]::after,
+a[href*="medium.com"]::after,
+a[href*="substack.com"]::after,
+a[href$=".pdf"]::after,
+a[href*="lesswrong.com"]::after,
+a[href*="slatestarcodex"]::after,
+a[href*="astralcodexten"]::after,
+a[href*="opencog"]::after,
 .icon-anthropic::after,
-.icon-openai::after {
-  content: "";
-  display: inline-block;
-  width: 0.85em;
-  height: 0.85em;
-  margin-left: 0.2em;
-  vertical-align: -0.05em;
-  background-color: currentColor;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-          mask-position: center;
-  -webkit-mask-size: contain;
-          mask-size: contain;
-  opacity: 0.75;
-}
+.icon-openai::after,
 .icon-deepseek::after {
   content: "";
   display: inline-block;
@@ -89,6 +69,49 @@ a[href*="arxiv.org"]::after {
   -webkit-mask-image: url("/assets/icons/arxiv.svg");
           mask-image: url("/assets/icons/arxiv.svg");
 }
+a[href*="youtube.com"]::after,
+a[href*="youtu.be"]::after {
+  -webkit-mask-image: url("/assets/icons/youtube.svg");
+          mask-image: url("/assets/icons/youtube.svg");
+}
+a[href*="reddit.com"]::after {
+  -webkit-mask-image: url("/assets/icons/reddit.svg");
+          mask-image: url("/assets/icons/reddit.svg");
+}
+a[href*="twitter.com"]::after,
+a[href*="x.com"]::after {
+  -webkit-mask-image: url("/assets/icons/x.svg");
+          mask-image: url("/assets/icons/x.svg");
+}
+a[href*="news.ycombinator.com"]::after {
+  -webkit-mask-image: url("/assets/icons/hackernews.svg");
+          mask-image: url("/assets/icons/hackernews.svg");
+}
+a[href*="medium.com"]::after {
+  -webkit-mask-image: url("/assets/icons/medium.svg");
+          mask-image: url("/assets/icons/medium.svg");
+}
+a[href*="substack.com"]::after {
+  -webkit-mask-image: url("/assets/icons/substack.svg");
+          mask-image: url("/assets/icons/substack.svg");
+}
+a[href$=".pdf"]::after {
+  -webkit-mask-image: url("/assets/icons/pdf.svg");
+          mask-image: url("/assets/icons/pdf.svg");
+}
+a[href*="lesswrong.com"]::after {
+  -webkit-mask-image: url("/assets/icons/lesswrong.svg");
+          mask-image: url("/assets/icons/lesswrong.svg");
+}
+a[href*="slatestarcodex"]::after,
+a[href*="astralcodexten"]::after {
+  -webkit-mask-image: url("/assets/icons/ssc.svg");
+          mask-image: url("/assets/icons/ssc.svg");
+}
+a[href*="opencog"]::after {
+  -webkit-mask-image: url("/assets/icons/opencog.svg");
+          mask-image: url("/assets/icons/opencog.svg");
+}
 .icon-anthropic::after {
   -webkit-mask-image: url("/assets/icons/anthropic.svg");
           mask-image: url("/assets/icons/anthropic.svg");
@@ -101,13 +124,12 @@ a[href*="arxiv.org"]::after {
   -webkit-mask-image: url("/assets/icons/deepseek.svg");
           mask-image: url("/assets/icons/deepseek.svg");
 }
-a[href*="youtube.com"]::after,
-a[href*="youtu.be"]::after {
-  -webkit-mask-image: url("/assets/icons/youtube.svg");
-          mask-image: url("/assets/icons/youtube.svg");
-}
 
-/* ===== Epistemic status / provenance block ===== */
+
+/* =========================================================
+   Epistemic status / provenance block
+   ========================================================= */
+
 .epistemic-status {
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -128,8 +150,6 @@ a[href*="youtu.be"]::after {
   margin: 0;
 }
 
-/* Certainty circle: pure-CSS pie chart via conic-gradient.
-   Set --pct per instance, e.g. style="--pct: 75%" */
 .certainty-circle {
   display: inline-block;
   width: 0.85em;
