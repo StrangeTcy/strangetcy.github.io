@@ -38,7 +38,7 @@ a[href*="lesswrong.com"]::after,
 a[href*="slatestarcodex"]::after,
 a[href*="astralcodexten"]::after,
 a[href*="opencog"]::after,
-a[href*="lean-lang.org"]::after
+a[href*="lean-lang.org"]::after,
 .icon-anthropic::after,
 .icon-openai::after,
 .icon-deepseek::after {
