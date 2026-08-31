@@ -38,6 +38,7 @@ a[href*="lesswrong.com"]::after,
 a[href*="slatestarcodex"]::after,
 a[href*="astralcodexten"]::after,
 a[href*="opencog"]::after,
+a[href*="lean-lang.org"]::after
 .icon-anthropic::after,
 .icon-openai::after,
 .icon-deepseek::after {
@@ -123,6 +124,10 @@ a[href*="opencog"]::after {
 .icon-deepseek::after {
   -webkit-mask-image: url("/assets/icons/deepseek.svg");
           mask-image: url("/assets/icons/deepseek.svg");
+}
+a[href*="lean-lang.org"]::after {
+  -webkit-mask-image: url("/assets/icons/lean_logo.svg");
+          mask-image: url("/assets/icons/lean_logo.svg");
 }
 
 
