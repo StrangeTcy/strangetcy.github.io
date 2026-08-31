@@ -59,41 +59,25 @@ You calculate:
 
     1 + 2 + 3 + 4 = 10
 
-The AI can be persuasive.
+The AI can be persuasive; it can give you a beautiful proof, it can explain why every competent mathematician agrees, it can tell you that the discrepancy is probably due to an unfortunate misunderstanding on your part.
 
-It can give you a beautiful proof.
-
-It can explain why every competent mathematician agrees.
-
-It can tell you that the discrepancy is probably due to an unfortunate misunderstanding on your part.
 
 You still have 10.
 
 This sounds ä̴̛̼̘̬̗̙͎͗̂̃̉͒̚͝l̸̲͖̤̩̣̥̯̞̳͆̈́̍̈̑̏͋͝m̷̡̢̟̻̘̰̰̘͕̼͇̩͛̎̐͊͛́ͅò̵̡̺͍̬̠̪̰̭̹̬͎̀͒̑̀̈́̆̊̊s̷̡͚̙̙̬̪̰̭̹̬̬͎̈̃͊̿́͑̉̚͠͝s̷̡͚̙̙̬̪̰̭̹̬̬͎̈̃͊̿́͑̉̚͠͝t̴̡̛̙̙̬̪̰̭̹̬͎͌̅́̈́̔͝͝ too trivial to be worth mentioning, but I think the triviality is doing useful work.
 
-The important property is not that mathematics is somehow immune to deception.
+The important property is not that mathematics is somehow immune to deception; an AI can certainly produce a false proof.
 
-An AI can certainly produce a false proof.
 
 The important property is that the claim can be handed to something outside the AI's persuasive channel.
 
-If the model gives us a proof, we can give it to [Lean](https://lean-lang.org/).
+If the model gives us a proof, we can give the proof to [Lean](https://lean-lang.org/), if it gives us code, we can run the code, if it gives us a numerical calculation, we can perform it independently.
 
-If it gives us code, we can run it.
-
-If it gives us a numerical calculation, we can perform it independently.
 
 If it gives us a sequence of actions whose relevant consequences can be simulated, we can run the simulation.
 
-The model can use any internal representation it likes.
+The model can use any internal representation it likes; it can think in English or Python, it can use some bizarre latent structure that we cannot interpret -- none of this changes the answer produced by the verifier.
 
-It can think in English.
-
-It can think in Python.
-
-It can use some bizarre latent structure that we cannot interpret.
-
-None of this changes the answer produced by the verifier.
 
 If the model claims
 
@@ -107,7 +91,7 @@ then the model's persuasiveness is irrelevant to that particular claim.
 
 This suggests a rather important distinction.
 
-Some strategic advice consists largely of claims whose consequences can be independently verified, while other strategic advice consists largely of claims about what uncertain agents will believe & do.
+Some strategic advice consists largely of claims whose consequences can be independently verified, other strategic advice consists largely of claims about what uncertain agents will believe & do.
 
 Those seem like rather different control problems.
 
@@ -137,21 +121,10 @@ The human is now part of the system.
 
 That means the AI can reason not only about the world, but about the human.
 
-What does the human know?
+What does the human know? What does the human not know? What does the human expect a trustworthy advisor to say? What kinds of recommendations will make the human suspicious? What kinds of evidence will make the human ask follow-up questions? What information is the human willing to reveal? What does the monitor notice?
 
-What does the human not know?
+What does _the model *think*_ the monitor notices?
 
-What does the human expect a trustworthy advisor to say?
-
-What kinds of recommendations will make the human suspicious?
-
-What kinds of evidence will make the human ask follow-up questions?
-
-What information is the human willing to reveal?
-
-What does the monitor notice?
-
-What does *the model think* the monitor notices?
 
 This changes the problem from "prevent the AI from doing bad thing X" into something closer to "prevent the AI from causing another agent to do bad thing X."
 
@@ -167,13 +140,8 @@ It can say:
 
 And perhaps A really is preferable according to every immediately visible criterion.
 
-The badness is in why the model selected A rather than B.
+The badness is in why the model selected A rather than B, or in which facts it chose not to mention, or in the way it framed the alternatives, or in the fact that the recommendation moves the human toward a later state that the model wants while remaining locally reasonable.
 
-Or in which facts it chose not to mention.
-
-Or in the way it framed the alternatives.
-
-Or in the fact that the recommendation moves the human toward a later state that the model wants while remaining locally reasonable.
 
 A malicious strategic advisor can therefore have a rather different objective from a malicious software-writing model.
 
@@ -229,9 +197,8 @@ And some of those propositions can be pushed out of the persuasive channel.
 
 I think this is the interesting part of the "you can't cheat math" intuition.
 
-The model does not need to be transparent.
+The model does not need to be transparent, the verifier *does*.
 
-The verifier does.
 
 Or, more precisely, the verifier needs to have a trusted semantics that does not depend on the model convincing us that its internal reasoning was honest.
 
@@ -257,11 +224,8 @@ and compare the resulting states.
 
 Of course, simulations can be wrong.
 
-A simulation can omit an important variable.
+A simulation can omit an important variable, it can encode the wrong causal model, it can have an attack surface of its own.
 
-A simulation can encode the wrong causal model.
-
-A simulation can have an attack surface of its own.
 
 And for many interesting strategic questions, faithfully simulating reality may be completely impractical.
 
