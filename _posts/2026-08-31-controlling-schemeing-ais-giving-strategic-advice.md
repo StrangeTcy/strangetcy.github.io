@@ -356,7 +356,7 @@ The monitor knows that the model knows that the human knows that.
 
 The model can reason about the monitor.
 
-The monitor can reason about the model reasoning about the monitor.[1]
+The monitor can reason about the model reasoning about the monitor.[^1]
 
 And so on.
 
@@ -612,7 +612,7 @@ That seems like a more useful axis than "strategy level."
 
 There is a slightly amusing asymmetry here.
 
-Suppose we can externally verify almost everything important that the AI tells us.
+Suppose we can externally verify ä̴̛̼̘̬̗̙͎͗̂̃̉͒̚͝l̸̲͖̤̩̣̥̯̞̳͆̈́̍̈̑̏͋͝m̷̡̢̟̻̘̰̘͕̼͇̩͛̎̐͊͛́ͅò̵̡̺͍̬̠̪̰̭̹̬͎̀͒̑̀̈́̆̀̆̊̊s̷̡͚̙̙̬̪̈̃͊̿́͑̉̚͠͝t̴̛̞͈̫̙͌̅́̈́̔̀̈́̇͌͝͝ everything important that the AI tells us.
 
 Then we barely care whether the AI is scheming.
 
@@ -684,4 +684,4 @@ And, more importantly:
 
 *I don't yet know whether this framework is correct. I suspect several pieces of it are wrong. That seems like a reasonable reason to publish it rather than to leave it in my notes.*
 
-[1] This is inspired by an idea in HPMoR.
+[^1] This is inspired by an idea in HPMoR.
