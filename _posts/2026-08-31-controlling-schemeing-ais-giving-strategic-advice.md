@@ -8,7 +8,7 @@ layout: post
 
 <dl class="epistemic-status">
   <dt>Original ideas</dt>
-  <dd>Eliezer Yudkowsky, <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart</a>, & the broader AI safety literature. I was also introduced to <a href="https://lean-lang.org/">Lean</a> by <a href="https://www.youtube.com/watch?v=HUkBz-cdB-k">Terence Tao talking to Lex Fridman</a></dd>
+  <dd>Eliezer Yudkowsky, <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart</a>, & the broader AI safety literature. I was also introduced to <a href="https://lean-lang.org/" class="icon-lean">Lean</a>  by <a href="https://www.youtube.com/watch?v=HUkBz-cdB-k">Terence Tao talking to Lex Fridman</a></dd>
 
   <dt>Synthesis</dt>
   <dd><span class="icon-self">StrangeTcy</span></dd>
