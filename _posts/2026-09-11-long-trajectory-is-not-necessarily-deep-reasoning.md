@@ -51,9 +51,9 @@ There was just one problem: **recurrent steps of what?**
 
 Suppose I give you a deterministic system:
 
-\[
+$$
 s_{t+1}=F(s_t).
-\]
+$$
 
 Here is the initial state. Here is the update rule. Run it for $$T$$ steps and tell me something about the result.
 
@@ -109,17 +109,17 @@ One proposed construction was a ring with a distinguished empty position.
 
 At every update, the hole moves one position:
 
-\[
+$$
 h_{t+1}=h_t+1\pmod n.
-\]
+$$
 
-Now ask where the hole will be after \(T\) updates.
+Now ask where the hole will be after $$T$$ updates.
 
 This gives us:
 
-\[
+$$
 h_T=(h_0+T)\pmod n.
-\]
+$$
 
 The hole can spend a billion steps going around the ring.
 
@@ -143,15 +143,15 @@ A long trajectory can be a reason to stop simulating.
 
 Another suggestion was to nest periodic processes.
 
-Suppose one clock has period \(n\), another has period \(m\), and we ask when they next coincide.
+Suppose one clock has period $$n$$, another has period $$m$$, and we ask when they next coincide.
 
 The waiting time can be large.
 
 For clocks starting together, the first positive coincidence is:
 
-\[
+$$
 \operatorname{lcm}(n,m).
-\]
+$$
 
 With phase offsets, we get a problem about congruences and whether the requested coincidence exists.
 
@@ -177,11 +177,11 @@ Given a transition table and an initial state, ask what happens after many trans
 
 This is a perfectly reasonable evaluation task.
 
-But if the transition function is deterministic and the state space has \(N\) elements, the trajectory eventually repeats. There is some transient length \(\mu\) and cycle length \(\lambda\), with
+But if the transition function is deterministic and the state space has $$N$$ elements, the trajectory eventually repeats. There is some transient length $$\mu$$ and cycle length $$\lambda$$, with
 
-\[
+$$
 \mu+\lambda\leq N.
-\]
+$$
 
 Once the cycle has been identified, a large rollout count becomes manageable.
 
@@ -195,7 +195,7 @@ There is an important qualification here, because an early draft of this post go
 
 **A large state space does not necessarily require a large description.**
 
-An \(n\)-bit counter has \(2^n\) possible states. Its transition rule can be tiny.
+An $$n$$-bit counter has $$2^n$$ possible states. Its transition rule can be tiny.
 
 An explicit transition table and a compact program describing transitions are very different representations.
 
@@ -217,7 +217,7 @@ The length of the orbit does not settle which situation we are in.
 
 Cellular automata seemed more promising.
 
-Take a radius-one rule. Information propagates at most one cell per update. Place something far away and ask whether it affects the origin after \(T\) steps.
+Take a radius-one rule. Information propagates at most one cell per update. Place something far away and ask whether it affects the origin after $$T$$ steps.
 
 There really is a causal light cone here.
 
@@ -315,11 +315,11 @@ None of this means every dynamical system has an easy shortcut.
 
 There are well-studied [P-complete problems](https://en.wikipedia.org/wiki/P-complete), including circuit evaluation and certain precisely formulated prediction problems.
 
-Under the conjecture that \(\mathrm{P}\ne\mathrm{NC}\), P-complete problems do not admit uniform polynomial-size, polylogarithmic-depth parallel solutions across all instances.
+Under the conjecture that $$\mathrm{P}\ne\mathrm{NC}$$, P-complete problems do not admit uniform polynomial-size, polylogarithmic-depth parallel solutions across all instances.
 
 That is a serious motivation for investigating sequential computation.
 
-It is not a proof that a particular generated instance requires \(T\) serial steps.
+It is not a proof that a particular generated instance requires $$T$$ serial steps.
 
 It is also not a statement about every cellular automaton, every encoding of the time horizon, or every possible question about the resulting state.
 
@@ -335,7 +335,7 @@ It is not a theorem.
 
 ## The depth cliff
 
-The obvious experiment is to increase \(T\), plot accuracy, and look for a cliff.
+The obvious experiment is to increase $$T$$, plot accuracy, and look for a cliff.
 
 Perhaps the model handles short trajectories and then abruptly stops handling longer ones.
 
@@ -343,13 +343,13 @@ That would be interesting.
 
 It would not explain itself.
 
-Suppose, as a deliberately crude model, each simulated step is correct independently with probability \(1-p\).
+Suppose, as a deliberately crude model, each simulated step is correct independently with probability $$1-p$$.
 
 Then:
 
-\[
+$$
 P(\text{all steps correct})=(1-p)^T.
-\]
+$$
 
 That is not necessarily the probability of a correct final answer. Errors can cancel, and a solver can recover.
 
@@ -385,9 +385,9 @@ At this point I returned to the thing I had actually wanted: not merely a long p
 
 A standard quine outputs its own source:
 
-\[
+$$
 \operatorname{Run}(q)=\operatorname{Source}(q).
-\]
+$$
 
 It looks like an infinite mirror.
 
@@ -397,9 +397,9 @@ A particular quine can also do a great deal of unnecessary work before printing.
 
 Now ask:
 
-> Execute this program. Execute its output. Repeat \(T\) times. What source appears?
+> Execute this program. Execute its output. Repeat $$T$$ times. What source appears?
 
-Once the quine property is established, the answer is the same for every \(T\).
+Once the quine property is established, the answer is the same for every $$T$$.
 
 The apparent recursion has given us a fixed point.
 
@@ -487,9 +487,9 @@ We can separate the notions further.
 
 Let one stage increment a bounded payload until it saturates:
 
-\[
+$$
 b\mapsto\min(b+1,3).
-\]
+$$
 
 Let the other stages preserve it.
 
@@ -583,7 +583,7 @@ Explicit finite-state systems.
 
 Engineered transients and cycles. Randomized transition tables. Relabeled states.
 
-Ask for the state after \(T\) updates, or for the transient and cycle lengths.
+Ask for the state after $$T$$ updates, or for the transient and cycle lengths.
 
 Include fixed points and easy cycles deliberately.
 
