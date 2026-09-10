@@ -14,7 +14,7 @@ layout: post
     Douglas Hofstadter's <em>Gödel, Escher, Bach</em>
     (<a href="https://www.physixfan.com/wp-content/files/GEBen.pdf">this wonderful book</a>);
     <a href="https://en.wikipedia.org/wiki/Quine_(computing)">quines</a>
-    and program self-reference; the broader literature on dynamical systems
+    & program self-reference; the broader literature on dynamical systems
     &amp; computational complexity. The particular evaluation proposal came
     out of a dialogue with <span class="icon-openai">ChatGPT</span>.
   </dd>
@@ -22,7 +22,7 @@ layout: post
   <dd><span class="icon-self">StrangeTcy</span></dd>
 
   <dt>Prose</dt>
-  <dd><span class="icon-openai">ChatGPT</span> — assembled from the dialogue and subsequent criticism</dd>
+  <dd><span class="icon-openai">ChatGPT</span> — assembled from the dialogue & subsequent criticism</dd>
 
   <dt>Certainty</dt>
   <dd>Confident about the distinction between rollout length and necessary computation. Exploratory about the proposed evaluation and what it will reveal.</dd>
