@@ -8,7 +8,7 @@ layout: post
 
 <dl class="epistemic-status">
   <dt>Original ideas</dt>
-  <dd>Douglas Hofstadter's <em>Gödel, Escher, Bach</em>; quines and program self-reference; the broader literature on dynamical systems and computational complexity. The particular evaluation proposal came out of a dialogue with ChatGPT.</dd>
+  <dd>Douglas Hofstadter's <em>Gödel, Escher, Bach</em>; [quines](https://en.wikipedia.org/wiki/Quine_(computing)) and program self-reference; the broader literature on dynamical systems & computational complexity. The particular evaluation proposal came out of a dialogue with <span class="icon-openai">ChatGPT</span>.</dd>
 
   <dt>Synthesis</dt>
   <dd><span class="icon-self">StrangeTcy</span></dd>
@@ -35,15 +35,13 @@ Perhaps a self-modifying automaton.
 
 Perhaps a loop that comes back to where it started, except that where it started no longer means quite the same thing.
 
-Perhaps one of the constructions from [Hofstadter's *Gödel, Escher, Bach*](https://en.wikipedia.org/wiki/G%C3%B6del,_Escher,_Bach), where you move between levels of description and unexpectedly find yourself back inside the thing you were describing.
+Perhaps one of the constructions from [Hofstadter's *Gödel, Escher, Bach*](https://en.wikipedia.org/wiki/G%C3%B6del,_Escher,_Bach), where you move between levels of description & unexpectedly find yourself back inside the thing you were describing.
 
-So I asked ChatGPT.
+So I asked ChatGPT. 
 
-It was enthusiastic.
+It was enthusiastic. This was, apparently, “a much more interesting direction.”
 
-This was, apparently, “a much more interesting direction.”
-
-It suggested delayed self-interpreters, hidden phases, nested clocks, cellular automata, graph rewriting, finite permutations, and a moving hole.
+It suggested delayed self-interpreters, hidden phases, nested clocks, [cellular automata](https://en.wikipedia.org/wiki/Cellular_automaton), graph rewriting, finite permutations, and a moving hole.
 
 The moving hole will become relevant shortly.
 
