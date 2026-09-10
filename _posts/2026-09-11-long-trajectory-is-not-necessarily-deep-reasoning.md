@@ -31,7 +31,7 @@ layout: post
   <dd>Potentially useful evaluation methodology; no experimental results presented here.</dd>
 </dl>
 
-I wanted to trip up [recurrent depth]([https://www.sebastianraschka.com/llm-architecture-gallery/looped-depth-sharing/](https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and).
+I wanted to trip up [recurrent depth](https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and).
 
 Not by giving a model a huge theorem, or asking it to multiply unpleasantly large numbers, or making it perform a thousand operations that nobody particularly wants performed.
 
