@@ -55,7 +55,7 @@ Suppose I give you a deterministic system:
 s_{t+1}=F(s_t).
 \]
 
-Here is the initial state. Here is the update rule. Run it for \(T\) steps and tell me something about the result.
+Here is the initial state. Here is the update rule. Run it for $$T$$ steps and tell me something about the result.
 
 The task looks like:
 
