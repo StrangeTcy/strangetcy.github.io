@@ -163,9 +163,7 @@ This is a useful distinction:
         ≠
     time needed to predict the event
 
-It sounds obvious when stated this way.
-
-It was considerably less obvious when wrapped in phrases like “nested dynamical clocks” and “enormous effective reasoning depth.”
+It sounds obvious when stated this way. It was considerably less obvious when wrapped in phrases like “nested dynamical clocks” & “enormous effective reasoning depth.”
 
 Apparently mathematical atmosphere is not a substitute for an argument.
 
@@ -219,9 +217,7 @@ Cellular automata seemed more promising.
 
 Take a radius-one rule. Information propagates at most one cell per update. Place something far away and ask whether it affects the origin after $$T$$ steps.
 
-There really is a causal light cone here.
-
-But it belongs to the automaton.
+There really is a causal light cone here, but it belongs to the automaton.
 
 The model solving the task is not necessarily a cell in that automaton.
 
@@ -239,9 +235,7 @@ A locality argument can constrain a solver that is itself restricted to local co
 
 It does not automatically constrain a globally attending language model.
 
-Cellular automata remain interesting.
-
-The proposed proof of their relevance was just too quick.
+Cellular automata remain interesting. The proposed proof of their relevance was just too quick.
 
 ## Hidden state is sometimes just missing information
 
@@ -269,11 +263,7 @@ If a deterministic machine returns to its *complete* state, its subsequent behav
 
 If it behaves differently after an apparent return, then the thing that repeated was not the complete state.
 
-Perhaps the transition table changed.
-
-Perhaps a phase variable was omitted.
-
-Perhaps the “state” was only a picture of the state.
+Perhaps the transition table changed; perhaps a phase variable was omitted; perhaps the “state” was only a picture of the state.
 
 This is worth testing. But the test concerns whether the solver identifies the right state representation, not automatically whether it has enough recurrence.
 
@@ -295,9 +285,7 @@ Pair it with a version in which X disappears just before the interaction.
 
 The two instances can look similar for a long time and have different outcomes.
 
-That is useful.
-
-But what exactly does it stress?
+That is useful, but what exactly does it stress?
 
 Possibly retention. Possibly event tracking. Possibly reconstruction of state from a history containing many irrelevant updates.
 
@@ -467,11 +455,7 @@ Assuming a canonical source representation determined by the template and payloa
 
 So “have we returned?” has several meanings.
 
-Are we looking at the same template?
-
-The same payload?
-
-The same complete source?
+Are we looking at the same template? The same payload? The same complete source?
 
 A solver that sees three programs arranged in a circle and answers “three” to every return question has confused the form with the object.
 
@@ -527,15 +511,9 @@ That is something we can test.
 
 ## Where Hofstadter enters
 
-Hofstadter's strange loop is not simply a process that repeats.
+Hofstadter's strange loop is not simply a process that repeats. It involves moving between apparent levels and finding oneself back at the starting point.
 
-It involves moving between apparent levels and finding oneself back at the starting point.
-
-Description and described object.
-
-Code and data.
-
-A statement and a statement about the statement.
+Description and described object. Code and data. A statement and a statement _about_ the statement.
 
 The relay example is a modest, mechanical analogue of this idea. I do not need to claim that every source-generating program captures everything Hofstadter meant.
 
@@ -557,9 +535,7 @@ The implementation should do something like:
 
 Otherwise, we risk making an ordinary state machine, calling its states “programs,” and congratulating ourselves for having evaluated reflection.
 
-A small restricted language should be sufficient.
-
-No arbitrary generated-code execution is needed.
+A small restricted language should be sufficient; no arbitrary generated-code execution is needed.
 
 The point is to define quotation, payloads, source identity, and execution precisely enough that a wrong answer is actually wrong.
 
@@ -613,15 +589,7 @@ Generate one underlying computation and present it twice.
 
 > Here is a program. Executing it emits the source of the next program.
 
-Same initial state.
-
-Same transition semantics.
-
-Same rollout length.
-
-Same query.
-
-Same answer.
+Same initial state, same transition semantics, same rollout length, same query, same answer.
 
 Different representation.
 
@@ -637,25 +605,15 @@ That is already useful.
 
 We have not yet learned that the cause is specifically a failure to track representational levels.
 
-The reflective prompt may be longer.
-
-Its syntax may be less familiar.
-
-Parsing may be harder.
-
-Tokenization may be less convenient.
+The reflective prompt may be longer. Its syntax may be less familiar. Parsing may be harder. Tokenization may be less convenient.
 
 Those are alternative explanations to investigate, not details to dismiss.
 
-The matched pair gives us a place to start.
-
-It does not finish the causal argument.
+The matched pair gives us a place to start. It does not finish the causal argument.
 
 Likewise, a correct answer on a cycle task does not prove that the model recognized a cycle. It might have simulated the whole thing.
 
-Answer accuracy is observable.
-
-Internal strategy generally is not.
+Answer accuracy is observable. Internal strategy generally is *not*.
 
 ## What additional recurrence buys
 
