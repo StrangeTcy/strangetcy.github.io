@@ -707,9 +707,7 @@ Otherwise, an exploratory conversation can turn into a benchmark proposal, and t
 
 I still want the small, elegant machine.
 
-I have not concluded that recurrence is unimportant, or that all dynamical systems have easy shortcuts, or that self-reference is merely decorative.
-
-I have concluded that making a system run for a long time is not enough.
+I have not concluded that recurrence is unimportant, or that all dynamical systems have easy shortcuts, or that self-reference is merely decorative. I have concluded that making a system run for a long time is not enough.
 
 A solver might:
 
@@ -724,9 +722,7 @@ Those are different outcomes.
 
 An evaluation should help distinguish them rather than assigning all of them a place on one “depth” axis.
 
-So the genre I want is a collection of controlled situations where iteration, shortcuts, retention, and representation can be varied and inspected.
-
-Not a collection of machines already certified to require deep reasoning.
+So the genre I want is a collection of controlled situations where iteration, shortcuts, retention, and representation can be varied and inspected, not a collection of machines already certified to require deep reasoning.
 
 The question that survives is:
 
