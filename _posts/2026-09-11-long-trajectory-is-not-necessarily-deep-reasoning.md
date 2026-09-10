@@ -31,7 +31,7 @@ layout: post
   <dd>Potentially useful evaluation methodology; no experimental results presented here.</dd>
 </dl>
 
-I wanted to trip up recurrent depth.
+I wanted to trip up [recurrent depth]([https://www.sebastianraschka.com/llm-architecture-gallery/looped-depth-sharing/](https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and).
 
 Not by giving a model a huge theorem, or asking it to multiply unpleasantly large numbers, or making it perform a thousand operations that nobody particularly wants performed.
 
@@ -532,9 +532,7 @@ The obvious experiment is to increase $T$, plot accuracy, and look for a cliff.
 
 Perhaps the model handles short trajectories and then abruptly stops handling longer ones.
 
-That would be interesting.
-
-It would not explain itself.
+That would be interesting. It would not explain itself.
 
 Suppose, as a deliberately crude model, each simulated step is correct independently with probability $1-p$.
 
@@ -578,7 +576,7 @@ and, separately:
 
 These are interventions on different resources.
 
-A recent line of work on reasoning-model hidden-state trajectories makes the same methodological point in a different setting: raw generation length changes trajectory statistics mechanically, so length-dependent effects need to be corrected before interpreting hidden-state geometry. Gjølbye, Hansen, & Koyejo explicitly treat generation length as a confound in their analysis of reasoning trajectories.
+A recent line of work on reasoning-model hidden-state trajectories makes the same methodological point in a different setting: raw generation length changes trajectory statistics mechanically, so length-dependent effects need to be corrected before interpreting hidden-state geometry. [Gjølbye, Hansen, & Koyejo](https://arxiv.org/abs/2605.15454) explicitly treat generation length as a confound in their analysis of reasoning trajectories.
 
 Another recent line attempts to measure “deep-thinking” from layer-wise changes in next-token predictions rather than from token count itself. That is not a lower bound on sequential computation, but it is another reason not to treat output length as a direct proxy for reasoning effort.
 
@@ -1019,7 +1017,7 @@ More scratchpad is more externally available computation.
 
 They are different resources.
 
-There are already model families in which iterative latent computation is an explicit architectural feature. Ouro, for example, uses parameter-shared transformer blocks recurrently and describes its models as performing iterative computation in latent space. Its authors report an advantage they attribute to knowledge manipulation rather than increased knowledge storage.
+There are already model families in which iterative latent computation is an explicit architectural feature. [Ouro](https://arxiv.org/abs/2510.25741), for example, uses parameter-shared transformer blocks recurrently and describes its models as performing iterative computation in latent space. Its authors report an advantage they attribute to knowledge manipulation rather than increased knowledge storage.
 
 That makes it an interesting testbed for the question at the end of this post.
 
