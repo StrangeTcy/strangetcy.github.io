@@ -405,7 +405,7 @@ This is an excellent control.
 
 ## Ouroboros programs
 
-The broader family includes quine relays, or ouroboros programs.
+The broader family includes quine relays, or [ouroboros programs](https://en.wikipedia.org/wiki/Quine_(computing)#Ouroboros_programs).
 
 One program outputs another, which outputs another, which eventually outputs the first:
 
