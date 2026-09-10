@@ -41,7 +41,7 @@ Something with a simple update rule and a nasty consequence. Something that look
 
 Perhaps a self-modifying automaton, perhaps a loop that comes back to where it started, except that where it started no longer means quite the same thing. Perhaps one of the constructions from [Hofstadter's *Gödel, Escher, Bach*](https://en.wikipedia.org/wiki/G%C3%B6del,_Escher,_Bach), where you move between levels of description & unexpectedly find yourself back inside the thing you were describing.
 
-So I asked ChatGPT. It was enthusiastic. This was, apparently, “a much more interesting direction.”
+So I asked <span class="icon-openai">ChatGPT</span>. It was enthusiastic. This was, apparently, “a much more interesting direction.”
 
 It suggested delayed self-interpreters, hidden phases, nested clocks, [cellular automata](https://en.wikipedia.org/wiki/Cellular_automaton), graph rewriting, finite permutations, and a moving hole.
 
@@ -176,13 +176,9 @@ covering the model, available resources, computational model, prompt protocol, a
 
 This may look pedantic.
 
-It matters because the same machine can be easy under one query and substantially harder under another.
+It [m-word] because the same machine can be easy under one query and substantially harder under another.
 
-It can be easy with a closed form and awkward without one.
-
-It can be fully observable or partially observable.
-
-It can be given as an explicit transition table or as a compact program.
+It can be easy with a closed form and awkward without one; it can be fully observable or partially observable, it can be given as an explicit transition table or as a compact program.
 
 It can be presented as a flat state vector or as source code that generates another source.
 
@@ -320,7 +316,7 @@ What does not follow is:
 
 > Therefore, answering my particular question requires following that evolution.
 
-The question matters as much as the machine.
+The question [m-word] as much as the machine.
 
 And the question can be changed without changing the machine.
 
@@ -386,12 +382,9 @@ They also let us change the query while preserving the same local process.
 
 “Which initial disturbance would make it reach the origin at exactly $T$?” is another.
 
-Same dynamics.
-
-Different computation.
+Same dynamics -- different computation.
 
 Again, that does not prove a recurrent-depth lower bound.
-
 It gives us a family in which query type can be manipulated while much of the underlying machinery stays fixed.
 
 ## Hidden state is sometimes just missing information
@@ -458,17 +451,11 @@ The two instances can look similar for a long time and have different outcomes.
 
 That is useful, but what exactly does it stress?
 
-Possibly retention.
-
-Possibly event tracking.
-
-Possibly reconstruction of state from a history containing many irrelevant updates.
+Possibly retention or event tracking or reconstruction of state from a history containing many irrelevant updates.
 
 If the complete current state explicitly contains X, there is no need to remember its entire biography.
 
-Again, the machine is not the problem.
-
-The description of the capability being measured needs work.
+Again, the machine is not the problem. The description of the capability being measured needs work.
 
 But that does not make retention a consolation prize.
 
@@ -777,9 +764,7 @@ Start with a relay for which the tempting three-step template cycle is genuinely
 
 Then make one minimal semantic change to the payload transformation so that the same three-template surface pattern remains, but the claimed complete-source return no longer follows.
 
-We are not thereby proving that the modified system has no shortcut.
-
-We are only breaking one specific shortcut witness.
+We are not thereby proving that the modified system has no shortcut, we are only breaking one specific shortcut witness.
 
 That distinction is enough to make an interesting behavioural test.
 
@@ -859,9 +844,7 @@ They are controls.
 
 A useful instance can be one where a structural shortcut is easy to see and another where the same surface form is paired with a different transition rule.
 
-The question is not whether the model simulates everything.
-
-The question is whether it recognizes when it does not have to.
+The question is not whether the model simulates everything, the question is whether it recognizes when it does not have to.
 
 ### Query type
 
@@ -1457,15 +1440,9 @@ The point is to know what difference remains after obvious surface costs have be
 
 Once `iterated_systems` becomes a real eval generator, there is another problem.
 
-A model can learn the generator.
+A model can learn the generator, characteristic template layouts, or that certain names imply certain transitions.
 
-It can learn characteristic template layouts.
-
-It can learn that certain names imply certain transitions.
-
-It can learn the distribution of payloads.
-
-It can learn the benchmark rather than the computation.
+It can learn the distribution of payloads, or the benchmark rather than the computation.
 
 So generated evaluation sets should have held-out parameter regimes and held-out surface realizations.
 
