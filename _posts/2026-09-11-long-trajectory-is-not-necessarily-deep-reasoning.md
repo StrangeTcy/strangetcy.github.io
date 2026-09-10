@@ -31,15 +31,9 @@ I wanted a small, strange machine.
 
 Something with a simple update rule and a nasty consequence. Something that looks as though it should fit comfortably inside a model's head, and then does something annoying when you actually try to follow it.
 
-Perhaps a self-modifying automaton.
+Perhaps a self-modifying automaton, perhaps a loop that comes back to where it started, except that where it started no longer means quite the same thing. Perhaps one of the constructions from [Hofstadter's *Gödel, Escher, Bach*](https://en.wikipedia.org/wiki/G%C3%B6del,_Escher,_Bach), where you move between levels of description & unexpectedly find yourself back inside the thing you were describing.
 
-Perhaps a loop that comes back to where it started, except that where it started no longer means quite the same thing.
-
-Perhaps one of the constructions from [Hofstadter's *Gödel, Escher, Bach*](https://en.wikipedia.org/wiki/G%C3%B6del,_Escher,_Bach), where you move between levels of description & unexpectedly find yourself back inside the thing you were describing.
-
-So I asked ChatGPT. 
-
-It was enthusiastic. This was, apparently, “a much more interesting direction.”
+So I asked ChatGPT. It was enthusiastic. This was, apparently, “a much more interesting direction.”
 
 It suggested delayed self-interpreters, hidden phases, nested clocks, [cellular automata](https://en.wikipedia.org/wiki/Cellular_automaton), graph rewriting, finite permutations, and a moving hole.
 
@@ -51,9 +45,7 @@ The general promise was:
 
 That sounded like a useful starting point for a new genre in my [eval generator](https://github.com/strangetcy/rl_eval_generator).
 
-There was just one problem.
-
-**Recurrent steps of what?**
+There was just one problem: **recurrent steps of what?**
 
 ## Three things called depth
 
@@ -103,15 +95,11 @@ But the dialogue kept making something like the following transition:
         ↓
     a model that fails has insufficient recurrent depth
 
-Both arrows need justification.
-
-Neither gets it merely from writing down a long trajectory.
+Both arrows need justification, neither gets it merely from writing down a long trajectory.
 
 This was the central mistake.
 
-Not that small dynamical systems are bad evaluation tasks.
-
-Not that recurrent computation is irrelevant.
+Not that small dynamical systems are bad evaluation tasks or that recurrent computation is irrelevant.
 
 The mistake was assuming that the amount of time a machine spends doing something tells us how much computation is needed to answer a question about it.
 
