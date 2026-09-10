@@ -8,7 +8,7 @@ layout: post
 
 <dl class="epistemic-status">
   <dt>Original ideas</dt>
-  <dd>Douglas Hofstadter's <em>Gödel, Escher, Bach</em>; [quines](https://en.wikipedia.org/wiki/Quine_(computing)) and program self-reference; the broader literature on dynamical systems & computational complexity. The particular evaluation proposal came out of a dialogue with <span class="icon-openai">ChatGPT</span>.</dd>
+  <dd>Douglas Hofstadter's <em>Gödel, Escher, Bach</em> ([this](https://www.physixfan.com/wp-content/files/GEBen.pdf) wonderful book); [quines](https://en.wikipedia.org/wiki/Quine_(computing)) and program self-reference; the broader literature on dynamical systems & computational complexity. The particular evaluation proposal came out of a dialogue with <span class="icon-openai">ChatGPT</span>.</dd>
 
   <dt>Synthesis</dt>
   <dd><span class="icon-self">StrangeTcy</span></dd>
