@@ -4,6 +4,9 @@ date: 2026-08-31
 layout: post
 ---
 
+{% include mathjax.html %}
+
+
 *by <span class="icon-self">StrangeTcy</span>*
 
 <dl class="epistemic-status">
