@@ -540,23 +540,23 @@ Suppose recommendation $i$ has probability $p_i$ of causing serious harmful mani
 
 A crude expected-loss quantity is:
 
-\[
+$$
 R_i = p_iL_i.
-\]
+$$
 
-Suppose additional review costs \(C_i\) and reduces expected loss by \(\Delta R_i\).
+Suppose additional review costs $C_i$ and reduces expected loss by $\Delta R_i$.
 
 Then, approximately, review is worth purchasing when:
 
-\[
+$$
 \Delta R_i > C_i.
-\]
+$$
 
 This is not particularly exotic alignment theory.
 
 It is ordinary economics.
 
-The interesting question is what determines \(\Delta R_i\).
+The interesting question is what determines $\Delta R_i$.
 
 If a recommendation can be verified automatically, the marginal cost of checking it may be tiny.
 
@@ -593,17 +593,17 @@ Some fraction depends on beliefs about other intelligent agents.
 
 Call, very crudely,
 
-\[
+$$
 V =
 \frac{\text{consequential claims that are externally verifiable}}
 {\text{all consequential claims}}.
-\]
+$$
 
 This is not a mature metric.
 
 I'm throwing it on the table because it seems like the sort of thing that could be operationalized.
 
-Two strategic-advice tasks could both be called "hard," but if one has \(V=0.9\) and the other has \(V=0.1\), they might be radically different control problems.
+Two strategic-advice tasks could both be called "hard," but if one has $V=0.9$ and the other has $V=0.1$, they might be radically different control problems.
 
 The first one may admit a mostly automated control protocol.
 
