@@ -687,4 +687,4 @@ And, more importantly:
 
 *I don't yet know whether this framework is correct. I suspect several pieces of it are wrong. That seems like a reasonable reason to publish it rather than to leave it in my notes.*
 
-<small id="fn1">[1] This is inspired by an idea in HPMoR. <a href="#fnref1">↩</a></small>
+<small id="fn1">[1] This is inspired by an idea in <a href="https://hpmor.com/"> HPMoR</a>. <a href="#fnref1">↩</a></small>
