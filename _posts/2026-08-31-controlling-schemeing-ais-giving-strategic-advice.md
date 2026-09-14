@@ -536,7 +536,7 @@ It cannot have an expert carefully inspect every recommendation made by a system
 
 So the obvious question is where the expensive scrutiny should go.
 
-Suppose recommendation $i$ has probability \(p_i\) of causing serious harmful manipulation and loss \(L_i\) if it succeeds.
+Suppose recommendation $i$ has probability $p_i$ of causing serious harmful manipulation and loss $L_i$ if it succeeds.
 
 A crude expected-loss quantity is:
 
