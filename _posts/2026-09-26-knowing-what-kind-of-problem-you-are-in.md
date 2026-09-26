@@ -10,15 +10,8 @@ layout: post
 
 <dl class="epistemic-status">
   <dt>Original ideas</dt>
-  <dd>
-    Category theory as a source of implementation constraints;
-    <a href="https://gwern.net">Gwern</a> on weird machines; Juan Tamariz on false solutions;
-    recent work on [recurrent depth](https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and) &amp; non-verbalised reasoning;
-    a long-standing interest in [epistemic games](https://www.amazon.com/dp/1107008913?lv=shuf&channelId=500&plpRedirect=mhFallback). The synthesis into a
-    single evaluation question came out of a dialogue with
-    <span class="icon-openai">ChatGPT</span> and <span class="icon-anthropic">Claude</span>.
+  <dd> Category theory as a source of implementation constraints; <a href="https://gwern.net">Gwern</a> on weird machines; Juan Tamariz on false solutions; recent work on <a href="https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and">recurrent depth</a> &amp; non-verbalised reasoning; a long-standing interest in <a href="https://www.amazon.com/dp/1107008913?lv=shuf&channelId=500&plpRedirect=mhFallback">epistemic games</a>. The synthesis into a single evaluation question came out of a dialogue with <span class="icon-openai">ChatGPT</span> and <span class="icon-anthropic">Claude</span>. 
   </dd>
-
   <dt>Synthesis</dt>
   <dd><span class="icon-self">StrangeTcy</span></dd>
 
