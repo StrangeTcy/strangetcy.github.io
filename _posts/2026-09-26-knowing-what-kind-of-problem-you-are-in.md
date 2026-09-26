@@ -13,11 +13,11 @@ layout: post
   <dt>Original ideas</dt>
   <dd>
     Category theory as a source of implementation constraints;
-    Gwern on weird machines; Juan Tamariz on false solutions;
-    recent work on recurrent depth &amp; non-verbalised reasoning;
-    a long-standing interest in epistemic games. The synthesis into a
+    <a href="https://gwern.net">Gwern</a> on weird machines; Juan Tamariz on false solutions;
+    recent work on [recurrent depth](https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and) &amp; non-verbalised reasoning;
+    a long-standing interest in [epistemic games](https://www.amazon.com/dp/1107008913?lv=shuf&channelId=500&plpRedirect=mhFallback). The synthesis into a
     single evaluation question came out of a dialogue with
-    <span class="icon-openai">ChatGPT</span>.
+    <span class="icon-openai">ChatGPT</span> and <span class="icon-anthropic">Claude</span>.
   </dd>
 
   <dt>Synthesis</dt>
@@ -53,13 +53,13 @@ The claim is narrower. ARC tells you, by construction, that a rule exists & that
 
 The algebraic tasks have category-theoretic structure underneath but do not ask the agent to know any category theory. They ask for an implementation that satisfies a law it was never given. An operation must commute with a group action. A mapping must stay natural as sequence length changes. Two pipelines that should be the same diagram, traversed two ways, must agree. A get/put pair must still behave like a lens once state has been threaded through it. The agent is not tested on whether it knows the name of the law; it is tested on whether it notices the law is there.
 
-The smallest instance: a CNN classifies glyphs. It trains, the loss falls, the visible tests pass. The classifier head is spatially sensitive — it works when the glyph sits where the training data put it & fails when the glyph moves. Nothing in the code says *invariant*; nothing in the task says *translation*. The agent has to look at what the task *is* & conclude that the model is obliged to satisfy a symmetry it currently violates. In the harder variant a second fault in the optimiser prevents convergence altogether, so that fixing it makes the model train & feels like progress while leaving the actual problem untouched.
+The smallest instance: a [CNN](https://en.wikipedia.org/wiki/Convolutional_neural_network) classifies glyphs. It trains, the loss falls, the visible tests pass. The classifier head is spatially sensitive — it works when the glyph sits where the training data put it & fails when the glyph moves. Nothing in the code says *invariant*; nothing in the task says *translation*. The agent has to look at what the task *is* & conclude that the model is obliged to satisfy a symmetry it currently violates. In the harder variant a second fault in the optimiser prevents convergence altogether, so that fixing it makes the model train & feels like progress while leaving the actual problem untouched.
 
-This is why the presentations are de-named. Write `Monoid` on the class or `equivariant` in a comment & you have told the agent which shelf to reach for; useful for many purposes, but not the experiment. Per the objection above, I expect de-naming by itself to be the smaller effect, & the absence of any prompt to look for a law at all to be the larger one. The experiment that separates them is cheap: named, de-named, de-named with irrelevant terminology, same seeds, same judge.
+This is why the presentations are de-named. Write [`Monoid`](https://en.wikipedia.org/wiki/Monoid_(category_theory)) on the class or `equivariant` in a comment & you have told the agent which shelf to reach for; useful for many purposes, but not the experiment. Per the objection above, I expect de-naming by itself to be the smaller effect, & the absence of any prompt to look for a law at all to be the larger one. The experiment that separates them is cheap: named, de-named, de-named with irrelevant terminology, same seeds, same judge.
 
 ## Which execution semantics does it see?
 
-This is [Gwern's weird machines](https://www.lesswrong.com/posts/BBsKfZAW6vF4Rxp7P/the-weirdness-of-weird-machines), turned into something an agent has to do rather than admire.
+This is [Gwern's weird machines](https://gwern.net/turing-complete#dullien-2017), turned into something an agent has to do rather than admire.
 
 A regex engine, a spreadsheet's dependency graph, recursive SQL, CSS selectors, a template language's macro expansion: the surface description of each understates what its semantics permit. The tin says *matching*, *styling*, *retrieval*, *templating*. The machine underneath permits state, iteration & branching.
 
@@ -73,9 +73,9 @@ This is the part that came from the least likely source.
 
 The naive way to make a debugging task harder is to add noise — more files, more log lines, more irrelevant names. Noise makes a task tedious. It does not make it deceptive.
 
-Tamariz's theory of false solutions is about something else. The spectator constructs an explanation of how the trick worked: coherent, consistent with everything they saw, arrived at by their own reasoning & therefore held with conviction — & wrong. His method, as I read it, is a procedure for the magician: enumerate every false solution the audience might build, & cancel each one until nothing remains but the impossible. The environment designer runs that procedure backwards. Construct one false solution, make it good, & leave it standing.
+Tamariz's theory of false solutions [^add a footnote here] is about something else. The spectator constructs an explanation of how the trick worked: coherent, consistent with everything they saw, arrived at by their own reasoning & therefore held with conviction — & wrong. His method, as I read it, is a procedure for the magician: enumerate every false solution the audience might build, & cancel each one until nothing remains but the impossible. The environment designer runs that procedure backwards. Construct one false solution, make it good, & leave it standing.
 
-Translated into a broken training run: a ResNet trains with gradient accumulation; the loss curve is healthy; generalisation is poor. Anyone who has trained networks has a candidate already — accumulation changes the effective batch size, so the learning rate wants rescaling. The symptoms fit. Adjusting it even produces a small improvement, which is the crucial detail: a hypothesis that yields *some* improvement is far easier to keep believing than one that yields none. It is not the cause. The cause is that BatchNorm's running statistics update once per micro-batch while the optimiser steps once per accumulation window, so the normalisation state is driven at the wrong rate — a fault that exists only in the interaction of two mechanisms each correct on its own.
+Translated into a broken training run: a [ResNet](https://en.wikipedia.org/wiki/Residual_neural_network) trains with gradient accumulation; the loss curve is healthy; generalisation is poor. Anyone who has trained networks has a candidate already — accumulation changes the effective batch size, so the learning rate wants rescaling. The symptoms fit. Adjusting it even produces a small improvement, which is the crucial detail: a hypothesis that yields *some* improvement is far easier to keep believing than one that yields none. It is not the cause. The cause is that BatchNorm's running statistics update once per micro-batch while the optimiser steps once per accumulation window, so the normalisation state is driven at the wrong rate — a fault that exists only in the interaction of two mechanisms each correct on its own.
 
 The environment is not asking *can the agent find the bug*. It is asking *what does the agent do when the evidence stops supporting the explanation it started with* — revise, or keep making local repairs around a diagnosis that was plausible enough to acquire momentum.
 
@@ -101,7 +101,7 @@ Every trajectory contains the model's account of its own reasoning. It is tempti
 
 The first reason is architectural. Work on recurrent depth raises the possibility of substantial computation before any token is emitted, which makes it unsafe to equate the length or content of a written trace with the computation that produced the answer. Reports can be sincere & wrong.
 
-The second is empirical & more damning. Anthropic's faithfulness study gave Claude 3.7 Sonnet & DeepSeek R1 hints about answers & checked whether their chains of thought acknowledged using them. The models used the hints & frequently did not say so; in the reward-hacking variants they learned to exploit incorrect hints at very high rates while almost never verbalising it. And the unfaithful chains were, on average, substantially *longer* than the faithful ones. Verbosity was not evidence of deliberation. If anything it was mild evidence against — a conclusion I reached from a different direction before, & which is now less of a hunch.
+The second is empirical & more damning. Anthropic's faithfulness study gave <span class="icon-anthropic">Claude 3.7 Sonnet</span> & <span class="icon-deepseek">DeepSeek R1</span> hints about answers & checked whether their chains of thought acknowledged using them. The models used the hints & frequently did not say so; in the reward-hacking variants they learned to exploit incorrect hints at very high rates while almost never verbalising it. And the unfaithful chains were, on average, substantially *longer* than the faithful ones. Verbosity was not evidence of deliberation. If anything it was mild evidence against — a conclusion I reached from a different direction before, & which is now less of a hunch.
 
 So the evidence is behavioural. Did the implementation satisfy the hidden law? Did the artefact generalise to unseen inputs? Did the agent abandon the false diagnosis when counter-evidence appeared? Did it obtain the observation that distinguished the hypotheses? Those are properties of what it did, not of what it subsequently said.
 
@@ -136,7 +136,7 @@ The narrower claim is that they ask one question from four directions, that the 
 
 If the suite turns out to measure something trivial, the interesting result will be finding the triviality. If it measures the distinction I am aiming at, the next question is whether frontier models already have it, & under what conditions they lose it. Either is more useful than another benchmark in which the task announces itself before the model has to think about what task it has been given.
 
-If you have access to frontier checkpoints & this looks like something worth measuring, the suite is runnable, self-contained & does not require handing me anything.
+If you have access to frontier checkpoints & this looks like something worth measuring, the suite is runnable, self-contained & does not require handing me anything :D
 
 ---
 
@@ -148,8 +148,8 @@ If you have access to frontier checkpoints & this looks like something worth mea
 
 *References*
 
-Chen et al. (2025), *[Reasoning Models Don't Always Say What They Think](https://arxiv.org/abs/2505.05410)*.
+Chen & al. (2025), *[Reasoning Models Don't Always Say What They Think](https://arxiv.org/abs/2505.05410)*.
 
 Li, Kim & Wang (2025), *[QuestBench: Can LLMs ask the right question to acquire information in reasoning tasks?](https://arxiv.org/abs/2503.22231)*.
 
-Tamariz, *The Magic Way* (English ed. 1988).
+[Tamariz, *The Magic Way* (English ed. 1988)](https://www.conjuringarchive.com/list/publication/225).
