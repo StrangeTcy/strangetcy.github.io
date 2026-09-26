@@ -1,9 +1,8 @@
 ---
-
 title: "Knowing What Kind of Problem You Are In"
 date: 2026-09-26
 layout: post
-------------
+---
 
 {% include mathjax.html %}
 
