@@ -5,13 +5,14 @@ date: 2026-09-27
 layout: post
 ---
 
+
 {% include mathjax.html %}
 
 *by <span class="icon-self">StrangeTcy</span>*
 
 *Original ideas* — Category theory as a source of implementation constraints rather than vocabulary; the use of algebraic laws as held-out behavioural specifications; sheaf conditions as local-to-global consistency. The packaging into agent environments is mine.
 
-*Synthesis* — <span class="icon-self">StrangeTcy</span>
+*Synthesis* — StrangeTcy
 
 *Prose* — Several models, from dialogue & successive rounds of criticism; final edit StrangeTcy
 
@@ -71,30 +72,27 @@ A diagram says:
 
 > **These two paths are the same morphism.**
 
-For a natural transformation \(\eta : F \Rightarrow G\):
+For a natural transformation \(\eta:F\Rightarrow G\),
 
-```text
-              F(f)
-      F(A) ─────────→ F(B)
-       │               │
-      η_A             η_B
-       │               │
-       ↓               ↓
-      G(A) ─────────→ G(B)
-              G(f)
-```
+$$
+\begin{array}{ccccc}
+F(A) & \xrightarrow{\ F(f)\ } & F(B) \\
+\big\downarrow{\scriptstyle \eta_A} & & \big\downarrow{\scriptstyle \eta_B} \\
+G(A) & \xrightarrow{\ G(f)\ } & G(B)
+\end{array}
+$$
 
 The square commutes when
 
 $$
-\eta_B \circ F(f) = G(f) \circ \eta_A.
+\eta_B\circ F(f)=G(f)\circ\eta_A.
 $$
 
 That equation does something a unit test does not.
 
 It says what should remain true when the concrete objects change.
 
-The evaluator can therefore change the sequence length, the group element, the batching, the chunking, the parenthesisation, or the actual generated instance without changing the law being tested.
+The evaluator can therefore change the sequence length, the group element, the batching, the chunking, the parenthesisation, or the generated instance without changing the law being tested.
 
 The visible tests are one sample of the diagram.
 
@@ -110,43 +108,37 @@ That distinction is the centre of the family.
 
 ## 1 — Functors everywhere
 
-One reason category theory is useful here is that the same shape reappears under completely different names.
+One reason category theory is useful here is that the same structure reappears under completely different engineering names.
 
 A functor preserves identity:
 
-```text
-        id_A
-     A ───────→ A
-     │           │
-     │ F         │ F
-     ↓           ↓
-    F(A) ─────→ F(A)
-        id_F(A)
-```
+$$
+\begin{array}{ccc}
+A & \xrightarrow{\ id_A\ } & A \\
+\big\downarrow{\scriptstyle F} & & \big\downarrow{\scriptstyle F} \\
+F(A) & \xrightarrow{\ id_{F(A)}\ } & F(A)
+\end{array}
+$$
 
 and composition:
 
-```text
-          f              g
-    A ───────→ B ───────→ C
-    │                       │
-    │ F                     │ F
-    ↓                       ↓
-   F(A) ────────────────→ F(C)
-             F(g∘f)
+$$
+\begin{array}{ccccc}
+A & \xrightarrow{\ f\ } & B & \xrightarrow{\ g\ } & C \\
+\big\downarrow{\scriptstyle F} & & \big\downarrow{\scriptstyle F} & & \big\downarrow{\scriptstyle F} \\
+F(A) & \xrightarrow{\ F(f)\ } & F(B) & \xrightarrow{\ F(g)\ } & F(C)
+\end{array}
+$$
 
-          F(g∘f) = F(g) ∘ F(f)
-```
+with
+
+$$
+F(g\circ f)=F(g)\circ F(f).
+$$
 
 You do not need to implement a library called `Functor` to encounter this structure.
 
-You can encounter it as:
-
-* applying a model independently to a batch;
-* relabelling the nodes of a graph;
-* transforming a sequence and then slicing it;
-* changing coordinates while preserving the operation;
-* composing state transitions.
+You can encounter it as applying a model independently to a batch, relabelling the nodes of a graph, transforming a sequence and then slicing it, changing coordinates while preserving an operation, or composing state transitions.
 
 The diagram does not care what the classes are called.
 
@@ -156,16 +148,13 @@ That is the useful part.
 
 Suppose a model operation \(h\) should commute with a symmetry \(g\).
 
-```text
-              g·(−)
-        X ─────────→ X
-        │             │
-        h             h
-        │             │
-        ↓             ↓
-        Y ─────────→ Y
-              g·(−)
-```
+$$
+\begin{array}{ccccc}
+X & \xrightarrow{\ g\cdot(-)\ } & X \\
+\big\downarrow{\scriptstyle h} & & \big\downarrow{\scriptstyle h} \\
+Y & \xrightarrow{\ g\cdot(-)\ } & Y
+\end{array}
+$$
 
 Equivariance means
 
@@ -179,20 +168,21 @@ $$
 h(gx)=h(x).
 $$
 
-The distinction is easy to state and easy to break in code.
+The distinction is easy to state & easy to break in code.
 
 The suite contains the same structural idea in several forms.
 
 For graph message passing:
 
-```text
-              (PAPᵀ, PX)
-     (A,X) ─────────────────→ (A',X')
-       │                         │
-       │ ℓ                       │ ℓ
-       ↓                         ↓
-     ℓ(A,X) ─────── P·(−) ───→ P·ℓ(A,X)
-```
+$$
+\begin{array}{ccccc}
+(A,X) &
+\xrightarrow{\ (A,X)\mapsto(PAP^T,PX)\ } &
+(PAP^T,PX) \\
+\big\downarrow{\scriptstyle \ell} & & \big\downarrow{\scriptstyle \ell} \\
+\ell(A,X) & \xrightarrow{\ P(-)\ } & P\,\ell(A,X)
+\end{array}
+$$
 
 with
 
@@ -200,32 +190,30 @@ $$
 \ell(PAP^T,PX)=P\,\ell(A,X).
 $$
 
-For vectorisation:
+For vectorisation, the same shape becomes:
 
-```text
-                vmap(model)
-     [x₁ … x_B] ───────────────→ [y₁ … y_B]
-         │                           │
-      unbatch                       unbatch
-         │                           │
-         ↓                           ↓
-       {xᵢ} ───── model each ─────→ {yᵢ}
-```
+$$
+\begin{array}{ccccc}
+[x_1,\ldots,x_B] &
+\xrightarrow{\ \operatorname{vmap}(f)\ } &
+[y_1,\ldots,y_B] \\
+\big\downarrow{\scriptstyle \operatorname{unbatch}} &&
+\big\downarrow{\scriptstyle \operatorname{unbatch}} \\
+\{x_i\} & \xrightarrow{\ \text{apply }f\text{ independently}\ } & \{y_i\}.
+\end{array}
+$$
 
 The question is whether “apply the model to the batch” agrees with “apply the model to each element”.
 
 For architecture conversion:
 
-```text
-                 F(h)
-       F(X) ─────────────→ F(Y)
-        │                   │
-       α_X                 α_Y
-        │                   │
-        ↓                   ↓
-       G(X) ─────────────→ G(Y)
-                 G(h)
-```
+$$
+\begin{array}{ccccc}
+F(X) & \xrightarrow{\ F(h)\ } & F(Y) \\
+\big\downarrow{\scriptstyle \alpha_X} & & \big\downarrow{\scriptstyle \alpha_Y} \\
+G(X) & \xrightarrow{\ G(h)\ } & G(Y)
+\end{array}
+$$
 
 with
 
@@ -253,15 +241,17 @@ $$
 put:S\times A\to S.
 $$
 
-The three laws are:
+The three laws are
 
 $$
-get(put(s,a))=a
+get(put(s,a))=a,
 $$
 
 $$
-put(s,get(s))=s
+put(s,get(s))=s,
 $$
+
+and
 
 $$
 put(put(s,a),a')=put(s,a').
@@ -271,33 +261,36 @@ They can be drawn directly.
 
 Put–Get:
 
-```text
-                  put             get
-      S × A ─────────────→ S ─────────────→ A
-        │                                   ║
-        └──────────────── π_A ─────────────┘
-```
+$$
+\begin{array}{ccccc}
+S\times A & \xrightarrow{\ \operatorname{put}\ } & S & \xrightarrow{\ \operatorname{get}\ } & A \\
+\big\downarrow{\scriptstyle \pi_A} & & & & \big\Vert \\
+A & & & & A
+\end{array}
+$$
 
 Get–Put:
 
-```text
-             ⟨id,get⟩              put
-        S ───────────────→ S × A ───────→ S
-        │                                  ║
-        └──────────────── id ──────────────┘
-```
+$$
+\begin{array}{ccccc}
+S & \xrightarrow{\ \langle id,get\rangle\ } & S\times A \\
+\big\Vert & & \big\downarrow{\scriptstyle \operatorname{put}} \\
+S & \xrightarrow{\ id\ } & S
+\end{array}
+$$
 
 Put–Put:
 
-```text
-                     put × id
-      S × A × A ───────────────→ S × A
-          │                         │
-      ⟨π_S,π_A'⟩                   │ put
-          │                         ↓
-          ↓                       S
-        S × A ────────── put ─────→ S
-```
+$$
+\begin{array}{ccccc}
+S\times A\times A &
+\xrightarrow{\ \operatorname{put}\times id_A\ } &
+S\times A \\
+\big\downarrow{\scriptstyle \langle\pi_S,\pi_{A'}\rangle} &&
+\big\downarrow{\scriptstyle \operatorname{put}} \\
+S\times A & \xrightarrow{\ \operatorname{put}\ } & S
+\end{array}
+$$
 
 The interesting failure mode is not forgetting the definition of a lens.
 
@@ -305,7 +298,7 @@ It is implementing something that passes one round-trip and breaks when the oper
 
 That is exactly the kind of mistake a visible example can hide.
 
-The current environment actually names the lens laws in its prompt. That makes it a useful **law-application** task: the agent is told what must hold, then has to make the implementation continue to satisfy those equations under cases it was not shown.
+The current environment names the lens laws in its prompt. That makes it a useful **law-application** task: the agent is told what must hold, then has to make the implementation continue to satisfy those equations under cases it was not shown.
 
 That is already a meaningful capability.
 
@@ -313,72 +306,57 @@ It is just not the same capability as discovering the law.
 
 ## 4 — Monads & Kleisli composition
 
-For a monad \((T,\eta,\mu)\), the two unit laws are:
+For a monad \((T,\eta,\mu)\), the two unit laws can be written as commuting diagrams:
 
 $$
-\mu_A\circ \eta_{T(A)}=id_{T(A)}
+\begin{array}{ccc}
+T(A) & \xrightarrow{\ \eta_{T(A)}\ } & T^2(A) \\
+\big\Vert & & \big\downarrow{\scriptstyle \mu_A} \\
+T(A) & \xrightarrow{\ id\ } & T(A)
+\end{array}
+\qquad
+\begin{array}{ccc}
+T(A) & \xrightarrow{\ T(\eta_A)\ } & T^2(A) \\
+\big\Vert & & \big\downarrow{\scriptstyle \mu_A} \\
+T(A) & \xrightarrow{\ id\ } & T(A)
+\end{array}
 $$
 
-and
+Associativity is the square
 
 $$
-\mu_A\circ T(\eta_A)=id_{T(A)}.
+\begin{array}{ccccc}
+T^3(A) & \xrightarrow{\ T(\mu_A)\ } & T^2(A) \\
+\big\downarrow{\scriptstyle \mu_{T(A)}} & & \big\downarrow{\scriptstyle \mu_A} \\
+T^2(A) & \xrightarrow{\ \mu_A\ } & T(A).
+\end{array}
 $$
-
-They form two triangles:
-
-```text
-             η_{T(A)}
-        T(A) ─────────→ T²(A)
-          ╲               │
-           ╲              │ μ_A
-            ╲             ↓
-             ╲────────── T(A)
-                    id
-```
-
-and
-
-```text
-             T(η_A)
-        T(A) ─────────→ T²(A)
-          ╱               │
-         ╱                │ μ_A
-        ╱                 ↓
-       T(A) ───────────→ T(A)
-              id
-```
-
-Associativity is:
-
-```text
-               μ_{T(A)}
-     T³(A) ─────────────→ T²(A)
-       │                     │
-   T(μ_A)                  μ_A
-       │                     │
-       ↓                     ↓
-     T²(A) ─────── μ_A ───→ T(A)
-```
 
 In code, however, these usually appear as bind:
 
-```text
-       f : A → T(B)          g : B → T(C)
-
-                        f          T(g)         μ
-       g ∘ᴷ f : A ─────→ T(B) ─────→ T²(C) ───→ T(C)
-```
-
-with
-
 $$
-return(a)\mathbin{>>=}f=f(a)
+\begin{array}{ccccc}
+A & \xrightarrow{\ f\ } & T(B) & \xrightarrow{\ T(g)\ } & T^2(C)
+\end{array}
 $$
 
+followed by \(\mu_C:T^2(C)\to T(C)\), giving the Kleisli composite
+
 $$
-m\mathbin{>>=}return=m
+g\circ_K f=\mu_C\circ T(g)\circ f.
 $$
+
+In bind form:
+
+$$
+return(a)\mathbin{>>=}f=f(a),
+$$
+
+$$
+m\mathbin{>>=}return=m,
+$$
+
+and
 
 $$
 (m\mathbin{>>=}f)\mathbin{>>=}g
@@ -397,15 +375,13 @@ A lossy tokenizer and a detokenizer are not inverses.
 
 The design language is a Galois connection:
 
-```text
-          L
-      A ⇄    B
-          R
+$$
+L(a)\le b
+\quad\Longleftrightarrow\quad
+a\le R(b).
+$$
 
-      L(a) ≤ b    ⇔    a ≤ R(b)
-```
-
-with unit and counit inequalities
+That gives the unit and counit inequalities
 
 $$
 id_A\le R\circ L
@@ -417,7 +393,7 @@ $$
 L\circ R\le id_B.
 $$
 
-But those inequalities only become meaningful after the two orders have fuckingly been specified.
+But those inequalities only become meaningful after the two orders have actually been specified.
 
 The executable environment instead checks the concrete triangle identity
 
@@ -425,21 +401,21 @@ $$
 L(R(L(s)))=L(s).
 $$
 
-```text
-                 Lη
-        L ─────────────→ LRL
-         ╲                 │
-          ╲                │ εL
-           ╲               ↓
-            ╲──────────── L
-                  id_L
-```
+Categorically, that is the commuting triangle
+
+$$
+\begin{array}{ccccc}
+L & \xrightarrow{\ L\eta\ } & LRL \\
+\big\Vert & & \big\downarrow{\scriptstyle \varepsilon L} \\
+L & \xrightarrow{\ id_L\ } & L.
+\end{array}
+$$
 
 Encode, decode, encode again.
 
 You must land back where the first encoding landed.
 
-That is a nice example of the difference between **the mathematical design** and **the executable check**. The diagram tells me what structure I think I am implementing. The judge checks a consequence of that structure on concrete inputs.
+That is a nice example of the difference between **the mathematical design** and **the executable check**. The diagram tells me what structure I think I am implementing. The judge checks a concrete consequence of that structure.
 
 ## 6 — Associativity: one law, many systems
 
@@ -455,17 +431,15 @@ But it has enormous engineering reach.
 
 A parallel scan can regroup the same transitions in different trees:
 
-```text
-      x₀   x₁   x₂   x₃          x₀   x₁   x₂   x₃
-       ╲   ╱     ╲   ╱            ╲   ╱     ╲   ╱
-        ⊕         ⊕                ⊕         ⊕
-         ╲       ╱                  ╲       ╱
-          ╲     ╱                    ╲     ╱
-           ⊕                         ⊕
-           │                       ╱   ╲
-        result                  x₀      result
-                                 ...
-```
+$$
+\begin{aligned}
+((x_0\oplus x_1)\oplus x_2)\oplus x_3
+&=
+(x_0\oplus x_1)\oplus(x_2\oplus x_3) \\
+&=
+x_0\oplus(x_1\oplus(x_2\oplus x_3)).
+\end{aligned}
+$$
 
 The sequential computation and the balanced computation should agree.
 
@@ -477,25 +451,15 @@ It may simply be a broken associator.
 
 And then the same idea appears as a semiring:
 
-```text
-        (⊕, ⊗)
-           │
-    ┌──────┼───────────┐
-    │      │           │
-    ↓      ↓           ↓
-   ∨,∧    min,+       +,×
-    │      │           │
- reach-   shortest   sum-
- ability   path      product
-```
-
-with identities:
-
-```text
-reachability    (⊥, ⊤)
-shortest path   (+∞, 0)
-sum–product     (0, 1)
-```
+$$
+\begin{array}{c|cc|cc}
+ & \oplus & \otimes & 0 & 1 \\
+\hline
+\text{reachability} & \lor & \land & \bot & \top \\
+\text{shortest path} & \min & + & +\infty & 0 \\
+\text{sum-product} & + & \times & 0 & 1
+\end{array}
+$$
 
 One interface.
 
@@ -505,40 +469,62 @@ That is a very category-theoretic way of looking at ordinary algorithms.
 
 And it produces some rather pretty pictures.
 
-## 7 — The hidden tropical diagram
+## 7 — The tropical connection
 
 One of the nicest examples in the suite is the differentiable parser.
 
 The task says to replace a hard minimum with a smooth Log-Sum-Exp formulation so that gradients flow.
 
-The category-theoretic structure is never required to solve the task.
+The category-theoretic structure is not required to solve the task.
 
-But once you know the structure, this is what is happening:
+But once you know the structure, the relationship is visible:
 
-```text
-        tropical world                      smooth world
+$$
+\operatorname{softmin}_\tau(a,b)
+=
+-\tau\log
+\left(
+e^{-a/\tau}+e^{-b/\tau}
+\right)
+$$
 
-             min                                  LSE_τ
-              │                                     │
-              │        temperature relaxation       │
-              └─────────────────────────────────────┘
+and
 
-       min(a,b)                         -τ log(e^{-a/τ}+e^{-b/τ})
-          │                                         │
-       hard branch                             all branches
-          │                                         │
-       sparse grad                              smooth grad
+$$
+\lim_{\tau\to0^+}\operatorname{softmin}_\tau(a,b)=\min(a,b).
+$$
 
-                         τ → 0
-                           ↓
-                    recover min
-```
+So the picture is:
 
-The two operations are not merely visually similar.
+$$
+\boxed{
+\begin{array}{c}
+\text{hard minimum} \\[2pt]
+\min(a,b)
+\end{array}}
+\quad
+\xrightarrow{\ \tau>0\ }
+\quad
+\boxed{
+\begin{array}{c}
+\text{smooth minimum} \\[2pt]
+-\tau\log(e^{-a/\tau}+e^{-b/\tau})
+\end{array}}
+\quad
+\xrightarrow{\ \tau\to0^+\ }
+\quad
+\min(a,b).
+$$
 
-They explain why the implementation has the failure mode it does.
+The hard operation selects a branch.
 
-Again, the diagram is useful because it compresses several implementation constraints into one object.
+The smooth version distributes gradient across branches.
+
+The implementation problem is therefore not an isolated numerical trick. It is a change in the algebra used by the dynamic program.
+
+The agent does not need to recognise that story to solve the task.
+
+But the diagram makes the structure obvious to the person designing the evaluation.
 
 ## 8 — Sheaves: local fixes, global failure
 
@@ -546,18 +532,19 @@ The sheaf-shaped environments take the same idea somewhere stranger.
 
 Restriction goes from a larger region to a smaller one:
 
-```text
-                  F(U₁ ∪ U₂)
-                  ╱        ╲
-             ρ₁  ↓          ↓  ρ₂
-              F(U₁)        F(U₂)
-                  ╲        ╱
-               ρ₁₂╲      ╱ρ₂₁
-                    ↓    ↓
-                 F(U₁ ∩ U₂)
-```
+$$
+\begin{array}{ccccc}
+&&F(U_1\cup U_2)&&\\[4pt]
+&\swarrow{\scriptstyle \rho_{U_1}}&&
+\searrow{\scriptstyle \rho_{U_2}}&\\[4pt]
+F(U_1)&&&&F(U_2)\\[4pt]
+&\searrow{\scriptstyle \rho_{U_1\cap U_2}}&&
+\swarrow{\scriptstyle \rho_{U_1\cap U_2}}&\\[4pt]
+&&F(U_1\cap U_2)&&
+\end{array}
+$$
 
-Local sections must agree on overlaps:
+Local sections must agree on the overlap:
 
 $$
 s_1|_{U_1\cap U_2}
@@ -569,14 +556,13 @@ Then the sheaf condition says that they glue to a unique global section.
 
 In equaliser form:
 
-```text
-          ∏ᵢ F(Uᵢ)
-             │
-             │
-     F(U) ──→├──────→ ∏ᵢⱼ F(Uᵢ ∩ Uⱼ)
-             │
-             └────────→
-```
+$$
+F(U)
+\longrightarrow
+\prod_i F(U_i)
+\rightrightarrows
+\prod_{i<j}F(U_i\cap U_j).
+$$
 
 The actual environments are not implementations of sheaf theory.
 
@@ -598,42 +584,35 @@ That is exactly the sort of thing a local unit test can miss.
 
 The suite is deliberately heterogeneous.
 
-Some environments explicitly state the mathematical law. Others talk about the engineering behaviour without using the category-theoretic name.
+Some environments explicitly state the mathematical law. Others talk about the engineering behaviour without giving the category-theoretic label.
 
 That distinction is important enough that I do not want to hide it in the prose.
 
-The agent can be given:
+The agent can be given the law:
 
-```text
-              the law
-                 │
-                 ▼
-             implement
-                 │
-                 ▼
-         held-out composition
-```
+$$
+\text{law}
+\quad\longrightarrow\quad
+\text{implementation}
+\quad\longrightarrow\quad
+\text{held-out composition},
+$$
 
-or:
+or it can be given only behavioural evidence:
 
-```text
-             behaviour
-                 │
-                 ▼
-          infer what holds
-                 │
-                 ▼
-             implement
-                 │
-                 ▼
-         held-out composition
-```
+$$
+\text{behaviour}
+\quad\longrightarrow\quad
+\text{hypothesis}
+\quad\longrightarrow\quad
+\text{implementation}
+\quad\longrightarrow\quad
+\text{held-out composition}.
+$$
 
 Those are different experiments.
 
 The current family contains both forms, but not in a perfectly balanced way. Several prompts explicitly name lenses, monads, adjunctions, associativity, naturality, equivariance, functors, semirings, and so on. Others — including the SSM lift, tensor/vectorisation task, parser, and sheaf tasks — describe the engineering failure without giving the category-theoretic label.
-
-The README calls the family seventeen category-theoretic environments; the prompt files show that the lexical presentation is not uniform.
 
 That is useful rather than embarrassing.
 
@@ -651,72 +630,59 @@ A benchmark that claims to measure recognition while simply handing the law to t
 
 ## What the agent sees versus what the judge holds
 
-```text
-┌───────────────────────────────────────┐
-│ agent-visible                         │
-│                                       │
-│ · executable ML / systems code        │
-│ · visible tests                       │
-│ · a concrete engineering failure     │
-│ · sometimes the abstract law          │
-│ · sometimes only its behaviour       │
-└───────────────────────────────────────┘
-                    │
-                    │ submit patch
-                    ▼
-┌───────────────────────────────────────┐
-│ held-out judge                        │
-│                                       │
-│ · new compositions                    │
-│ · new parenthesisations               │
-│ · new lengths / shifts / permutations │
-│ · new overlaps / chunkings            │
-│ · algebraic law checks                │
-└───────────────────────────────────────┘
-```
+The intended separation is simple:
 
-The important separation is not visible test versus hidden test in the usual benchmark sense.
+| Agent-visible                         | Held-out judge                    |
+| ------------------------------------- | --------------------------------- |
+| Executable ML / systems code          | New compositions                  |
+| Visible tests                         | New parenthesisations             |
+| A concrete engineering failure        | New lengths, shifts, permutations |
+| Sometimes the abstract law            | New overlaps & chunkings          |
+| Sometimes only its behavioural shadow | Algebraic law checks              |
+
+The important separation is not merely visible test versus hidden test.
 
 It is:
 
-```text
-          what the example demonstrates
-                         ≠
-              what the law guarantees
-```
+$$
+\text{what the example demonstrates}
+\qquad\neq\qquad
+\text{what the law guarantees}.
+$$
 
 The generator can give the model one concrete instance and ask the judge about another.
 
-That is the entire trick.
+That is the trick.
 
 ## The division of labour
 
-There is also a useful asymmetry between the researcher and the model:
+There is also a useful asymmetry between the researcher and the model.
 
-```text
-researcher
-
-    invariant
-       ↓
-    diagram
-       ↓
-   generator
-       ↓
-   many instances
-       ↓
-     judge
-
-
-model
-
-   artifact
-       ↓
-   hypothesis
-       ↓
-     patch
-       ↓
-   consequences
-```
+$$
+\begin{array}{rcl}
+\text{researcher}
+&:&
+\text{invariant}
+\to
+\text{diagram}
+\to
+\text{generator}
+\to
+\text{instances}
+\to
+\text{judge}
+\\[8pt]
+\text{model}
+&:&
+\text{artifact}
+\to
+\text{hypothesis}
+\to
+\text{patch}
+\to
+\text{consequences}
+\end{array}
+$$
 
 The model does not need the word *naturality* for the researcher to use a naturality square.
 
