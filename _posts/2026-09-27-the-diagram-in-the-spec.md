@@ -5,22 +5,26 @@ date: 2026-09-27
 layout: post
 ---
 
-
 {% include mathjax.html %}
 
 *by <span class="icon-self">StrangeTcy</span>*
 
-*Original ideas* — Category theory as a source of implementation constraints rather than vocabulary; the use of algebraic laws as held-out behavioural specifications; sheaf conditions as local-to-global consistency. The packaging into agent environments is mine.
+<dl class="epistemic-status">
+  <dt>Original ideas</dt>
+  <dd>Category theory as a source of implementation constraints rather than vocabulary; the use of algebraic laws as held-out behavioural specifications; sheaf conditions as local-to-global consistency. The packaging into agent environments is mine.</dd>
 
-*Synthesis* — StrangeTcy
+  <dt>Synthesis</dt>
+  <dd><span class="icon-self">StrangeTcy</span></dd>
 
-*Prose* — Several models, from dialogue & successive rounds of criticism; final edit StrangeTcy
+  <dt>Prose</dt>
+  <dd>Several models, from the dialogue &amp; successive rounds of criticism; final edit <span class="icon-self">StrangeTcy</span></dd>
 
-*Certainty* — Confident about the executable design described here & the mathematical laws illustrated below. Exploratory about what frontier models will do on the resulting environments. No model results yet.
+  <dt>Certainty</dt>
+  <dd>Confident about the executable design described here &amp; the mathematical laws illustrated below. Exploratory about what frontier models will do on the resulting environments. No model results yet.</dd>
 
-*Importance* — A design post for the `cat_theo/*` family in [rl_eval_generator](https://github.com/StrangeTcy/rl_eval_generator). Companion to the broader evaluation framing; this post is about the category-theoretic family itself.
-
----
+  <dt>Importance</dt>
+  <dd>A design post for the <code>cat_theo/*</code> family in <a href="https://github.com/StrangeTcy/rl_eval_generator">rl_eval_generator</a>. Companion to the broader evaluation framing; this post is about the category-theoretic family itself.</dd>
+</dl>
 
 I did not build these environments because I wanted agents to recite the Yoneda lemma.
 
@@ -72,12 +76,13 @@ A diagram says:
 
 > **These two paths are the same morphism.**
 
-For a natural transformation \(\eta:F\Rightarrow G\),
+For a natural transformation $\eta:F\Rightarrow G$,
 
 $$
+\large
 \begin{array}{ccccc}
 F(A) & \xrightarrow{\ F(f)\ } & F(B) \\
-\big\downarrow{\scriptstyle \eta_A} & & \big\downarrow{\scriptstyle \eta_B} \\
+\big\downarrow{ \eta_A} & & \big\downarrow{ \eta_B} \\
 G(A) & \xrightarrow{\ G(f)\ } & G(B)
 \end{array}
 $$
@@ -113,9 +118,10 @@ One reason category theory is useful here is that the same structure reappears u
 A functor preserves identity:
 
 $$
+\large
 \begin{array}{ccc}
 A & \xrightarrow{\ id_A\ } & A \\
-\big\downarrow{\scriptstyle F} & & \big\downarrow{\scriptstyle F} \\
+\big\downarrow{ F} & & \big\downarrow{ F} \\
 F(A) & \xrightarrow{\ id_{F(A)}\ } & F(A)
 \end{array}
 $$
@@ -123,9 +129,10 @@ $$
 and composition:
 
 $$
+\large
 \begin{array}{ccccc}
 A & \xrightarrow{\ f\ } & B & \xrightarrow{\ g\ } & C \\
-\big\downarrow{\scriptstyle F} & & \big\downarrow{\scriptstyle F} & & \big\downarrow{\scriptstyle F} \\
+\big\downarrow{ F} & & \big\downarrow{ F} & & \big\downarrow{ F} \\
 F(A) & \xrightarrow{\ F(f)\ } & F(B) & \xrightarrow{\ F(g)\ } & F(C)
 \end{array}
 $$
@@ -146,12 +153,13 @@ That is the useful part.
 
 ## 2 — Naturality & equivariance
 
-Suppose a model operation \(h\) should commute with a symmetry \(g\).
+Suppose a model operation $h$ should commute with a symmetry $g$.
 
 $$
+\large
 \begin{array}{ccccc}
 X & \xrightarrow{\ g\cdot(-)\ } & X \\
-\big\downarrow{\scriptstyle h} & & \big\downarrow{\scriptstyle h} \\
+\big\downarrow{ h} & & \big\downarrow{ h} \\
 Y & \xrightarrow{\ g\cdot(-)\ } & Y
 \end{array}
 $$
@@ -162,7 +170,7 @@ $$
 h(gx)=g\,h(x).
 $$
 
-Invariance is the special case where the action on \(Y\) is trivial:
+Invariance is the special case where the action on $Y$ is trivial:
 
 $$
 h(gx)=h(x).
@@ -175,11 +183,12 @@ The suite contains the same structural idea in several forms.
 For graph message passing:
 
 $$
+\large
 \begin{array}{ccccc}
 (A,X) &
 \xrightarrow{\ (A,X)\mapsto(PAP^T,PX)\ } &
 (PAP^T,PX) \\
-\big\downarrow{\scriptstyle \ell} & & \big\downarrow{\scriptstyle \ell} \\
+\big\downarrow{ \ell} & & \big\downarrow{ \ell} \\
 \ell(A,X) & \xrightarrow{\ P(-)\ } & P\,\ell(A,X)
 \end{array}
 $$
@@ -193,12 +202,13 @@ $$
 For vectorisation, the same shape becomes:
 
 $$
+\large
 \begin{array}{ccccc}
 [x_1,\ldots,x_B] &
 \xrightarrow{\ \operatorname{vmap}(f)\ } &
 [y_1,\ldots,y_B] \\
-\big\downarrow{\scriptstyle \operatorname{unbatch}} &&
-\big\downarrow{\scriptstyle \operatorname{unbatch}} \\
+\big\downarrow{ \operatorname{unbatch}} &&
+\big\downarrow{ \operatorname{unbatch}} \\
 \{x_i\} & \xrightarrow{\ \text{apply }f\text{ independently}\ } & \{y_i\}.
 \end{array}
 $$
@@ -208,9 +218,10 @@ The question is whether “apply the model to the batch” agrees with “apply 
 For architecture conversion:
 
 $$
+\large
 \begin{array}{ccccc}
 F(X) & \xrightarrow{\ F(h)\ } & F(Y) \\
-\big\downarrow{\scriptstyle \alpha_X} & & \big\downarrow{\scriptstyle \alpha_Y} \\
+\big\downarrow{ \alpha_X} & & \big\downarrow{ \alpha_Y} \\
 G(X) & \xrightarrow{\ G(h)\ } & G(Y)
 \end{array}
 $$
@@ -262,9 +273,10 @@ They can be drawn directly.
 Put–Get:
 
 $$
+\large
 \begin{array}{ccccc}
 S\times A & \xrightarrow{\ \operatorname{put}\ } & S & \xrightarrow{\ \operatorname{get}\ } & A \\
-\big\downarrow{\scriptstyle \pi_A} & & & & \big\Vert \\
+\big\downarrow{ \pi_A} & & & & \big\Vert \\
 A & & & & A
 \end{array}
 $$
@@ -272,9 +284,10 @@ $$
 Get–Put:
 
 $$
+\large
 \begin{array}{ccccc}
 S & \xrightarrow{\ \langle id,get\rangle\ } & S\times A \\
-\big\Vert & & \big\downarrow{\scriptstyle \operatorname{put}} \\
+\big\Vert & & \big\downarrow{ \operatorname{put}} \\
 S & \xrightarrow{\ id\ } & S
 \end{array}
 $$
@@ -282,12 +295,13 @@ $$
 Put–Put:
 
 $$
+\large
 \begin{array}{ccccc}
 S\times A\times A &
 \xrightarrow{\ \operatorname{put}\times id_A\ } &
 S\times A \\
-\big\downarrow{\scriptstyle \langle\pi_S,\pi_{A'}\rangle} &&
-\big\downarrow{\scriptstyle \operatorname{put}} \\
+\big\downarrow{ \langle\pi_S,\pi_{A'}\rangle} &&
+\big\downarrow{ \operatorname{put}} \\
 S\times A & \xrightarrow{\ \operatorname{put}\ } & S
 \end{array}
 $$
@@ -306,18 +320,19 @@ It is just not the same capability as discovering the law.
 
 ## 4 — Monads & Kleisli composition
 
-For a monad \((T,\eta,\mu)\), the two unit laws can be written as commuting diagrams:
+For a monad $(T,\eta,\mu)$, the two unit laws can be written as commuting diagrams:
 
 $$
+\large
 \begin{array}{ccc}
 T(A) & \xrightarrow{\ \eta_{T(A)}\ } & T^2(A) \\
-\big\Vert & & \big\downarrow{\scriptstyle \mu_A} \\
+\big\Vert & & \big\downarrow{ \mu_A} \\
 T(A) & \xrightarrow{\ id\ } & T(A)
 \end{array}
 \qquad
 \begin{array}{ccc}
 T(A) & \xrightarrow{\ T(\eta_A)\ } & T^2(A) \\
-\big\Vert & & \big\downarrow{\scriptstyle \mu_A} \\
+\big\Vert & & \big\downarrow{ \mu_A} \\
 T(A) & \xrightarrow{\ id\ } & T(A)
 \end{array}
 $$
@@ -325,9 +340,10 @@ $$
 Associativity is the square
 
 $$
+\large
 \begin{array}{ccccc}
 T^3(A) & \xrightarrow{\ T(\mu_A)\ } & T^2(A) \\
-\big\downarrow{\scriptstyle \mu_{T(A)}} & & \big\downarrow{\scriptstyle \mu_A} \\
+\big\downarrow{ \mu_{T(A)}} & & \big\downarrow{ \mu_A} \\
 T^2(A) & \xrightarrow{\ \mu_A\ } & T(A).
 \end{array}
 $$
@@ -335,12 +351,13 @@ $$
 In code, however, these usually appear as bind:
 
 $$
+\large
 \begin{array}{ccccc}
 A & \xrightarrow{\ f\ } & T(B) & \xrightarrow{\ T(g)\ } & T^2(C)
 \end{array}
 $$
 
-followed by \(\mu_C:T^2(C)\to T(C)\), giving the Kleisli composite
+followed by $\mu_C:T^2(C)\to T(C)$, giving the Kleisli composite
 
 $$
 g\circ_K f=\mu_C\circ T(g)\circ f.
@@ -367,7 +384,7 @@ $$
 
 The interesting engineering failure is therefore not “forgot to write `return`”.
 
-It is writing the happy path as a plain function and decorating the output with the syntax of an effect, without actually preserving the composition law.
+It is writing the happy path as a plain function and decorating the output with the syntax of an effect, without fuckingly preserving the composition law.
 
 ## 5 — Adjunctions
 
@@ -393,7 +410,7 @@ $$
 L\circ R\le id_B.
 $$
 
-But those inequalities only become meaningful after the two orders have actually been specified.
+But those inequalities only become meaningful after the two orders have fuckingly been specified.
 
 The executable environment instead checks the concrete triangle identity
 
@@ -404,9 +421,10 @@ $$
 Categorically, that is the commuting triangle
 
 $$
+\large
 \begin{array}{ccccc}
 L & \xrightarrow{\ L\eta\ } & LRL \\
-\big\Vert & & \big\downarrow{\scriptstyle \varepsilon L} \\
+\big\Vert & & \big\downarrow{ \varepsilon L} \\
 L & \xrightarrow{\ id_L\ } & L.
 \end{array}
 $$
@@ -452,6 +470,7 @@ It may simply be a broken associator.
 And then the same idea appears as a semiring:
 
 $$
+\large
 \begin{array}{c|cc|cc}
  & \oplus & \otimes & 0 & 1 \\
 \hline
@@ -533,13 +552,14 @@ The sheaf-shaped environments take the same idea somewhere stranger.
 Restriction goes from a larger region to a smaller one:
 
 $$
+\large
 \begin{array}{ccccc}
 &&F(U_1\cup U_2)&&\\[4pt]
-&\swarrow{\scriptstyle \rho_{U_1}}&&
-\searrow{\scriptstyle \rho_{U_2}}&\\[4pt]
+&\swarrow{ \rho_{U_1}}&&
+\searrow{ \rho_{U_2}}&\\[4pt]
 F(U_1)&&&&F(U_2)\\[4pt]
-&\searrow{\scriptstyle \rho_{U_1\cap U_2}}&&
-\swarrow{\scriptstyle \rho_{U_1\cap U_2}}&\\[4pt]
+&\searrow{ \rho_{U_1\cap U_2}}&&
+\swarrow{ \rho_{U_1\cap U_2}}&\\[4pt]
 &&F(U_1\cap U_2)&&
 \end{array}
 $$
@@ -659,6 +679,7 @@ That is the trick.
 There is also a useful asymmetry between the researcher and the model.
 
 $$
+\large
 \begin{array}{rcl}
 \text{researcher}
 &:&
