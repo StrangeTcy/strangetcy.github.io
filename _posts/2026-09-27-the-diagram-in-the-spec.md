@@ -3,7 +3,7 @@
 title: "The Diagram Is the Spec"
 date: 2026-09-27
 layout: post
-------------
+---
 
 {% include mathjax.html %}
 
