@@ -11,7 +11,7 @@ layout: post
 
 *Original ideas* — Category theory as a source of implementation constraints rather than vocabulary; the use of algebraic laws as held-out behavioural specifications; sheaf conditions as local-to-global consistency. The packaging into agent environments is mine.
 
-*Synthesis* — StrangeTcy
+*Synthesis* — <span class="icon-self">StrangeTcy</span>
 
 *Prose* — Several models, from dialogue & successive rounds of criticism; final edit StrangeTcy
 
