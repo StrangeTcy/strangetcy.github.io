@@ -17,7 +17,7 @@ layout: post
   <dd><span class="icon-self">StrangeTcy</span></dd>
 
   <dt>Prose</dt>
-  <dd>Several models, from the dialogue &amp; successive rounds of criticism; final edit <span class="icon-self">StrangeTcy</span></dd>
+  <dd>Several models (<span class="icon-openai">gpt</span>span and <span class="icon-anthropic">claude</span> mostly), from the dialogue &amp; successive rounds of criticism; final edit <span class="icon-self">StrangeTcy</span></dd>
 
   <dt>Certainty</dt>
   <dd>Confident about the executable design described here &amp; the mathematical laws illustrated below. Exploratory about what frontier models will do on the resulting environments. No model results yet.</dd>
@@ -26,13 +26,13 @@ layout: post
   <dd>A design post for the <code>cat_theo/*</code> family in <a href="https://github.com/StrangeTcy/rl_eval_generator">rl_eval_generator</a>. Companion to the broader evaluation framing; this post is about the category-theoretic family itself.</dd>
 </dl>
 
-I did not build these environments because I wanted agents to recite the Yoneda lemma.
+I did not build these environments because I wanted agents to recite the [Yoneda lemma](https://en.wikipedia.org/wiki/Yoneda_lemma).
 
 I built them because a large class of ML bugs are **failed diagrams**.
 
 Two computations that ought to be the same composite, traversed two ways, do not agree. A transform that should commute with a symmetry does not. A get/put pair behaves correctly once & breaks on the second update. A parallel scan works on the lengths somebody tested & fails when the tree of compositions changes.
 
-The surface of the code looks like ordinary engineering.
+The surface of the code _looks like_ ordinary engineering.
 
 The failure is algebraic.
 
@@ -42,21 +42,21 @@ And that gives me a rather nice way to write an evaluation environment:
 
 This is one of the reasons I like category theory here. The laws are often small enough to draw.
 
-And the diagrams are pretty.
+And the diagrams are pretty :D
 
 That is not entirely a joke.
 
 ## The diagram is the spec
 
-A naturality square, a lens law, a sheaf gluing condition: each is small enough to *see*. Once you can see it, you can ask whether a submitted patch preserves it — and, more importantly, whether **the judge is asking the right question**.
+A naturality square, a lens law, a sheaf gluing condition: each is small enough to *see*. Once you can see it, you can ask whether a submitted patch preserves it — &, more importantly, whether **the judge is asking the right question**.
 
 Beauty here is compression of the specification.
 
-If a law does not fit on a napkin, I do not trust myself to hold it constant across procedural generation. I also do not trust a judge I cannot audit by eye.
+If a law doesn't fit on a napkin, I don't trust myself to hold it constant across procedural generation. I also do not trust a judge I can't audit by eye.
 
 I have earned that second rule the hard way. A grader elsewhere in the suite once failed a known-correct patch & reported a plausible but wrong failure mode. I believed it longer than I should have because the number agreed with what I expected.
 
-The judge has to solve the same problem I am posing to the model.
+The judge has to solve the same problem I'm posing to the model.
 
 A diagram I can check in ten seconds is a cheap defence against getting that wrong again.
 
@@ -64,7 +64,7 @@ Which sets a standard for this post itself:
 
 > Every diagram below should typecheck.
 
-If it does not, the section is not yet a specification.
+If it doesn't, the section is not yet a specification.
 
 ## Why diagrams, not unit tests
 
