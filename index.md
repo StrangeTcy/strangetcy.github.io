@@ -9,3 +9,5 @@ This is my blogging site on **GitHub Pages**. This should contain notes on paper
 [Notes on metis](https://strangetcy.github.io/2026/07/11/notes-on-metis.html)
 [Controlling Scheming AIs Giving Strategic Advice](https://strangetcy.github.io/2026/08/31/controlling-schemeing-ais-giving-strategic-advice.html)
 [A Long Trajectory Is Not Necessarily Deep Reasoning](https://strangetcy.github.io/2026/09/10/long-trajectory-is-not-necessarily-deep-reasoning.html)
+[Knowing What Kind of Problem You Are In](https://strangetcy.github.io/2026/09/26/knowing-what-kind-of-problem-you-are-in.html)
+[The Diagram Is the Spec](https://github.com/StrangeTcy/strangetcy.github.io/blob/main/_posts/2026-09-27-the-diagram-in-the-spec.md)
