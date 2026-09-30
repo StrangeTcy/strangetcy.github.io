@@ -149,7 +149,7 @@ That is a different game.
 This is one reason stage magic keeps returning to the design.
 
 A magician does not normally need to implant an arbitrary proposition in the audience's
-head. The problem is local, physical, and unusually well controlled. Something
+head. The problem is local, physical, & unusually well controlled. Something
 happened. The performer knows what happened. The spectator has incomplete access to
 it. The performer manipulates what the spectator notices, remembers, or treats as the
 likely explanation.
@@ -159,12 +159,12 @@ That is already an epistemic game.
 More importantly, magic provides a useful warning against vague mechanism names.
 Kuhn, Caffaratti, Teszka & Rensink proposed a taxonomy of misdirection based not on
 the trick's surface form but on the psychological mechanism affected: **perception,
-memory, and reasoning**. That is a much better way to think about this class of
+memory, & reasoning**. That is a much better way to think about this class of
 evaluation than calling every trick an “attention manipulation.”
 
-If every event is put into a complete text transcript and handed to a model, the
-information has already been selected. The task may still test interpretation or
-memory, but it is not a clean test of attention or information acquisition.
+If every event is put into a complete text transcript & handed to a model, the
+information **has already been selected**. The task may still test interpretation or
+memory, but it isn't a clean test of attention or information acquisition.
 
 A cleaner attention environment looks more like:
 
@@ -176,7 +176,7 @@ The investigator may inspect two.
 The performer knows which stream contains the revealing event.
 ```
 
-A memory environment can expose the event and later test whether an intervening
+A memory environment can expose the event & later test whether an intervening
 sequence changed what the investigator retains.
 
 A reasoning-misdirection environment can provide all relevant observations while
@@ -220,10 +220,10 @@ $$
 $$
 
 An environment may combine several of these. The generator should vary them
-independently where possible.
+independently (where possible).
 
-Otherwise it is too easy to construct a dramatic scenario, give it a name like
-“recursive epistemic process control”, and discover that the winning strategy was
+Otherwise it's too easy to construct a dramatic scenario, give it a name like
+“recursive epistemic process control”, & discover that the winning strategy was
 simply to obey the bolded sentence.
 
 That would be a benchmark failure, not a discovery.
@@ -232,7 +232,7 @@ That would be a benchmark failure, not a discovery.
 
 None of the ingredients is wholly new.
 
-Epistemic game theory studies beliefs about other agents' information and beliefs.
+Epistemic game theory studies beliefs about other agents' information & beliefs.
 Bayesian persuasion asks how a sender should choose an information structure in order
 to influence a receiver's action. Kamenica & Gentzkow's formulation makes the
 information structure itself an object of strategic choice.
@@ -244,20 +244,20 @@ strategic attention manipulation by the sender.
 Machine teaching treats the learner as a system whose trajectory can be influenced by
 carefully selected examples. The 2018 survey by Zhu, Singla, Zilles & Rafferty is
 explicitly concerned with organising machine teaching as a family of such problems
-and identifying gaps between them.
+& identifying gaps between them.
 
 LOLA goes in an especially interesting direction: the agent's update rule accounts
 for how its behaviour affects the anticipated learning update of the other agent.
 
 Alon, Schulz, Rosenschein & Dayan study recursive theory of mind in a multi-agent
-reinforcement-learning setting where agents selectively distort signals and suspicious
-agents learn to reinterpret or discard them.
+reinforcement-learning setting where agents selectively distort signals & suspicious
+agents learn to reinterpret/ discard them.
 
-And QuestBench is directly relevant from the opposite direction: rather than asking
+And [QuestBench](https://arxiv.org/abs/2503.22674) is directly relevant from the opposite direction: rather than asking
 whether a model can solve a fully specified problem, it asks whether the model can
 identify the missing question whose answer would make the problem solvable.
 
-So I am not claiming to have discovered strategic influence over learning, belief,
+So I'm not claiming to have discovered strategic influence over learning, belief,
 attention, or information acquisition.
 
 The narrower claim is:
@@ -266,20 +266,20 @@ The narrower claim is:
 > epistemic trajectory was affected**, rather than calling every successful influence
 > operation “deception”?
 
-That is an experimental-design problem.
+That's an experimental-design problem.
 
-It may be a useful one.
+It may (even) be a useful one.
 
 ## Truth can be selected adversarially
 
 Our discussion also wandered through two much less scientific sources of inspiration:
-MI-13 in Victor Pelevin's *Возвращение Синей Бороды*, and what I have been calling
-Gilbo's **дезонтологическая атака**.
+MI-13 in Victor Pelevin's [*Возвращение Синей Бороды*](https://eksmo.ru/book/vozvrashchenie-siney-borody-ITD1489434/), and what I've been calling
+Gilbo's **дезонтологическая атака** ([mentioned here](http://gilbo.ru/?page=mos14sent2019)).
 
-I do not take the fictional MI-13 machinery as evidence about real institutions.
-And I do not treat Gilbo's terminology as an established scientific theory.
+I don't take the fictional MI-13 machinery as evidence about real institutions.
+& I don't treat Gilbo's terminology as an established scientific theory.
 
-The useful provocation is narrower.
+The useful provocation is narrower:
 
 Suppose an adversary is allowed to tell the truth.
 
@@ -291,9 +291,9 @@ It can still choose:
 * which question that fact seems to make urgent;
 * which line of inquiry therefore becomes attractive.
 
-That is potentially more interesting than misinformation because “but the statement was true” no longer settles the issue.
+That is (potentially) more interesting than misinformation because “but the statement was true” no longer settles the issue.
 
-It is also where our first formalisation went wrong.
+It's also where our first formalisation went wrong.
 
 A tempting objective was
 
@@ -305,9 +305,7 @@ where \(G\) represents the target's world model.
 
 But this measures **revision**, not damage.
 
-A good reasoner should sometimes revise its model dramatically. If decisive evidence
-shows that its previous worldview was wrong, a huge \(D\) is evidence of successful
-learning, not successful attack.
+A good reasoner should sometimes revise its model dramatically. If decisive evidence shows that its previous worldview was wrong, a huge \(D\) is evidence of successful learning, not successful attack.
 
 The relevant questions are instead:
 
@@ -317,8 +315,7 @@ The relevant questions are instead:
 
 > Did the target recover when stronger evidence appeared?
 
-That gives us a more useful distinction between changing a belief and corrupting an
-epistemic trajectory.
+That gives us a more useful distinction between changing a belief & corrupting an epistemic trajectory.
 
 ## The smallest experiment
 
