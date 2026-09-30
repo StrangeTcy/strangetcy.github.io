@@ -26,7 +26,7 @@ layout: post
   <dt>Prose</dt>
   <dd>
     Developed through dialogues with several models, criticised by further models,
-    and edited <span class="icon-self">StrangeTcy</span>.
+    & edited <span class="icon-self">StrangeTcy</span>.
   </dd>
 
   <dt>Certainty</dt>
@@ -47,19 +47,15 @@ layout: post
 
 Suppose I want you to make the wrong decision.
 
-The stupid way is to lie to you.
+The stupid way is to lie to you; the more interesting way is to make you run the wrong experiment.
 
-The more interesting way is to make you run the wrong experiment.
-
-I do not need to convince you that the machine is healthy if I can make you spend
+I don't need to convince you that the machine is healthy if I can make you spend
 your diagnostic budget measuring the optimiser while the representation collapses.
-I do not need to make you believe a particular false proposition if I can determine
+I don't need to make you believe a particular false proposition if I can determine
 which source you consult, which hypothesis you test first, or which anomaly you
 dismiss as irrelevant.
 
-The strategic object is no longer just your current answer.
-
-It is your **next question**.
+The strategic object is no longer just your current answer -- it's your **next question**.
 
 ## From false beliefs to epistemic trajectories
 
@@ -512,7 +508,7 @@ ornamental prose saying:
 A valid paired experiment keeps the physical device, available tests, and payoffs
 fixed while changing the information structure.
 
-If the correct action changes with that structure, then the evaluation is actually
+If the correct action changes with that structure, then the evaluation is fuckingly
 testing something about epistemic state rather than merely reading comprehension.
 
 ## Three capabilities, not one
@@ -623,14 +619,14 @@ But the next question is part of the game.
 
 ---
 
-*This post proposes an evaluation direction. It reports no model results and does not
-claim that “epistemic process control” is an established field or a uniquely new
+*This post proposes an evaluation direction. It reports no model results, nor does it
+claim that “epistemic process control” is an established field / a uniquely new
 scientific phenomenon.*
 
 ## References
 
-* Kuhn, Gustav; Caffaratti, Hugo A.; Teszka, Robert; Rensink, Ronald A.
-  *A psychologically-based taxonomy of misdirection* (2014).
+* [Kuhn, Gustav; Caffaratti, Hugo A.; Teszka, Robert; Rensink, Ronald A.
+  *A psychologically-based taxonomy of misdirection* (2014)](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2014.01392/full).
 
 * Kamenica, Emir; Gentzkow, Matthew.
   *Bayesian Persuasion* (2011).
