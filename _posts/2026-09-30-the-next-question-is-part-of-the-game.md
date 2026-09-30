@@ -69,9 +69,9 @@ Alice knows where the object is. Bob does not. Alice sends a misleading signal.
 Bob believes the object is in the wrong place.
 
 This is a useful abstraction. It is also a drastic compression of what an
-investigator fuckingly does.
+investigator fuckingly does:
 
-An investigator does not normally go straight from observation to answer. It follows
+An investigator does not normally go straight from observation to answer --  it follows
 a trajectory:
 
 $$
@@ -93,12 +93,12 @@ $$
 An intervention can affect any of these transitions without immediately determining
 the final answer.
 
-Two agents may assign almost the same probability to a hypothesis and nevertheless
+Two agents may assign almost the same probability to a hypothesis & nevertheless
 choose different experiments next. Conversely, two agents may choose different
 experiments because they rationally received different information while following
 exactly the same underlying procedure.
 
-That caveat matters. A changed next question does **not** prove that an agent's
+That caveat seems important. A changed next question does **not** prove that an agent's
 update rule has been rewritten. A fixed, competent policy should choose different
 investigations when its information changes.
 
@@ -113,17 +113,17 @@ For a black-box model, the safer object of evaluation is therefore the
 * whether an early detour persists after the evidence supporting it disappears;
 * whether it recovers when stronger evidence contradicts the detour.
 
-These are observable actions. They do not require us to believe the model's account
+These are observable actions. They don't require us to believe the model's account
 of its private reasoning.
 
 ## The current suite already contains half of the problem
 
 My existing environments already ask a related question: what kind of problem has the
-agent entered, and which diagnostic would distinguish the possibilities?
+agent entered, & which diagnostic would distinguish the possibilities?
 
 A contrastive learner can show a decreasing loss while its representation collapses.
 A BatchNorm failure can look enough like an ordinary optimisation problem that
-changing the learning rate produces a small improvement and reinforces the wrong
+changing the learning rate produces a small improvement & reinforces the wrong
 diagnosis. A weird machine can tempt an agent to reproduce a demonstrated output
 instead of expressing the computation that generated it.
 
@@ -132,15 +132,15 @@ In all of these, one of the interesting variables is already:
 > **Which diagnostic does the agent choose?**
 
 But the current environment is mostly passive. It contains clues, tools, red herrings
-and false solutions, but no strategic participant whose objective depends on which
+& false solutions, but no strategic participant whose objective depends on which
 diagnostic the investigator chooses.
 
-The next generation adds that participant.
+The next generation _adds_ that participant.
 
 The question becomes:
 
 > Can another agent systematically redirect the investigator away from useful
-> information acquisition — and can the investigator notice and recover?
+> information acquisition — & can the investigator notice and recover?
 
 That is a different game.
 
