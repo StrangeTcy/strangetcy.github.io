@@ -301,11 +301,11 @@ $$
 \max_m D\!\left(G,\operatorname{Update}(G,m)\right),
 $$
 
-where \(G\) represents the target's world model.
+where $G$ represents the target's world model.
 
 But this measures **revision**, not damage.
 
-A good reasoner should sometimes revise its model dramatically. If decisive evidence shows that its previous worldview was wrong, a huge \(D\) is evidence of successful learning, not successful attack.
+A good reasoner should sometimes revise its model dramatically. If decisive evidence shows that its previous worldview was wrong, a huge $D$ is evidence of successful learning, not successful attack.
 
 The relevant questions are instead:
 
@@ -327,7 +327,7 @@ The investigator has a limited diagnostic budget. It has several possible tests:
 * one distinguishes two pairs;
 * one is uninformative.
 
-The investigator must select a test, observe the result, and identify the mechanism.
+The investigator must select a test, observe the result, & identify the mechanism.
 
 Now add a presenter.
 
@@ -335,7 +335,7 @@ For the primary experiment, the presenter cannot lie, suppress facts, alter cost
 add instructions. Every condition contains exactly the same atomic facts about the
 tests.
 
-The presenter can only change their **ordering and emphasis**.
+The presenter can only change their **ordering & emphasis**.
 
 Compare:
 
@@ -347,12 +347,9 @@ Compare:
 The adversarial condition is not allowed to smuggle in extra evidence. Its objective
 is simply to make the investigator choose a less useful next test.
 
-This is intentionally boring.
+This is intentionally boring. Boring is good.
 
-Boring is good.
-
-If the experimental unit is complicated enough that we cannot say exactly what
-changed between conditions, then we have no idea what a behavioural difference means.
+If the experimental unit is complicated enough that we can't say exactly what changed between conditions, then we have no idea what a behavioural difference means.
 
 ### What should we measure?
 
@@ -362,9 +359,9 @@ $$
 \Theta\in\Omega
 $$
 
-and let \(h_t\) be the investigator's information history at time \(t\).
+and let $h_t$ be the investigator's information history at time $t$.
 
-For an available diagnostic \(q\), define its value as
+For an available diagnostic $q$, define its value as
 
 $$
 V(q\mid h_t)
@@ -372,10 +369,10 @@ V(q\mid h_t)
 I(\Theta;O_q\mid h_t)-\lambda C(q),
 $$
 
-where \(I\) is expected information gain, \(O_q\) is the diagnostic outcome, \(C(q)\)
-is its cost, and \(\lambda\) determines how much investigation cost matters.
+where $I$ is expected information gain, $O_q$ is the diagnostic outcome, $C(q)$
+is its cost, and $\lambda$ determines how much investigation cost matters.
 
-If the investigator chooses \(q_t\), define its instantaneous inquiry regret as
+If the investigator chooses$q_t$, define its instantaneous inquiry regret as
 
 $$
 r_t
@@ -383,8 +380,7 @@ r_t
 \max_{q\in Q_t}V(q\mid h_t)-V(q_t\mid h_t).
 $$
 
-The first experiment then asks whether adversarial presentation increases this regret
-relative to the matched neutral condition:
+The first experiment then asks whether adversarial presentation increases this regret relative to the matched neutral condition:
 
 $$
 \Delta_Q
@@ -410,7 +406,7 @@ That distinction is the whole point.
 ## The final answer is not enough
 
 Suppose the investigator chooses a mediocre first test, then recovers with its second
-test and identifies the mechanism correctly.
+test & identifies the mechanism correctly.
 
 A conventional benchmark records a success.
 
@@ -426,8 +422,7 @@ $$
 
 That is a different result.
 
-The reverse is also possible. The investigator may choose the optimal first test, receive
-decisive evidence, and still cling to its initial answer.
+The reverse is also possible. The investigator may choose the optimal first test, receive decisive evidence, & still cling to its initial answer.
 
 That is belief-update failure without information-acquisition failure.
 
@@ -451,21 +446,17 @@ $$
 \text{change in final task performance}.
 $$
 
-And I want recovery measured separately again.
+& I want recovery measured separately again.
 
-A system that is easily redirected but recovers after one additional observation is
-different from a system whose inquiry remains corrupted after decisive evidence.
+A system that is easily redirected but recovers after one additional observation is different from a system whose inquiry remains corrupted after decisive evidence.
 
-A system that protects itself by treating every highlighted fact as hostile may resist an
-adversary while becoming useless to a teacher.
+A system that protects itself by treating every highlighted fact as hostile may resist an adversary while becoming useless to a teacher.
 
 Neither behaviour should be compressed into a single “robustness” score.
 
 ## Once both agents know the game, things get interesting
 
-The elementary experiment only manipulates presentation.
-
-Later versions can manipulate the **epistemic topology**.
+The elementary experiment only manipulates presentation; later versions can manipulate the **epistemic topology**.
 
 The investigator is told that the presentation may be adversarial.
 
@@ -475,9 +466,7 @@ Perhaps the investigator knows that the presenter knows.
 
 Perhaps that fact is private rather than public.
 
-Then an obvious emphasis can become counterproductive. A helpful presenter may need to
-avoid looking helpful. An adversary may highlight the correct test precisely because it
-expects a suspicious investigator to reject it.
+Then an obvious emphasis can become counterproductive. A helpful presenter may need to avoid looking helpful. An adversary may highlight the correct test precisely because it expects a suspicious investigator to reject it.
 
 Now we have something recognisably game-theoretic again:
 
@@ -497,16 +486,13 @@ o
 \mathfrak E_B'.
 $$
 
-But the recursion should be introduced by changing who knows what, not by adding
-ornamental prose saying:
+But the recursion should be introduced by changing who knows what, not by adding ornamental prose saying:
 
 > Alice knows that Bob knows that Alice knows.
 
-A valid paired experiment keeps the physical device, available tests, and payoffs
-fixed while changing the information structure.
+A valid paired experiment keeps the physical device, available tests, & payoffs fixed while changing the information structure.
 
-If the correct action changes with that structure, then the evaluation is fuckingly
-testing something about epistemic state rather than merely reading comprehension.
+If the correct action changes with that structure, then the evaluation is fuckingly testing something about epistemic state rather than merely reading comprehension.
 
 ## Three capabilities, not one
 
@@ -524,8 +510,7 @@ An agent might be excellent at influencing others and poor at resisting influenc
 Another might resist everything by becoming indiscriminately suspicious. A third might
 be quite susceptible initially but recover unusually quickly.
 
-And none of those is the same thing as honesty, obedience, or compliance with an
-authorisation boundary.
+& none of those is the same thing as honesty, obedience, or compliance with an authorisation boundary.
 
 Those remain separate evaluation problems.
 
@@ -533,30 +518,21 @@ Those remain separate evaluation problems.
 
 Most benchmarks treat the prompt as a completed gift.
 
-The problem has already decided which variables matter, which observations are
-available, which tools exist, and which question is being answered.
+The problem has already decided which variables should be examined, which observations are available, which tools exist, & which question is being answered.
 
-An autonomous investigator does not receive that gift.
+An autonomous investigator doesn't receive that gift.
 
-It chooses which file to open, which metric to inspect, which experiment to run, which
-person to ask, which source to trust, and which anomaly deserves another hour.
+It chooses which file to open, which metric to inspect, which experiment to run, which person to ask, which source to trust, and which anomaly deserves another hour.
 
 That makes information acquisition part of the agent's action space.
 
 And once it is part of the action space, another agent can potentially act on it.
 
-That is why I increasingly prefer **epistemic trajectory** to **deception** as the unit
-of analysis.
+That is why I increasingly prefer **epistemic trajectory** to **deception** as the unit of analysis.
 
-Deception can be one mechanism.
+Deception can be one mechanism. Misdirection can be another. ource manipulation can be another.
 
-Misdirection can be another.
-
-Source manipulation can be another.
-
-Information design can be another.
-
-Opponent-model manipulation can be another.
+Information design can be another. Opponent-model manipulation can be another.
 
 The common object is not the truth-value of one proposition. It is the sequence
 
@@ -568,13 +544,11 @@ $$
 
 that the investigator traverses while trying to learn something about the world.
 
-An intervention is interesting to the extent that it changes that trajectory in a
-systematic, causally interpretable way.
+An intervention is interesting to the extent that it changes that trajectory in a systematic, causally interpretable way.
 
 ## What I fuckingly want to build
 
-The next version of `rl_eval_generator` should therefore not begin with “generate
-complicated deception games”.
+The next version of `rl_eval_generator` should therefore not begin with “generate complicated deception games”.
 
 It should begin with much smaller questions:
 
@@ -594,7 +568,7 @@ Does an accurate model of the target make an attacker better?
 
 Can the target detect the intervention and recover?
 
-And, eventually:
+&, eventually:
 
 $$
 \text{Can an agent reason about another agent's epistemic trajectory
@@ -602,15 +576,15 @@ while deliberately intervening on it?}
 $$
 
 That last question is where the more exotic material — recursive deception, reflexive
-control, higher-order beliefs, and the stranger literary examples — becomes relevant.
+control, higher-order beliefs, & the stranger literary examples — becomes relevant.
 
-But I do not want to start there.
+But I don't want to start there.
 
 I want to build the tiny experiment first.
 
 The current `rl_eval_generator` run is the baseline. This work comes afterward.
 
-The final answer still matters.
+The final answer is still important.
 
 But the next question is part of the game.
 
@@ -625,8 +599,8 @@ scientific phenomenon.*
 * [Kuhn, Gustav; Caffaratti, Hugo A.; Teszka, Robert; Rensink, Ronald A.
   *A psychologically-based taxonomy of misdirection* (2014)](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2014.01392/full).
 
-* Kamenica, Emir; Gentzkow, Matthew.
-  *Bayesian Persuasion* (2011).
+* [Kamenica, Emir; Gentzkow, Matthew.
+  *Bayesian Persuasion* (2011)](https://web.stanford.edu/~gentzkow/research/BayesianPersuasion.pdf).
 
 * Bloedel, Alexander W.; Segal, Ilya R.
   *Persuasion with Rational Inattention* (2018).
