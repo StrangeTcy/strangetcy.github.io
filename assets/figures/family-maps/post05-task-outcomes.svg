@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="930" height="520" viewBox="0 0 930 520" role="img" aria-labelledby="title desc">
+<title id="title">Pass and fail counts for the six code tasks</title>
+<desc id="desc">Horizontal stacked bars show five selected cases for each distinct task. The build dependency, spreadsheet, and template tasks each pass five; SQL passes four; CSS and regex pass three each. The bars are counts for different tasks and judges, not one shared difficulty scale.</desc>
+<rect x="0.0" y="0.0" width="930.0" height="520.0" rx="0" fill="#fbfaf7" stroke="none" />
+<text x="28.0" y="39.0" font-family="Inter,Arial,sans-serif" font-size="22px" font-weight="700" fill="#182631" text-anchor="start" >The 30 cases are spread across six different tasks</text>
+<text x="28.0" y="68.0" font-family="Inter,Arial,sans-serif" font-size="13px" font-weight="400" fill="#52616d" text-anchor="start" >Each bar totals five selected cases; it does not put the tasks on one difficulty scale.</text>
+<rect x="35.0" y="91.0" width="16.0" height="16.0" rx="3" fill="#34735d" stroke="none" />
+<text x="58.0" y="104.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="start" >PASS</text>
+<rect x="126.0" y="91.0" width="16.0" height="16.0" rx="3" fill="#b6534b" stroke="none" />
+<text x="149.0" y="104.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="start" >FAIL</text>
+<text x="34.0" y="165.0" font-family="Inter,Arial,sans-serif" font-size="13px" font-weight="600" fill="#182631" text-anchor="start" >Build dependency graph</text>
+<rect x="300.0" y="143.0" width="380.0" height="34.0" rx="6" fill="#34735d" stroke="none" />
+<text x="490.0" y="165.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="700" fill="#ffffff" text-anchor="middle" >5 pass</text>
+<text x="696.0" y="165.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >5/5 passed</text>
+<text x="34.0" y="222.0" font-family="Inter,Arial,sans-serif" font-size="13px" font-weight="600" fill="#182631" text-anchor="start" >Spreadsheet calculation</text>
+<rect x="300.0" y="200.0" width="380.0" height="34.0" rx="6" fill="#34735d" stroke="none" />
+<text x="490.0" y="222.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="700" fill="#ffffff" text-anchor="middle" >5 pass</text>
+<text x="696.0" y="222.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >5/5 passed</text>
+<text x="34.0" y="279.0" font-family="Inter,Arial,sans-serif" font-size="13px" font-weight="600" fill="#182631" text-anchor="start" >Template interpreter</text>
+<rect x="300.0" y="257.0" width="380.0" height="34.0" rx="6" fill="#34735d" stroke="none" />
+<text x="490.0" y="279.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="700" fill="#ffffff" text-anchor="middle" >5 pass</text>
+<text x="696.0" y="279.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >5/5 passed</text>
+<text x="34.0" y="336.0" font-family="Inter,Arial,sans-serif" font-size="13px" font-weight="600" fill="#182631" text-anchor="start" >SQL chain</text>
+<rect x="300.0" y="314.0" width="304.0" height="34.0" rx="6" fill="#34735d" stroke="none" />
+<text x="452.0" y="336.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="700" fill="#ffffff" text-anchor="middle" >4 pass</text>
+<rect x="604.0" y="314.0" width="76.0" height="34.0" rx="6" fill="#b6534b" stroke="none" />
+<text x="642.0" y="336.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#ffffff" text-anchor="middle" >1 fail</text>
+<text x="696.0" y="336.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >4/5 passed</text>
+<text x="34.0" y="393.0" font-family="Inter,Arial,sans-serif" font-size="13px" font-weight="600" fill="#182631" text-anchor="start" >CSS parity selector</text>
+<rect x="300.0" y="371.0" width="228.0" height="34.0" rx="6" fill="#34735d" stroke="none" />
+<text x="414.0" y="393.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="700" fill="#ffffff" text-anchor="middle" >3 pass</text>
+<rect x="528.0" y="371.0" width="152.0" height="34.0" rx="6" fill="#b6534b" stroke="none" />
+<text x="604.0" y="393.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#ffffff" text-anchor="middle" >2 fail</text>
+<text x="696.0" y="393.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >3/5 passed</text>
+<text x="34.0" y="450.0" font-family="Inter,Arial,sans-serif" font-size="13px" font-weight="600" fill="#182631" text-anchor="start" >Regex update</text>
+<rect x="300.0" y="428.0" width="228.0" height="34.0" rx="6" fill="#34735d" stroke="none" />
+<text x="414.0" y="450.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="700" fill="#ffffff" text-anchor="middle" >3 pass</text>
+<rect x="528.0" y="428.0" width="152.0" height="34.0" rx="6" fill="#b6534b" stroke="none" />
+<text x="604.0" y="450.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#ffffff" text-anchor="middle" >2 fail</text>
+<text x="696.0" y="450.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >3/5 passed</text>
+<line x1="300.0" y1="135.0" x2="300.0" y2="470.0" stroke="#d5dde2" stroke-width="1"/>
+<text x="34.0" y="505.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#52616d" text-anchor="start" >25 pass, 5 fail overall. Each task uses different code, inputs, and checks.</text>
+</svg>

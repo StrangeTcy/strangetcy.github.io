@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="620" viewBox="0 0 1260 620" role="img" aria-labelledby="title desc">
+<title id="title">Prior and posterior probabilities for the seven selected epistemic-games cases</title>
+<desc id="desc">Each row is one selected case from seed 0. Open circles show the prior probability of World 1; filled diamonds show the judge-credited posterior. Balanced ambiguous cases stay at 1/2, the skewed ambiguous case stays at 3/5, strong evidence shifts the posterior to 1/15, and weak evidence gives 92/177. All seven cases passed under behavioral-reference judging.</desc>
+<rect x="0" y="0" width="1260" height="620" fill="#fbfaf7"/>
+<text x="28" y="40" font-family="Inter,Arial,sans-serif" font-size="22px" font-weight="700" fill="#182631">Prior and posterior across the seven selected cases</text>
+<text x="28" y="68" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="400" fill="#52616d">One seed-0 run per case · all seven passed under behavioral-reference judging</text>
+
+<circle cx="36" cy="103" r="7" fill="#fbfaf7" stroke="#254f70" stroke-width="2.2"/>
+<text x="51" y="107" font-family="Inter,Arial,sans-serif" font-size="11px" fill="#52616d">configured prior</text>
+<rect x="191" y="98" width="10" height="10" transform="rotate(45 196 103)" fill="#2a8074" stroke="#1d5b53" stroke-width="1.5"/>
+<text x="210" y="107" font-family="Inter,Arial,sans-serif" font-size="11px" fill="#52616d">judge-credited posterior</text>
+<line x1="389" y1="103" x2="425" y2="103" stroke="#52616d" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="434" y="107" font-family="Inter,Arial,sans-serif" font-size="11px" fill="#52616d">0.5 reference</text>
+<text x="585" y="107" font-family="Inter,Arial,sans-serif" font-size="10px" fill="#52616d">A–G match the configuration rows in the heatmap below.</text>
+
+<text x="28" y="155" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" letter-spacing="0.7px" fill="#52616d">CASE / SINGLE-FACTOR VARIANT</text>
+<text x="405" y="155" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" letter-spacing="0.7px" fill="#52616d" text-anchor="middle">PRIOR</text>
+<text x="760" y="155" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" letter-spacing="0.7px" fill="#52616d" text-anchor="middle">PROBABILITY OF WORLD 1</text>
+<text x="1086" y="155" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" letter-spacing="0.7px" fill="#52616d">POSTERIOR</text>
+
+<rect x="20" y="171" width="1218" height="45" rx="4" fill="#f4f2ed"/>
+<rect x="20" y="269" width="1218" height="45" rx="4" fill="#f4f2ed"/>
+<rect x="20" y="367" width="1218" height="45" rx="4" fill="#f4f2ed"/>
+<rect x="20" y="465" width="1218" height="45" rx="4" fill="#f4f2ed"/>
+
+<line x1="520" y1="171" x2="520" y2="510" stroke="#d5dde2" stroke-width="1"/>
+<line x1="640" y1="171" x2="640" y2="510" stroke="#d5dde2" stroke-width="1"/>
+<line x1="760" y1="171" x2="760" y2="510" stroke="#254f70" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="880" y1="171" x2="880" y2="510" stroke="#d5dde2" stroke-width="1"/>
+<line x1="1000" y1="171" x2="1000" y2="510" stroke="#d5dde2" stroke-width="1"/>
+
+<!-- A: report, ambiguous evidence, balanced prior, paired, bare-table -->
+<g><title>Case A, base setup: report scenario, ambiguous evidence, balanced prior, paired presentation, bare-table framing. Prior 1/2; posterior 1/2; PASS.</title>
+<rect x="28" y="177" width="29" height="32" rx="4" fill="#e8edf0"/>
+<text x="42.5" y="198" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#182631" text-anchor="middle">A</text>
+<text x="68" y="197" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631">Base · report / ambiguous evidence</text>
+<text x="405" y="197" font-family="Inter,Arial,sans-serif" font-size="12px" fill="#182631" text-anchor="middle">1/2</text>
+<circle cx="760" cy="194" r="8" fill="#fbfaf7" stroke="#254f70" stroke-width="2.2"/>
+<rect x="755" y="189" width="10" height="10" transform="rotate(45 760 194)" fill="#2a8074" stroke="#1d5b53" stroke-width="1.4"/>
+<text x="1086" y="197" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="650" fill="#182631">1/2</text>
+</g>
+
+<!-- B: narrative framing -->
+<g><title>Case B changes framing to narrative. The other settings match the base setup. Prior 1/2; posterior 1/2; PASS.</title>
+<rect x="28" y="226" width="29" height="32" rx="4" fill="#e8edf0"/>
+<text x="42.5" y="247" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#182631" text-anchor="middle">B</text>
+<text x="68" y="246" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631">Narrative framing</text>
+<text x="405" y="246" font-family="Inter,Arial,sans-serif" font-size="12px" fill="#182631" text-anchor="middle">1/2</text>
+<circle cx="760" cy="243" r="8" fill="#fbfaf7" stroke="#254f70" stroke-width="2.2"/>
+<rect x="755" y="238" width="10" height="10" transform="rotate(45 760 243)" fill="#2a8074" stroke="#1d5b53" stroke-width="1.4"/>
+<text x="1086" y="246" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="650" fill="#182631">1/2</text>
+</g>
+
+<!-- C: solo presentation -->
+<g><title>Case C changes presentation to solo. The other settings match the base setup. Prior 1/2; posterior 1/2; PASS.</title>
+<rect x="28" y="275" width="29" height="32" rx="4" fill="#e8edf0"/>
+<text x="42.5" y="296" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#182631" text-anchor="middle">C</text>
+<text x="68" y="295" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631">Solo presentation</text>
+<text x="405" y="295" font-family="Inter,Arial,sans-serif" font-size="12px" fill="#182631" text-anchor="middle">1/2</text>
+<circle cx="760" cy="292" r="8" fill="#fbfaf7" stroke="#254f70" stroke-width="2.2"/>
+<rect x="755" y="287" width="10" height="10" transform="rotate(45 760 292)" fill="#2a8074" stroke="#1d5b53" stroke-width="1.4"/>
+<text x="1086" y="295" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="650" fill="#182631">1/2</text>
+</g>
+
+<!-- D: skewed prior -->
+<g><title>Case D changes the prior to 3/5. Evidence remains ambiguous, so prior and posterior coincide at 3/5; PASS.</title>
+<rect x="28" y="324" width="29" height="32" rx="4" fill="#e8edf0"/>
+<text x="42.5" y="345" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#182631" text-anchor="middle">D</text>
+<text x="68" y="344" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631">Skewed prior · ambiguous evidence</text>
+<text x="405" y="344" font-family="Inter,Arial,sans-serif" font-size="12px" fill="#182631" text-anchor="middle">3/5</text>
+<circle cx="808" cy="341" r="8" fill="#fbfaf7" stroke="#254f70" stroke-width="2.2"/>
+<rect x="803" y="336" width="10" height="10" transform="rotate(45 808 341)" fill="#2a8074" stroke="#1d5b53" stroke-width="1.4"/>
+<text x="1086" y="344" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="650" fill="#182631">3/5</text>
+</g>
+
+<!-- E: strong evidence -->
+<g><title>Case E changes evidence to strong, with balanced prior. Prior 1/2; posterior 1/15; PASS.</title>
+<rect x="28" y="373" width="29" height="32" rx="4" fill="#e8edf0"/>
+<text x="42.5" y="394" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#182631" text-anchor="middle">E</text>
+<text x="68" y="393" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631">Strong evidence · balanced prior</text>
+<text x="405" y="393" font-family="Inter,Arial,sans-serif" font-size="12px" fill="#182631" text-anchor="middle">1/2</text>
+<line x1="760" y1="390" x2="552" y2="390" stroke="#79a99f" stroke-width="2"/>
+<circle cx="760" cy="390" r="8" fill="#fbfaf7" stroke="#254f70" stroke-width="2.2"/>
+<rect x="547" y="385" width="10" height="10" transform="rotate(45 552 390)" fill="#2a8074" stroke="#1d5b53" stroke-width="1.4"/>
+<text x="1086" y="393" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="650" fill="#182631">1/15</text>
+</g>
+
+<!-- F: weak evidence -->
+<g><title>Case F changes evidence to weak, with balanced prior. Prior 1/2; posterior 92/177; PASS.</title>
+<rect x="28" y="422" width="29" height="32" rx="4" fill="#e8edf0"/>
+<text x="42.5" y="443" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#182631" text-anchor="middle">F</text>
+<text x="68" y="442" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631">Weak evidence · balanced prior</text>
+<text x="405" y="442" font-family="Inter,Arial,sans-serif" font-size="12px" fill="#182631" text-anchor="middle">1/2</text>
+<line x1="760" y1="439" x2="769.5" y2="439" stroke="#79a99f" stroke-width="2"/>
+<circle cx="760" cy="439" r="8" fill="#fbfaf7" stroke="#254f70" stroke-width="2.2"/>
+<rect x="764.5" y="434" width="10" height="10" transform="rotate(45 769.5 439)" fill="#2a8074" stroke="#1d5b53" stroke-width="1.4"/>
+<text x="1086" y="442" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="650" fill="#182631">92/177</text>
+</g>
+
+<!-- G: trap scenario, bare-table framing -->
+<g><title>Case G changes the scenario template to trap while retaining bare-table framing. Prior 1/2; posterior 1/2; PASS.</title>
+<rect x="28" y="471" width="29" height="32" rx="4" fill="#e8edf0"/>
+<text x="42.5" y="492" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="700" fill="#182631" text-anchor="middle">G</text>
+<text x="68" y="491" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631">Trap scenario · bare-table framing</text>
+<text x="405" y="491" font-family="Inter,Arial,sans-serif" font-size="12px" fill="#182631" text-anchor="middle">1/2</text>
+<circle cx="760" cy="488" r="8" fill="#fbfaf7" stroke="#254f70" stroke-width="2.2"/>
+<rect x="755" y="483" width="10" height="10" transform="rotate(45 760 488)" fill="#2a8074" stroke="#1d5b53" stroke-width="1.4"/>
+<text x="1086" y="491" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="650" fill="#182631">1/2</text>
+</g>
+
+<line x1="520" y1="528" x2="1000" y2="528" stroke="#52616d" stroke-width="1.2"/>
+<text x="520" y="550" font-family="Inter,Arial,sans-serif" font-size="10px" fill="#52616d" text-anchor="middle">0</text>
+<text x="640" y="550" font-family="Inter,Arial,sans-serif" font-size="10px" fill="#52616d" text-anchor="middle">0.25</text>
+<text x="760" y="550" font-family="Inter,Arial,sans-serif" font-size="10px" fill="#52616d" text-anchor="middle">0.5</text>
+<text x="880" y="550" font-family="Inter,Arial,sans-serif" font-size="10px" fill="#52616d" text-anchor="middle">0.75</text>
+<text x="1000" y="550" font-family="Inter,Arial,sans-serif" font-size="10px" fill="#52616d" text-anchor="middle">1</text>
+<text x="28" y="594" font-family="Inter,Arial,sans-serif" font-size="10px" fill="#52616d">When evidence is ambiguous, equal announcement likelihoods leave the prior unchanged; the plotted markers overlap.</text>
+</svg>
