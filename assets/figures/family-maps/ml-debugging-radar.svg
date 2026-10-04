@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="755" viewBox="0 0 960 755" role="img" aria-labelledby="title desc">
+<title id="title">ML debugging within-family radar chart</title>
+<desc id="desc">Radar radius is the pass fraction among performance-eligible rows, on a zero-to-one-hundred-percent scale. Marker shapes distinguish behavioral-reference from compile-only judge modes. Numbered spokes match the adjacent heatmap order; this is descriptive, not a cross-family score.</desc>
+<rect x="0.0" y="0.0" width="960.0" height="755.0" rx="0" fill="#fbfaf7" stroke="none" stroke-width="1"/>
+<text x="24.0" y="39.0" font-family="Inter,Arial,sans-serif" font-size="22px" font-weight="700" fill="#182631" text-anchor="start" >ML debugging · within-family radar</text>
+<text x="24.0" y="68.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="400" fill="#52616d" text-anchor="start" >Eligible PASS share by environment; each spoke is one task environment</text>
+<text x="24.0" y="96.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#52616d" text-anchor="start" >9/30 eligible PASS · 21 eligible FAIL · 0 excluded from rate</text>
+<circle cx="31" cy="124" r="5" fill="#ffffff" stroke="#254f70" stroke-width="2"/>
+<text x="45.0" y="128.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="400" fill="#52616d" text-anchor="start" >BR: behavioral-reference judge</text>
+<rect x="250.0" y="119.0" width="10.0" height="10.0" rx="1" fill="#e8e1f1" stroke="#55436f" stroke-width="2"/>
+<text x="268.0" y="128.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="400" fill="#52616d" text-anchor="start" >CO: compile-only judge</text>
+<text x="485.0" y="128.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="400" fill="#52616d" text-anchor="start" >Numbered spokes follow the adjacent heatmap order</text>
+<polygon points="480.0,358.8 524.4,435.6 435.6,435.6" fill="none" stroke="#d5dde2" stroke-width="1"/>
+<text x="486.0" y="361.8" font-family="Inter,Arial,sans-serif" font-size="9px" font-weight="400" fill="#52616d" text-anchor="start" >25%</text>
+<polygon points="480.0,307.5 568.8,461.2 391.2,461.3" fill="none" stroke="#d5dde2" stroke-width="1"/>
+<text x="486.0" y="310.5" font-family="Inter,Arial,sans-serif" font-size="9px" font-weight="400" fill="#52616d" text-anchor="start" >50%</text>
+<polygon points="480.0,256.2 613.2,486.9 346.8,486.9" fill="none" stroke="#d5dde2" stroke-width="1"/>
+<text x="486.0" y="259.2" font-family="Inter,Arial,sans-serif" font-size="9px" font-weight="400" fill="#52616d" text-anchor="start" >75%</text>
+<polygon points="480.0,205.0 657.5,512.5 302.5,512.5" fill="none" stroke="#d5dde2" stroke-width="1"/>
+<text x="486.0" y="208.0" font-family="Inter,Arial,sans-serif" font-size="9px" font-weight="400" fill="#52616d" text-anchor="start" >100%</text>
+<line x1="480" y1="410" x2="480.0" y2="205.0" stroke="#d5dde2" stroke-width="1"/>
+<text x="480.0" y="180.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#52616d" text-anchor="middle" >01</text>
+<line x1="480" y1="410" x2="657.5" y2="512.5" stroke="#d5dde2" stroke-width="1"/>
+<text x="682.6" y="531.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#52616d" text-anchor="middle" >02</text>
+<line x1="480" y1="410" x2="302.5" y2="512.5" stroke="#d5dde2" stroke-width="1"/>
+<text x="277.4" y="531.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#52616d" text-anchor="middle" >03</text>
+<polygon points="480.0,410.0 480.0,410.0 334.7,493.9" fill="#2a8074" fill-opacity="0.22" stroke="#2a8074" stroke-width="2.5"/>
+<g><title>batchnorm_ema; PASS 0/11 eligible; 0%; judge mode compile_only; raw rows 11</title>
+<rect x="475.0" y="405.0" width="10.0" height="10.0" rx="1" fill="#e8e1f1" stroke="#55436f" stroke-width="2.2"/>
+</g>
+<g><title>glyph; PASS 0/8 eligible; 0%; judge mode behavioral_reference; raw rows 8</title>
+<circle cx="480.0" cy="410.0" r="5.5" fill="#ffffff" stroke="#254f70" stroke-width="2.5"/>
+</g>
+<g><title>moco; PASS 9/11 eligible; 82%; judge mode behavioral_reference; raw rows 11</title>
+<circle cx="334.7" cy="493.9" r="5.5" fill="#ffffff" stroke="#254f70" stroke-width="2.5"/>
+</g>
+<text x="24.0" y="727.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="400" fill="#52616d" text-anchor="start" >Each spoke is one environment; spoke IDs match heatmap rows. Rates are one-seed descriptions, not causal estimates.</text>
+</svg>

@@ -1,0 +1,427 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1310" height="807" viewBox="0 0 1310 807" role="img" aria-labelledby="title desc">
+<title id="title">Category-theoretic / compositional case outcome heatmap</title>
+<desc id="desc">Every selected case is a heatmap cell. Column headers show exact easy, medium, and hard settings; row badges show judge mode; cell color shows outcome and cell text shows terminal label or exclusion status.</desc>
+<rect x="0.0" y="0.0" width="1310.0" height="807.0" rx="0" fill="#fbfaf7" stroke="none" stroke-width="1"/>
+<text x="24.0" y="39.0" font-family="Inter,Arial,sans-serif" font-size="22px" font-weight="700" fill="#182631" text-anchor="start" >Category-theoretic / compositional · case outcome heatmap</text>
+<text x="24.0" y="67.0" font-family="Inter,Arial,sans-serif" font-size="13px" font-weight="400" fill="#52616d" text-anchor="start" >85 raw cases · 84 eligible · 57 PASS · 27 FAIL · 1 excluded</text>
+<rect x="24.0" y="88.0" width="18.0" height="16.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="49.0" y="100.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >PASS</text>
+<rect x="130.0" y="88.0" width="18.0" height="16.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="155.0" y="100.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >FAIL; tile text gives terminal label</text>
+<rect x="425.0" y="88.0" width="18.0" height="16.0" rx="3" fill="#c58a18" stroke="none" stroke-width="1"/>
+<text x="450.0" y="100.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >EXCL; retained in raw rows, omitted from performance rates</text>
+<rect x="900.0" y="87.0" width="42.0" height="20.0" rx="5" fill="#dceaf5" stroke="none" stroke-width="1"/><text x="921.0" y="101.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#254f70" text-anchor="middle" >BR</text>
+<text x="948.0" y="101.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >BR = behavioral reference</text>
+<rect x="1130.0" y="87.0" width="42.0" height="20.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="1151.0" y="101.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="1178.0" y="101.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >CO = compile-only</text>
+<text x="24.0" y="144.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#52616d" text-anchor="start" >ENVIRONMENT</text>
+<text x="323.0" y="144.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#52616d" text-anchor="middle" >PASS / eligible</text>
+<text x="482.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="482.0" dy="0">Baseline</tspan><tspan x="482.0" dy="14">naming E · symptom mask E</tspan></text>
+<text x="658.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="658.0" dy="0">Symptom mask</tspan><tspan x="658.0" dy="14">medium · naming E</tspan></text>
+<text x="834.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="834.0" dy="0">Symptom mask</tspan><tspan x="834.0" dy="14">hard · naming E</tspan></text>
+<text x="1010.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="1010.0" dy="0">Naming</tspan><tspan x="1010.0" dy="14">medium · symptom mask E</tspan></text>
+<text x="1186.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="1186.0" dy="0">Naming</tspan><tspan x="1186.0" dy="14">hard · symptom mask E</tspan></text>
+<rect x="16.0" y="168.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="186.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >architecture_naturality</text>
+<rect x="268.0" y="172.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="185.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="186.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: architecture_naturality__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;converter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: architecture_naturality__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;converter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: architecture_naturality__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;converter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: architecture_naturality__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;converter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: architecture_naturality__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;converter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<text x="24.0" y="218.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >categorical_lenses</text>
+<rect x="268.0" y="204.0" width="38.0" height="19.0" rx="5" fill="#dceaf5" stroke="none" stroke-width="1"/><text x="287.0" y="217.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#254f70" text-anchor="middle" >BR</text>
+<text x="323.0" y="218.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >4/5</text>
+<g><title>Case: categorical_lenses__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;lenses.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: categorical_lenses__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;lenses.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: categorical_lenses__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: behavioral_reference; raw verdict: FAIL; terminal label: source_invalid; eligible for performance set: True; final metrics: {}; final notes: [&#x27;Source validation failed:\nVIOLATIONS:\n  lenses.py: SyntaxError: expected an indented block after function definition on line 5 (lenses.py, line 9)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n&#x27;]; exclusion note: </title>
+<rect x="752.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="834.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · SOURCE</text>
+</g>
+<g><title>Case: categorical_lenses__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;lenses.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: categorical_lenses__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;lenses.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<rect x="16.0" y="232.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="250.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >compositional_optimizer</text>
+<rect x="268.0" y="236.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="249.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="250.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >3/5</text>
+<g><title>Case: compositional_optimizer__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: patch_invalid; eligible for performance set: True; final metrics: {}; final notes: [&#x27;Patch validation failed:\nFAIL: Patch file is empty\n\n&#x27;]; exclusion note: </title>
+<rect x="400.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="482.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · PATCH</text>
+</g>
+<g><title>Case: compositional_optimizer__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;optimizer.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: compositional_optimizer__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;optimizer.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: compositional_optimizer__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: source_invalid; eligible for performance set: True; final metrics: {}; final notes: [&quot;Source validation failed:\nVIOLATIONS:\n  optimizer.py: Line 1: disallowed import &#x27;weakref&#x27; (top-level &#x27;weakref&#x27; not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n&quot;]; exclusion note: </title>
+<rect x="928.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · SOURCE</text>
+</g>
+<g><title>Case: compositional_optimizer__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;optimizer.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<text x="24.0" y="282.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >equivariant_diagram</text>
+<rect x="268.0" y="268.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="281.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="282.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: equivariant_diagram__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;layers.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: equivariant_diagram__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;layers.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: equivariant_diagram__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;layers.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: equivariant_diagram__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;layers.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: equivariant_diagram__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;layers.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<rect x="16.0" y="296.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="314.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >functorial_augmentation</text>
+<rect x="268.0" y="300.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="313.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="314.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >2/5</text>
+<g><title>Case: functorial_augmentation__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;dataset.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.5}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="482.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: functorial_augmentation__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;dataset.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: functorial_augmentation__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;dataset.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: functorial_augmentation__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;dataset.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.5}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: functorial_augmentation__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;dataset.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.5}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<text x="24.0" y="346.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >gnn_message_passing</text>
+<rect x="268.0" y="332.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="345.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="346.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >0/5</text>
+<g><title>Case: gnn_message_passing__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;gnn.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.5}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="482.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: gnn_message_passing__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;gnn.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.5}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="658.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: gnn_message_passing__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;gnn.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.5}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="834.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: gnn_message_passing__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;gnn.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.5}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: gnn_message_passing__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;gnn.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.5}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<rect x="16.0" y="360.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="378.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >monadic_reward</text>
+<rect x="268.0" y="364.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="377.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="378.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >1/5</text>
+<g><title>Case: monadic_reward__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;agent_code.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="364.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="380.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: monadic_reward__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: source_invalid; eligible for performance set: True; final metrics: {}; final notes: [&quot;Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import &#x27;ast&#x27; (top-level &#x27;ast&#x27; not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n&quot;]; exclusion note: </title>
+<rect x="576.0" y="364.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="658.0" y="380.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · SOURCE</text>
+</g>
+<g><title>Case: monadic_reward__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: source_invalid; eligible for performance set: True; final metrics: {}; final notes: [&quot;Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import &#x27;ast&#x27; (top-level &#x27;ast&#x27; not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n&quot;]; exclusion note: </title>
+<rect x="752.0" y="364.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="834.0" y="380.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · SOURCE</text>
+</g>
+<g><title>Case: monadic_reward__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: source_invalid; eligible for performance set: True; final metrics: {}; final notes: [&quot;Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import &#x27;ast&#x27; (top-level &#x27;ast&#x27; not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n&quot;]; exclusion note: </title>
+<rect x="928.0" y="364.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="380.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · SOURCE</text>
+</g>
+<g><title>Case: monadic_reward__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: source_invalid; eligible for performance set: True; final metrics: {}; final notes: [&quot;Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import &#x27;ast&#x27; (top-level &#x27;ast&#x27; not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n&quot;]; exclusion note: </title>
+<rect x="1104.0" y="364.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="380.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · SOURCE</text>
+</g>
+<text x="24.0" y="410.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >neuro_symbolic_parser</text>
+<rect x="268.0" y="396.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="409.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="410.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >4/5</text>
+<g><title>Case: neuro_symbolic_parser__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;parser.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="396.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="412.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: neuro_symbolic_parser__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;parser.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="396.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="412.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: neuro_symbolic_parser__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;parser.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="396.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="412.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: neuro_symbolic_parser__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;parser.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="396.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="412.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: neuro_symbolic_parser__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;parser.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="396.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="412.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<rect x="16.0" y="424.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="442.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >semiring_unification</text>
+<rect x="268.0" y="428.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="441.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="442.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: semiring_unification__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;semirings.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="428.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="444.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: semiring_unification__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;semirings.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="428.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="444.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: semiring_unification__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;semirings.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="428.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="444.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: semiring_unification__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;semirings.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="428.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="444.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: semiring_unification__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;semirings.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="428.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="444.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<text x="24.0" y="474.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >sheaf_invariant_gluing</text>
+<rect x="268.0" y="460.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="473.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="474.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: sheaf_invariant_gluing__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;pipeline.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="460.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="476.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: sheaf_invariant_gluing__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;pipeline.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="460.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="476.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: sheaf_invariant_gluing__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;pipeline.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="460.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="476.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: sheaf_invariant_gluing__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;pipeline.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="460.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="476.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: sheaf_invariant_gluing__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;pipeline.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="460.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="476.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<rect x="16.0" y="488.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="506.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >sheaf_physical_constraints</text>
+<rect x="268.0" y="492.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="505.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="506.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >0/4</text>
+<g><title>Case: sheaf_physical_constraints__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: invalid_action; eligible for performance set: False; final metrics: {}; final notes: [&#x27;provider transient failure after bounded retries&#x27;]; exclusion note: final result explicitly attributes terminal failure to provider transient after bounded retries</title>
+<rect x="400.0" y="492.0" width="164.0" height="24.0" rx="3" fill="#c58a18" stroke="none" stroke-width="1"/>
+<text x="482.0" y="508.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >EXCL</text>
+</g>
+<g><title>Case: sheaf_physical_constraints__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: patch_invalid; eligible for performance set: True; final metrics: {}; final notes: [&#x27;Patch validation failed:\nFAIL: Patch file is empty\n\n&#x27;]; exclusion note: </title>
+<rect x="576.0" y="492.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="658.0" y="508.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · PATCH</text>
+</g>
+<g><title>Case: sheaf_physical_constraints__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;route.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.333333}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="492.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="834.0" y="508.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: sheaf_physical_constraints__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;route.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.333333}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="492.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="508.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: sheaf_physical_constraints__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: invalid_action; eligible for performance set: True; final metrics: {}; final notes: [&#x27;Could not parse a valid JSON action&#x27;]; exclusion note: </title>
+<rect x="1104.0" y="492.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="508.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · ACTION</text>
+</g>
+<text x="24.0" y="538.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >sheaf_schema_sync</text>
+<rect x="268.0" y="524.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="537.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="538.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >1/5</text>
+<g><title>Case: sheaf_schema_sync__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: patch_invalid; eligible for performance set: True; final metrics: {}; final notes: [&#x27;Patch validation failed:\nFAIL: Patch file is empty\n\n&#x27;]; exclusion note: </title>
+<rect x="400.0" y="524.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="482.0" y="540.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · PATCH</text>
+</g>
+<g><title>Case: sheaf_schema_sync__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: patch_invalid; eligible for performance set: True; final metrics: {}; final notes: [&#x27;Patch validation failed:\nFAIL: Patch file is empty\n\n&#x27;]; exclusion note: </title>
+<rect x="576.0" y="524.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="658.0" y="540.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · PATCH</text>
+</g>
+<g><title>Case: sheaf_schema_sync__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;migration.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="524.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="540.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: sheaf_schema_sync__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: patch_invalid; eligible for performance set: True; final metrics: {}; final notes: [&#x27;Patch validation failed:\nFAIL: Patch file is empty\n\n&#x27;]; exclusion note: </title>
+<rect x="928.0" y="524.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="540.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · PATCH</text>
+</g>
+<g><title>Case: sheaf_schema_sync__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: patch_invalid; eligible for performance set: True; final metrics: {}; final notes: [&#x27;Patch validation failed:\nFAIL: Patch file is empty\n\n&#x27;]; exclusion note: </title>
+<rect x="1104.0" y="524.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="540.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · PATCH</text>
+</g>
+<rect x="16.0" y="552.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="570.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >ssm_parallel_scan</text>
+<rect x="268.0" y="556.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="569.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="570.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: ssm_parallel_scan__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ssm.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="556.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="572.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: ssm_parallel_scan__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ssm.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="556.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="572.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: ssm_parallel_scan__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ssm.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="556.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="572.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: ssm_parallel_scan__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ssm.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="556.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="572.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: ssm_parallel_scan__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ssm.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="556.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="572.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<text x="24.0" y="602.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >stochastic_monad</text>
+<rect x="268.0" y="588.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="601.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="602.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: stochastic_monad__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;monad.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="588.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="604.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: stochastic_monad__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;monad.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="588.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="604.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: stochastic_monad__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;monad.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="588.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="604.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: stochastic_monad__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;monad.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="588.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="604.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: stochastic_monad__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;monad.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="588.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="604.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<rect x="16.0" y="616.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="634.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >tensor_functor</text>
+<rect x="268.0" y="620.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="633.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="634.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >2/5</text>
+<g><title>Case: tensor_functor__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="620.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="636.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: tensor_functor__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="620.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="658.0" y="636.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: tensor_functor__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="620.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="834.0" y="636.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: tensor_functor__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="620.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="636.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: tensor_functor__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="620.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="636.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<text x="24.0" y="666.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >tokenizer_adjunction</text>
+<rect x="268.0" y="652.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="665.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="666.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: tokenizer_adjunction__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;detokenizer.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="652.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="668.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: tokenizer_adjunction__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;detokenizer.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="652.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="668.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: tokenizer_adjunction__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;detokenizer.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="652.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="668.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: tokenizer_adjunction__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;detokenizer.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="652.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="668.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: tokenizer_adjunction__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;detokenizer.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="652.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="668.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<rect x="16.0" y="680.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="698.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >transformer_ssm_lift</text>
+<rect x="268.0" y="684.0" width="38.0" height="19.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="287.0" y="697.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="323.0" y="698.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: transformer_ssm_lift__naming=easy_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;lifter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="684.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="700.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: transformer_ssm_lift__naming=easy_symptom_mask=medium__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;medium&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;lifter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="684.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="700.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: transformer_ssm_lift__naming=easy_symptom_mask=hard__seed-0; settings: {&quot;naming&quot;: &quot;easy&quot;, &quot;symptom_mask&quot;: &quot;hard&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;lifter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="684.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="700.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: transformer_ssm_lift__naming=medium_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;medium&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;lifter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="684.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="700.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: transformer_ssm_lift__naming=hard_symptom_mask=easy__seed-0; settings: {&quot;naming&quot;: &quot;hard&quot;, &quot;symptom_mask&quot;: &quot;easy&quot;}; judge: compile_only; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;lifter.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="684.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="700.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<text x="24.0" y="740.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#52616d" text-anchor="start" >Terminal labels:</text>
+<text x="118.0" y="740.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="400" fill="#52616d" text-anchor="start" >PATCH = patch_invalid · UNDER = underfit · SOURCE = source_invalid · RUN = runtime_error · ACTION = invalid_action · OVERFIT = overfit_visible_tests</text>
+<text x="24.0" y="761.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="400" fill="#52616d" text-anchor="start" >E/M/H mean easy/medium/hard. Headers preserve the exact factor and level; those labels are not a shared scale.</text>
+</svg>

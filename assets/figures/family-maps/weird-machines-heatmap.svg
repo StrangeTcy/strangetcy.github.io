@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1310" height="455" viewBox="0 0 1310 455" role="img" aria-labelledby="title desc">
+<title id="title">Weird machines case outcome heatmap</title>
+<desc id="desc">Every selected case is a heatmap cell. Column headers show exact easy, medium, and hard settings; row badges show judge mode; cell color shows outcome and cell text shows terminal label or exclusion status.</desc>
+<rect x="0.0" y="0.0" width="1310.0" height="455.0" rx="0" fill="#fbfaf7" stroke="none" stroke-width="1"/>
+<text x="24.0" y="39.0" font-family="Inter,Arial,sans-serif" font-size="22px" font-weight="700" fill="#182631" text-anchor="start" >Weird machines · case outcome heatmap</text>
+<text x="24.0" y="67.0" font-family="Inter,Arial,sans-serif" font-size="13px" font-weight="400" fill="#52616d" text-anchor="start" >30 raw cases · 30 eligible · 25 PASS · 5 FAIL · 0 excluded</text>
+<rect x="24.0" y="88.0" width="18.0" height="16.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="49.0" y="100.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >PASS</text>
+<rect x="130.0" y="88.0" width="18.0" height="16.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="155.0" y="100.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >FAIL; tile text gives terminal label</text>
+<rect x="425.0" y="88.0" width="18.0" height="16.0" rx="3" fill="#c58a18" stroke="none" stroke-width="1"/>
+<text x="450.0" y="100.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >EXCL; retained in raw rows, omitted from performance rates</text>
+<rect x="900.0" y="87.0" width="42.0" height="20.0" rx="5" fill="#dceaf5" stroke="none" stroke-width="1"/><text x="921.0" y="101.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#254f70" text-anchor="middle" >BR</text>
+<text x="948.0" y="101.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >BR = behavioral reference</text>
+<rect x="1130.0" y="87.0" width="42.0" height="20.0" rx="5" fill="#e8e1f1" stroke="none" stroke-width="1"/><text x="1151.0" y="101.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#55436f" text-anchor="middle" >CO</text>
+<text x="1178.0" y="101.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >CO = compile-only</text>
+<text x="24.0" y="144.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#52616d" text-anchor="start" >ENVIRONMENT</text>
+<text x="323.0" y="144.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#52616d" text-anchor="middle" >PASS / eligible</text>
+<text x="482.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="482.0" dy="0">Baseline</tspan><tspan x="482.0" dy="14">hidden depth E · surface E</tspan></text>
+<text x="658.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="658.0" dy="0">Hidden depth</tspan><tspan x="658.0" dy="14">medium · surface E</tspan></text>
+<text x="834.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="834.0" dy="0">Hidden depth</tspan><tspan x="834.0" dy="14">hard · surface E</tspan></text>
+<text x="1010.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="1010.0" dy="0">Surface deceptiveness</tspan><tspan x="1010.0" dy="14">medium · hidden depth E</tspan></text>
+<text x="1186.0" y="132.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="1186.0" dy="0">Surface deceptiveness</tspan><tspan x="1186.0" dy="14">hard · hidden depth E</tspan></text>
+<rect x="16.0" y="168.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="186.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >ci_dependency_graph</text>
+<rect x="268.0" y="172.0" width="38.0" height="19.0" rx="5" fill="#dceaf5" stroke="none" stroke-width="1"/><text x="287.0" y="185.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#254f70" text-anchor="middle" >BR</text>
+<text x="323.0" y="186.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: ci_dependency_graph__surface_deceptiveness=easy_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ci_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: ci_dependency_graph__surface_deceptiveness=easy_hidden_depth=medium__seed-0; settings: {&quot;hidden_depth&quot;: &quot;medium&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ci_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: ci_dependency_graph__surface_deceptiveness=easy_hidden_depth=hard__seed-0; settings: {&quot;hidden_depth&quot;: &quot;hard&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ci_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: ci_dependency_graph__surface_deceptiveness=medium_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;medium&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ci_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: ci_dependency_graph__surface_deceptiveness=hard_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;hard&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;ci_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="172.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="188.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<text x="24.0" y="218.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >css_state_machine</text>
+<rect x="268.0" y="204.0" width="38.0" height="19.0" rx="5" fill="#dceaf5" stroke="none" stroke-width="1"/><text x="287.0" y="217.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#254f70" text-anchor="middle" >BR</text>
+<text x="323.0" y="218.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >3/5</text>
+<g><title>Case: css_state_machine__surface_deceptiveness=easy_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;css_logic.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 0.5}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="482.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: css_state_machine__surface_deceptiveness=easy_hidden_depth=medium__seed-0; settings: {&quot;hidden_depth&quot;: &quot;medium&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: FAIL; terminal label: source_invalid; eligible for performance set: True; final metrics: {}; final notes: [&quot;Source validation failed:\nVIOLATIONS:\n  css_logic.py: Line 42: disallowed import &#x27;re&#x27; (top-level &#x27;re&#x27; not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n&quot;]; exclusion note: </title>
+<rect x="576.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="658.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · SOURCE</text>
+</g>
+<g><title>Case: css_state_machine__surface_deceptiveness=easy_hidden_depth=hard__seed-0; settings: {&quot;hidden_depth&quot;: &quot;hard&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;css_logic.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: css_state_machine__surface_deceptiveness=medium_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;medium&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;css_logic.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: css_state_machine__surface_deceptiveness=hard_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;hard&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;css_logic.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="204.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="220.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<rect x="16.0" y="232.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="250.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >regex_state_machine</text>
+<rect x="268.0" y="236.0" width="38.0" height="19.0" rx="5" fill="#dceaf5" stroke="none" stroke-width="1"/><text x="287.0" y="249.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#254f70" text-anchor="middle" >BR</text>
+<text x="323.0" y="250.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >3/5</text>
+<g><title>Case: regex_state_machine__surface_deceptiveness=easy_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;regex_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: regex_state_machine__surface_deceptiveness=easy_hidden_depth=medium__seed-0; settings: {&quot;hidden_depth&quot;: &quot;medium&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;regex_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: regex_state_machine__surface_deceptiveness=easy_hidden_depth=hard__seed-0; settings: {&quot;hidden_depth&quot;: &quot;hard&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;regex_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: regex_state_machine__surface_deceptiveness=medium_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;medium&quot;}; judge: behavioral_reference; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;regex_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trace_forensics&#x27;: {&#x27;boundary_collapse&#x27;: &#x27;length mismatch (in=32, out=34)&#x27;, &#x27;failed_rules&#x27;: []}, &#x27;trusted_score&#x27;: 0.25}; final notes: [&#x27;Morphism Error Report: Collapsed on length mismatch (in=32, out=34). &#x27;]; exclusion note: </title>
+<rect x="928.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<g><title>Case: regex_state_machine__surface_deceptiveness=hard_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;hard&quot;}; judge: behavioral_reference; raw verdict: FAIL; terminal label: underfit; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;regex_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trace_forensics&#x27;: {&#x27;boundary_collapse&#x27;: &#x27;length mismatch (in=32, out=66)&#x27;, &#x27;failed_rules&#x27;: []}, &#x27;trusted_score&#x27;: 0.25}; final notes: [&#x27;Morphism Error Report: Collapsed on length mismatch (in=32, out=66). &#x27;]; exclusion note: </title>
+<rect x="1104.0" y="236.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="252.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · UNDER</text>
+</g>
+<text x="24.0" y="282.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >spreadsheet_dataflow</text>
+<rect x="268.0" y="268.0" width="38.0" height="19.0" rx="5" fill="#dceaf5" stroke="none" stroke-width="1"/><text x="287.0" y="281.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#254f70" text-anchor="middle" >BR</text>
+<text x="323.0" y="282.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: spreadsheet_dataflow__surface_deceptiveness=easy_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;sheet_model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: spreadsheet_dataflow__surface_deceptiveness=easy_hidden_depth=medium__seed-0; settings: {&quot;hidden_depth&quot;: &quot;medium&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;sheet_model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: spreadsheet_dataflow__surface_deceptiveness=easy_hidden_depth=hard__seed-0; settings: {&quot;hidden_depth&quot;: &quot;hard&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;sheet_model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: spreadsheet_dataflow__surface_deceptiveness=medium_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;medium&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;sheet_model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: spreadsheet_dataflow__surface_deceptiveness=hard_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;hard&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;sheet_model.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="268.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="284.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<rect x="16.0" y="296.0" width="1278.0" height="32.0" rx="4" fill="#f4f2ed" stroke="none" stroke-width="1"/>
+<text x="24.0" y="314.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >sql_fixed_point</text>
+<rect x="268.0" y="300.0" width="38.0" height="19.0" rx="5" fill="#dceaf5" stroke="none" stroke-width="1"/><text x="287.0" y="313.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#254f70" text-anchor="middle" >BR</text>
+<text x="323.0" y="314.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >4/5</text>
+<g><title>Case: sql_fixed_point__surface_deceptiveness=easy_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;query_module.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: sql_fixed_point__surface_deceptiveness=easy_hidden_depth=medium__seed-0; settings: {&quot;hidden_depth&quot;: &quot;medium&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: FAIL; terminal label: source_invalid; eligible for performance set: True; final metrics: {}; final notes: [&#x27;Source validation failed:\nVIOLATIONS:\n  query_module.py: SyntaxError: unterminated triple-quoted string literal (detected at line 25) (query_module.py, line 21)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n&#x27;]; exclusion note: </title>
+<rect x="576.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#b64d42" stroke="none" stroke-width="1"/>
+<text x="658.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >F · SOURCE</text>
+</g>
+<g><title>Case: sql_fixed_point__surface_deceptiveness=easy_hidden_depth=hard__seed-0; settings: {&quot;hidden_depth&quot;: &quot;hard&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;query_module.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: sql_fixed_point__surface_deceptiveness=medium_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;medium&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;query_module.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: sql_fixed_point__surface_deceptiveness=hard_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;hard&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;query_module.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="300.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="316.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<text x="24.0" y="346.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#182631" text-anchor="start" >template_interpreter</text>
+<rect x="268.0" y="332.0" width="38.0" height="19.0" rx="5" fill="#dceaf5" stroke="none" stroke-width="1"/><text x="287.0" y="345.5" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#254f70" text-anchor="middle" >BR</text>
+<text x="323.0" y="346.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="600" fill="#52616d" text-anchor="middle" >5/5</text>
+<g><title>Case: template_interpreter__surface_deceptiveness=easy_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;template_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="400.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="482.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: template_interpreter__surface_deceptiveness=easy_hidden_depth=medium__seed-0; settings: {&quot;hidden_depth&quot;: &quot;medium&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;template_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="576.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="658.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: template_interpreter__surface_deceptiveness=easy_hidden_depth=hard__seed-0; settings: {&quot;hidden_depth&quot;: &quot;hard&quot;, &quot;surface_deceptiveness&quot;: &quot;easy&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;template_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="752.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="834.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: template_interpreter__surface_deceptiveness=medium_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;medium&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;template_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="928.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1010.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<g><title>Case: template_interpreter__surface_deceptiveness=hard_hidden_depth=easy__seed-0; settings: {&quot;hidden_depth&quot;: &quot;easy&quot;, &quot;surface_deceptiveness&quot;: &quot;hard&quot;}; judge: behavioral_reference; raw verdict: PASS; terminal label: pass; eligible for performance set: True; final metrics: {&#x27;changed_files&#x27;: [&#x27;template_machine.py&#x27;], &#x27;missing_required_files&#x27;: [], &#x27;trusted_score&#x27;: 1.0}; final notes: []; exclusion note: </title>
+<rect x="1104.0" y="332.0" width="164.0" height="24.0" rx="3" fill="#197a69" stroke="none" stroke-width="1"/>
+<text x="1186.0" y="348.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle" >PASS</text>
+</g>
+<text x="24.0" y="388.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="700" fill="#52616d" text-anchor="start" >Terminal labels:</text>
+<text x="118.0" y="388.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="400" fill="#52616d" text-anchor="start" >PATCH = patch_invalid · UNDER = underfit · SOURCE = source_invalid · RUN = runtime_error · ACTION = invalid_action · OVERFIT = overfit_visible_tests</text>
+<text x="24.0" y="409.0" font-family="Inter,Arial,sans-serif" font-size="10px" font-weight="400" fill="#52616d" text-anchor="start" >E/M/H mean easy/medium/hard. Headers preserve the exact factor and level; those labels are not a shared scale.</text>
+</svg>

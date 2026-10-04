@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="540" viewBox="0 0 1240 540" role="img" aria-labelledby="title desc">
+<title id="title">Where a code-repair case can stop</title>
+<desc id="desc">A plain-language map of saved code-repair outcomes: provider-service errors, empty patches and malformed actions, code rejected before running, execution errors, and judge or record conflicts. Two cases with provider-service notes are outside the 192-case comparison; 24 unscored cases are separate. The map is not a trace of each execution.</desc>
+<rect x="0" y="0" width="1240" height="540" fill="#fbfaf7"/>
+<text x="24.0" y="39.0" font-family="Inter,Arial,sans-serif" font-size="22px" font-weight="700" fill="#182631" text-anchor="start" >Where a code-repair case can stop</text>
+<text x="24.0" y="68.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="400" fill="#52616d" text-anchor="start" >Typical route through evaluation · cards summarize the saved notes, not each run</text>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#52616d"/></marker></defs>
+<line x1="245" y1="144.0" x2="273" y2="144.0" stroke="#52616d" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="40" y="116" width="200" height="56" rx="8" fill="#fff7e6" stroke="#c58a18" stroke-width="1.2"/>
+<text x="140.0" y="151.0" font-family="Inter,Arial,sans-serif" font-size="14px" font-weight="700" fill="#182631" text-anchor="middle" >Model service</text>
+<rect x="40" y="190" width="200" height="114" rx="7" fill="#fff7e6" stroke="#c58a18" stroke-width="1"/>
+<text x="140.0" y="218.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="140.0" dy="0">2 final notes report service errors</tspan><tspan x="140.0" dy="20">after retries; outside the 192-case</tspan><tspan x="140.0" dy="20">comparison; raw label is retained</tspan></text>
+<line x1="485" y1="144.0" x2="513" y2="144.0" stroke="#52616d" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="280" y="116" width="200" height="56" rx="8" fill="#edf1f3" stroke="#d5dde2" stroke-width="1.2"/>
+<text x="380.0" y="151.0" font-family="Inter,Arial,sans-serif" font-size="14px" font-weight="700" fill="#182631" text-anchor="middle" >Answer and patch</text>
+<rect x="280" y="190" width="200" height="114" rx="7" fill="#ffffff" stroke="#d5dde2" stroke-width="1"/>
+<text x="380.0" y="218.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="380.0" dy="0">24 saved patch files are empty</tspan><tspan x="380.0" dy="20">2 answers could not be parsed</tspan><tspan x="380.0" dy="20">as valid actions</tspan></text>
+<line x1="725" y1="144.0" x2="753" y2="144.0" stroke="#52616d" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="520" y="116" width="200" height="56" rx="8" fill="#edf1f3" stroke="#d5dde2" stroke-width="1.2"/>
+<text x="620.0" y="151.0" font-family="Inter,Arial,sans-serif" font-size="14px" font-weight="700" fill="#182631" text-anchor="middle" >Basic code check</text>
+<rect x="520" y="190" width="200" height="114" rx="7" fill="#ffffff" stroke="#d5dde2" stroke-width="1"/>
+<text x="620.0" y="218.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="620.0" dy="0">10 code submissions rejected</tspan><tspan x="620.0" dy="20">for syntax or import-policy issues</tspan><tspan x="620.0" dy="20">before execution</tspan></text>
+<line x1="965" y1="144.0" x2="993" y2="144.0" stroke="#52616d" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="760" y="116" width="200" height="56" rx="8" fill="#edf1f3" stroke="#d5dde2" stroke-width="1.2"/>
+<text x="860.0" y="151.0" font-family="Inter,Arial,sans-serif" font-size="14px" font-weight="700" fill="#182631" text-anchor="middle" >Run the code</text>
+<rect x="760" y="190" width="200" height="114" rx="7" fill="#ffffff" stroke="#d5dde2" stroke-width="1"/>
+<text x="860.0" y="218.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="860.0" dy="0">3 cases failed during execution</tspan><tspan x="860.0" dy="20">after passing the basic</tspan><tspan x="860.0" dy="20">code checks</tspan></text>
+<rect x="1000" y="116" width="200" height="56" rx="8" fill="#edf1f3" stroke="#d5dde2" stroke-width="1.2"/>
+<text x="1100.0" y="151.0" font-family="Inter,Arial,sans-serif" font-size="14px" font-weight="700" fill="#182631" text-anchor="middle" >Test and saved result</text>
+<rect x="1000" y="190" width="200" height="114" rx="7" fill="#ffffff" stroke="#d5dde2" stroke-width="1"/>
+<text x="1100.0" y="218.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="500" fill="#52616d" text-anchor="middle"><tspan x="1100.0" dy="0">20 results below the pass bar</tspan><tspan x="1100.0" dy="20">2 labels conflict</tspan><tspan x="1100.0" dy="20">with score fields and final notes</tspan></text>
+<rect x="40" y="330" width="1160" height="82" rx="8" fill="#f4f2ed" stroke="#d5dde2"/>
+<text x="58.0" y="357.0" font-family="Inter,Arial,sans-serif" font-size="14px" font-weight="700" fill="#182631" text-anchor="start" >61 FAIL cases in the 192-case comparison</text>
+<text x="58.0" y="382.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="400" fill="#52616d" text-anchor="start" >24 empty patches + 2 malformed actions + 10 code-check rejections + 3 run errors + 20 below-pass results + 2 label/note conflicts</text>
+<text x="58.0" y="402.0" font-family="Inter,Arial,sans-serif" font-size="11px" font-weight="400" fill="#52616d" text-anchor="start" >The separate 24 cases omitted before scoring have no PASS/FAIL result.</text>
+<text x="40.0" y="455.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="600" fill="#52616d" text-anchor="start" >The two provider-service rows remain in the raw 194 but are outside this 192-case comparison.</text>
+<text x="40.0" y="481.0" font-family="Inter,Arial,sans-serif" font-size="12px" font-weight="400" fill="#52616d" text-anchor="start" >These records show what was logged, not who caused each failure or what the model was thinking.</text>
+</svg>
