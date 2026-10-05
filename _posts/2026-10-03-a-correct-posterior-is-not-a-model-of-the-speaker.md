@@ -14,16 +14,16 @@ layout: post
   <dt>Synthesis</dt>
   <dd>Seven selected case records from one archived evaluation campaign, an inspected clean-source comparator for the task, and prior literature cited as context.</dd>
   <dt>Prose</dt>
-  <dd>Different language models drafted and improved this article; StrangeTcy made the final edits.</dd>
+  <dd>Different language models drafted & improved this article; <span class="icon-self">StrangeTcy</span> made the final edits.</dd>
   <dt>Certainty</dt>
   <dd>High for the seven recorded judgments; unresolved for exact executed-source identity; none for generalisation beyond these cases.</dd>
   <dt>Importance</dt>
   <dd>Moderate. Treating a calculation as a capability costs little to do and a lot to undo.</dd>
 </dl>
 
-I ran an evaluation campaign across a set of generated environments. The previous post presented the raw results, then mapped them in family charts and case heatmaps. One environment, `epistemic_games`, gave the model two possible worlds and asked it to update a probability after seeing a player's announcement. This post zooms in on the seven selected cases from that environment.
+I ran an evaluation campaign across a set of generated environments. The previous post presented the raw results, then mapped them in family charts and case heatmaps. One environment, `epistemic_games`, gave the model two possible worlds & asked it to update a probability after seeing a player's announcement. This post zooms in on the seven selected cases from that environment.
 
-In the inspected clean-source comparator, World 1 is the “genuine” hypothesis and World 2 the “strategic” one. Each case supplies a prior probability for World 1 and the likelihood of the observed announcement under each world. The prior is the starting probability before hearing the announcement; the likelihoods say how probable that announcement would be if World 1 or World 2 were true. Most cases use a balanced $1/2$ prior; one starts with a skewed prior that already favours World 1: $3/5$. The posterior, $P(W_1 \mid o)$, is the probability of World 1 after the announcement; a separate evidence verdict says whether the announcement distinguishes the worlds. These source details come from the clean comparator, not a certified copy of the code that ran. The run's source could not be matched definitively to the clean comparator because the repository was dirty (the source tree was recorded as dirty). All 33 selected configuration hashes match the clean comparator, but that does not prove that the executed task, judge, or helper code was identical.
+In the inspected clean-source comparator, World 1 is the “genuine” hypothesis & World 2 the “strategic” one. Each case supplies a prior probability for World 1 and the likelihood of the observed announcement under each world. The prior is the starting probability before hearing the announcement; the likelihoods say how probable that announcement would be if World 1 or World 2 were true. Most cases use a balanced $1/2$ prior; one starts with a skewed prior that already favours World 1: $3/5$. The posterior, $P(W_1 \mid o)$, is the probability of World 1 after the announcement; a separate evidence verdict says whether the announcement distinguishes the worlds. These source details come from the clean comparator, not a certified copy of the code that ran. The run's source could not be matched definitively to the clean comparator because the repository was dirty (the source tree was recorded as dirty). All 33 selected configuration hashes match the clean comparator, but that does not prove that the executed task, judge, or helper code was identical.
 
 One archived answer in the skewed-prior case reports $P(W_1 \mid o)=3/5$, calls the evidence *indistinguishable*, and names World 1 as the more-supported world. Those outputs are consistent: the prior already put World 1 at $3/5$, and the announcement is equally likely under both worlds, so the posterior stays at $3/5$. World 1 is favoured before and after the observation, while the observation itself adds no evidence.
 
@@ -37,7 +37,7 @@ So I want to keep three questions apart throughout:
 
 The judge scores answers to the first two. In the inspected comparator, the answer to the third is “the task did.” Its design description says this version does not implement a fully recursive level-$k$ engine with utilities and recursive belief updates. Instead, it describes the target as Bayesian inference over two specified behavioural policies, presented through genuine-versus-strategic narratives.
 
-Within those limits the result is clean. Atria-Dawn-Preview passed all seven selected cases with score 1.0. Each final result credits the posterior, the likelihood-ratio verdict and the most-supported world, and records the consistency and provenance checks as passing.
+Within those limits the result is clean. <span class="icon-atria">Atria Dawn Preview</span> passed all seven selected cases with score 1.0. Each final result credits the posterior, the likelihood-ratio verdict and the most-supported world, & records the consistency and provenance checks as passing.
 
 This is a real success on a specified Bayesian update, not evidence of recursive [theory of mind](https://en.wikipedia.org/wiki/Theory_of_Mind).
 
@@ -149,7 +149,7 @@ Even a stronger test would score observable outputs; it still would not reveal t
 
 ## What the 3/5 answer licenses
 
-Back to where I started. World 1 sits at $3/5$, and the announcement is indistinguishable between the worlds. Atria-Dawn-Preview got that right. It also got the six other selected behavioural-reference cases right, as recorded.
+Back to where I started. World 1 sits at $3/5$, and the announcement is indistinguishable between the worlds. <span class="icon-atria">Atria Dawn Preview</span> got that right. It also got the six other selected behavioural-reference cases right, as recorded.
 
 **The evidence licenses this:** on the seven selected cases, the model returned answers credited as correct for the posterior, the likelihood-ratio verdict and the most-supported world, with consistency and provenance checks passing. This was Bayesian inference over two behavioural policies stipulated by the task. It includes the cases where the right move is to let an uninformative observation leave the prior where it was. That is a narrow result, and a good one.
 
