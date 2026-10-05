@@ -12,16 +12,16 @@ layout: post
   <dt>Original ideas</dt>
   <dd>The central frame—that a colored cell compresses several different facts into one mark—is an interpretation of the archive, not a new experiment.</dd>
   <dt>Synthesis</dt>
-  <dd>The observations come from one Atria Dawn Preview campaign and a clean-source comparator review. The recorded working tree was dirty; the comparator does not establish the exact source files used during the campaign.</dd>
+  <dd>The observations come from one <span class="icon-atria">Atria Dawn Preview</span> campaign & a clean-source comparator review. The recorded working tree was dirty; the comparator does not establish the exact source files used during the campaign.</dd>
   <dt>Prose</dt>
-  <dd>This essay organizes archived results and analysis. No additional cases were run.</dd>
+  <dd>This essay organizes archived results & analysis. No additional cases were run.</dd>
   <dt>Certainty</dt>
   <dd>High for the recorded counts, judge-mode splits, and terminal notes; low for causal readings of the task axes or exact identity between the clean comparator and the campaign's recorded working tree.</dd>
   <dt>Importance</dt>
   <dd>A practical guide to reading this result set, not a general score for models.</dd>
 </dl>
 
-I ran a campaign with **Atria Dawn Preview** against a matrix of environments built in [my `rl_eval_generator`](https://github.com/StrangeTcy/rl_eval_generator). The archive records scored results from 33 registered environments. It also lists 24 cases that never became scored results: 17 were omitted because the provider could not accept their input modality, and seven were stopped before provider access because known calibration checks had failed. Those 24 cases are neither passes nor failures. They show where the campaign could not ask its intended question.
+I ran a campaign with <span class="icon-atria">**Atria Dawn Preview**</span> against a matrix of environments built in [my `rl_eval_generator`](https://github.com/StrangeTcy/rl_eval_generator). The archive records scored results from 33 registered environments. It also lists 24 cases that never became scored results: 17 were omitted because the provider could not accept their input modality, and seven were stopped before provider access because known calibration checks had failed. Those 24 cases are neither passes nor failures. They show where the campaign could not ask its intended question.
 
 The scored rows cover very different work: category and compositional code, Bayesian inference over stipulated policies, ML debugging, recurrent computation, trajectory and synthesis tasks, and small programs whose operative behavior is hidden behind an unfamiliar surface. The judges differ too. Some compare a submission with an instance-specific behavioral reference; others only check a compile-and-test contract the campaign report calls exploratory. A green square or red square hides those distinctions before anyone starts comparing families.
 
@@ -34,13 +34,13 @@ Here is the campaign at a glance. These are the raw checkpoint counts, before ap
 | Cases never scored | 24: 17 unsupported input modality; 7 calibration gates | No score was recorded, so these are neither passes nor failures |
 | Judge guarantees in the raw rows | 72 behavioral-reference; 122 compile-only | Compile-only verdicts are exploratory, not a validated behavioral aggregate |
 
-The matrix spans category and compositional code, Bayesian inference over stipulated policies, ML debugging, recurrent computation, trajectory and synthesis tasks, and programs whose operative behavior is hidden behind an unfamiliar surface. The completed work in this analysis reconstructs the selected rows, checks judge guarantees and final failure notes, and compares the recorded configurations with a clean source snapshot. Proposed generator changes—explicit case dispositions, task/judge contract checks, and checks that each advertised axis changes the rendered task—remain proposals. Replicated-seed tests are future experiments; none were run for this post. Here I narrow the broader project to one claim: **a colored cell is not a complete result until the information behind its color travels with it.** We need to know what changed in the task, what the judge could check, where the attempt stopped, and which rows the denominator includes.
+The matrix spans category & compositional code, Bayesian inference over stipulated policies, ML debugging, recurrent computation, trajectory and synthesis tasks, and programs whose operative behavior is hidden behind an unfamiliar surface. The completed work in this analysis reconstructs the selected rows, checks judge guarantees and final failure notes, and compares the recorded configurations with a clean source snapshot. Proposed generator changes—explicit case dispositions, task/judge contract checks, and checks that each advertised axis changes the rendered task—remain proposals. Replicated-seed tests are future experiments; none were run for this post. Here I narrow the broader project to one claim: **a colored cell is not a complete result until the information behind its color travels with it.** We need to know what changed in the task, what the judge could check, where the attempt stopped, and which rows the denominator includes.
 
 ## The denominator depends on the question
 
 The checkpoint records 194 scored rows: 131 PASS and 63 FAIL. The evidence identifies two compile-only rows marked `FAIL`/`invalid_action`, each with an empty final-metrics object and a final note saying “provider transient failure after bounded retries.” I separate the rows by what the archive says about them instead of treating every red mark as a task miss.
 
-First is the [`sheaf_physical_constraints`](https://github.com/StrangeTcy/rl_eval_generator/tree/main/envs/cat_theo/sheaf/sheaf_physical_constraints) case with easy naming and an easy symptom mask. It is not named in the campaign report’s outage counter. Because the row has no task metrics, I treat it as an incomplete compile-only execution record. Removing this row alone gives one 193-row view. The other is the [`ts_trajectory`](https://github.com/StrangeTcy/rl_eval_generator/tree/main/envs/trajectory_semantics/trajectory) case with a broken witness and reflective representation. It is the case named in the report’s provider-outage counter. Removing it alone gives a different 193-row view; removing it after the Sheaf row gives the 192-row performance set. The two 193-row views have identical PASS/FAIL totals but contain different cases.
+First is the [`sheaf_physical_constraints`](https://github.com/StrangeTcy/rl_eval_generator/tree/main/envs/cat_theo/sheaf/sheaf_physical_constraints) case with easy naming and an easy symptom mask. It is not named in the campaign report’s outage counter. Because the row has no task metrics, I treat it as an incomplete compile-only execution record. Removing this row alone gives one 193-row view. The other is the [`ts_trajectory`](https://github.com/StrangeTcy/rl_eval_generator/tree/main/envs/trajectory_semantics/trajectory) case with a broken witness & reflective representation. It is the case named in the report’s provider-outage counter. Removing it alone gives a different 193-row view; removing it after the Sheaf row gives the 192-row performance set. The two 193-row views have identical PASS/FAIL totals but contain different cases.
 
 | View | PASS / total | FAIL | What changed |
 |---|---:|---:|---|
@@ -99,7 +99,7 @@ The heatmaps below show every selected case in these families: exact configurati
 
 ![Case heatmap for every selected epistemic-games configuration, including each categorical condition and behavioral-reference outcome.]({{ '/assets/figures/family-maps/epistemic-games-heatmap.svg' | relative_url }})
 
-## “Easy” and “hard” name different things in different tasks
+## “Easy” & “hard” name different things in different tasks
 
 Consider the [regex state-machine environment](https://github.com/StrangeTcy/rl_eval_generator/tree/main/envs/weird_machine/regex_state_machine). Its “hidden depth” axis is input-string length: 32, 128, or 512 characters. At the easy surface label, the selected run passes all three lengths. Hold the input at 32 characters and sweep the surface label, though, and the medium and hard cases fail: the recorded outputs have 34 and 66 characters rather than 32. That is a sharp contrast in these selected cases, not evidence for a general surface effect. In the clean comparator, the surface labels also change class names, and the hard prompt adds a performance hint. The dirty-tree record means those comparator details do not establish exactly what the campaign used; the sweep also has one selected seed per cell.
 
@@ -134,7 +134,7 @@ A static scan of the clean comparator also found ten advertised control or varia
 
 ## Keep the map; do not turn it into a ladder
 
-A useful report would let a reader recover at least four facts from each cell: the input change that actually rendered, the judge mode and availability of an instance-specific reference, the terminal layer, and the displayed verdict. The “easy” or “hard” label alone cannot carry that information. A cell could be accompanied by a compact record:
+A useful report would let a reader recover at least four facts from each cell: the input change that fuckingly rendered, the judge mode and availability of an instance-specific reference, the terminal layer, and the displayed verdict. The “easy” or “hard” label alone cannot carry that information. A cell could be accompanied by a compact record:
 
 | Record | Question it answers |
 |---|---|
