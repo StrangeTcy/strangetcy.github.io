@@ -12,7 +12,7 @@ layout: post
   <dt>Original ideas</dt>
   <dd>The main frame—that a PASS/FAIL mark hides where an attempt stopped—is an interpretation of these campaign results, not a new experiment.</dd>
   <dt>Synthesis</dt>
-  <dd>This post brings together scored results, the checks used to grade them, final notes, a clean code snapshot for comparison, and run logs that do not fully agree.</dd>
+  <dd>This post brings together scored results, the checks used to grade them, final notes, a clean code snapshot for comparison, & run logs that don't fully agree.</dd>
   <dt>Prose</dt>
   <dd>This essay organizes the saved campaign results and analysis. No additional cases were run.</dd>
   <dt>Certainty</dt>
@@ -23,7 +23,7 @@ layout: post
 
 A code-repair evaluation can end with a simple label: **PASS** or **FAIL**. But that label does not say whether the model returned an unusable answer, proposed an empty code change, wrote code that was rejected before it ran, or reached a judge—the evaluator’s test-and-scoring software—that marked it short.
 
-This campaign asked a model called Atria-Dawn-Preview to repair code in a set of tasks prepared for evaluation. Its saved result table contains **194 scored cases**. A case is one particular task setup in the final table—not every retry or saved run folder. Each row records a PASS or FAIL, the kind of check used, and sometimes a note describing the final event. I call that table and its attached case notes the campaign record.
+This campaign asked a model called <span class="icon-atria">Atria Dawn Preview</span> to repair code in a set of tasks prepared for evaluation. Its saved result table contains **194 scored cases**. A case is one particular task setup in the final table—not every retry or saved run folder. Each row records a PASS or FAIL, the kind of check used, and sometimes a note describing the final event. I call that table and its attached case notes the campaign record.
 
 Two rows in the record carry the label `overfit_visible_tests`. The phrase suggests that a repair matched tests shown with the task but failed another check. That is only what the label suggests; it does not prove what the model did. In both rows, the final note says a required file is missing. One row reports the missing `train.py`; the other, `moco_model.py`. Why does the record show a testing-related label beside a missing-file note? I start by separating what was scored from what was not.
 
@@ -70,9 +70,9 @@ The bars below repeat those counts in a form that makes the two grading methods 
 
 The table is a record of what the evaluator wrote down, not a diagnosis of thought. For example, an empty patch might mean the model produced no code, or that something was lost before the result was saved. These records do not settle which happened. A syntax error plausibly reflects broken submitted code; a disallowed import also reflects a validator rule, and the record does not tell me how clearly that rule was disclosed. The safest reading is to keep the event and its cause separate.
 
-One detail changes how I read the 72 cases checked against reference behavior. Sixteen of them failed: nine had empty patch files, three were rejected before execution, one carried the `overfit_visible_tests` label, and three were labeled `underfit`. Those last three are the only failures in that group where the reference judge scored a submitted patch below its passing bar. I am not saying the other cases are blameless. I am saying the saved labels do not let me assign every stop to the model.
+One detail changes how I read the 72 cases checked against reference behavior. Sixteen of them failed: nine had empty patch files, three were rejected before execution, one carried the `overfit_visible_tests` label, and three were labeled `underfit`. Those last three are the only failures in that group where the reference judge scored a submitted patch below its passing bar. I am not saying the other cases are blameless. I'm saying the saved labels don't let me assign every stop to the model.
 
-## When the label and the note disagree
+## When the label & the note disagree
 
 Here are the two `overfit_visible_tests` rows. The overall verdict, `score`, and `trusted_score` are separate fields in the saved results; I report all of them rather than treating one as a replacement for the others.
 
@@ -87,7 +87,7 @@ The two cases with provider-service notes create the reverse problem. Their save
 
 ## A pass depends on what was checked
 
-The 192-case comparison combines **72 behavioral-reference cases**—56 PASS and 16 FAIL—with **120 compile-only cases**—75 PASS and 45 FAIL. In the raw 194, the compile-only total is 122, with 75 PASS and 47 FAIL; both cases with provider-service notes used that check mode.
+The 192-case comparison combines **72 behavioral-reference cases**—56 PASS and 16 FAIL—with **120 compile-only cases**—75 PASS & 45 FAIL. In the raw 194, the compile-only total is 122, with 75 PASS and 47 FAIL; both cases with provider-service notes used that check mode.
 
 That means **131/192 is a bookkeeping total, not a uniform accuracy estimate**. The campaign report says compile-only results are exploratory. A pass under compile-only checking does not establish the same thing as passing a task-specific behavior reference.
 
@@ -109,7 +109,7 @@ There is another mismatch in the saved settings and usage logs. A configuration 
 
 ## What a single number can and cannot say
 
-A useful results table should let a reader answer ordinary questions: What task was attempted? What check decided PASS or FAIL? Was a code change actually saved? Did it pass the pre-run checks? Did it run? What did the final note say? If a case was omitted, why? Keeping these facts beside the verdict makes a later comparison possible without pretending that all failures have the same cause.
+A useful results table should let a reader answer ordinary questions: What task was attempted? What check decided PASS or FAIL? Was a code change fuckingly saved? Did it pass the pre-run checks? Did it run? What did the final note say? If a case was omitted, why? Keeping these facts beside the verdict makes a later comparison possible without pretending that all failures have the same cause.
 
 [HELM](https://arxiv.org/abs/2211.09110) is a model-evaluation project that reports results across many scenarios and measures instead of one score. It is a format precedent, not evidence about this campaign. A code-repair report still needs to show which checks ran and what each one could establish.
 
