@@ -41,7 +41,8 @@ a[href*="opencog"]::after,
 a[href*="lean-lang.org"]::after,
 .icon-anthropic::after,
 .icon-openai::after,
-.icon-deepseek::after {
+.icon-deepseek::after,
+.icon-atria::after {
   content: "";
   display: inline-block;
   width: 0.85em;
@@ -124,6 +125,10 @@ a[href*="opencog"]::after {
 .icon-deepseek::after {
   -webkit-mask-image: url("/assets/icons/deepseek.svg");
           mask-image: url("/assets/icons/deepseek.svg");
+}
+.icon-atria::after {
+  -webkit-mask-image: url("/assets/icons/atria-logo.png");
+          mask-image: url("/assets/icons/atria-logo.png");
 }
 a[href*="lean-lang.org"]::after {
   -webkit-mask-image: url("/assets/icons/lean_logo.svg");
