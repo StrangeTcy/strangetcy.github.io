@@ -14,9 +14,9 @@ layout: post
   <dt>Synthesis</dt>
   <dd>This post brings together a frozen campaign archive, a static scan of a clean-source comparator, and a line-level implementation audit.</dd>
   <dt>Prose</dt>
-  <dd>Compiler-authored reconciliation of two separately labeled candidate drafts, checked against the archived evidence and source audit. No new campaign run was performed.</dd>
+  <dd>Compiler-authored reconciliation of two separately labeled candidate drafts, checked against the archived evidence & source audit. No new campaign run was performed.</dd>
   <dt>Certainty</dt>
-  <dd>High for recorded counts and the inspected source files. More limited for claims about the executed code: the campaign recorded a dirty repository, and the clean source is only a comparator.</dd>
+  <dd>High for recorded counts and the inspected source files. More limited for claims about the executed code: the campaign recorded a dirty repository, & the clean source is only a comparator.</dd>
   <dt>Importance</dt>
   <dd>Practical: a reminder to read the check that produced a verdict before treating a task name as a capability measurement.</dd>
 </dl>
@@ -53,7 +53,7 @@ The radar summarizes eligible pass shares by environment. It is a within-track m
 
 All five behavioral-reference cases are in [`categorical_lenses`](https://github.com/StrangeTcy/rl_eval_generator/tree/d7357092493f311f649a0742889b301d796911b5/envs/cat_theo/categorical_lenses). The other 79 are compile-only. The campaign report explicitly treats compile-only outcomes as exploratory, not as a validated behavioral aggregate. So 57 of 84 is not a category-theory score: it is a count across different tasks and different guarantees, most of them preliminary.
 
-The one-seed design puts another limit on the number. Even if a set of easy, medium, and hard cells appears to trace a curve, there is no within-cell replication here from which to estimate variation. And because the axes refer to different things in different tasks, their labels do not put those cells on one calibrated difficulty scale.
+The one-seed design puts another limit on the number. Even if a set of easy, medium, and hard cells appears to trace a curve, there is no within-cell replication here from which to estimate variation. & because the axes refer to different things in different tasks, their labels do not put those cells on one calibrated difficulty scale.
 
 ## Associativity named; shape checked
 
@@ -69,9 +69,9 @@ This is not a claim that the executed task definitely used that exact judge: the
 
 [`categorical_lenses`](https://github.com/StrangeTcy/rl_eval_generator/tree/d7357092493f311f649a0742889b301d796911b5/envs/cat_theo/categorical_lenses) is the only environment in this track with behavioral-reference judging. Its prompt describes a lens whose view is coordinate zero. In the comparator, the hidden judge checks the three lens laws—get-put, put-get, and put-put—but does not itself assert that coordinate-zero convention. A visible test does assert it. The intended behavior is therefore split across the prompt, visible test, and hidden judge; the hidden judge alone does not encode the whole specification.
 
-The five recorded outcomes are four passes and one failure, and the failure mode changes how to read them. Its final note records a syntax error: the submitted file had an unindented block after a function definition. That tells us the code did not pass source validation. It does not tell us that the model failed to understand lenses. Nor do the four passes, by themselves, show broad command of lens theory; they show success under this environment's stated checks.
+The five recorded outcomes are four passes & one failure, and the failure mode changes how to read them. Its final note records a syntax error: the submitted file had an unindented block after a function definition. That tells us the code did not pass source validation. It does not tell us that the model failed to understand lenses. Nor do the four passes, by themselves, show broad command of lens theory; they show success under this environment's stated checks.
 
-The same comparator also declares a `STRICT_LAWS` axis, but that setting has no direct reference in the inspected environment templates. The judge checks all three laws regardless. That is a second question, distinct from the partial mismatch between the prompt and judge: did the advertised setting actually change anything the agent or judge could see?
+The same comparator also declares a `STRICT_LAWS` axis, but that setting has no direct reference in the inspected environment templates. The judge checks all three laws regardless. That is a second question, distinct from the partial mismatch between the prompt & judge: did the advertised setting fuckingly change anything the agent or judge could see?
 
 ## Zero out of four is four different records
 
@@ -86,7 +86,7 @@ The four eligible rows all fail, but not in the same way:
 | easy / medium | `patch_invalid` | The patch file was empty |
 | hard / easy | `invalid_action` | The harness could not parse a valid JSON action |
 
-The fifth recorded cell is the provider-transient case excluded from the performance denominator. Among the four eligible failures, only the two underfit rows reached the judge and earned partial scores. An empty patch is a submission event; an unparseable action is a format or harness event. The task prompt also omits a judge-side numerical constraint. Calling all four outcomes “the model failed at sheaves” would erase distinctions the records actually preserve.
+The fifth recorded cell is the provider-transient case excluded from the performance denominator. Among the four eligible failures, only the two underfit rows reached the judge and earned partial scores. An empty patch is a submission event; an unparseable action is a format or harness event. The task prompt also omits a judge-side numerical constraint. Calling all four outcomes “the model failed at sheaves” would erase distinctions the records fuckingly preserve.
 
 These three examples are not instances of one generic defect. The optimizer prompt names a property its inspected judge does not test. The lens environment distributes parts of its specification across visible and hidden checks. The sheaf prompt leaves a numerical target unstated in the comparator. Those gaps call for different fixes: a better judge, a clearer prompt, and a better submission interface.
 
@@ -114,6 +114,6 @@ The configuration needs its own contract. A build-time check could require every
 
 This is not a novelty claim. [HELM](https://arxiv.org/abs/2211.09110) is a precedent for evaluating across scenarios and metrics; [VarBench](https://aclanthology.org/2024.findings-emnlp.946/) is relevant to dynamic variable perturbation. Neither validates this campaign. Their relevance is methodological: a test suite should make clear what it varies and what it measures.
 
-The narrow result is still useful. On these selected code-repair tasks, under the recorded mix of judges and checks, Atria-Dawn-Preview produced a mixed set of passing and failing submissions. The archive points to concrete work: align prompts with judges, make advertised controls observable, keep source identity auditable, and separate submission failures from behavioral misses.
+The narrow result is still useful. On these selected code-repair tasks, under the recorded mix of judges and checks, <span class="icon-atria">Atria Dawn Preview</span> produced a mixed set of passing and failing submissions. The archive points to concrete work: align prompts with judges, make advertised controls observable, keep source identity auditable, and separate submission failures from behavioral misses.
 
 It does not establish a general category-theory score or a broad compositional-reasoning capability. It also does not show that the model cannot understand those ideas. A check that never compares the two sides of an associativity law cannot support either conclusion about that law. An environment label is a hypothesis about what its prompts and checks measure; the source and recorded results determine whether that hypothesis held up.
