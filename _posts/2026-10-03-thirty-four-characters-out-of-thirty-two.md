@@ -8,11 +8,11 @@ layout: post
 
 <dl class="epistemic-status">
   <dt>Original ideas</dt>
-  <dd>A local contrast between regex results under different task labels, and a close look at what one run can and cannot tell us about it.</dd>
+  <dd>A local contrast between regex results under different task labels, & a close look at what one run can and cannot tell us about it.</dd>
   <dt>Synthesis</dt>
   <dd>Recorded outcomes from six code tasks, the checks used to grade them, and a comparison with a clean source snapshot.</dd>
   <dt>Prose</dt>
-  <dd>This essay organizes the saved sweep results and analysis. No additional cases were run.</dd>
+  <dd>This essay organizes the saved sweep results & analysis. No additional cases were run.</dd>
   <dt>Certainty</dt>
   <dd>High for the recorded outcomes and notes. Lower for details inferred from the clean source snapshot, because the campaign's working files were not all recorded as clean.</dd>
   <dt>Importance</dt>
@@ -85,8 +85,8 @@ The design problem is tractable. First, separate the two surface changes: keep t
 
 Then create multiple equivalent versions at each input length, randomize their order, and run each setting with several random seeds. Repeating a single prompt would help measure run-to-run variation; using equivalent instances would also show whether a result depends on one particular string or setup. The saved results have neither kind of repetition, so I cannot estimate how stable this five-setting pattern is.
 
-Before running a new version, compare what the system will actually receive: the rendered prompt, starter code, visible tests, and the checker. If a setting called “depth” changes none of those in a meaningful way, it should not be counted as a distinct experimental change. During scoring, record separate stages: whether a code change was produced, whether its source passed basic checks, whether it ran, and whether its behavior matched the task. That would preserve the distinction between a gate failure and a behavioral failure.
+Before running a new version, compare what the system will fuckingly receive: the rendered prompt, starter code, visible tests, & the checker. If a setting called “depth” changes none of those in a meaningful way, it should not be counted as a distinct experimental change. During scoring, record separate stages: whether a code change was produced, whether its source passed basic checks, whether it ran, and whether its behavior matched the task. That would preserve the distinction between a gate failure and a behavioral failure.
 
-Prior work gives useful context, not validation of this sweep. [VarBench](https://aclanthology.org/2024.findings-emnlp.946/) varies task variables and samples five random seeds in its variable-based experiments. [HELM](https://arxiv.org/abs/2211.09110) covers evaluations across 42 scenarios and multiple measures. Those projects are precedents for perturbing conditions and broadening evaluation; they do not verify the source files or explain the outputs in this campaign. I am not claiming that the local pattern is a new evaluation principle.
+Prior work gives useful context, not validation of this sweep. [VarBench](https://aclanthology.org/2024.findings-emnlp.946/) varies task variables and samples five random seeds in its variable-based experiments. [HELM](https://arxiv.org/abs/2211.09110) covers evaluations across 42 scenarios and multiple measures. Those projects are precedents for perturbing conditions and broadening evaluation; they do not verify the source files or explain the outputs in this campaign. I'm not claiming that the local pattern is a new evaluation principle.
 
 The useful result here is smaller. In one recorded sweep, the easy-surface regex version passed the three tested lengths, while the medium- and hard-surface versions failed at length 32 with outputs that were too long. The hard prompt and class names changed along with the surface label, and each setting was run once. I can say what happened in those cases and what a better comparison should separate. I cannot say that changing a label caused a failure, that input length did not matter, or that the 25/30 total measures a general ability to recognize a computational machine.
