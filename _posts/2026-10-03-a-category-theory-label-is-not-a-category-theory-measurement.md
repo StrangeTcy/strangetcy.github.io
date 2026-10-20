@@ -12,7 +12,7 @@ layout: post
   <dt>Original ideas</dt>
   <dd>This post examines whether the category-theory track's labels match the checks behind its results, while keeping its different specification gaps separate.</dd>
   <dt>Synthesis</dt>
-  <dd>This post brings together a frozen campaign archive, a static scan of a clean-source comparator, and a line-level implementation audit.</dd>
+  <dd>This post brings together a frozen campaign archive, a static scan of a clean-source comparator, & a line-level implementation audit.</dd>
   <dt>Prose</dt>
   <dd>Compiler-authored reconciliation of two separately labeled candidate drafts, checked against the archived evidence & source audit. No new campaign run was performed.</dd>
   <dt>Certainty</dt>
@@ -21,7 +21,7 @@ layout: post
   <dd>Practical: a reminder to read the check that produced a verdict before treating a task name as a capability measurement.</dd>
 </dl>
 
-[`rl_eval_generator`](https://github.com/StrangeTcy/rl_eval_generator/tree/d7357092493f311f649a0742889b301d796911b5) is an environment generator, not a benchmark. One campaign analysis row groups generated code-repair environments under [`category_theoretic_compositional`](https://github.com/StrangeTcy/rl_eval_generator/tree/d7357092493f311f649a0742889b301d796911b5/envs/cat_theo), a label that invites a story about [compositions](https://en.wikipedia.org/wiki/Function_composition), [functors](https://en.wikipedia.org/wiki/Functoriality), perhaps a law checked through [commutative diagrams](https://en.wikipedia.org/wiki/Commutative_diagram). But labels do not touch submitted code; judges do. If an environment name suggests a mathematical property and its visible tests or judge check something narrower, the name cannot make the result stronger.
+[`rl_eval_generator`](https://github.com/StrangeTcy/rl_eval_generator/tree/d7357092493f311f649a0742889b301d796911b5) is an environment generator, not a benchmark. One campaign analysis row groups generated code-repair environments under [`category_theoretic_compositional`](https://github.com/StrangeTcy/rl_eval_generator/tree/d7357092493f311f649a0742889b301d796911b5/envs/cat_theo), a label that invites a story about [compositions](https://en.wikipedia.org/wiki/Function_composition), [functors](https://en.wikipedia.org/wiki/Functoriality), perhaps a law checked through [commutative diagrams](https://en.wikipedia.org/wiki/Commutative_diagram). But labels do not touch submitted code; judges do. If an environment name suggests a mathematical property & its visible tests or judge check something narrower, the name cannot make the result stronger.
 
 The relevant question is which side of that gap this track occupies. The answer is not uniform. In a few inspected tasks, the prompt, tests, and judge disagree in different ways; elsewhere the main problem is that an advertised configuration axis has no direct reference in the clean templates. The archive records real code-repair outcomes, but it does not turn them into one measurement of category-theoretic ability.
 
