@@ -17,7 +17,7 @@ layout: post
   <dd><span class="icon-self">StrangeTcy</span></dd>
 
   <dt>Prose</dt>
-  <dd>Several models (<span class="icon-openai">gpt</span>span and <span class="icon-anthropic">claude</span> mostly), from the dialogue &amp; successive rounds of criticism; final edit <span class="icon-self">StrangeTcy</span></dd>
+  <dd>Several models (<span class="icon-openai">gpt</span> & <span class="icon-anthropic">claude</span> mostly), from the dialogue &amp; successive rounds of criticism; final edit <span class="icon-self">StrangeTcy</span></dd>
 
   <dt>Certainty</dt>
   <dd>Confident about the executable design described here &amp; the mathematical laws illustrated below. Exploratory about what frontier models will do on the resulting environments. No model results yet.</dd>
