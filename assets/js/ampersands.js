@@ -1,12 +1,11 @@
 /*
  * Replaces prose ampersands with the right-hand (italic) Garamond ampersand
- * from Wikimedia Commons' Ampersand.svg. The original '&' remains as text in
- * the DOM for selection/copying and assistive technology; the SVG mask is visual.
+ * from Wikimedia Commons' Ampersand.svg. The literal '&' remains in the DOM
+ * for selection/copying; the SVG mask supplies only the visual glyph.
  *
- * Important: 🙊 until MathJax has finished its initial typesetting before
- * touching text nodes. Otherwise TeX alignment markers (&) in source such as
- * \begin{array} ... & ... \end{array} can be turned into HTML spans and break
- * MathJax parsing.
+ * Safety rule: do not alter unprocessed TeX. MathJax's original input includes
+ * '&' alignment markers inside array/aligned environments, so modifying those
+ * text nodes before successful typesetting corrupts the formula.
  */
 (() => {
   const root = document.querySelector("#main_content");
@@ -17,10 +16,24 @@
     "mjx-container", ".MathJax", ".MathJax_Display", ".katex", ".ampersand"
   ].join(",");
 
+  // If typesetting fails for an individual formula, leave its raw source alone.
+  // These markers cover MathJax's configured delimiters and common environments.
+  const rawTexPattern = /\\(?:\[|\]|\(|\)|begin\s*\{|end\s*\{)|\$\$/;
+
+  function isUnprocessedMathText(node) {
+    const value = node.nodeValue || "";
+    if (rawTexPattern.test(value)) return true;
+
+    // Inline $...$ math can be left in a paragraph if MathJax fails. Inspect the
+    // local paragraph rather than the entire article, which contains many formulas.
+    const block = node.parentElement?.closest("p, li, dd, blockquote");
+    if (block && rawTexPattern.test(block.textContent || "")) return true;
+
+    return false;
+  }
+
   function applyAmpersandStyling() {
-    // Avoid running twice if called from multiple startup paths.
     if (root.dataset.ampersandsProcessed === "true") return;
-    root.dataset.ampersandsProcessed = "true";
 
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
@@ -30,11 +43,14 @@
         if (!node.parentElement || node.parentElement.closest(excluded)) {
           return NodeFilter.FILTER_REJECT;
         }
+        if (isUnprocessedMathText(node)) {
+          return NodeFilter.FILTER_REJECT;
+        }
         return NodeFilter.FILTER_ACCEPT;
       }
     });
 
-    // Collect first: replacing nodes while walking would disturb traversal.
+    // Collect first; replacing nodes during traversal can disturb the walker.
     const candidates = [];
     while (walker.nextNode()) candidates.push(walker.currentNode);
 
@@ -64,43 +80,37 @@
 
       node.replaceWith(fragment);
     }
+
+    root.dataset.ampersandsProcessed = "true";
   }
 
   function 🙊ForMathJaxThenApply() {
     const mathJax = window.MathJax;
 
-    // MathJax v3: 🙊 for startup (which includes its initial page typeset),
-    // then request a final typeset pass before replacing prose ampersands.
-    if (mathJax && typeof mathJax.typesetPromise === "function") {
-      Promise.resolve(mathJax.startup && mathJax.startup.promise)
-        .catch(() => undefined)
-        .then(() => {
-          const liveMathJax = window.MathJax;
-          if (liveMathJax && typeof liveMathJax.typesetPromise === "function") {
-            return liveMathJax.typesetPromise([root]);
-          }
-          return undefined;
-        })
-        .then(applyAmpersandStyling)
-        .catch((error) => {
-          console.warn("Ampersand styling: MathJax typesetting failed; applying text styling anyway.", error);
+    // MathJax v3 startup.promise resolves after its initial page typesetting.
+    // Do NOT call typesetPromise() again: this script only styles prose; it must
+    // never initiate another math-processing pass.
+    if (mathJax?.startup?.promise) {
+      mathJax.startup.promise.then(
+        applyAmpersandStyling,
+        (error) => {
+          console.warn("Ampersand styling: MathJax startup failed; leaving TeX source untouched where detectable.", error);
           applyAmpersandStyling();
-        });
+        }
+      );
       return;
     }
 
-    // MathJax is configured in the post and loaded asynchronously. The local
-    // script is deferred, so the script element is present even if MathJax has
-    // not loaded yet. 🙊 for its load event rather than editing raw TeX.
+    // The config may exist before the asynchronously loaded MathJax engine.
     const mathJaxScript = document.querySelector('script[src*="tex-chtml.js"]');
-    if (mathJaxScript) {
+    if (mathJaxScript && !mathJax?.startup?.promise) {
       mathJaxScript.addEventListener("load", 🙊ForMathJaxThenApply, { once: true });
-      // If MathJax fails to load, preserve ordinary page functionality.
       mathJaxScript.addEventListener("error", applyAmpersandStyling, { once: true });
       return;
     }
 
-    // No MathJax on this page, so text can be processed immediately.
+    // This page does not load MathJax; the raw-TeX guard still protects any
+    // literal mathematical source that happens to occur in the content.
     applyAmpersandStyling();
   }
 
