@@ -170,3 +170,64 @@ a[href*="lean-lang.org"]::after {
   vertical-align: middle;
   margin-right: 0.3em;
 }
+/*
+ * Calligraphic ampersands: the right-hand / italic Garamond glyph from
+ * “Ampersand.svg” by Fibonacci, Wikimedia Commons, licensed CC BY-SA 3.0.
+ * Source: https://commons.wikimedia.org/wiki/File:Ampersand.svg
+ * The source contains two glyphs side by side; mask-position crops the right one.
+ * A copy of the source SVG is not required for this externally hosted version.
+ */
+.ampersand {
+  display: inline-block;
+  position: relative;
+  width: 0.9em;
+  height: 0.75em;
+  margin-inline: 0.02em;
+  vertical-align: -0.12em;
+  line-height: 1;
+  color: inherit;
+}
+
+/* Preserve the literal ampersand in the DOM, but do not paint its text glyph. */
+.ampersand__text {
+  position: absolute;
+  inset: 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.ampersand__glyph {
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  -webkit-mask-image: url("https://upload.wikimedia.org/wikipedia/commons/1/1b/Ampersand.svg");
+          mask-image: url("https://upload.wikimedia.org/wikipedia/commons/1/1b/Ampersand.svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: right center;
+          mask-position: right center;
+  -webkit-mask-size: 200% 100%;
+          mask-size: 200% 100%;
+  mask-mode: alpha;
+}
+
+/* Graceful fallback if neither standard nor WebKit CSS masks are supported. */
+@supports not (mask-image: url("x")) and not (-webkit-mask-image: url("x")) {
+  .ampersand {
+    width: auto;
+    height: auto;
+    margin-inline: 0;
+    vertical-align: baseline;
+  }
+
+  .ampersand__text {
+    position: static;
+    font-size: 1em;
+    line-height: normal;
+  }
+
+  .ampersand__glyph {
+    display: none;
+  }
+}
+
