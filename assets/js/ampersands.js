@@ -1,118 +1,135 @@
 /*
- * Replaces prose ampersands with the right-hand (italic) Garamond ampersand
- * from Wikimedia Commons' Ampersand.svg. The literal '&' remains in the DOM
- * for selection/copying; the SVG mask supplies only the visual glyph.
+ * Adds the custom Garamond ampersand to ordinary prose in #main_content.
  *
- * Safety rule: do not alter unprocessed TeX. MathJax's original input includes
- * '&' alignment markers inside array/aligned environments, so modifying those
- * text nodes before successful typesetting corrupts the formula.
+ * Diagnostic build: logs whether the script ran, how many ampersands it wrapped,
+ * and which CSS mask the browser sees. Repeated calls are safe: existing wrappers
+ * are excluded from subsequent passes.
  */
 (() => {
-  const root = document.querySelector("#main_content");
-  if (!root) return;
+  const loadedScriptURL = document.currentScript?.src ?? "(script URL unavailable)";
+  console.info("[ampersands] script loaded:", loadedScriptURL);
 
-  const excluded = [
-    "code", "pre", "script", "style", "textarea", "noscript", "svg", "math",
-    "mjx-container", ".MathJax", ".MathJax_Display", ".katex", ".ampersand"
-  ].join(",");
+  function boot() {
+    const root = document.querySelector("#main_content");
+    if (!root) {
+      console.error("[ampersands] #main_content not found; nothing was processed.");
+      return;
+    }
 
-  // If typesetting fails for an individual formula, leave its raw source alone.
-  // These markers cover MathJax's configured delimiters and common environments.
-  const rawTexPattern = /\\(?:\[|\]|\(|\)|begin\s*\{|end\s*\{)|\$\$/;
+    const excluded = [
+      "code", "pre", "script", "style", "textarea", "noscript", "svg", "math",
+      "mjx-container", ".MathJax", ".MathJax_Display", ".katex", ".ampersand"
+    ].join(",");
 
-  function isUnprocessedMathText(node) {
-    const value = node.nodeValue || "";
-    if (rawTexPattern.test(value)) return true;
+    const rawTexPattern = /\\(?:\[|\]|\(|\)|begin\s*\{|end\s*\{)|\$\$/;
 
-    // Inline $...$ math can be left in a paragraph if MathJax fails. Inspect the
-    // local paragraph rather than the entire article, which contains many formulas.
-    const block = node.parentElement?.closest("p, li, dd, blockquote");
-    if (block && rawTexPattern.test(block.textContent || "")) return true;
-
-    return false;
-  }
-
-  function applyAmpersandStyling() {
-    if (root.dataset.ampersandsProcessed === "true") return;
-
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode(node) {
-        if (!node.nodeValue || !node.nodeValue.includes("&")) {
-          return NodeFilter.FILTER_REJECT;
-        }
-        if (!node.parentElement || node.parentElement.closest(excluded)) {
-          return NodeFilter.FILTER_REJECT;
-        }
-        if (isUnprocessedMathText(node)) {
-          return NodeFilter.FILTER_REJECT;
-        }
-        return NodeFilter.FILTER_ACCEPT;
+    function hasUnescapedDollar(text) {
+      let count = 0;
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === "$" && (i === 0 || text[i - 1] !== "\\")) count++;
       }
-    });
+      // Any paired dollar delimiters may indicate inline/display math still awaiting MathJax.
+      return count >= 2;
+    }
 
-    // Collect first; replacing nodes during traversal can disturb the walker.
-    const candidates = [];
-    while (walker.nextNode()) candidates.push(walker.currentNode);
+    function appearsToBeRawMath(node) {
+      const value = node.nodeValue || "";
+      if (rawTexPattern.test(value) || hasUnescapedDollar(value)) return true;
 
-    for (const node of candidates) {
-      const fragment = document.createDocumentFragment();
-      const parts = node.nodeValue.split("&");
+      const block = node.parentElement?.closest("p, li, dd, blockquote");
+      const blockText = block?.textContent || "";
+      return rawTexPattern.test(blockText) || hasUnescapedDollar(blockText);
+    }
 
-      parts.forEach((part, index) => {
-        if (part) fragment.append(document.createTextNode(part));
-
-        if (index < parts.length - 1) {
-          const wrapper = document.createElement("span");
-          wrapper.className = "ampersand";
-
-          const originalText = document.createElement("span");
-          originalText.className = "ampersand__text";
-          originalText.textContent = "&";
-
-          const glyph = document.createElement("span");
-          glyph.className = "ampersand__glyph";
-          glyph.setAttribute("aria-hidden", "true");
-
-          wrapper.append(originalText, glyph);
-          fragment.append(wrapper);
+    function applyAmpersands(reason) {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          if (!node.nodeValue?.includes("&")) return NodeFilter.FILTER_REJECT;
+          if (!node.parentElement || node.parentElement.closest(excluded)) return NodeFilter.FILTER_REJECT;
+          if (appearsToBeRawMath(node)) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
         }
       });
 
-      node.replaceWith(fragment);
+      const candidates = [];
+      while (walker.nextNode()) candidates.push(walker.currentNode);
+
+      let added = 0;
+      for (const node of candidates) {
+        const fragment = document.createDocumentFragment();
+        const parts = node.nodeValue.split("&");
+
+        parts.forEach((part, index) => {
+          if (part) fragment.append(document.createTextNode(part));
+          if (index < parts.length - 1) {
+            const wrapper = document.createElement("span");
+            wrapper.className = "ampersand";
+
+            const originalText = document.createElement("span");
+            originalText.className = "ampersand__text";
+            originalText.textContent = "&";
+
+            const glyph = document.createElement("span");
+            glyph.className = "ampersand__glyph";
+            glyph.setAttribute("aria-hidden", "true");
+
+            wrapper.append(originalText, glyph);
+            fragment.append(wrapper);
+            added++;
+          }
+        });
+
+        node.replaceWith(fragment);
+      }
+
+      const total = root.querySelectorAll(".ampersand").length;
+      const sampleGlyph = root.querySelector(".ampersand__glyph");
+      const sampleStyle = sampleGlyph ? getComputedStyle(sampleGlyph) : null;
+      console.info("[ampersands] pass completed:", {
+        reason,
+        addedThisPass: added,
+        totalWrappers: total,
+        maskImage: sampleStyle?.maskImage ?? "(no glyph element)",
+        webkitMaskImage: sampleStyle?.webkitMaskImage ?? "(no glyph element)",
+        backgroundColor: sampleStyle?.backgroundColor ?? "(no glyph element)"
+      });
     }
 
-    root.dataset.ampersandsProcessed = "true";
+    let startupHooked = false;
+    function waitForMathJax() {
+      const promise = window.MathJax?.startup?.promise;
+      if (promise && typeof promise.then === "function" && !startupHooked) {
+        startupHooked = true;
+        promise.then(
+          () => applyAmpersands("MathJax startup completed"),
+          (error) => {
+            console.warn("[ampersands] MathJax startup rejected; applying only outside raw-TeX blocks.", error);
+            applyAmpersands("MathJax startup rejected")
+          }
+        );
+      }
+    }
+
+    // Poll instead of relying on a script-load event that might already have fired.
+    const poll = window.setInterval(() => {
+      waitForMathJax();
+      if (startupHooked) window.clearInterval(poll);
+    }, 100);
+
+    // Fail-safe: don't wait forever. Any still-raw math block is guarded above.
+    window.setTimeout(() => {
+      window.clearInterval(poll);
+      applyAmpersands("8-second safety pass");
+    }, 8000);
+
+    // If MathJax is absent or blocked, give it a short chance to initialize before
+    // applying the safe pass; the timeout above will perform the final fallback.
+    waitForMathJax();
   }
 
-  function waitForMathJaxThenApply() {
-    const mathJax = window.MathJax;
-
-    // MathJax v3 startup.promise resolves after its initial page typesetting.
-    // Do NOT call typesetPromise() again: this script only styles prose; it must
-    // never initiate another math-processing pass.
-    if (mathJax?.startup?.promise) {
-      mathJax.startup.promise.then(
-        applyAmpersandStyling,
-        (error) => {
-          console.warn("Ampersand styling: MathJax startup failed; leaving TeX source untouched where detectable.", error);
-          applyAmpersandStyling();
-        }
-      );
-      return;
-    }
-
-    // The config may exist before the asynchronously loaded MathJax engine.
-    const mathJaxScript = document.querySelector('script[src*="tex-chtml.js"]');
-    if (mathJaxScript && !mathJax?.startup?.promise) {
-      mathJaxScript.addEventListener("load", waitForMathJaxThenApply, { once: true });
-      mathJaxScript.addEventListener("error", applyAmpersandStyling, { once: true });
-      return;
-    }
-
-    // This page does not load MathJax; the raw-TeX guard still protects any
-    // literal mathematical source that happens to occur in the content.
-    applyAmpersandStyling();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
   }
-
-  waitForMathJaxThenApply();
 })();
