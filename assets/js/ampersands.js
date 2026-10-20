@@ -84,7 +84,7 @@
     root.dataset.ampersandsProcessed = "true";
   }
 
-  function 🙊ForMathJaxThenApply() {
+  function waitForMathJaxThenApply() {
     const mathJax = window.MathJax;
 
     // MathJax v3 startup.promise resolves after its initial page typesetting.
@@ -104,7 +104,7 @@
     // The config may exist before the asynchronously loaded MathJax engine.
     const mathJaxScript = document.querySelector('script[src*="tex-chtml.js"]');
     if (mathJaxScript && !mathJax?.startup?.promise) {
-      mathJaxScript.addEventListener("load", 🙊ForMathJaxThenApply, { once: true });
+      mathJaxScript.addEventListener("load", waitForMathJaxThenApply, { once: true });
       mathJaxScript.addEventListener("error", applyAmpersandStyling, { once: true });
       return;
     }
@@ -114,5 +114,5 @@
     applyAmpersandStyling();
   }
 
-  🙊ForMathJaxThenApply();
+  waitForMathJaxThenApply();
 })();
