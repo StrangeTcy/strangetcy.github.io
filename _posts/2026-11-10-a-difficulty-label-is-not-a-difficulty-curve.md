@@ -1,6 +1,6 @@
 ---
 title: "A Difficulty Label Is Not a Difficulty Curve"
-date: 2026-10-16
+date: 2026-11-10
 layout: post
 ---
 
