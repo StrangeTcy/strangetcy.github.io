@@ -21,3 +21,15 @@ This is my blogging site on **GitHub Pages**. This should contain notes on paper
 [Thirty-Four Characters Out of Thirty-Two](https://strangetcy.github.io/2026/10/03/thirty-four-characters-out-of-thirty-two.html)
 
 [A Difficulty Label Is Not a Difficulty Curve](https://strangetcy.github.io/2026/11/10/a-difficulty-label-is-not-a-difficulty-curve.html)
+
+[How Mercury Fails](https://strangetcy.github.io/2026/11/10/how-mercury-fails.html)
+
+[Same Posterior, Different Answer](https://strangetcy.github.io/2026/11/10/same-posterior-different-answer.html)
+
+[A Paused Campaign Is Not a Finished Evaluation](https://strangetcy.github.io/2026/11/10/a-paused-campaign-is-not-a-finished-evaluation.html)
+
+[When a Repair Submission Fails Before Behavioral Evaluation](https://strangetcy.github.io/2026/11/10/when-a-repair-submission-fails-before-behavioral-evaluation.html)
+
+[Two Judge Guarantees, Two Environment Pools](https://strangetcy.github.io/2026/11/10/two-judge-guarantees-two-environment-pools.html)
+
+[What a 68.4% Pass Rate Hides: Mercury-2.5 Across 38 Environments](https://strangetcy.github.io/2026/11/10/what-a-68-4-pass-rate-hides-mercury-2-5-across-38-environments.html)
