@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="790" viewBox="0 0 1120 790" role="img" aria-labelledby="title desc">
+  <title id="title">CSS and SQL: categorical settings and recorded outcomes</title>
+  <desc id="desc">Two three-by-three heatmaps use hidden depth as rows and surface deceptiveness as columns, each labeled easy, medium, and hard. CSS passed two of two cases at every setting, eighteen of eighteen overall. SQL passed one of one case at every setting except hard hidden depth with easy surface deceptiveness, where zero of one passed, giving eight of nine overall. CSS pairs one base case with one terminology variant; SQL has one base case per cell. All cases carry recorded seed zero and behavioral-reference judging. The observations do not estimate a difficulty curve or provide independent-seed replication.</desc>
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill: #23313a; }
+    .muted { fill: #647078; }
+    .axis { font-family: Consolas, 'Liberation Mono', monospace; fill: #647078; }
+    .white { fill: #ffffff; }
+    .pass { fill: #197d70; }
+    .fail { fill: #b54c41; }
+  </style>
+  <rect width="1120" height="790" fill="#faf9f6"/>
+
+  <text x="40" y="53" font-size="32" font-weight="700">The same labels, two observed patterns</text>
+  <text x="40" y="88" font-size="20" class="muted">CSS and SQL · Mercury campaign · Counts show PASS / recorded cases</text>
+  <path d="M40 115H1080" stroke="#d9ddd9" stroke-width="1"/>
+
+  <text x="56" y="160" font-size="30" font-weight="700">CSS</text>
+  <text x="526" y="160" font-size="28" font-weight="700" class="pass" text-anchor="end">18 / 18</text>
+  <text x="56" y="191" font-size="20" class="muted">All nine settings passed</text>
+
+  <text x="600" y="160" font-size="30" font-weight="700">SQL</text>
+  <text x="1070" y="160" font-size="28" font-weight="700" class="pass" text-anchor="end">8 / 9</text>
+  <text x="600" y="191" font-size="20" class="muted">One failure in the hard-depth row</text>
+  <path d="M560 145V608" stroke="#d9ddd9" stroke-width="1"/>
+
+  <text x="355" y="227" font-size="18" class="axis" text-anchor="middle">surface_deceptiveness →</text>
+  <text x="899" y="227" font-size="18" class="axis" text-anchor="middle">surface_deceptiveness →</text>
+
+  <g font-size="19" text-anchor="middle">
+    <text x="238" y="257">easy</text><text x="355" y="257">medium</text><text x="472" y="257">hard</text>
+    <text x="782" y="257">easy</text><text x="899" y="257">medium</text><text x="1016" y="257">hard</text>
+  </g>
+  <text x="80" y="400" font-size="18" class="axis" text-anchor="middle" transform="rotate(-90 80 400)">hidden_depth</text>
+  <text x="624" y="400" font-size="18" class="axis" text-anchor="middle" transform="rotate(-90 624 400)">hidden_depth</text>
+  <g font-size="19" text-anchor="end">
+    <text x="166" y="319">easy</text><text x="166" y="402">medium</text><text x="166" y="485">hard</text>
+    <text x="710" y="319">easy</text><text x="710" y="402">medium</text><text x="710" y="485">hard</text>
+  </g>
+
+  <g class="pass">
+    <rect x="183" y="272" width="110" height="76" rx="5"/><rect x="300" y="272" width="110" height="76" rx="5"/><rect x="417" y="272" width="110" height="76" rx="5"/>
+    <rect x="183" y="355" width="110" height="76" rx="5"/><rect x="300" y="355" width="110" height="76" rx="5"/><rect x="417" y="355" width="110" height="76" rx="5"/>
+    <rect x="183" y="438" width="110" height="76" rx="5"/><rect x="300" y="438" width="110" height="76" rx="5"/><rect x="417" y="438" width="110" height="76" rx="5"/>
+    <rect x="727" y="272" width="110" height="76" rx="5"/><rect x="844" y="272" width="110" height="76" rx="5"/><rect x="961" y="272" width="110" height="76" rx="5"/>
+    <rect x="727" y="355" width="110" height="76" rx="5"/><rect x="844" y="355" width="110" height="76" rx="5"/><rect x="961" y="355" width="110" height="76" rx="5"/>
+    <rect x="844" y="438" width="110" height="76" rx="5"/><rect x="961" y="438" width="110" height="76" rx="5"/>
+  </g>
+  <rect x="727" y="438" width="110" height="76" rx="5" class="fail"/>
+
+  <g text-anchor="middle" font-size="28" font-weight="700">
+    <text x="238" y="307" class="white">2/2</text><text x="355" y="307" class="white">2/2</text><text x="472" y="307" class="white">2/2</text>
+    <text x="238" y="390" class="white">2/2</text><text x="355" y="390" class="white">2/2</text><text x="472" y="390" class="white">2/2</text>
+    <text x="238" y="473" class="white">2/2</text><text x="355" y="473" class="white">2/2</text><text x="472" y="473" class="white">2/2</text>
+    <text x="782" y="307" class="white">1/1</text><text x="899" y="307" class="white">1/1</text><text x="1016" y="307" class="white">1/1</text>
+    <text x="782" y="390" class="white">1/1</text><text x="899" y="390" class="white">1/1</text><text x="1016" y="390" class="white">1/1</text>
+    <text x="782" y="473" class="white">0/1</text><text x="899" y="473" class="white">1/1</text><text x="1016" y="473" class="white">1/1</text>
+  </g>
+  <g text-anchor="middle" font-size="18">
+    <text x="238" y="332" class="white">PASS</text><text x="355" y="332" class="white">PASS</text><text x="472" y="332" class="white">PASS</text>
+    <text x="238" y="415" class="white">PASS</text><text x="355" y="415" class="white">PASS</text><text x="472" y="415" class="white">PASS</text>
+    <text x="238" y="498" class="white">PASS</text><text x="355" y="498" class="white">PASS</text><text x="472" y="498" class="white">PASS</text>
+    <text x="782" y="332" class="white">PASS</text><text x="899" y="332" class="white">PASS</text><text x="1016" y="332" class="white">PASS</text>
+    <text x="782" y="415" class="white">PASS</text><text x="899" y="415" class="white">PASS</text><text x="1016" y="415" class="white">PASS</text>
+    <text x="782" y="498" class="white">FAIL</text><text x="899" y="498" class="white">PASS</text><text x="1016" y="498" class="white">PASS</text>
+  </g>
+
+  <text x="56" y="552" font-size="20" font-weight="700">What one cell contains</text>
+  <text x="56" y="581" font-size="19" class="muted">1 base case + 1 terminology variant</text>
+  <text x="600" y="552" font-size="20" font-weight="700">What one cell contains</text>
+  <text x="600" y="581" font-size="19" class="muted">1 base case</text>
+
+  <path d="M40 626H1080" stroke="#d9ddd9" stroke-width="1"/>
+  <rect x="40" y="650" width="5" height="96" fill="#b99341"/>
+  <text x="62" y="673" font-size="23" font-weight="700">A grid of observations is not an estimated curve.</text>
+  <text x="62" y="707" font-size="19" class="muted">All cases: recorded seed 0 · behavioral-reference judging · no independent-seed replication.</text>
+  <text x="62" y="737" font-size="19" class="muted">Easy / medium / hard are categorical settings, not calibrated distances along an axis.</text>
+</svg>

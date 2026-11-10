@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="740" viewBox="0 0 1120 740" role="img" aria-labelledby="title desc">
+  <title id="title">From settings to a measured response: a proposed study</title>
+  <desc id="desc">A proposed study, not a campaign result. First, vary visible_tests from easy through medium to hard while fixing distractors, naming, queue_math, symptom_mask, and temperature. Second, independently vary seeds at every setting, verify the executed configuration, use a common behavioral judge, and record attempts separately. Seed letters in the diagram are illustrative and are not observed counts. Third, report outcome counts and uncertainty to test the predicted ordering. Preserve the links between base cases and intervention variants.</desc>
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill: #23313a; }
+    .muted { fill: #647078; }
+    .mono { font-family: Consolas, 'Liberation Mono', monospace; }
+    .teal { fill: #197d70; }
+    .white { fill: #ffffff; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0 0L7 3.5L0 7Z" fill="#84918d"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="740" fill="#faf9f6"/>
+  <text x="40" y="53" font-size="32" font-weight="700">From settings to a measured response</text>
+  <text x="40" y="89" font-size="20" class="muted">A proposed MoCo study · State the predicted ordering before collecting outcomes</text>
+  <path d="M40 117H1080" stroke="#d9ddd9" stroke-width="1"/>
+
+  <text x="40" y="165" font-size="24" font-weight="700">1  Define the contrast</text>
+  <text x="396" y="165" font-size="24" font-weight="700">2  Replicate &amp; verify</text>
+  <text x="752" y="165" font-size="24" font-weight="700">3  Test the ordering</text>
+  <path d="M378 207V597M734 207V597" stroke="#d9ddd9" stroke-width="1"/>
+
+  <text x="40" y="216" font-size="20" font-weight="700" class="mono">visible_tests</text>
+  <text x="40" y="244" font-size="19" class="muted">The only setting that changes</text>
+  <rect x="40" y="267" width="88" height="48" rx="5" fill="#197d70"/>
+  <rect x="149" y="267" width="88" height="48" rx="5" fill="#197d70"/>
+  <rect x="258" y="267" width="88" height="48" rx="5" fill="#197d70"/>
+  <g font-size="19" text-anchor="middle">
+    <text x="84" y="298" class="white">easy</text>
+    <text x="193" y="298" class="white">medium</text>
+    <text x="302" y="298" class="white">hard</text>
+  </g>
+  <path d="M132 291H144M241 291H253" stroke="#84918d" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="40" y="359" font-size="20" font-weight="700">Hold five settings fixed</text>
+  <g font-size="19" class="mono">
+    <text x="40" y="397">distractors</text>
+    <text x="40" y="435">naming</text>
+    <text x="40" y="473">queue_math</text>
+    <text x="40" y="511">symptom_mask</text>
+    <text x="40" y="549">temperature</text>
+  </g>
+  <g font-size="18" class="muted" text-anchor="end">
+    <text x="346" y="397">fixed</text><text x="346" y="435">fixed</text>
+    <text x="346" y="473">fixed</text><text x="346" y="511">fixed</text>
+    <text x="346" y="549">fixed</text>
+  </g>
+
+  <text x="396" y="216" font-size="20" font-weight="700">Independent seeds at each level</text>
+  <text x="396" y="244" font-size="18" class="muted">Illustrative seed labels below</text>
+  <g font-size="18" text-anchor="middle">
+    <text x="445" y="290" class="teal" font-weight="700">easy</text>
+    <text x="553" y="290" class="teal" font-weight="700">medium</text>
+    <text x="661" y="290" class="teal" font-weight="700">hard</text>
+  </g>
+  <g fill="#e8eeea">
+    <rect x="400" y="306" width="90" height="109" rx="5"/>
+    <rect x="508" y="306" width="90" height="109" rx="5"/>
+    <rect x="616" y="306" width="90" height="109" rx="5"/>
+  </g>
+  <g font-size="18" text-anchor="middle">
+    <text x="445" y="336">seed a</text><text x="553" y="336">seed a</text><text x="661" y="336">seed a</text>
+    <text x="445" y="368">seed b</text><text x="553" y="368">seed b</text><text x="661" y="368">seed b</text>
+    <text x="445" y="401">…</text><text x="553" y="401">…</text><text x="661" y="401">…</text>
+  </g>
+  <path d="M396 451H710" stroke="#d9ddd9" stroke-width="1"/>
+  <text x="396" y="487" font-size="19">Verify executed configuration</text>
+  <text x="396" y="523" font-size="19">Use one behavioral judge</text>
+  <text x="396" y="559" font-size="19">Record attempts separately</text>
+
+  <rect x="752" y="214" width="328" height="95" rx="5" fill="#e8eeea"/>
+  <text x="775" y="250" font-size="21" font-weight="700">Outcome counts</text>
+  <text x="775" y="282" font-size="19" class="muted">PASS and FAIL at each setting</text>
+  <path d="M916 317V342" stroke="#84918d" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="752" y="351" width="328" height="95" rx="5" fill="#e8eeea"/>
+  <text x="775" y="387" font-size="21" font-weight="700">Uncertainty</text>
+  <text x="775" y="419" font-size="19" class="muted">Across generated cases</text>
+  <path d="M916 454V479" stroke="#84918d" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="752" y="488" width="328" height="95" rx="5" fill="#197d70"/>
+  <text x="775" y="524" font-size="21" font-weight="700" class="white">Does the ordering recur?</text>
+  <text x="775" y="556" font-size="19" class="white">Test the predicted ordering</text>
+
+  <path d="M40 626H1080" stroke="#d9ddd9" stroke-width="1"/>
+  <rect x="40" y="651" width="5" height="56" fill="#b99341"/>
+  <text x="62" y="671" font-size="20" font-weight="700">Proposed experiment — no new results are plotted here.</text>
+  <text x="62" y="703" font-size="19" class="muted">Report bases and variants separately, or preserve their linkage in the analysis.</text>
+</svg>
