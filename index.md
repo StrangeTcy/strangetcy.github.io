@@ -19,3 +19,5 @@ This is my blogging site on **GitHub Pages**. This should contain notes on paper
 [A Category-Theory Label Is Not a Category-Theory Measurement](https://strangetcy.github.io/2026/10/03/a-category-theory-label-is-not-a-category-theory-measurement.html)<br>
 [What Does a Failed Code Repair Tell Us?](https://strangetcy.github.io/2026/10/03/what-does-a-failed-code-repair-tell-us.html)<br>
 [Thirty-Four Characters Out of Thirty-Two](https://strangetcy.github.io/2026/10/03/thirty-four-characters-out-of-thirty-two.html)
+
+[A Difficulty Label Is Not a Difficulty Curve](https://strangetcy.github.io/2026/11/10/a-difficulty-label-is-not-a-difficulty-curve.html)
