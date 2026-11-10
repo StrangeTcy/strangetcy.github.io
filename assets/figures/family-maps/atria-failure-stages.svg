@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="990" viewBox="0 0 1120 990" role="img" aria-labelledby="title desc">
+  <title id="title">The same final FAIL records different evaluation stages</title>
+  <desc id="desc">The 125 final FAILs in the paused Atria-Dawn-Preview high-reasoning snapshot: 62 rejected rows have runtime and behavioral evaluation not reached. Twelve unscored execution failures have runtime failed and behavioral evaluation not reached. Six invalid-action rows have both stages unknown. Thirty-eight scored underfit rows have runtime unknown and behavioral scored fail. Seven scored overfit-visible-tests rows have runtime passed, with six behavioral scored fail and one behavioral scored pass. Thus 74 behavioral evaluations are not reached, six are unknown and 45 have component outcomes. Labels are not causal diagnoses or independently verified execution traces; 80 outside-manifest exclusions are not part of this partition.</desc>
+  <style>text{font-family:Arial,Helvetica,sans-serif;fill:#23313a}.muted{fill:#647078}.mono{font-family:Consolas,'Liberation Mono',monospace}.white{fill:#fff}</style>
+  <rect width="1120" height="990" fill="#faf9f6"/>
+  <text x="40" y="54" font-size="32" font-weight="700">The same FAIL, different recorded stages</text>
+  <text x="40" y="90" font-size="20" class="muted">125 final FAILs · Atria-Dawn-Preview · High reasoning effort · Paused snapshot</text>
+  <path d="M40 118H1080" stroke="#d9ddd9"/>
+  <text x="40" y="159" font-size="20" font-weight="700">Rows &amp; disposition</text>
+  <text x="580" y="159" font-size="20" font-weight="700">Runtime execution</text>
+  <text x="826" y="159" font-size="20" font-weight="700">Behavioral evaluation</text>
+  <rect x="40" y="184" width="1040" height="102" rx="6" fill="#f4e8e2"/>
+  <text x="62" y="225" font-size="35" font-weight="700">62</text><text x="133" y="221" font-size="23" font-weight="700">rejected</text>
+  <text x="133" y="257" font-size="18" class="mono">45 patch_invalid · 17 source_invalid</text>
+  <rect x="576" y="212" width="210" height="44" rx="5" fill="#915443"/><rect x="826" y="212" width="230" height="44" rx="5" fill="#915443"/>
+  <text x="681" y="241" text-anchor="middle" font-size="20" class="mono white">not_reached</text><text x="941" y="241" text-anchor="middle" font-size="20" class="mono white">not_reached</text>
+  <rect x="40" y="304" width="1040" height="102" rx="6" fill="#f4e8e2"/>
+  <text x="62" y="345" font-size="35" font-weight="700">12</text><text x="133" y="341" font-size="23" font-weight="700">unscored · execution failure</text>
+  <text x="133" y="377" font-size="18" class="mono">11 training_failed · 1 runtime_error</text>
+  <rect x="576" y="332" width="210" height="44" rx="5" fill="#be735c"/><rect x="826" y="332" width="230" height="44" rx="5" fill="#915443"/>
+  <text x="681" y="361" text-anchor="middle" font-size="20" class="mono white">failed</text><text x="941" y="361" text-anchor="middle" font-size="20" class="mono white">not_reached</text>
+  <rect x="40" y="424" width="1040" height="102" rx="6" fill="#faf3e1"/>
+  <text x="62" y="465" font-size="35" font-weight="700">6</text><text x="133" y="461" font-size="23" font-weight="700">unscored · stage unknown</text>
+  <text x="133" y="497" font-size="18" class="mono">6 invalid_action</text>
+  <rect x="576" y="452" width="210" height="44" rx="5" fill="#e7d6ad"/><rect x="826" y="452" width="230" height="44" rx="5" fill="#e7d6ad"/>
+  <text x="681" y="481" text-anchor="middle" font-size="20" class="mono">unknown</text><text x="941" y="481" text-anchor="middle" font-size="20" class="mono">unknown</text>
+  <rect x="40" y="544" width="1040" height="102" rx="6" fill="#e8eeea"/>
+  <text x="62" y="585" font-size="35" font-weight="700">38</text><text x="133" y="581" font-size="23" font-weight="700">scored</text>
+  <text x="133" y="617" font-size="18" class="mono">38 underfit</text>
+  <rect x="576" y="572" width="210" height="44" rx="5" fill="#e7d6ad"/><rect x="826" y="572" width="230" height="44" rx="5" fill="#be735c"/>
+  <text x="681" y="601" text-anchor="middle" font-size="20" class="mono">unknown</text><text x="941" y="601" text-anchor="middle" font-size="20" class="mono white">scored_fail</text>
+  <rect x="40" y="664" width="1040" height="102" rx="6" fill="#e8eeea"/>
+  <text x="62" y="705" font-size="35" font-weight="700">7</text><text x="133" y="701" font-size="23" font-weight="700">scored</text>
+  <text x="133" y="737" font-size="18" class="mono">7 overfit_visible_tests</text>
+  <rect x="576" y="692" width="210" height="44" rx="5" fill="#197d70"/>
+  <text x="681" y="721" text-anchor="middle" font-size="20" class="mono white">passed</text>
+  <text x="850" y="704" font-size="19" class="mono">6 scored_fail</text><text x="850" y="736" font-size="19" class="mono">1 scored_pass*</text>
+  <path d="M40 791H1080" stroke="#d9ddd9"/>
+  <text x="40" y="829" font-size="24" font-weight="700">Behavioral field: 74 not reached + 6 unknown + 45 outcomes</text>
+  <text x="40" y="862" font-size="19" class="muted">62 rejected rows stay in the end-to-end tally; they provide no repaired-code behavior.</text>
+  <text x="40" y="896" font-size="18">*The component-pass row is exploratory compile_only; required artifacts failed; final verdict is FAIL.</text>
+  <text x="40" y="926" font-size="18" class="muted">Component outcomes mix judge guarantees. The aggregation rule and executed source remain unverified.</text>
+  <text x="40" y="956" font-size="18" class="muted">The 80 exclusions outside the manifest are separate from all 125 recorded FAILs shown here.</text>
+</svg>

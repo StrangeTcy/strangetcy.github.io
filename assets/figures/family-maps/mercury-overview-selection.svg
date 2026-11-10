@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="660" viewBox="0 0 1120 660" role="img" aria-labelledby="title desc">
+<title id="title">Mercury-2.5: which denominator answers which question?</title>
+<desc id="desc">496 recorded case identifiers divide into 416 selected and 80 omitted. The selected cases divide into 405 scored and 11 infrastructure-unscored. The scored cases divide into 277 PASS and 128 FAIL. Bars share a case-count scale. 277 divided by 405 is a 68.4 percent scored pass rate; 277 divided by 416 is a 66.6 percent selected-case observed pass share, not a failure-adjusted pass rate.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#23313a}.muted{fill:#647078}.white{fill:white}.bold{font-weight:700}</style>
+<rect width="1120" height="660" fill="#faf9f6"/>
+<text x="40" y="53" font-size="31" class="bold">Which denominator answers which question?</text>
+<text x="40" y="88" font-size="20" class="muted">Mercury-2.5 archive · 38 selected environments · one recorded seed</text>
+<path d="M40 115H1080" stroke="#d9ddd9"/>
+<text x="40" y="168" font-size="20" class="bold">Recorded IDs</text><text x="40" y="195" font-size="19" class="muted">496 case identifiers</text>
+<rect x="240" y="144" width="665.6" height="65" fill="#526f7a" rx="4"/><rect x="905.6" y="144" width="128" height="65" fill="#d2d8d8" rx="4"/>
+<text x="572" y="184" font-size="24" class="white bold" text-anchor="middle">416 selected</text><text x="969" y="184" font-size="21" class="bold" text-anchor="middle">80 omitted</text>
+<text x="240" y="240" font-size="18" class="muted">Omitted: 56 intervention-twin · 14 known-gate · 10 unsupported modality</text>
+<text x="40" y="308" font-size="20" class="bold">Selected cases</text><text x="40" y="335" font-size="19" class="muted">416 cases</text>
+<rect x="240" y="283" width="648" height="65" fill="#526f7a" rx="4"/><rect x="888" y="283" width="17.6" height="65" fill="#aaa9a0"/>
+<text x="564" y="324" font-size="24" class="white bold" text-anchor="middle">405 scored</text>
+<path d="M897 348V366H939" fill="none" stroke="#647078" stroke-width="1.5"/><text x="948" y="365" font-size="20" class="bold">11 unscored</text>
+<text x="40" y="422" font-size="20" class="bold">Scored cases</text><text x="40" y="449" font-size="19" class="muted">405 verdicts</text>
+<rect x="240" y="398" width="443.2" height="65" fill="#197d70" rx="4"/><rect x="683.2" y="398" width="204.8" height="65" fill="#b54c41" rx="4"/>
+<text x="461" y="439" font-size="24" class="white bold" text-anchor="middle">277 PASS</text><text x="785" y="439" font-size="24" class="white bold" text-anchor="middle">128 FAIL</text>
+<text x="240" y="496" font-size="17" class="muted">All bars use the same case-count scale. Unscored cases have no assigned outcome.</text>
+<path d="M40 523H1080" stroke="#d9ddd9"/>
+<text x="40" y="562" font-size="26" class="bold">277 / 405 = 68.4%</text><text x="585" y="562" font-size="26" class="bold">277 / 416 = 66.6%</text>
+<text x="40" y="594" font-size="19" class="muted">Share of scored cases with PASS</text><text x="585" y="594" font-size="19" class="muted">Share of selected cases with an observed PASS</text>
+<text x="40" y="625" font-size="18" class="muted">A scored pass rate</text><text x="585" y="625" font-size="18" class="muted">The 11 unknown outcomes stay unknown</text>
+</svg>

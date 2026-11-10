@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="750" viewBox="0 0 1120 750" role="img" aria-labelledby="title desc">
+<title id="title">One Mercury case, several distinct recorded fields</title>
+<desc id="desc">The all-easy batchnorm-ema base case records behavioral evaluation scored-pass and trusted-score 1.0, a failed required-artifacts check because model.py was not changed, final FAIL with score 0.95, and the label overfit-visible-tests. Its declared guarantee is compile-only. These fields coexist but do not reveal how the evaluator combined them. The difference between 1.0 and 0.95 is not an established missing-file penalty.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#23313a}.muted{fill:#647078}.mono{font-family:Consolas,'Liberation Mono',monospace}.pass{fill:#197d70}.fail{fill:#b54c41}</style>
+<rect width="1120" height="750" fill="#faf9f6"/>
+<text x="40" y="54" font-size="32" font-weight="700">One case, four distinct recorded fields</text>
+<text x="40" y="89" font-size="20" class="muted">Mercury-2.5 · all-easy batchnorm_ema base case · recorded seed 0</text>
+<path d="M40 115H1080" stroke="#d9ddd9"/>
+<rect x="40" y="143" width="505" height="192" rx="8" fill="#eef4f0" stroke="#c7dcd5"/>
+<text x="64" y="178" font-size="19" font-weight="700">BEHAVIORAL STAGE</text>
+<text x="64" y="225" font-size="32" font-weight="700" class="pass">scored_pass</text>
+<text x="64" y="269" font-size="22" class="mono">trusted_score = 1.0</text>
+<text x="64" y="308" font-size="18" class="muted">A recorded stage result</text>
+<rect x="575" y="143" width="505" height="192" rx="8" fill="#f7eeeb" stroke="#dfc8c1"/>
+<text x="599" y="178" font-size="19" font-weight="700">ARTIFACT REQUIREMENT</text>
+<text x="599" y="225" font-size="32" font-weight="700" class="fail">failed</text>
+<text x="599" y="269" font-size="22" class="mono">model.py was not changed</text>
+<text x="599" y="308" font-size="18" class="muted">The patch changed train.py only</text>
+<rect x="40" y="363" width="505" height="192" rx="8" fill="#f7eeeb" stroke="#dfc8c1"/>
+<text x="64" y="398" font-size="19" font-weight="700">FINAL OUTCOME</text>
+<text x="64" y="445" font-size="32" font-weight="700" class="fail">FAIL</text>
+<text x="64" y="489" font-size="22" class="mono">final score = 0.95</text>
+<text x="64" y="528" font-size="18" class="muted">The overall classification remains FAIL</text>
+<rect x="575" y="363" width="505" height="192" rx="8" fill="#f0f1ed" stroke="#d4d9d3"/>
+<text x="599" y="398" font-size="19" font-weight="700">NORMALIZED LABEL</text>
+<text x="599" y="447" font-size="28" font-weight="700" class="mono">overfit_visible_tests</text>
+<text x="599" y="489" font-size="20">A category for locating the record</text>
+<text x="599" y="528" font-size="18" class="muted">Not a diagnosis of the model’s intent</text>
+<rect x="40" y="586" width="1040" height="46" rx="5" fill="#ebe8db"/>
+<text x="61" y="616" font-size="20">Declared guarantee: <tspan class="mono" font-weight="700">compile_only</tspan><tspan> · stage results do not upgrade it</tspan></text>
+<text x="40" y="676" font-size="22" font-weight="700">The record does not show how these fields were combined.</text>
+<text x="40" y="710" font-size="19" class="muted">The 0.05 score gap is not evidence of a missing-edit penalty; that needs the scoring rule.</text>
+</svg>

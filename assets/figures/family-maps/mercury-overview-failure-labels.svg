@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="538.796875pt" height="269.144156pt" viewBox="0 0 538.796875 269.144156" xmlns="http://www.w3.org/2000/svg" version="1.1" role="img" aria-labelledby="chart-title chart-description"><title id="chart-title">Mercury-2.5: recorded failure labels</title><desc id="chart-description">All 128 FAIL verdicts grouped by recorded label: underfit 51, overfit_visible_tests 49, runtime_error 11, source_invalid 9, invalid_action 5, training_failed 3. Uppercase and lowercase runtime labels are combined; labels do not establish failure mechanisms.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-18T04:46:01.276222</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 269.144156 
+L 538.796875 269.144156 
+L 538.796875 0 
+L 0 0 
+z
+" style="fill: #faf9f6"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 113.096875 221.142281 
+L 531.596875 221.142281 
+L 531.596875 21.558281 
+L 113.096875 21.558281 
+z
+" style="fill: #faf9f6"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 113.096875 212.070281 
+L 136.542253 212.070281 
+L 136.542253 187.044074 
+L 113.096875 187.044074 
+z
+" clip-path="url(#p373b88c360)" style="fill: #526f7a"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 113.096875 180.787523 
+L 152.172505 180.787523 
+L 152.172505 155.761316 
+L 113.096875 155.761316 
+z
+" clip-path="url(#p373b88c360)" style="fill: #526f7a"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 113.096875 149.504764 
+L 183.433009 149.504764 
+L 183.433009 124.478557 
+L 113.096875 124.478557 
+z
+" clip-path="url(#p373b88c360)" style="fill: #526f7a"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 113.096875 118.222005 
+L 199.063262 118.222005 
+L 199.063262 93.195798 
+L 113.096875 93.195798 
+z
+" clip-path="url(#p373b88c360)" style="fill: #526f7a"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 113.096875 86.939247 
+L 496.038051 86.939247 
+L 496.038051 61.91304 
+L 113.096875 61.91304 
+z
+" clip-path="url(#p373b88c360)" style="fill: #526f7a"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 113.096875 55.656488 
+L 511.668304 55.656488 
+L 511.668304 30.630281 
+L 113.096875 30.630281 
+z
+" clip-path="url(#p373b88c360)" style="fill: #526f7a"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m22bc3cba8d" d="M 0 0 
+L 0 3.5 
+" style="stroke: #23313a; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m22bc3cba8d" x="113.096875" y="221.142281" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle" x="113.096875" y="235.739937" transform="rotate(-0 113.096875 235.739937)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m22bc3cba8d" x="191.248136" y="221.142281" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle" x="191.248136" y="235.739937" transform="rotate(-0 191.248136 235.739937)">10</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m22bc3cba8d" x="269.399396" y="221.142281" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle" x="269.399396" y="235.739937" transform="rotate(-0 269.399396 235.739937)">20</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m22bc3cba8d" x="347.550657" y="221.142281" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle" x="347.550657" y="235.739937" transform="rotate(-0 347.550657 235.739937)">30</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m22bc3cba8d" x="425.701917" y="221.142281" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle" x="425.701917" y="235.739937" transform="rotate(-0 425.701917 235.739937)">40</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m22bc3cba8d" x="503.853178" y="221.142281" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle" x="503.853178" y="235.739937" transform="rotate(-0 503.853178 235.739937)">50</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: middle" x="322.346875" y="249.739937" transform="rotate(-0 322.346875 249.739937)">FAIL outcomes (n = 128)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_7">
+      <defs>
+       <path id="m3c51a4b3dd" d="M 0 0 
+L -3.5 0 
+" style="stroke: #23313a; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m3c51a4b3dd" x="113.096875" y="199.557178" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: end" x="106.096875" y="203.356397" transform="rotate(-0 106.096875 203.356397)">training_failed</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m3c51a4b3dd" x="113.096875" y="168.274419" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: end" x="106.096875" y="172.073638" transform="rotate(-0 106.096875 172.073638)">invalid_action</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m3c51a4b3dd" x="113.096875" y="136.991661" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: end" x="106.096875" y="140.790879" transform="rotate(-0 106.096875 140.790879)">source_invalid</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m3c51a4b3dd" x="113.096875" y="105.708902" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: end" x="106.096875" y="109.508121" transform="rotate(-0 106.096875 109.508121)">runtime_error</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m3c51a4b3dd" x="113.096875" y="74.426143" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: end" x="106.096875" y="78.225362" transform="rotate(-0 106.096875 78.225362)">overfit_visible_tests</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m3c51a4b3dd" x="113.096875" y="43.143385" style="stroke: #23313a; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 10px; font-family: Arial, Helvetica, sans-serif; text-anchor: end" x="106.096875" y="46.942603" transform="rotate(-0 106.096875 46.942603)">underfit</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 113.096875 221.142281 
+L 113.096875 21.558281 
+" style="fill: none; stroke: #23313a; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 113.096875 221.142281 
+L 531.596875 221.142281 
+" style="fill: none; stroke: #23313a; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 9px; font-family: Arial, Helvetica, sans-serif; text-anchor: start" x="142.794354" y="201.895068" transform="rotate(-0 142.794354 201.895068)">3</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 9px; font-family: Arial, Helvetica, sans-serif; text-anchor: start" x="158.424606" y="170.61231" transform="rotate(-0 158.424606 170.61231)">5</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 9px; font-family: Arial, Helvetica, sans-serif; text-anchor: start" x="189.68511" y="139.329551" transform="rotate(-0 189.68511 139.329551)">9</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 9px; font-family: Arial, Helvetica, sans-serif; text-anchor: start" x="205.315362" y="108.046793" transform="rotate(-0 205.315362 108.046793)">11</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9px; font-family: Arial, Helvetica, sans-serif; text-anchor: start" x="502.290152" y="76.764034" transform="rotate(-0 502.290152 76.764034)">49</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 9px; font-family: Arial, Helvetica, sans-serif; text-anchor: start" x="517.920404" y="45.481275" transform="rotate(-0 517.920404 45.481275)">51</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-anchor: start" x="113.096875" y="15.558281" transform="rotate(-0 113.096875 15.558281)">Recorded failure labels, all environments combined</text>
+   </g>
+  </g>
+  <g id="text_21">
+   <text style="font-size: 8px; font-family: Arial, Helvetica, sans-serif; text-anchor: start; fill: #23313a" x="50.996875" y="260.022281" transform="rotate(-0 50.996875 260.022281)">Global counts across all 128 FAIL outcomes; the per-environment breakdown is in the article text.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p373b88c360">
+   <rect x="113.096875" y="21.558281" width="418.5" height="199.584"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="850" viewBox="0 0 1120 850" role="img" aria-labelledby="title desc">
+<title id="title">One stable posterior, two additional output channels</title>
+<desc id="desc">In 36 matched Mercury-2.5 presentation pairs, posterior reports differ in zero pairs, terminal answers in five, and diagnostic-action sets in seventeen. All 72 saved posterior reports match the exact oracle. The overlap table contains 17 pairs with neither difference, 2 with terminal only, 14 with diagnostic only, and 3 with both. These are counts of saved parsed fields. Order and list format change together, and there is no same-presentation repeat baseline.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#23313a}.muted{fill:#647078}.white{fill:#fff}.mono{font-family:Consolas,'Liberation Mono',monospace}</style>
+<rect width="1120" height="850" fill="#faf9f6"/>
+<text x="40" y="54" font-size="32" font-weight="700">One stable posterior, three separate endpoints</text>
+<text x="40" y="88" font-size="20" class="muted">Mercury-2.5 · 36 matched pairs · canonical bullets versus reversed numbering</text>
+<path d="M40 114H1080" stroke="#d9ddd9"/>
+<text x="40" y="153" font-size="21" font-weight="700">Pairs with different saved outputs</text>
+<g font-size="19">
+<text x="40" y="204">Posterior report</text><text x="40" y="270">Terminal answer</text><text x="40" y="336">Diagnostic-action set</text>
+</g>
+<g fill="#e6e9e5"><rect x="285" y="180" width="650" height="35" rx="4"/><rect x="285" y="246" width="650" height="35" rx="4"/><rect x="285" y="312" width="650" height="35" rx="4"/></g>
+<rect x="285" y="246" width="90.278" height="35" rx="4" fill="#b54c41"/>
+<rect x="285" y="312" width="306.944" height="35" rx="4" fill="#b54c41"/>
+<g font-size="25" font-weight="700"><text x="962" y="206">0 / 36</text><text x="962" y="272">5 / 36</text><text x="962" y="338">17 / 36</text></g>
+<path d="M285 365H935" stroke="#aeb7b4"/>
+<g font-size="16" class="muted" text-anchor="middle"><text x="285" y="387">0</text><text x="501.667" y="387">12</text><text x="718.333" y="387">24</text><text x="935" y="387">36 pairs</text></g>
+<text x="40" y="428" font-size="20" fill="#197d70">All 72 saved posterior reports match the exact oracle fraction.</text>
+<path d="M40 455H1080" stroke="#d9ddd9"/>
+<text x="40" y="494" font-size="22" font-weight="700">The two kinds of difference overlap</text>
+<text x="315" y="532" font-size="17" text-anchor="middle">Terminal same</text><text x="485" y="532" font-size="17" text-anchor="middle">Terminal differs</text>
+<g font-size="18" text-anchor="end"><text x="207" y="581">Diagnostic same</text><text x="207" y="657">Diagnostic differs</text></g>
+<rect x="230" y="548" width="163" height="64" rx="5" fill="#e6e9e5"/>
+<rect x="400" y="548" width="170" height="64" rx="5" fill="#e9c7be"/>
+<rect x="230" y="624" width="163" height="64" rx="5" fill="#d6e4e5"/>
+<rect x="400" y="624" width="170" height="64" rx="5" fill="#b54c41"/>
+<g font-size="30" font-weight="700" text-anchor="middle"><text x="311.5" y="591">17</text><text x="485" y="591">2</text><text x="311.5" y="667">14</text><text x="485" y="667" class="white">3</text></g>
+<text x="627" y="568" font-size="38" font-weight="700">19 / 36</text>
+<text x="627" y="603" font-size="20">pairs differ on at least one</text>
+<text x="627" y="631" font-size="20">of these two endpoints.</text>
+<text x="627" y="676" font-size="18" class="muted">5 + 17 − 3 = 19, not 22</text>
+<rect x="40" y="724" width="5" height="88" fill="#b99341"/>
+<text x="63" y="751" font-size="21" font-weight="700">A recorded difference does not identify its cause.</text>
+<text x="63" y="782" font-size="18" class="muted">Order and format changed together; no same-presentation repeat baseline was recorded.</text>
+<text x="63" y="809" font-size="18" class="muted">Counts describe saved parsed fields; original response extraction was not independently revalidated.</text>
+</svg>
