@@ -29,6 +29,7 @@ The <span class="icon-mercury">Mercury-2.5</span> campaign selected **416 cases 
 So 277/405 = 68.4% is the share of *scored* cases with a PASS. The fraction 277/416 = 66.6% answers a different question, the share of all *selected* cases with an observed PASS, and must not be presented as a pass rate, because that would quietly book eleven unknown outcomes as failures.
 
 ![Three stacked bars: 496 recorded case IDs split into 416 selected and 80 omitted; 416 split into 405 scored and 11 unscored; 405 split into 277 PASS & 128 FAIL]({{ '/assets/figures/family-maps/mercury-overview-selection.svg' | relative_url }})
+
 *Figure 1. The bars share a case-count scale: 496 recorded case identifiers divide into 416 selected & 80 omitted; 416 divide into 405 scored & 11 infrastructure-unscored; 405 divide into 277 PASS & 128 FAIL. Omitted cases enter no pass rate. Nine scored FAILs whose disposition field conflicts with their status are not drawn separately. The 68.4% scored pass rate & 66.6% selected-case observed PASS share answer different questions.*
 
 The 416 are themselves a selection. The 80 omitted cases fall in four environments:
@@ -56,6 +57,7 @@ The 416 are themselves a selection. The 80 omitted cases fall in four environmen
 Twenty-four of the 36 scored environments are at an endpoint. I call the map endpoint-heavy and stop there: an endpoint on four cases and one on 24 are both single-seed observations, and the table cannot say how either would hold under other cases or seeds.
 
 ![Dot plot of pass fraction by environment with 95% Wilson intervals and a dotted line at the pooled 68.4%]({{ '/assets/figures/family-maps/mercury-overview-environments.svg' | relative_url }})
+
 *Figure 2. One dot per environment with scored cases (36; the two environments with no scored case are not drawn), placed at PASS/scored and labelled k/n. Bars are 95% Wilson intervals under a binomial sampling convention; they are not measured seed-to-seed variation, and selection & possible dependence among cases limit what they mean. The dotted line is the pooled 277/405. Colours mark no scored pass (7), mixed (12), and all scored passed (17).*
 
 The 17 all-pass environments are nine at 9/9 (`architecture_naturality`, `categorical_lenses`, `ci_dependency_graph`, `neuro_symbolic_parser`, `semiring_unification`, `spreadsheet_dataflow`, `stochastic_monad`, `template_interpreter`, `tokenizer_adjunction`), plus `epistemic_games` 23/23, `css_state_machine` 18/18, `rd_gradient_credit` & `rd_state_carry` 15/15, `epistemic_announcements` & `epistemic_nested_knowledge` 6/6, `epistemic_fragmented_observation` & `ts_parse_only` 4/4. One of the four `ts_parse_only` PASSes is marked performance-ineligible: its recorded exclusion field attributes a terminal failure to a provider transient after bounded retries, while the verdict reads PASS. The two fields conflict; I keep the case among the 277 and alter nothing.
@@ -101,6 +103,7 @@ These illustrate sensitivity to selected case density. They are not alternative 
 Each environment's cases sit on difficulty tuples, and the records hold one row per environment × tuple: 340 rows, 4 to 15 per environment, six environments above ten. This is a different object from the 496 case-ID frame.
 
 ![Grid of 340 squares, one per environment × difficulty-tuple row, coloured by pass rate]({{ '/assets/figures/family-maps/mercury-overview-tuples.svg' | relative_url }})
+
 *Figure 3. One square per row, grouped by environment. Colour is the row's pass rate: red 0, amber fractional, green 1. Grey marks the 11 rows with no scored case: ten in the two entirely unscored environments and the one unscored `rd_adaptive_halting` row. Numbers mark the 44 rows holding more than one case. The nine amber rows are all in `moco`. Tuples are environment-specific, so columns are not comparable across environments.*
 
 Four facts:
@@ -121,6 +124,7 @@ The single unscored `rd_adaptive_halting` case sits at the row where all five ke
 ## What the labels & guarantees record
 
 ![Horizontal bar chart of recorded failure labels for all 128 FAIL outcomes combined]({{ '/assets/figures/family-maps/mercury-overview-failure-labels.svg' | relative_url }})
+
 *Figure 4. Recorded failure labels across all 128 FAILs: underfit 51, overfit_visible_tests 49, runtime_error 11, source_invalid 9, invalid_action 5, training_failed 3. The 11-case runtime bar consolidates nine cases recorded as `RUNTIME_ERROR` and two as `runtime_error`, an analysis convention. The image has no environment split; the table below supplies it.*
 
 The labels are recorded classifications; their names do not establish an internal reasoning mechanism. By environment:
