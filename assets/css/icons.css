@@ -42,7 +42,8 @@ a[href*="lean-lang.org"]::after,
 .icon-anthropic::after,
 .icon-openai::after,
 .icon-deepseek::after,
-.icon-atria::after {
+.icon-atria::after,
+.icon-mercury::after {
   content: "";
   display: inline-block;
   width: 0.85em;
@@ -231,3 +232,12 @@ a[href*="lean-lang.org"]::after {
   }
 }
 
+/* Mercury: use the symbol at the left of the supplied Inception wordmark. */
+.icon-mercury::after {
+  -webkit-mask-image: url("/assets/icons/inception-platform-logo.svg");
+          mask-image: url("/assets/icons/inception-platform-logo.svg");
+  -webkit-mask-size: auto 100%;
+          mask-size: auto 100%;
+  -webkit-mask-position: left center;
+          mask-position: left center;
+}
