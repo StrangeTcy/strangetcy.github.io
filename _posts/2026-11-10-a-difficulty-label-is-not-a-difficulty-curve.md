@@ -10,9 +10,9 @@ layout: post
   <dt>Original ideas</dt>
   <dd>Distinguishing a generator’s named difficulty settings from a measured performance curve, using the recorded CSS, SQL and MoCo cases to specify what a controlled comparison would require.</dd>
   <dt>Synthesis</dt>
-  <dd>Model-assisted synthesis of recorded campaign results and the methodological argument.</dd>
+  <dd>Model-assisted synthesis of recorded campaign results & the methodological argument.</dd>
   <dt>Prose</dt>
-  <dd>Model-assisted drafting and revision. No completed human final edit is represented here.</dd>
+  <dd>Model-assisted drafting & revision. No completed human final edit is represented here.</dd>
   <dt>Certainty</dt>
   <dd>Confident about the recorded verdicts and difficulty tuples described below. Uncertain whether the named settings produce a consistent performance ordering across independently generated cases.</dd>
   <dt>Importance</dt>
@@ -101,7 +101,7 @@ This also prevents a shortcut through the wider campaign’s intervention groups
 
 ## The strongest case for taking the labels seriously
 
-There is a substantial objection to this caution. Generator settings are not arbitrary words pasted onto cases afterward. The labels are intended to select different kinds of instances. The CSS and SQL grids deliberately enumerate combinations of two fields; MoCo records six fields rather than one undifferentiated “difficulty” score. Why not accept easy, medium and hard as at least an approximate ordering, then use these tables as noisy evidence about it?
+There is a [s-word] objection to this caution. Generator settings are not arbitrary words pasted onto cases afterward. The labels are intended to select different kinds of instances. The CSS and SQL grids deliberately enumerate combinations of two fields; MoCo records six fields rather than one undifferentiated “difficulty” score. Why not accept easy, medium and hard as at least an approximate ordering, then use these tables as noisy evidence about it?
 
 The intention deserves to be taken seriously. Labels can guide construction and make hypotheses testable. An approximate ordering may eventually prove useful. But there are two claims hidden inside the objection: that the settings were intended to differ, and that the executed cases differ in a verified way that produces an ordered change in measured performance. The first does not demonstrate the second.
 
