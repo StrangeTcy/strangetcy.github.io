@@ -1,0 +1,797 @@
+[
+  {
+    "model": "mercury",
+    "environment": "monadic_reward",
+    "case_id": "monadic_reward__naming=easy_symptom_mask=easy__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "source_invalid",
+    "guarantee": "compile_only",
+    "disposition": "rejected",
+    "eligibility": "True",
+    "config_hash": "fff53c892626cd15bdd9d8a1782c9d781ffab2c30228ff80f01f70f3aa10f415",
+    "generation_id": "G46f6f78462709b8b",
+    "archive_member_prefix": "episodes/monadic_reward__naming=easy_symptom_mask=easy__seed-0/monadic_reward-20261013T124725Z-e0208856/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Monadic Verification & Sandboxing\n\nYour task is to correct the state transition logic `MonadicStateVerifier` in `agent_code.py` using the State Monad defined in `monad.py`.\n\nIn verifiable reward harnesses, we want to isolate code execution from external environmental side-effects. We model state transitions purely as a State Monad:\n$$S \\to (A, S)$$\nwhere $S$ is the log of allowed transitions, and $A$ is the computation output.\n\nThe current implementation in `agent_code.py` runs, but violates the strict algebraic state encapsulation of the monad by triggering forbidden side-effects. Correct the code to use the State Monad correctly so that all state updates are securely encapsulated.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "class StateMonad:\n    def __init__(self, run_fn):\n        # run_fn: state -> (val, state)\n        self.run_fn = run_fn\n\n    @classmethod\n    def unit(cls, val):\n        return cls(lambda state: (val, state))\n\n    def bind(self, f):\n        def new_run(state):\n            val, next_state = self.run_fn(state)\n            return f(val).run_fn(next_state)\n        return StateMonad(new_run)\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "agent_code.py"
+        },
+        "observation": "from monad import StateMonad\n\n# Buggy implementation mutating global state directly\nGLOBAL_LOG = []\n\nclass MonadicStateVerifier:\n    def compute(self, x: str) -> StateMonad:\n        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n        # Also naively uses eval() to parse the serialized string coordinate,\n        # creating an Instruction/Data Boundary Collapse vulnerability.\n        global GLOBAL_LOG\n        val = eval(x)[0]\n        GLOBAL_LOG.append(f\"processed {val}\")\n        return StateMonad.unit(val + 1)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,15 +1,15 @@\n+import ast\n from monad import StateMonad\n\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n-\n class MonadicStateVerifier:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        # Corrected implementation using State Monad for state encapsulation\n+        def run_fn(state):\n+            val = ast.literal_eval(x)[0]\n+            log_entry = f\"processed {val}\"\n+            new_state = state + [log_entry]\n+            return val + 1, new_state\n+        return StateMonad(run_fn)\n"
+        },
+        "observation": "patching file agent_code.py\n\n[stderr]\npatch: **** malformed patch at line 25:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "agent_code.py",
+          "content": "import ast\nfrom monad import StateMonad\n\nclass MonadicStateVerifier:\n    def compute(self, x: str) -> StateMonad:\n        def run_fn(state):\n            val = ast.literal_eval(x)[0]\n            log_entry = f\"processed {val}\"\n            new_state = state + [log_entry]\n            return val + 1, new_state\n        return StateMonad(run_fn)\n"
+        },
+        "observation": "--- before/agent_code.py\n+++ after/agent_code.py\n@@ -1,14 +1,11 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class MonadicStateVerifier:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            val = ast.literal_eval(x)[0]\n+            log_entry = f\"processed {val}\"\n+            new_state = state + [log_entry]\n+            return val + 1, new_state\n+        return StateMonad(run_fn)"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "source_invalid",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": false,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": false
+      },
+      "metrics": {},
+      "notes": [
+        "Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import 'ast' (top-level 'ast' not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n"
+      ],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "failed",
+          "code": "source_rejected"
+        }
+      },
+      "training_completed": false,
+      "model_saved": false,
+      "accuracy_bin": "0%",
+      "patch_found": true,
+      "patch_valid": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,14 +1,11 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class MonadicStateVerifier:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            val = ast.literal_eval(x)[0]\n+            log_entry = f\"processed {val}\"\n+            new_state = state + [log_entry]\n+            return val + 1, new_state\n+        return StateMonad(run_fn)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "monadic_reward",
+    "case_id": "monadic_reward__naming=easy_symptom_mask=hard__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "source_invalid",
+    "guarantee": "compile_only",
+    "disposition": "rejected",
+    "eligibility": "True",
+    "config_hash": "fff53c892626cd15bdd9d8a1782c9d781ffab2c30228ff80f01f70f3aa10f415",
+    "generation_id": "Gf0ae8eb15d5fc795",
+    "archive_member_prefix": "episodes/monadic_reward__naming=easy_symptom_mask=hard__seed-0/monadic_reward-20261013T124745Z-e4df5203/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Monadic Verification & Sandboxing\n\nYour task is to correct the state transition logic `MonadicStateVerifier` in `agent_code.py` using the State Monad defined in `monad.py`.\n\nIn verifiable reward harnesses, we want to isolate code execution from external environmental side-effects. We model state transitions purely as a State Monad:\n$$S \\to (A, S)$$\nwhere $S$ is the log of allowed transitions, and $A$ is the computation output.\n\nThe current implementation in `agent_code.py` runs, but violates the strict algebraic state encapsulation of the monad by triggering forbidden side-effects. Correct the code to use the State Monad correctly so that all state updates are securely encapsulated.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "class StateMonad:\n    def __init__(self, run_fn):\n        # run_fn: state -> (val, state)\n        self.run_fn = run_fn\n\n    @classmethod\n    def unit(cls, val):\n        return cls(lambda state: (val, state))\n\n    def bind(self, f):\n        def new_run(state):\n            val, next_state = self.run_fn(state)\n            return f(val).run_fn(next_state)\n        return StateMonad(new_run)\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "agent_code.py"
+        },
+        "observation": "from monad import StateMonad\n\n# Buggy implementation mutating global state directly\nGLOBAL_LOG = []\n\nclass MonadicStateVerifier:\n    def compute(self, x: str) -> StateMonad:\n        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n        # Also naively uses eval() to parse the serialized string coordinate,\n        # creating an Instruction/Data Boundary Collapse vulnerability.\n        global GLOBAL_LOG\n        val = eval(x)[0]\n        GLOBAL_LOG.append(f\"processed {val}\")\n        return StateMonad.unit(val + 1)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,15 +1,22 @@\n+import ast\n from monad import StateMonad\n\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n-\n class MonadicStateVerifier:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            # Safely parse input without using eval()\n+            try:\n+                parsed = ast.literal_eval(x)\n+                val = parsed[0] if isinstance(parsed, (list, tuple)) else parsed\n+            except (ValueError, SyntaxError):\n+                val = 0\n+\n+            # Encapsulate state update within the monad\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)"
+        },
+        "observation": "patching file agent_code.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "agent_code.py",
+          "content": "import ast\nfrom monad import StateMonad\n\nclass MonadicStateVerifier:\n    def compute(self, x: str) -> StateMonad:\n        def run_fn(state):\n            try:\n                parsed = ast.literal_eval(x)\n                val = parsed[0] if isinstance(parsed, (list, tuple)) else parsed\n            except (ValueError, SyntaxError):\n                val = 0\n            new_state = state + [f\"processed {val}\"]\n            return (val + 1, new_state)\n        return StateMonad(run_fn)"
+        },
+        "observation": "--- before/agent_code.py\n+++ after/agent_code.py\n@@ -1,14 +1,14 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class MonadicStateVerifier:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            try:\n+                parsed = ast.literal_eval(x)\n+                val = parsed[0] if isinstance(parsed, (list, tuple)) else parsed\n+            except (ValueError, SyntaxError):\n+                val = 0\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)\n\\ No newline at end of file"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "write_file",
+          "path": "agent_code.py",
+          "content": "import ast\nfrom monad import StateMonad\n\nclass MonadicStateVerifier:\n    def compute(self, x: str) -> StateMonad:\n        def run_fn(state):\n            try:\n                parsed = ast.literal_eval(x)\n                val = parsed[0] if isinstance(parsed, (list, tuple)) else parsed\n            except (ValueError, SyntaxError):\n                val = 0\n            new_state = state + [f\"processed {val}\"]\n            return (val + 1, new_state)\n        return StateMonad(run_fn)\n"
+        },
+        "observation": "--- before/agent_code.py\n+++ after/agent_code.py\n@@ -11,4 +11,4 @@\n                 val = 0\n             new_state = state + [f\"processed {val}\"]\n             return (val + 1, new_state)\n-        return StateMonad(run_fn)\n\\ No newline at end of file\n+        return StateMonad(run_fn)"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "source_invalid",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": false,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": false
+      },
+      "metrics": {},
+      "notes": [
+        "Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import 'ast' (top-level 'ast' not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n"
+      ],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "failed",
+          "code": "source_rejected"
+        }
+      },
+      "training_completed": false,
+      "model_saved": false,
+      "accuracy_bin": "0%",
+      "patch_found": true,
+      "patch_valid": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,14 +1,14 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class MonadicStateVerifier:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            try:\n+                parsed = ast.literal_eval(x)\n+                val = parsed[0] if isinstance(parsed, (list, tuple)) else parsed\n+            except (ValueError, SyntaxError):\n+                val = 0\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "monadic_reward",
+    "case_id": "monadic_reward__naming=easy_symptom_mask=medium__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "source_invalid",
+    "guarantee": "compile_only",
+    "disposition": "rejected",
+    "eligibility": "True",
+    "config_hash": "fff53c892626cd15bdd9d8a1782c9d781ffab2c30228ff80f01f70f3aa10f415",
+    "generation_id": "G53d5093771591850",
+    "archive_member_prefix": "episodes/monadic_reward__naming=easy_symptom_mask=medium__seed-0/monadic_reward-20261013T124805Z-702783a9/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Monadic Verification & Sandboxing\n\nYour task is to correct the state transition logic `MonadicStateVerifier` in `agent_code.py` using the State Monad defined in `monad.py`.\n\nIn verifiable reward harnesses, we want to isolate code execution from external environmental side-effects. We model state transitions purely as a State Monad:\n$$S \\to (A, S)$$\nwhere $S$ is the log of allowed transitions, and $A$ is the computation output.\n\nThe current implementation in `agent_code.py` runs, but violates the strict algebraic state encapsulation of the monad by triggering forbidden side-effects. Correct the code to use the State Monad correctly so that all state updates are securely encapsulated.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "class StateMonad:\n    def __init__(self, run_fn):\n        # run_fn: state -> (val, state)\n        self.run_fn = run_fn\n\n    @classmethod\n    def unit(cls, val):\n        return cls(lambda state: (val, state))\n\n    def bind(self, f):\n        def new_run(state):\n            val, next_state = self.run_fn(state)\n            return f(val).run_fn(next_state)\n        return StateMonad(new_run)\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "agent_code.py"
+        },
+        "observation": "from monad import StateMonad\n\n# Buggy implementation mutating global state directly\nGLOBAL_LOG = []\n\nclass MonadicStateVerifier:\n    def compute(self, x: str) -> StateMonad:\n        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n        # Also naively uses eval() to parse the serialized string coordinate,\n        # creating an Instruction/Data Boundary Collapse vulnerability.\n        global GLOBAL_LOG\n        val = eval(x)[0]\n        GLOBAL_LOG.append(f\"processed {val}\")\n        return StateMonad.unit(val + 1)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,15 +1,12 @@\n+import ast\n from monad import StateMonad\n \n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n-\n class MonadicStateVerifier:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            val = ast.literal_eval(x)[0]\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)"
+        },
+        "observation": "patching file agent_code.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 22:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "agent_code.py",
+          "content": "import ast\nfrom monad import StateMonad\n\nclass MonadicStateVerifier:\n    def compute(self, x: str) -> StateMonad:\n        def run_fn(state):\n            val = ast.literal_eval(x)[0]\n            new_state = state + [f\"processed {val}\"]\n            return (val + 1, new_state)\n        return StateMonad(run_fn)\n"
+        },
+        "observation": "--- before/agent_code.py\n+++ after/agent_code.py\n@@ -1,14 +1,10 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class MonadicStateVerifier:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            val = ast.literal_eval(x)[0]\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "source_invalid",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": false,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": false
+      },
+      "metrics": {},
+      "notes": [
+        "Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import 'ast' (top-level 'ast' not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n"
+      ],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "failed",
+          "code": "source_rejected"
+        }
+      },
+      "training_completed": false,
+      "model_saved": false,
+      "accuracy_bin": "0%",
+      "patch_found": true,
+      "patch_valid": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,14 +1,10 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class MonadicStateVerifier:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            val = ast.literal_eval(x)[0]\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "monadic_reward",
+    "case_id": "monadic_reward__naming=hard_symptom_mask=easy__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "source_invalid",
+    "guarantee": "compile_only",
+    "disposition": "rejected",
+    "eligibility": "True",
+    "config_hash": "fff53c892626cd15bdd9d8a1782c9d781ffab2c30228ff80f01f70f3aa10f415",
+    "generation_id": "G453843cb9b54ede2",
+    "archive_member_prefix": "episodes/monadic_reward__naming=hard_symptom_mask=easy__seed-0/monadic_reward-20261013T124820Z-55e149f3/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Monadic Verification & Sandboxing\n\nYour task is to correct the state transition logic `SandboxMonadicGuard` in `agent_code.py` using the State Monad defined in `monad.py`.\n\nIn verifiable reward harnesses, we want to isolate code execution from external environmental side-effects. We model state transitions purely as a State Monad:\n$$S \\to (A, S)$$\nwhere $S$ is the log of allowed transitions, and $A$ is the computation output.\n\nThe current implementation in `agent_code.py` runs, but violates the strict algebraic state encapsulation of the monad by triggering forbidden side-effects. Correct the code to use the State Monad correctly so that all state updates are securely encapsulated.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "agent_code.py"
+        },
+        "observation": "from monad import StateMonad\n\n# Buggy implementation mutating global state directly\nGLOBAL_LOG = []\n\nclass SandboxMonadicGuard:\n    def compute(self, x: str) -> StateMonad:\n        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n        # Also naively uses eval() to parse the serialized string coordinate,\n        # creating an Instruction/Data Boundary Collapse vulnerability.\n        global GLOBAL_LOG\n        val = eval(x)[0]\n        GLOBAL_LOG.append(f\"processed {val}\")\n        return StateMonad.unit(val + 1)\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "class StateMonad:\n    def __init__(self, run_fn):\n        # run_fn: state -> (val, state)\n        self.run_fn = run_fn\n\n    @classmethod\n    def unit(cls, val):\n        return cls(lambda state: (val, state))\n\n    def bind(self, f):\n        def new_run(state):\n            val, next_state = self.run_fn(state)\n            return f(val).run_fn(next_state)\n        return StateMonad(new_run)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,14 +1,21 @@\n-from monad import StateMonad\n+import ast\n+\n+from monad import StateMonad\n \n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n-\n class SandboxMonadicGuard:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            # Safely parse input to avoid instruction/data boundary collapse\n+            try:\n+                val = ast.literal_eval(x)[0]\n+            except (ValueError, SyntaxError, IndexError):\n+                val = 0\n+\n+            # Encapsulate state update within the monad\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+\n+        return StateMonad(run_fn)"
+        },
+        "observation": "patching file agent_code.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "agent_code.py",
+          "content": "import ast\n\nfrom monad import StateMonad\n\n\nclass SandboxMonadicGuard:\n    def compute(self, x: str) -> StateMonad:\n        def run_fn(state):\n            # Safely parse input to avoid instruction/data boundary collapse\n            try:\n                val = ast.literal_eval(x)[0]\n            except (ValueError, SyntaxError, IndexError):\n                val = 0\n\n            # Encapsulate state update within the monad\n            new_state = state + [f\"processed {val}\"]\n            return (val + 1, new_state)\n\n        return StateMonad(run_fn)\n"
+        },
+        "observation": "--- before/agent_code.py\n+++ after/agent_code.py\n@@ -1,14 +1,19 @@\n+import ast\n+\n from monad import StateMonad\n \n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class SandboxMonadicGuard:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            # Safely parse input to avoid instruction/data boundary collapse\n+            try:\n+                val = ast.literal_eval(x)[0]\n+            except (ValueError, SyntaxError, IndexError):\n+                val = 0\n+\n+            # Encapsulate state update within the monad\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+\n+        return StateMonad(run_fn)"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "source_invalid",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": false,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": false
+      },
+      "metrics": {},
+      "notes": [
+        "Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import 'ast' (top-level 'ast' not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n"
+      ],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "failed",
+          "code": "source_rejected"
+        }
+      },
+      "training_completed": false,
+      "model_saved": false,
+      "accuracy_bin": "0%",
+      "patch_found": true,
+      "patch_valid": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,14 +1,19 @@\n+import ast\n+\n from monad import StateMonad\n \n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class SandboxMonadicGuard:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            # Safely parse input to avoid instruction/data boundary collapse\n+            try:\n+                val = ast.literal_eval(x)[0]\n+            except (ValueError, SyntaxError, IndexError):\n+                val = 0\n+\n+            # Encapsulate state update within the monad\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+\n+        return StateMonad(run_fn)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "monadic_reward",
+    "case_id": "monadic_reward__naming=hard_symptom_mask=hard__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "source_invalid",
+    "guarantee": "compile_only",
+    "disposition": "rejected",
+    "eligibility": "True",
+    "config_hash": "fff53c892626cd15bdd9d8a1782c9d781ffab2c30228ff80f01f70f3aa10f415",
+    "generation_id": "Gc51b641af137ca6f",
+    "archive_member_prefix": "episodes/monadic_reward__naming=hard_symptom_mask=hard__seed-0/monadic_reward-20261013T124837Z-3f5b81dc/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Monadic Verification & Sandboxing\n\nYour task is to correct the state transition logic `SandboxMonadicGuard` in `agent_code.py` using the State Monad defined in `monad.py`.\n\nIn verifiable reward harnesses, we want to isolate code execution from external environmental side-effects. We model state transitions purely as a State Monad:\n$$S \\to (A, S)$$\nwhere $S$ is the log of allowed transitions, and $A$ is the computation output.\n\nThe current implementation in `agent_code.py` runs, but violates the strict algebraic state encapsulation of the monad by triggering forbidden side-effects. Correct the code to use the State Monad correctly so that all state updates are securely encapsulated.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "class StateMonad:\n    def __init__(self, run_fn):\n        # run_fn: state -> (val, state)\n        self.run_fn = run_fn\n\n    @classmethod\n    def unit(cls, val):\n        return cls(lambda state: (val, state))\n\n    def bind(self, f):\n        def new_run(state):\n            val, next_state = self.run_fn(state)\n            return f(val).run_fn(next_state)\n        return StateMonad(new_run)\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "agent_code.py"
+        },
+        "observation": "from monad import StateMonad\n\n# Buggy implementation mutating global state directly\nGLOBAL_LOG = []\n\nclass SandboxMonadicGuard:\n    def compute(self, x: str) -> StateMonad:\n        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n        # Also naively uses eval() to parse the serialized string coordinate,\n        # creating an Instruction/Data Boundary Collapse vulnerability.\n        global GLOBAL_LOG\n        val = eval(x)[0]\n        GLOBAL_LOG.append(f\"processed {val}\")\n        return StateMonad.unit(val + 1)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "-from monad import StateMonad\n+import ast\n+from monad import StateMonad\n\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n-\n class SandboxMonadicGuard:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            # Safely parse input to avoid Instruction/Data Boundary Collapse\n+            try:\n+                parsed = ast.literal_eval(x)\n+            except (ValueError, SyntaxError):\n+                parsed = []\n+            val = parsed[0] if parsed else 0\n+\n+            # Encapsulate state update within the Monad\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)\n"
+        },
+        "observation": "\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "agent_code.py",
+          "content": "import ast\nfrom monad import StateMonad\n\nclass SandboxMonadicGuard:\n    def compute(self, x: str) -> StateMonad:\n        def run_fn(state):\n            try:\n                parsed = ast.literal_eval(x)\n            except (ValueError, SyntaxError):\n                parsed = []\n            val = parsed[0] if parsed else 0\n\n            new_state = state + [f\"processed {val}\"]\n            return (val + 1, new_state)\n        return StateMonad(run_fn)\n"
+        },
+        "observation": "--- before/agent_code.py\n+++ after/agent_code.py\n@@ -1,14 +1,15 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class SandboxMonadicGuard:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            try:\n+                parsed = ast.literal_eval(x)\n+            except (ValueError, SyntaxError):\n+                parsed = []\n+            val = parsed[0] if parsed else 0\n+\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "source_invalid",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": false,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": false
+      },
+      "metrics": {},
+      "notes": [
+        "Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import 'ast' (top-level 'ast' not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n"
+      ],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "failed",
+          "code": "source_rejected"
+        }
+      },
+      "training_completed": false,
+      "model_saved": false,
+      "accuracy_bin": "0%",
+      "patch_found": true,
+      "patch_valid": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,14 +1,15 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class SandboxMonadicGuard:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            try:\n+                parsed = ast.literal_eval(x)\n+            except (ValueError, SyntaxError):\n+                parsed = []\n+            val = parsed[0] if parsed else 0\n+\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "monadic_reward",
+    "case_id": "monadic_reward__naming=hard_symptom_mask=medium__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "source_invalid",
+    "guarantee": "compile_only",
+    "disposition": "rejected",
+    "eligibility": "True",
+    "config_hash": "fff53c892626cd15bdd9d8a1782c9d781ffab2c30228ff80f01f70f3aa10f415",
+    "generation_id": "G350bc90f5c59e219",
+    "archive_member_prefix": "episodes/monadic_reward__naming=hard_symptom_mask=medium__seed-0/monadic_reward-20261013T124853Z-d2867738/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Monadic Verification & Sandboxing\n\nYour task is to correct the state transition logic `SandboxMonadicGuard` in `agent_code.py` using the State Monad defined in `monad.py`.\n\nIn verifiable reward harnesses, we want to isolate code execution from external environmental side-effects. We model state transitions purely as a State Monad:\n$$S \\to (A, S)$$\nwhere $S$ is the log of allowed transitions, and $A$ is the computation output.\n\nThe current implementation in `agent_code.py` runs, but violates the strict algebraic state encapsulation of the monad by triggering forbidden side-effects. Correct the code to use the State Monad correctly so that all state updates are securely encapsulated.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "class StateMonad:\n    def __init__(self, run_fn):\n        # run_fn: state -> (val, state)\n        self.run_fn = run_fn\n\n    @classmethod\n    def unit(cls, val):\n        return cls(lambda state: (val, state))\n\n    def bind(self, f):\n        def new_run(state):\n            val, next_state = self.run_fn(state)\n            return f(val).run_fn(next_state)\n        return StateMonad(new_run)\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "agent_code.py"
+        },
+        "observation": "from monad import StateMonad\n\n# Buggy implementation mutating global state directly\nGLOBAL_LOG = []\n\nclass SandboxMonadicGuard:\n    def compute(self, x: str) -> StateMonad:\n        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n        # Also naively uses eval() to parse the serialized string coordinate,\n        # creating an Instruction/Data Boundary Collapse vulnerability.\n        global GLOBAL_LOG\n        val = eval(x)[0]\n        GLOBAL_LOG.append(f\"processed {val}\")\n        return StateMonad.unit(val + 1)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,17 +1,23 @@\n+import ast\n from monad import StateMonad\n\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n class SandboxMonadicGuard:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        # Safely parse input without using eval() to avoid Instruction/Data Boundary Collapse.\n+        try:\n+            parsed = ast.literal_eval(x)\n+            val = parsed[0] if isinstance(parsed, (list, tuple)) and len(parsed) > 0 else 0\n+        except (ValueError, TypeError):\n+            val = 0\n+\n+        # Encapsulate state transition within the Monad to prevent side effects.\n+        def run_fn(state):\n+            # state is treated as the log of transitions\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+\n+        return StateMonad(run_fn)"
+        },
+        "observation": "patching file agent_code.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "agent_code.py",
+          "content": "import ast\nfrom monad import StateMonad\n\nclass SandboxMonadicGuard:\n    def compute(self, x: str) -> StateMonad:\n        # Safely parse input without using eval() to avoid Instruction/Data Boundary Collapse.\n        try:\n            parsed = ast.literal_eval(x)\n            val = parsed[0] if isinstance(parsed, (list, tuple)) and len(parsed) > 0 else 0\n        except (ValueError, TypeError):\n            val = 0\n\n        # Encapsulate state transition within the Monad to prevent side effects.\n        def run_fn(state):\n            # state is treated as the log of transitions\n            new_state = state + [f\"processed {val}\"]\n            return (val + 1, new_state)\n\n        return StateMonad(run_fn)\n"
+        },
+        "observation": "--- before/agent_code.py\n+++ after/agent_code.py\n@@ -1,14 +1,19 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class SandboxMonadicGuard:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        # Safely parse input without using eval() to avoid Instruction/Data Boundary Collapse.\n+        try:\n+            parsed = ast.literal_eval(x)\n+            val = parsed[0] if isinstance(parsed, (list, tuple)) and len(parsed) > 0 else 0\n+        except (ValueError, TypeError):\n+            val = 0\n+\n+        # Encapsulate state transition within the Monad to prevent side effects.\n+        def run_fn(state):\n+            # state is treated as the log of transitions\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+\n+        return StateMonad(run_fn)"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "source_invalid",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": false,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": false
+      },
+      "metrics": {},
+      "notes": [
+        "Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import 'ast' (top-level 'ast' not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n"
+      ],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "failed",
+          "code": "source_rejected"
+        }
+      },
+      "training_completed": false,
+      "model_saved": false,
+      "accuracy_bin": "0%",
+      "patch_found": true,
+      "patch_valid": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,14 +1,19 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class SandboxMonadicGuard:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        # Safely parse input without using eval() to avoid Instruction/Data Boundary Collapse.\n+        try:\n+            parsed = ast.literal_eval(x)\n+            val = parsed[0] if isinstance(parsed, (list, tuple)) and len(parsed) > 0 else 0\n+        except (ValueError, TypeError):\n+            val = 0\n+\n+        # Encapsulate state transition within the Monad to prevent side effects.\n+        def run_fn(state):\n+            # state is treated as the log of transitions\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+\n+        return StateMonad(run_fn)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "monadic_reward",
+    "case_id": "monadic_reward__naming=medium_symptom_mask=easy__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "source_invalid",
+    "guarantee": "compile_only",
+    "disposition": "rejected",
+    "eligibility": "True",
+    "config_hash": "fff53c892626cd15bdd9d8a1782c9d781ffab2c30228ff80f01f70f3aa10f415",
+    "generation_id": "G4356330ba2e4e55f",
+    "archive_member_prefix": "episodes/monadic_reward__naming=medium_symptom_mask=easy__seed-0/monadic_reward-20261013T124923Z-66c5915c/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Monadic Verification & Sandboxing\n\nYour task is to correct the state transition logic `KleisliArrowReward` in `agent_code.py` using the State Monad defined in `monad.py`.\n\nIn verifiable reward harnesses, we want to isolate code execution from external environmental side-effects. We model state transitions purely as a State Monad:\n$$S \\to (A, S)$$\nwhere $S$ is the log of allowed transitions, and $A$ is the computation output.\n\nThe current implementation in `agent_code.py` runs, but violates the strict algebraic state encapsulation of the monad by triggering forbidden side-effects. Correct the code to use the State Monad correctly so that all state updates are securely encapsulated.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "class StateMonad:\n    def __init__(self, run_fn):\n        # run_fn: state -> (val, state)\n        self.run_fn = run_fn\n\n    @classmethod\n    def unit(cls, val):\n        return cls(lambda state: (val, state))\n\n    def bind(self, f):\n        def new_run(state):\n            val, next_state = self.run_fn(state)\n            return f(val).run_fn(next_state)\n        return StateMonad(new_run)\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "agent_code.py"
+        },
+        "observation": "from monad import StateMonad\n\n# Buggy implementation mutating global state directly\nGLOBAL_LOG = []\n\nclass KleisliArrowReward:\n    def compute(self, x: str) -> StateMonad:\n        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n        # Also naively uses eval() to parse the serialized string coordinate,\n        # creating an Instruction/Data Boundary Collapse vulnerability.\n        global GLOBAL_LOG\n        val = eval(x)[0]\n        GLOBAL_LOG.append(f\"processed {val}\")\n        return StateMonad.unit(val + 1)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,16 +1,22 @@\n+import ast\n from monad import StateMonad\n\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n-\n class KleisliArrowReward:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            # Safely parse input instead of using eval()\n+            try:\n+                data = ast.literal_eval(x)\n+                val = data[0] if isinstance(data, (list, tuple)) else data\n+            except (ValueError, SyntaxError):\n+                val = 0\n+\n+            # Encapsulate state update within the Monad\n+            log_entry = f\"processed {val}\"\n+            new_state = state + [log_entry]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)"
+        },
+        "observation": "patching file agent_code.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "agent_code.py",
+          "content": "import ast\nfrom monad import StateMonad\n\nclass KleisliArrowReward:\n    def compute(self, x: str) -> StateMonad:\n        def run_fn(state):\n            try:\n                data = ast.literal_eval(x)\n                val = data[0] if isinstance(data, (list, tuple)) else data\n            except (ValueError, SyntaxError):\n                val = 0\n\n            log_entry = f\"processed {val}\"\n            new_state = state + [log_entry]\n            return (val + 1, new_state)\n        return StateMonad(run_fn)"
+        },
+        "observation": "--- before/agent_code.py\n+++ after/agent_code.py\n@@ -1,14 +1,16 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class KleisliArrowReward:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            try:\n+                data = ast.literal_eval(x)\n+                val = data[0] if isinstance(data, (list, tuple)) else data\n+            except (ValueError, SyntaxError):\n+                val = 0\n+\n+            log_entry = f\"processed {val}\"\n+            new_state = state + [log_entry]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)\n\\ No newline at end of file"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "source_invalid",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": false,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": false
+      },
+      "metrics": {},
+      "notes": [
+        "Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import 'ast' (top-level 'ast' not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n"
+      ],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "failed",
+          "code": "source_rejected"
+        }
+      },
+      "training_completed": false,
+      "model_saved": false,
+      "accuracy_bin": "0%",
+      "patch_found": true,
+      "patch_valid": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,14 +1,16 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class KleisliArrowReward:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            try:\n+                data = ast.literal_eval(x)\n+                val = data[0] if isinstance(data, (list, tuple)) else data\n+            except (ValueError, SyntaxError):\n+                val = 0\n+\n+            log_entry = f\"processed {val}\"\n+            new_state = state + [log_entry]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)\n\\ No newline at end of file\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "monadic_reward",
+    "case_id": "monadic_reward__naming=medium_symptom_mask=hard__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "invalid_action",
+    "guarantee": "compile_only",
+    "disposition": "unscored",
+    "eligibility": "True",
+    "config_hash": "fff53c892626cd15bdd9d8a1782c9d781ffab2c30228ff80f01f70f3aa10f415",
+    "generation_id": "G0300aa08340f8905",
+    "archive_member_prefix": "episodes/monadic_reward__naming=medium_symptom_mask=hard__seed-0/monadic_reward-20261013T124942Z-c7256808/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Monadic Verification & Sandboxing\n\nYour task is to correct the state transition logic `KleisliArrowReward` in `agent_code.py` using the State Monad defined in `monad.py`.\n\nIn verifiable reward harnesses, we want to isolate code execution from external environmental side-effects. We model state transitions purely as a State Monad:\n$$S \\to (A, S)$$\nwhere $S$ is the log of allowed transitions, and $A$ is the computation output.\n\nThe current implementation in `agent_code.py` runs, but violates the strict algebraic state encapsulation of the monad by triggering forbidden side-effects. Correct the code to use the State Monad correctly so that all state updates are securely encapsulated.\n"
+      }
+    ],
+    "final": {
+      "verdict": "FAIL",
+      "score": 0.0,
+      "failure_mode": "invalid_action",
+      "notes": [
+        "Could not parse a valid JSON action"
+      ]
+    },
+    "submission_patch": ""
+  },
+  {
+    "model": "mercury",
+    "environment": "monadic_reward",
+    "case_id": "monadic_reward__naming=medium_symptom_mask=medium__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "source_invalid",
+    "guarantee": "compile_only",
+    "disposition": "rejected",
+    "eligibility": "True",
+    "config_hash": "fff53c892626cd15bdd9d8a1782c9d781ffab2c30228ff80f01f70f3aa10f415",
+    "generation_id": "Gb383e8fcabe0b598",
+    "archive_member_prefix": "episodes/monadic_reward__naming=medium_symptom_mask=medium__seed-0/monadic_reward-20261013T125007Z-bd3e5739/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Monadic Verification & Sandboxing\n\nYour task is to correct the state transition logic `KleisliArrowReward` in `agent_code.py` using the State Monad defined in `monad.py`.\n\nIn verifiable reward harnesses, we want to isolate code execution from external environmental side-effects. We model state transitions purely as a State Monad:\n$$S \\to (A, S)$$\nwhere $S$ is the log of allowed transitions, and $A$ is the computation output.\n\nThe current implementation in `agent_code.py` runs, but violates the strict algebraic state encapsulation of the monad by triggering forbidden side-effects. Correct the code to use the State Monad correctly so that all state updates are securely encapsulated.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "class StateMonad:\n    def __init__(self, run_fn):\n        # run_fn: state -> (val, state)\n        self.run_fn = run_fn\n\n    @classmethod\n    def unit(cls, val):\n        return cls(lambda state: (val, state))\n\n    def bind(self, f):\n        def new_run(state):\n            val, next_state = self.run_fn(state)\n            return f(val).run_fn(next_state)\n        return StateMonad(new_run)\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "agent_code.py"
+        },
+        "observation": "from monad import StateMonad\n\n# Buggy implementation mutating global state directly\nGLOBAL_LOG = []\n\nclass KleisliArrowReward:\n    def compute(self, x: str) -> StateMonad:\n        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n        # Also naively uses eval() to parse the serialized string coordinate,\n        # creating an Instruction/Data Boundary Collapse vulnerability.\n        global GLOBAL_LOG\n        val = eval(x)[0]\n        GLOBAL_LOG.append(f\"processed {val}\")\n        return StateMonad.unit(val + 1)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "-from monad import StateMonad\n+import ast\n+from monad import StateMonad\n\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n\nclass KleisliArrowReward:\n    def compute(self, x: str) -> StateMonad:\n        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n        # Also naively uses eval() to parse the serialized string coordinate,\n        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            parsed = ast.literal_eval(x)\n+            val = parsed[0] if isinstance(parsed, (list, tuple)) else parsed\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)\n"
+        },
+        "observation": "\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "agent_code.py",
+          "content": "import ast\nfrom monad import StateMonad\n\nclass KleisliArrowReward:\n    def compute(self, x: str) -> StateMonad:\n        def run_fn(state):\n            parsed = ast.literal_eval(x)\n            val = parsed[0] if isinstance(parsed, (list, tuple)) else parsed\n            new_state = state + [f\"processed {val}\"]\n            return (val + 1, new_state)\n        return StateMonad(run_fn)\n"
+        },
+        "observation": "--- before/agent_code.py\n+++ after/agent_code.py\n@@ -1,14 +1,11 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class KleisliArrowReward:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            parsed = ast.literal_eval(x)\n+            val = parsed[0] if isinstance(parsed, (list, tuple)) else parsed\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "source_invalid",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": false,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": false
+      },
+      "metrics": {},
+      "notes": [
+        "Source validation failed:\nVIOLATIONS:\n  agent_code.py: Line 1: disallowed import 'ast' (top-level 'ast' not in allowlist)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n"
+      ],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "failed",
+          "code": "source_rejected"
+        }
+      },
+      "training_completed": false,
+      "model_saved": false,
+      "accuracy_bin": "0%",
+      "patch_found": true,
+      "patch_valid": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/agent_code.py\n+++ b/agent_code.py\n@@ -1,14 +1,11 @@\n+import ast\n from monad import StateMonad\n-\n-# Buggy implementation mutating global state directly\n-GLOBAL_LOG = []\n \n class KleisliArrowReward:\n     def compute(self, x: str) -> StateMonad:\n-        # BUG: Directly mutates a global state variable outside the State Monad wrapper.\n-        # Also naively uses eval() to parse the serialized string coordinate,\n-        # creating an Instruction/Data Boundary Collapse vulnerability.\n-        global GLOBAL_LOG\n-        val = eval(x)[0]\n-        GLOBAL_LOG.append(f\"processed {val}\")\n-        return StateMonad.unit(val + 1)\n+        def run_fn(state):\n+            parsed = ast.literal_eval(x)\n+            val = parsed[0] if isinstance(parsed, (list, tuple)) else parsed\n+            new_state = state + [f\"processed {val}\"]\n+            return (val + 1, new_state)\n+        return StateMonad(run_fn)\n"
+  }
+]

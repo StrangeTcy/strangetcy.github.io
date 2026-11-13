@@ -1,0 +1,2005 @@
+{
+  "generatedAt": "2026-11-10T21:22:13.016Z",
+  "countingRule": "Literal archived final PASS/FAIL labels; unknown outcomes remain separate. Ordinary Atria is a smaller historical cohort, not a controlled reasoning ablation. Equal case/config identifiers are linkage evidence, not proof of identical dirty executed source.",
+  "cohorts": [
+    {
+      "id": "mercury",
+      "label": "Mercury-2.5",
+      "recorded": 416,
+      "pass": 277,
+      "fail": 128,
+      "withoutVerdict": 11,
+      "statusCounts": {
+        "scored": 405,
+        "infrastructure_unscored": 11
+      },
+      "uniqueCaseIds": 416
+    },
+    {
+      "id": "reasoning_atria",
+      "label": "Atria-Dawn-Preview, high reasoning effort",
+      "recorded": 415,
+      "pass": 290,
+      "fail": 125,
+      "withoutVerdict": 0,
+      "statusCounts": {
+        "scored": 415
+      },
+      "uniqueCaseIds": 415
+    },
+    {
+      "id": "ordinary_atria",
+      "label": "Atria-Dawn-Preview, reasoning disabled",
+      "recorded": 194,
+      "pass": 131,
+      "fail": 63,
+      "withoutVerdict": 0,
+      "statusCounts": {
+        "scored": 194
+      },
+      "uniqueCaseIds": 194
+    }
+  ],
+  "primaryPairing": {
+    "commonRecordedIds": 415,
+    "bothHaveVerdicts": 404,
+    "mercuryOnlyIds": [
+      "ts_trajectory__witness_status=valid_representation=reflective__seed-0"
+    ],
+    "reasoningOnlyIds": [],
+    "configHashesEqual": 415,
+    "configMismatches": [],
+    "bothPass": 239,
+    "mercuryOnlyPass": 38,
+    "reasoningOnlyPass": 41,
+    "bothFail": 86
+  },
+  "ordinaryOverlap": [
+    {
+      "laterCohort": "mercury",
+      "sharedIds": 131,
+      "equalConfigHashes": 0
+    },
+    {
+      "laterCohort": "reasoning_atria",
+      "sharedIds": 131,
+      "equalConfigHashes": 0
+    }
+  ],
+  "environments": [
+    {
+      "environment": "architecture_naturality",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "batchnorm_ema",
+      "family": "ml_debugging",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 15,
+          "pass": 2,
+          "fail": 13,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "overfit_visible_tests": 11,
+            "training_failed": 1
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 15,
+          "pass": 3,
+          "fail": 12,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "overfit_visible_tests": 1,
+            "patch_invalid": 10,
+            "source_invalid": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 11,
+          "pass": 0,
+          "fail": 11,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "overfit_visible_tests": 1,
+            "patch_invalid": 9
+          }
+        }
+      ]
+    },
+    {
+      "environment": "categorical_lenses",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 4,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "source_invalid": 1
+          }
+        }
+      ]
+    },
+    {
+      "environment": "ci_dependency_graph",
+      "family": "weird_machine",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 8,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "underfit": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "compositional_optimizer",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 7,
+          "fail": 2,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 2
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 7,
+          "fail": 2,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "patch_invalid": 1,
+            "source_invalid": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 3,
+          "fail": 2,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "patch_invalid": 1,
+            "source_invalid": 1
+          }
+        }
+      ]
+    },
+    {
+      "environment": "css_state_machine",
+      "family": "weird_machine",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 18,
+          "pass": 18,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 18,
+          "pass": 15,
+          "fail": 3,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "patch_invalid": 1,
+            "underfit": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 3,
+          "fail": 2,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "source_invalid": 1,
+            "underfit": 1
+          }
+        }
+      ]
+    },
+    {
+      "environment": "epistemic_announcements",
+      "family": "ml_debugging",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 6,
+          "pass": 6,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 6,
+          "pass": 6,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 0,
+          "pass": 0,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "epistemic_fragmented_observation",
+      "family": "ml_debugging",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 4,
+          "pass": 4,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 4,
+          "pass": 4,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 0,
+          "pass": 0,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "epistemic_games",
+      "family": "epistemic_games",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 23,
+          "pass": 23,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 23,
+          "pass": 23,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 7,
+          "pass": 7,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "epistemic_nested_knowledge",
+      "family": "ml_debugging",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 6,
+          "pass": 6,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 6,
+          "pass": 6,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 0,
+          "pass": 0,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "epistemic_silence",
+      "family": "epistemic_silence",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 6,
+          "pass": 0,
+          "fail": 0,
+          "withoutVerdict": 6,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 6,
+          "pass": 6,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 0,
+          "pass": 0,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "epistemic_type_games",
+      "family": "epistemic_type_games",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 4,
+          "pass": 0,
+          "fail": 0,
+          "withoutVerdict": 4,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 4,
+          "pass": 3,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "invalid_action": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 0,
+          "pass": 0,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "equivariant_diagram",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 7,
+          "fail": 2,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "runtime_error": 1,
+            "underfit": 1
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "functorial_augmentation",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 0,
+          "fail": 9,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "runtime_error": 3,
+            "underfit": 6
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 2,
+          "fail": 7,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 7
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 2,
+          "fail": 3,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 3
+          }
+        }
+      ]
+    },
+    {
+      "environment": "glyph",
+      "family": "ml_debugging",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 24,
+          "pass": 0,
+          "fail": 24,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "overfit_visible_tests": 22,
+            "underfit": 1
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 24,
+          "pass": 0,
+          "fail": 24,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "overfit_visible_tests": 3,
+            "patch_invalid": 21
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 8,
+          "pass": 0,
+          "fail": 8,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "patch_invalid": 8
+          }
+        }
+      ]
+    },
+    {
+      "environment": "gnn_message_passing",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 5,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 4
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 0,
+          "fail": 9,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 9
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 0,
+          "fail": 5,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 5
+          }
+        }
+      ]
+    },
+    {
+      "environment": "moco",
+      "family": "ml_debugging",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 55,
+          "pass": 36,
+          "fail": 19,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "overfit_visible_tests": 16,
+            "training_failed": 2
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 55,
+          "pass": 30,
+          "fail": 25,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "overfit_visible_tests": 3,
+            "patch_invalid": 9,
+            "source_invalid": 1,
+            "training_failed": 11
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 11,
+          "pass": 9,
+          "fail": 2,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "overfit_visible_tests": 1,
+            "patch_invalid": 1
+          }
+        }
+      ]
+    },
+    {
+      "environment": "monadic_reward",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 0,
+          "fail": 9,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "source_invalid": 8
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 0,
+          "fail": 9,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "source_invalid": 9
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 1,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "source_invalid": 4
+          }
+        }
+      ]
+    },
+    {
+      "environment": "neuro_symbolic_parser",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 8,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 4,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 1
+          }
+        }
+      ]
+    },
+    {
+      "environment": "rd_adaptive_halting",
+      "family": "rd_adaptive_halting",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 15,
+          "pass": 8,
+          "fail": 6,
+          "withoutVerdict": 1,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "runtime_error": 5,
+            "underfit": 1
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 15,
+          "pass": 14,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 11,
+          "pass": 9,
+          "fail": 2,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "RUNTIME_ERROR": 1,
+            "source_invalid": 1
+          }
+        }
+      ]
+    },
+    {
+      "environment": "rd_gradient_credit",
+      "family": "recurrent_depth_behavioral",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 15,
+          "pass": 15,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 15,
+          "pass": 15,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 11,
+          "pass": 11,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "rd_state_carry",
+      "family": "recurrent_depth_behavioral",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 15,
+          "pass": 15,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 15,
+          "pass": 15,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 11,
+          "pass": 11,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "regex_state_machine",
+      "family": "weird_machine",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 5,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "underfit": 3
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 5,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "underfit": 4
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 3,
+          "fail": 2,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "underfit": 2
+          }
+        }
+      ]
+    },
+    {
+      "environment": "semiring_unification",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "sheaf_invariant_gluing",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 0,
+          "fail": 9,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 9
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "sheaf_physical_constraints",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 0,
+          "fail": 9,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 9
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 0,
+          "fail": 9,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "invalid_action": 2,
+            "underfit": 7
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 0,
+          "fail": 5,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "invalid_action": 2,
+            "patch_invalid": 1,
+            "underfit": 2
+          }
+        }
+      ]
+    },
+    {
+      "environment": "sheaf_schema_sync",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 8,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 1
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 5,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "patch_invalid": 2,
+            "source_invalid": 2
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 1,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "patch_invalid": 4
+          }
+        }
+      ]
+    },
+    {
+      "environment": "spreadsheet_dataflow",
+      "family": "weird_machine",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "sql_fixed_point",
+      "family": "weird_machine",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 8,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "underfit": 1
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 4,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "source_invalid": 1
+          }
+        }
+      ]
+    },
+    {
+      "environment": "ssm_parallel_scan",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 5,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 4
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "stochastic_monad",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "template_interpreter",
+      "family": "weird_machine",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 8,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {
+            "source_invalid": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "behavioral_reference"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "tensor_functor",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 6,
+          "fail": 3,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 3
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 7,
+          "fail": 2,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 2
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 2,
+          "fail": 3,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 3
+          }
+        }
+      ]
+    },
+    {
+      "environment": "tokenizer_adjunction",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "transformer_ssm_lift",
+      "family": "category_theoretic_compositional",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 9,
+          "pass": 8,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "source_invalid": 1
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 9,
+          "pass": 9,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 5,
+          "pass": 5,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        }
+      ]
+    },
+    {
+      "environment": "ts_one_step",
+      "family": "trajectory_solver_synthesis",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 4,
+          "pass": 0,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "runtime_error": 1,
+            "underfit": 3
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 4,
+          "pass": 0,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "runtime_error": 1,
+            "underfit": 3
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 3,
+          "pass": 0,
+          "fail": 3,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "source_invalid": 1,
+            "underfit": 2
+          }
+        }
+      ]
+    },
+    {
+      "environment": "ts_parse_only",
+      "family": "trajectory_solver_synthesis",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 4,
+          "pass": 4,
+          "fail": 0,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {}
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 4,
+          "pass": 1,
+          "fail": 3,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "patch_invalid": 1,
+            "source_invalid": 1,
+            "underfit": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 3,
+          "pass": 2,
+          "fail": 1,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "underfit": 1
+          }
+        }
+      ]
+    },
+    {
+      "environment": "ts_trajectory",
+      "family": "trajectory_solver_synthesis",
+      "cohorts": [
+        {
+          "id": "mercury",
+          "recorded": 4,
+          "pass": 0,
+          "fail": 4,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "runtime_error": 1,
+            "underfit": 3
+          }
+        },
+        {
+          "id": "reasoning_atria",
+          "recorded": 3,
+          "pass": 0,
+          "fail": 3,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "source_invalid": 1,
+            "underfit": 1
+          }
+        },
+        {
+          "id": "ordinary_atria",
+          "recorded": 3,
+          "pass": 0,
+          "fail": 3,
+          "withoutVerdict": 0,
+          "guarantees": [
+            "compile_only"
+          ],
+          "failures": {
+            "invalid_action": 1,
+            "runtime_error": 2
+          }
+        }
+      ]
+    }
+  ],
+  "pairedEnvironments": [
+    {
+      "environment": "architecture_naturality",
+      "n": 9,
+      "bothPass": 9,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "batchnorm_ema",
+      "n": 15,
+      "bothPass": 0,
+      "mercuryOnlyPass": 2,
+      "reasoningOnlyPass": 3,
+      "bothFail": 10
+    },
+    {
+      "environment": "categorical_lenses",
+      "n": 9,
+      "bothPass": 9,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "ci_dependency_graph",
+      "n": 9,
+      "bothPass": 8,
+      "mercuryOnlyPass": 1,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "compositional_optimizer",
+      "n": 9,
+      "bothPass": 5,
+      "mercuryOnlyPass": 2,
+      "reasoningOnlyPass": 2,
+      "bothFail": 0
+    },
+    {
+      "environment": "css_state_machine",
+      "n": 18,
+      "bothPass": 15,
+      "mercuryOnlyPass": 3,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "epistemic_announcements",
+      "n": 6,
+      "bothPass": 6,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "epistemic_fragmented_observation",
+      "n": 4,
+      "bothPass": 4,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "epistemic_games",
+      "n": 23,
+      "bothPass": 23,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "epistemic_nested_knowledge",
+      "n": 6,
+      "bothPass": 6,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "epistemic_silence",
+      "n": 0,
+      "bothPass": 0,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "epistemic_type_games",
+      "n": 0,
+      "bothPass": 0,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "equivariant_diagram",
+      "n": 9,
+      "bothPass": 7,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 2,
+      "bothFail": 0
+    },
+    {
+      "environment": "functorial_augmentation",
+      "n": 9,
+      "bothPass": 0,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 2,
+      "bothFail": 7
+    },
+    {
+      "environment": "glyph",
+      "n": 24,
+      "bothPass": 0,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 24
+    },
+    {
+      "environment": "gnn_message_passing",
+      "n": 9,
+      "bothPass": 0,
+      "mercuryOnlyPass": 5,
+      "reasoningOnlyPass": 0,
+      "bothFail": 4
+    },
+    {
+      "environment": "moco",
+      "n": 55,
+      "bothPass": 23,
+      "mercuryOnlyPass": 13,
+      "reasoningOnlyPass": 7,
+      "bothFail": 12
+    },
+    {
+      "environment": "monadic_reward",
+      "n": 9,
+      "bothPass": 0,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 9
+    },
+    {
+      "environment": "neuro_symbolic_parser",
+      "n": 9,
+      "bothPass": 8,
+      "mercuryOnlyPass": 1,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "rd_adaptive_halting",
+      "n": 14,
+      "bothPass": 8,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 5,
+      "bothFail": 1
+    },
+    {
+      "environment": "rd_gradient_credit",
+      "n": 15,
+      "bothPass": 15,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "rd_state_carry",
+      "n": 15,
+      "bothPass": 15,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "regex_state_machine",
+      "n": 9,
+      "bothPass": 3,
+      "mercuryOnlyPass": 2,
+      "reasoningOnlyPass": 2,
+      "bothFail": 2
+    },
+    {
+      "environment": "semiring_unification",
+      "n": 9,
+      "bothPass": 9,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "sheaf_invariant_gluing",
+      "n": 9,
+      "bothPass": 0,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 9,
+      "bothFail": 0
+    },
+    {
+      "environment": "sheaf_physical_constraints",
+      "n": 9,
+      "bothPass": 0,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 9
+    },
+    {
+      "environment": "sheaf_schema_sync",
+      "n": 9,
+      "bothPass": 4,
+      "mercuryOnlyPass": 4,
+      "reasoningOnlyPass": 1,
+      "bothFail": 0
+    },
+    {
+      "environment": "spreadsheet_dataflow",
+      "n": 9,
+      "bothPass": 9,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "sql_fixed_point",
+      "n": 9,
+      "bothPass": 8,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 1,
+      "bothFail": 0
+    },
+    {
+      "environment": "ssm_parallel_scan",
+      "n": 9,
+      "bothPass": 5,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 4,
+      "bothFail": 0
+    },
+    {
+      "environment": "stochastic_monad",
+      "n": 9,
+      "bothPass": 9,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "template_interpreter",
+      "n": 9,
+      "bothPass": 8,
+      "mercuryOnlyPass": 1,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "tensor_functor",
+      "n": 9,
+      "bothPass": 5,
+      "mercuryOnlyPass": 1,
+      "reasoningOnlyPass": 2,
+      "bothFail": 1
+    },
+    {
+      "environment": "tokenizer_adjunction",
+      "n": 9,
+      "bothPass": 9,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "transformer_ssm_lift",
+      "n": 9,
+      "bothPass": 8,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 1,
+      "bothFail": 0
+    },
+    {
+      "environment": "ts_one_step",
+      "n": 4,
+      "bothPass": 0,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 4
+    },
+    {
+      "environment": "ts_parse_only",
+      "n": 4,
+      "bothPass": 1,
+      "mercuryOnlyPass": 3,
+      "reasoningOnlyPass": 0,
+      "bothFail": 0
+    },
+    {
+      "environment": "ts_trajectory",
+      "n": 3,
+      "bothPass": 0,
+      "mercuryOnlyPass": 0,
+      "reasoningOnlyPass": 0,
+      "bothFail": 3
+    }
+  ]
+}

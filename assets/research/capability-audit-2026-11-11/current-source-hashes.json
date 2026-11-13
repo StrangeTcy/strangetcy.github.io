@@ -1,0 +1,1834 @@
+[
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\__init__.py",
+    "Hash": "E77CD08D38FC818B6B42005AE069F1F866200BAF5338CA3736F6767818A8BB43"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\agent_model_inquiry\\game.mjs",
+    "Hash": "9552B0A3FAE1FD858FE9A72BA8FE2F06C1452E51221549C65E47EA149A697273"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\agent_model_inquiry\\oracle.mjs",
+    "Hash": "2561AC9AD61AE562981FA7EE877FB53920EA481D69AD25BE56E7EE15BF37A733"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\agent_model_inquiry\\README.md",
+    "Hash": "A6DA796941BBDCBE5415E54D757C826BCAF733231650C50EAD944CE63AEEACF8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\artifacts.py",
+    "Hash": "F9B3D5B9A1F6B350CD2E5CF8D238100AA42ED3D460D4A68FFE51B9FD9631B7DD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\diffing.py",
+    "Hash": "F802358F26431FC0E89393F8408285E0F711A9C62F01E5AC4611DAB1038EBC67"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\docker_backend.py",
+    "Hash": "0AFD41696E1B01B18ECF0D85A9E98F35424982B25AE910A397CBA21E620D6CCE"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\episode_id.py",
+    "Hash": "913E39D399F292DE432238F25D34D9631BED133626D34EF6854A4705A6599F01"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\episode.py",
+    "Hash": "F85188E269B701AA342F84440FAF4779C28A31A6F6C1424D826BAE49B50AB133"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\__init__.py",
+    "Hash": "5E29420633767E0643610FB542928D3E2ADCF517E47E3609310949B8D6D22B0F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\adapter.py",
+    "Hash": "53B423B67B2ECBC5ADCCA38695F42511864A86C258B75105314B3DBC2449EBCD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\bridge_v2.py",
+    "Hash": "C3FE4DE17A631D8ED599DAEDC98E86545B7B0B4DFD106A2D4E1F165DA6221B32"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\example_agent_v2.mjs",
+    "Hash": "B5163C1E99DC3F0793132FD572C08C03652582E3D764BEDC4BE304049331C554"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\example_agent.py",
+    "Hash": "4BDCCBB8223997A14C948F550B387B935316177FCB9AD16242628674770BE5EB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\game.py",
+    "Hash": "32EA6C8AE74E0079CF88AEA2C539951152073214708ABEC6648CB5EA84BD547F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\planning.py",
+    "Hash": "499BAFB893E9EC07D6A0CF795B9A6B4535993646C2EECF713924B737F256B2D2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\PROTOCOL_V2.md",
+    "Hash": "1035393088E4D200CB6473C6D7BCFBDB86373914EC90B32F56C998F2565767A3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\PROTOCOL.md",
+    "Hash": "DF61715D16FBA53360D281B1CA542CF1589B6995248DD923D8D5A371BA6CE3F7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\protocol.py",
+    "Hash": "E0173B53B6D3620E7C04AA65DFBACA949AD49B5719377A9027A205E3DBE3F1EC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\reference_semantics.py",
+    "Hash": "D1AB0728A889315A74A5293EA94945A30FC33006D49FDD9FB8A86A9DFBB8C675"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\runner.py",
+    "Hash": "2F43C983B60B4C7D910E2C1E182A9951617D99563914B2BDFF7DDD9E2F7B0C35"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\semantics.py",
+    "Hash": "2D216F5B5B09BE088C4E342ACAB1422D8AF0FB8646524019F512C7D7EA2194DA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_control\\session_v2.mjs",
+    "Hash": "8DCB59C95B5F78BDAE69F6F6A208D7DF11CBC6E720B7D3E1ABE6F13DF3B2C161"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\adaptive_agents.mjs",
+    "Hash": "207696B792CAF0B5CD35FF4F6AB2BD33CEBB6A65D9CFCF53F347BFAA4AF88350"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\agent_reconstruction.mjs",
+    "Hash": "3068AAC2BABD51A0EE6951612C01956C40DA50FF5A2B6ADDD67FD71DB8FE2547"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\belief_revision.mjs",
+    "Hash": "9C2F82D36FB69D324FBB05035B653076D8148DB31B1634D16DA12EFC1EDCE8C5"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\catalog.mjs",
+    "Hash": "83E5CBCC24EFCFF5CE87B6D079DCBB147EC5F0DDE08763B035486DD279A53578"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\configuration.mjs",
+    "Hash": "5E1EF8850BB531CA20DB3C5D2B8AF49A98BDEA9F06589B48FFB9392A41024D9D"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\evaluator_prediction.mjs",
+    "Hash": "49A39925D05804C7069C156E25554E879C62082D866B7C87484DF05B3CF59695"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\evidence_process.mjs",
+    "Hash": "662DE763DD6A0D70EF933DA690AC457DBC854403E07B7306EDBCC0F1EEBCF640"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\hypothesis_discovery.mjs",
+    "Hash": "BB03E3D67D3F784D0F59916B29DF3D775D505971D5A60281882372B9C0A30DB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\inquiry_control.mjs",
+    "Hash": "0ABA1550BFC2FDE85BDF0FAD29666CB80F210170E8970AC7FAF1B1C6C40822BD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\memory_inquiry.mjs",
+    "Hash": "92AA34B72CA8E013FD971210D31BE15133EBCCA9759A055A4BF79960C8D224B6"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\model_policy.mjs",
+    "Hash": "DD13FD6D1819CAD5CB51B0CB74BBB558AE0C368B810F8C8620378B26B2879EB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\recursive_delegation.mjs",
+    "Hash": "4C6B41B87A4242FFC30E709D89FB8B550CA475B58571F12DDB70B85F3F7C5821"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\runtime.mjs",
+    "Hash": "81009B12969A64C24E0C217E61FAD6F7AEFAB0162A2FA932A3F97531C163DC96"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\epistemic_families\\session.mjs",
+    "Hash": "C84ECE4757E821A59324DBB0C6385CBC79FE64F686CF571E554244EC1BE16ADC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\__init__.py",
+    "Hash": "2B48BEA364A2E2F768AF8234CEBF8E8332EE5A416736B58F9B1E5F5809498A73"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\__main__.py",
+    "Hash": "9FD53BC11C09644B48777D3AB2DE814B8790DB4E7A348CCBCC3C9F43F492E941"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\baselines.py",
+    "Hash": "6233524F17CCF7926086D24F69BA19B0E76EB40D18067CC9A75616C75D4D5BAB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\diagnostic.py",
+    "Hash": "D0D241B7302A89E7F32128F1173DEAAD08721F361741264DE6D5B0547CE37CB4"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\finite.py",
+    "Hash": "BC332353F525F0C5B8C3DEC8D755A953C3F0704C8E7E9FA2BCFD3130F5634171"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\presenter.py",
+    "Hash": "797F71B683E071A3729106D3844E6A82DBA177F88994329DCAB689DEB2C57E2F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\README.md",
+    "Hash": "731FC465C4390E57905CF690994C0B4F43A8F0A952DD22A33C677847E1DE7F32"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\reference.py",
+    "Hash": "26C31D260ECAB4A64AB4C8199CD56CA7B1014302E844365EF81CC359E2949CA3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\selection_laws.mjs",
+    "Hash": "60B7D66A41CF0CAA1BA51F3421AFFB22FEF31FD99371CD05D08DB39910F15ED5"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\session.py",
+    "Hash": "8ADA4766D2BE9B740FCCBA3BFF64DCEE4FCB63C60BCD1BC41E379988F0070BD9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\strategic.py",
+    "Hash": "63153FE28915E3EAC79249CB5D0EFCFBB04A4A69805DD865943E0CCAB6EFF4DD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\inquiry\\trial.py",
+    "Hash": "B8E981752D9131CF2F98B8FAF496D34D004D12496CA8475CF8C99E17C5A1F415"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\matched_facts.py",
+    "Hash": "25B773110416D195E5D7646347104DAF8787A5B120DCD625F83E4E72DB6394DB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\providers.py",
+    "Hash": "5FDE9EBEA8A9E13E0D218789046E74901AF5D6DE26C7CA0D670148272E385671"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_maze_topology\\families.mjs",
+    "Hash": "87C64779AED66C35A54122635997B619C7BCBAD7851F667D63AE6E5549135E94"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_maze_topology\\README.md",
+    "Hash": "D00C7D1909550D653458050B191759FE66B546C3D015091DD4851926C6C7B5BB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_maze_topology\\semantics.mjs",
+    "Hash": "019A1E225F5C3CD6F6919DF7876B9CB310F1255DE4F760373773991722697ADF"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_programs\\__init__.py",
+    "Hash": "12F681B144217B8E7C63EEDCD98E59E70C1AD94B4936F308B186B3E7FA32AE51"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_programs\\__main__.py",
+    "Hash": "CD15D726751EEFCA50B1152FEB9BDDA9E3CBC680E084A76C10E4C692008CDB24"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_programs\\game.py",
+    "Hash": "2AADE1E5AE39EC95D8EA695F536625590734DE750C5DFCEB2F522177B24B4D66"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_programs\\README.md",
+    "Hash": "FB61623429B50BCFEB114552BF1EA0CA968E12CD8BC4D1A9026FA5A4B87CA005"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_programs\\reference.py",
+    "Hash": "5CB52268C3261742E54EAFF8EF3869F662A6192690BF86C2F5AA5FD6121072A8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_programs\\semantics.py",
+    "Hash": "A62777CFB986F0D780B3B080D326E44EC478EB867091FB7BCE58D873E25D061D"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_programs\\session.py",
+    "Hash": "8BA2433896C24548BD54C8BB19B9D0C02BB83D4C74D4C832A1D4BC1006BCF2B2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\recursive_programs\\static_review.json",
+    "Hash": "30CC86958A3B384FD771501524F5CDBF1B87199471516AC249A2BCFD577706C8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\result_record.py",
+    "Hash": "B6D4D9398843146C56D274DFB4BF086DDAF4BE710260AD12EC63773DBCA365E5"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\secrets.py",
+    "Hash": "CF3BD2F995A90128B3027AB5E0722813B9D36C59E2930D9FB5E1305EB2948B69"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\t1_pairing.py",
+    "Hash": "1F682938C3B7F249B4AA642B9BAF25440CED72129F073B75DBDA00D92F10D52A"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\trajectory_metrics.py",
+    "Hash": "57CDB13C813CE491FB331FBB64CBD0029DD53253A2CE8090666B784AD4B13AA9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\trajectory_plan.py",
+    "Hash": "7F54F6E002B61DF5EB39D7CD9C30A366441BDFE64C0A6341C16AE3AC42A741F5"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\trajectory_runner.py",
+    "Hash": "D7B499D9697E0DD766B13784DD00FE121E915FDAAA9C283DECB8960A93ADB6EA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\arena\\trajectory.py",
+    "Hash": "CD6F2CAA0AB932D3DB482AE913C7D9482D743BF3177F90DDF852D5CA9ED66EFB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\env_runner.py",
+    "Hash": "8C7FE22787DE5B36EF5ADF654186B25052719CFF8BFA082BE32BCDAC22A0C85B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\base_config.yaml",
+    "Hash": "333E0195512A58DFA22EF796B919E3209AE3B630921056B900A3C944C99773DB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\batchnorm_ema\\config.yaml",
+    "Hash": "68D0783E0BB774D6A80E985AA6C11D40287DB56A9579B72772A92A9785F3E129"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\batchnorm_ema\\files\\judge.py",
+    "Hash": "DC344DBE372A3F5E52306C799276F024E0B339E3A5329933DE67F690E08E6699"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\batchnorm_ema\\files\\model.py",
+    "Hash": "4C655C124F6558FF8005D1DB35C78C42B1CAFC6A77959FD83C6FD7E7103D5052"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\batchnorm_ema\\files\\prompt.md",
+    "Hash": "8276618D0C046071520F412CC3EE88054BA5489862106640C87062238B3E8A51"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\batchnorm_ema\\files\\train.py",
+    "Hash": "F3BF2A98A3A29AC2CCB64FC8C684E52F716EA8B636C50D5AA3F888D9544FB4E9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\batchnorm_ema\\files\\visible_tests.py",
+    "Hash": "A15DA76E724626FC1F4C363B83DD390338CD8D75A084552DD7F12635F72203DA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\architecture_naturality\\config.yaml",
+    "Hash": "B472869150C0A197206F288209B7E974E8F1153197950EEA0BA4B51BC55B56B3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\architecture_naturality\\files\\converter.py",
+    "Hash": "C81866FCC0525C228531CD565F1C2A85C5EBEACF48618361770D653574B88B99"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\architecture_naturality\\files\\judge.py",
+    "Hash": "E43625DBD9035480DD578FE835B3D9758B7EE2F7B35FECF9BAADCF14A0C09A60"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\architecture_naturality\\files\\models.py",
+    "Hash": "3D3251544F413893C3301AFB9995E17E8C37931EFFF45DCE4874DD43AB6CAB23"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\architecture_naturality\\files\\prompt.md",
+    "Hash": "B393C1884B43553C080C1CEFF3DF5C256679E3314C3BC30B0B054526B20D42AB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\architecture_naturality\\files\\visible_tests.py",
+    "Hash": "6197B58E5FE4690AB8946D50CDE40E740264BF2EAAC6366E4D105B3CB0D4619F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\categorical_lenses\\config.yaml",
+    "Hash": "CFB053DDBE6D99CF2B219532B2A6B1DA049C526B55FB2EC1A528C1115932BDB9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\categorical_lenses\\files\\judge.py",
+    "Hash": "598D44F919B92CDE837C43D051CA8EC1B56B6FD57BF06189584F77296EFE3A30"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\categorical_lenses\\files\\lenses.py",
+    "Hash": "5FD0E4D87F93FD9DD234C40005046EB338AFBBD9D5561DA86041A9829F324799"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\categorical_lenses\\files\\prompt.md",
+    "Hash": "185BE8E393C5B7DE798F28D639780837508D767169BC7E97639B4FF51A8B6EA6"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\categorical_lenses\\files\\visible_tests.py",
+    "Hash": "CA514BCC413832557AEC59B7DF7E9923CD4FC40CD71EE9F36215D131B7845D72"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\compositional_optimizer\\config.yaml",
+    "Hash": "AFE196DD8971F47FD73E07E45A9F77C96485080442EF24E8090E6B900F884645"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\compositional_optimizer\\files\\judge.py",
+    "Hash": "484DAEB9F83D6E9870A3433EAFE44B8B4151418A9BCB672A7FBE299419D1BF87"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\compositional_optimizer\\files\\optimizer.py",
+    "Hash": "690EDFCD30FABBC840CD24BEC4200FD423F9395437AF4CF1EB8B81EA6732D07B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\compositional_optimizer\\files\\prompt.md",
+    "Hash": "D1BA753587E7C14EC83D9BFB98C82FD156CB89F3BE8D93EC5E004E14B6CF623B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\compositional_optimizer\\files\\visible_tests.py",
+    "Hash": "1B7B58A1A0FF8EEA9C5F9D065AF2F618BCEBF5CD9F15C08EE8C97EF115D3BF56"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\equivariant_diagram\\config.yaml",
+    "Hash": "2EBDB667C68F0325528853EDB1AEA01B1A79BF5F5C6D56F6BD57133795161648"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\equivariant_diagram\\files\\judge.py",
+    "Hash": "E03AAD5F93CD129E45150A6A7FE3308D275043A48A380C61F8049F991AC53AD4"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\equivariant_diagram\\files\\layers.py",
+    "Hash": "3A9328E7C78ADBBA53F0D2814DBD28627B3C3C3352154D9EF9839E21D2315953"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\equivariant_diagram\\files\\prompt.md",
+    "Hash": "FB51E3CDB43E4BBCE181DB690BC44365C6F674C13B23028DE96420C7455B37C2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\equivariant_diagram\\files\\symmetry.py",
+    "Hash": "4794A883C093F0A7481ABBF33072088AF0EF1C722B1A025D1F72CB272268BB75"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\equivariant_diagram\\files\\visible_tests.py",
+    "Hash": "25195D5CBAE3FB0C9D2FFD3B5560FC2E637BD33009377824752B69BFB36DCB0D"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\functorial_augmentation\\config.yaml",
+    "Hash": "B688A1A8A6B5E27361A935E5DDEAEBDF93BCCAF0C1EEEF44C113BBCA40B159B6"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\functorial_augmentation\\files\\dataset.py",
+    "Hash": "6C310C462D68D2E3E4650A3F22C5CFE54976C1F20F5643B6A27239E189F8C91A"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\functorial_augmentation\\files\\judge.py",
+    "Hash": "E743D479D2A87DCADBEBA556F1CD0B4DCD980EDC5914C3AE9FB375E9678C8109"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\functorial_augmentation\\files\\prompt.md",
+    "Hash": "7697C6EE1AB786661BA853BBBB10D5F075216C3BB2E8D7C106838DF135E86CE3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\functorial_augmentation\\files\\visible_tests.py",
+    "Hash": "7EC2858810E49CE0FC232F43156B3D1D12E8B95A99DFE60530C3D078A4AC14CB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\monadic_reward\\config.yaml",
+    "Hash": "76F3B3C252749108F32D438D8B8E6C9B5F27CC04E8B22910703B692AB006B188"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\monadic_reward\\files\\agent_code.py",
+    "Hash": "054EE733787CA2BDC3EDC95ACF1F1270D18C523F673025BD15E9B8D8F6744A3D"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\monadic_reward\\files\\judge.py",
+    "Hash": "088572F839D67F706366DEF8E45F929AD02122F8A30517C85AFC5D6C871888C5"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\monadic_reward\\files\\monad.py",
+    "Hash": "5E103F47ED830AF16C3A8AF0D8666C2826F03AF87E907DAC762F2D3E1E6266AE"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\monadic_reward\\files\\prompt.md",
+    "Hash": "A365E6E1E737FCBAAF53FA9620A137CE06AE9A0883D04905BDC2F703FE8FA447"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\monadic_reward\\files\\visible_tests.py",
+    "Hash": "19D74901DDDE711DAE9468D9527B0402DD4720312B345958EC8AC5D6257B4C9B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_coarse_graining\\config.yaml",
+    "Hash": "8D0B7C21A53FDD33249B16E35CAE074C8CA468B153CE68BADC870737142E1386"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_coarse_graining\\files\\judge.py",
+    "Hash": "BD6471B0861B01D6A3FF387708992008FD919AC0845628E3ED1DC9F884485622"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_coarse_graining\\files\\network.py",
+    "Hash": "BD18D8957777D0C01335017CCCD357D5CB918DD84B36515628AB18CA0B1F63A8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_coarse_graining\\files\\prompt.md",
+    "Hash": "7BDA6DB4610B1FEE442CD79A27B9115B1721D45973AF08B4DFECE71FE37E62AA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_coarse_graining\\files\\solver.py",
+    "Hash": "E73B72E2C5A2C6C3B820F6D45F290E96B0FB2CB983D0C0B6DC8359E8DAB8F128"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_coarse_graining\\files\\visible_tests.py",
+    "Hash": "67E9406F930610C50860E2CA4286EBE0A021732D43A0DAB4A27ACC95E3E3D073"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_compiler_bootstrap\\config.yaml",
+    "Hash": "88C6205B5F3087F71EB494E671EE21270305FD750EABFBAAD5AA02997ADE673A"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_compiler_bootstrap\\files\\judge.py",
+    "Hash": "FD6271C3B50CE9F371B15904E900A0B51E0501647B38F28E421140AE8845F895"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_compiler_bootstrap\\files\\network.py",
+    "Hash": "B77E35B1672D2AE073931A10A08425AED88B793E62F11EB75E26BB895B9399D7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_compiler_bootstrap\\files\\prompt.md",
+    "Hash": "3507AF4BB8A1CF3D61F9CE180ACC1C4D017CB65046B1A40BF01E5A604D1FFC94"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_compiler_bootstrap\\files\\solver.py",
+    "Hash": "0BC82317715FADB5C4551696D245288EF09BB7472DAF1ADD73957DD463C60C8F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_compiler_bootstrap\\files\\visible_tests.py",
+    "Hash": "C0C689083D2A551041FD7F2EF7A1DDDA0B13BBE2B7684801127AAEEE8903E8F5"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_distributed_gluing\\config.yaml",
+    "Hash": "EF8E21E6496E424B8AC57796C4AA644F487C879AFCE28E32C96E2DF5F2A00D68"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_distributed_gluing\\files\\judge.py",
+    "Hash": "D09DA2003502DB94B8CDF04DAA0959EB1E7EB887767E9111431AEACFBED07B2C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_distributed_gluing\\files\\network.py",
+    "Hash": "B2108B9D9D82D03570EA011B5E59665321F212B6F4257361C3901906BEA337E0"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_distributed_gluing\\files\\prompt.md",
+    "Hash": "DACA40E9893C1BC45706D0E7AAA594C8FFD71162108A8FFE3B70042B92828BF7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_distributed_gluing\\files\\solver.py",
+    "Hash": "A5072DE34E9DE9A0349E07953CA3D26542A4D34F7CE11CDD281835E6F2B6C3BC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_distributed_gluing\\files\\visible_tests.py",
+    "Hash": "EA83A513A177C0CF474DF5DCF32855604F44284C83DE0118A866AF74090BFCA0"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_epistemic_gluing\\config.yaml",
+    "Hash": "2E48173876B5DD4FF5A59CB0BBF7250C78B396E73DCA6F168F060E5DB71AB100"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_epistemic_gluing\\files\\judge.py",
+    "Hash": "C90C6C70F1BC0E6E1C6E4EE3564E5E3945E9180081584A872EFE1727625D4466"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_epistemic_gluing\\files\\network.py",
+    "Hash": "C169ECBBCFF4F5D60803F42E925A08A05980E6D01AFA432AB5FC5DF2BAB59D8F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_epistemic_gluing\\files\\prompt.md",
+    "Hash": "423D2D61C6068037E46B318CDED8C7A132DC2D27260DC8E1B73A2383D33749A0"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_epistemic_gluing\\files\\solver.py",
+    "Hash": "75D4DE8BCE01568004311DF8466966B3F9F461AF0E0C2595AD96020B2C3D7037"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_epistemic_gluing\\files\\visible_tests.py",
+    "Hash": "47821747A590897CC75C275EF9D14B3B04E24B0219FEFBE1733E72852A5477E0"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_error_correcting_codes\\config.yaml",
+    "Hash": "E16D94AAE623D24B8D9D5326151031AD50B3B8412696C9DD39F551AED0309BF3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_error_correcting_codes\\files\\judge.py",
+    "Hash": "3DB2C56CF9DF3FF20CE4615EC9D8C497DB9838684F1644166A2FCF6B8052985B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_error_correcting_codes\\files\\network.py",
+    "Hash": "0D73AF93E58AFA4FCCD95CA84E5EEDE1BB1A3D6D9CF97780AD7F7CF7545757F4"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_error_correcting_codes\\files\\prompt.md",
+    "Hash": "C76F4BD004C815D52F48603B4921AF3D863CCA099961DBD7BE1DD7040A2B19BA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_error_correcting_codes\\files\\solver.py",
+    "Hash": "BF0ABADD71DBC522D0AAC710AA1CFDB39F0BA83E8083921A30DD0CDD22CE8999"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_error_correcting_codes\\files\\visible_tests.py",
+    "Hash": "4166723FE977C133E30B8746D284F82663AC1415E5E1816A46137F7E1ABE834F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing_discovery\\config.yaml",
+    "Hash": "5CB73842B6D7EC918519C846DDBD959BC21EE17AE155EA9CC9004B77C0917B24"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing_discovery\\files\\judge.py",
+    "Hash": "6C35BC144F1FC20DD3509B05B2FBEA465FAF5A2F647F39098B608B3C26B764FD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing_discovery\\files\\network.py",
+    "Hash": "AA901F360CF42CAE9E6FB44CFA05AF9739E53408395780E4B50EE7E80735BB21"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing_discovery\\files\\prompt.md",
+    "Hash": "B998ADDBCF96EEE65ACA6D78CCF0BEFC2E4C952D4D7BA0E12FD199A1C26509FC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing_discovery\\files\\solver.py",
+    "Hash": "5ED34393BEB1169C649915DF72F9AFEAB81A64760A1BEB77FE877593A51324C5"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing_discovery\\files\\visible_tests.py",
+    "Hash": "2B53FFED465567B7DEF49ED84A3C37D35A40B1ECB9DE69D26CFC98DE1B8F32E8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing\\config.yaml",
+    "Hash": "CFEB7EC304B7A608BD2B07F179E376EF705666558246D30F041DBD9E92F58356"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing\\files\\judge.py",
+    "Hash": "07D9F00691E95ED5D2D13BAE5E3352A13A7221A0FB8159BCB69B0D280E7CE47C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing\\files\\network.py",
+    "Hash": "767F5AAD9544F0E09F78504CF97F1EAA43E08033C99AF63615760405E6DEF0BF"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing\\files\\prompt.md",
+    "Hash": "807EC0EC8C31F856E2F1BF12772EEB727C1824F64D65B9D0B227731F33FDDF44"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing\\files\\solver.py",
+    "Hash": "4C1E093125495AC5BB3FEE10264F402C216DECCE786ACD24C0304674A2723EA0"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_gluing\\files\\visible_tests.py",
+    "Hash": "2DC85F9BD8748F05FCF3F9764F5FD1CA41ED3502203CEFCB9F297E07E1FD93A2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_holonomy_gluing\\config.yaml",
+    "Hash": "23F40836BB5BDEA7BE7AF59A61FD331EFF133373779999B24C903F2C6A2C4825"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_holonomy_gluing\\files\\judge.py",
+    "Hash": "087D9A15CE9BA2336673CF1E672BAEC68460CC425D0DD13DD4325CD1F05D5247"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_holonomy_gluing\\files\\network.py",
+    "Hash": "3EC4A31B2F2479CF00548FA6745EEB1AC70A159FEBDC021035F0243BA69305BA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_holonomy_gluing\\files\\prompt.md",
+    "Hash": "79E67B69A194DC1D33E84AA954FF820BFA3E1C3CBBD1FFB2FD9F7B8FC0E53BDC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_holonomy_gluing\\files\\solver.py",
+    "Hash": "05B87F209F020443BD23AF3EA7339A5B9BB63D4710E3EF1434E33113008857E9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_holonomy_gluing\\files\\visible_tests.py",
+    "Hash": "1DEA6E1A7B690055EA8A9AF9848BEEB33B0C9B06E20C1F2D2B2BB677F75D7313"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_maze_gluing\\config.yaml",
+    "Hash": "40C8389FC608521ECE96D05D07A1C34518E4522FC4C3F78BAFE6939E5CAF9FDF"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_maze_gluing\\files\\judge.py",
+    "Hash": "AC5A28D7B9554DF89A964D6CDEA8BE05E5A463991488CFF980341A77625C8AC0"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_maze_gluing\\files\\network.py",
+    "Hash": "4BA04C730517BE855E1B7FDEF6E28B7B078B4AB6C807A588C2E9AE9CE83FDA9F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_maze_gluing\\files\\prompt.md",
+    "Hash": "9301194779BE0311954C4E9DE60C379EEC6995BD01BC40A75EC2DBD3096F77BC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_maze_gluing\\files\\solver.py",
+    "Hash": "05580D8702A41965CB75A91468ED314B9305D42333B100B64E7DA76F22C0F6E9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\recursive_maze_gluing\\files\\visible_tests.py",
+    "Hash": "EC9FDE49332CE2E609F120F5C0A4412D2BD68AA37976DD9837E4EA8D33ED7EE3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring_unification\\config.yaml",
+    "Hash": "35908E874008953A7F6447599DA7814F36E06DFFC5DB5978A7BB0D17C8E5D36E"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring_unification\\files\\judge.py",
+    "Hash": "5600B944D37BB6641B9DE4C12E72921647FCE706FEFAA70FE94A0578AA0A6188"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring_unification\\files\\matrix_ops.py",
+    "Hash": "A5908C4245A518C14FA272A0C8958E48B09E6ACA365C071A38F8BB050823BAA6"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring_unification\\files\\prompt.md",
+    "Hash": "2B3E2DF57CDBBE29C27ABCEB292C5D8A6F960D60CBB71BD7A295CDCE74A8E6EB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring_unification\\files\\semirings.py",
+    "Hash": "5907DABA1A945F302D9180CE5EB5F22F51B916B1036EC025C77682C2FAC82E72"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring_unification\\files\\visible_tests.py",
+    "Hash": "0830BED3CAAC2FF8A6062A7E087F8F542C0039A1607C489669A3EAC45B250B9F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\gnn_message_passing\\config.yaml",
+    "Hash": "10F121EDF3978B8B9FDA6B8856B18C133FD559556BDE5EC96672AD5B16B353BC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\gnn_message_passing\\files\\gnn.py",
+    "Hash": "A7A1674DDAD1025A9C68BFFE026D7D7C780F66F8C89709FEBAAECEAC54894323"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\gnn_message_passing\\files\\judge.py",
+    "Hash": "D353E89E6B3B28AA459F9AE4806AE8096A6CC741D5A4540D5E05BBF0F3384CC4"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\gnn_message_passing\\files\\prompt.md",
+    "Hash": "DCFDA04CDD1179A8A735B89D1D21DF4DF9AA5594092CCB85BCAC4E55A187DD3C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\gnn_message_passing\\files\\visible_tests.py",
+    "Hash": "66753647B73376319940501F7B9EEDB0B5540C3AB27BEAF4C9606935EB4D8DB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\neuro_symbolic_parser\\config.yaml",
+    "Hash": "8048AE41CCE1996E04995A133A31C0F7614AC3EB9250812BAD0D16FE5393471C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\neuro_symbolic_parser\\files\\judge.py",
+    "Hash": "D1E4679C9401FA712D833F8129D3D7290A1BA378D55CC6F722DBE68FA90AEF25"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\neuro_symbolic_parser\\files\\parser.py",
+    "Hash": "F86469929D349624778AD01ACDDA8A3601DC195AD8F7ACF4D9345E15C183C502"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\neuro_symbolic_parser\\files\\prompt.md",
+    "Hash": "BC549575F37DBB54531C0A1CEBC527DDF397F00D379A0500863A230172622108"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\neuro_symbolic_parser\\files\\visible_tests.py",
+    "Hash": "BB758DF76682F6F5477474D7049B876738A2ABBF6880B45AF95161A13E313013"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\ssm_parallel_scan\\config.yaml",
+    "Hash": "9097D4C9130070822C53DBFC65A01E40715A213D23AFE82BA9E68DC8A3785C3D"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\ssm_parallel_scan\\files\\judge.py",
+    "Hash": "FEA1A6DFBCDA61A0E841233C096477F7796AF0BE8DE662A3D0C7E9165A5DCC03"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\ssm_parallel_scan\\files\\prompt.md",
+    "Hash": "FB60B071E1ED61C7538AB5EDC202D2FD1F17B0ABE40F9DBFE3B34848C277D2BE"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\ssm_parallel_scan\\files\\ssm.py",
+    "Hash": "DC0F465473B69F66F2119C23D4BE582E1E15D746349F500BE374B81A8712E914"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\semiring\\ssm_parallel_scan\\files\\visible_tests.py",
+    "Hash": "25CE3988A988E3D92A579C4BE317CB505E14A9CAB4C6D132049F5E13FBD984C8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_invariant_gluing\\config.yaml",
+    "Hash": "850C1FC831546CD418B381CCEDEA89356913F82FA60D4A0C308C9858268E1ADD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_invariant_gluing\\files\\judge.py",
+    "Hash": "EBF4E05C221C1C8FC683CFED3B061687C34C87D52942EBE241FEBCA587CD6448"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_invariant_gluing\\files\\pipeline.py",
+    "Hash": "F6D292D22AE393DE0DCF727E0593637465C8EB227907E99B8B3CB0C1B5292876"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_invariant_gluing\\files\\prompt.md",
+    "Hash": "34AC071B0AB427EFC829CE0E7D1B023F1B39385FF41F39F79881576E155C8665"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_invariant_gluing\\files\\visible_tests.py",
+    "Hash": "C6D106209B54867D31349F2B8420CD3E08C1FA0D5439A67C2E17D478E2C033C1"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_physical_constraints\\config.yaml",
+    "Hash": "DB3F8EA1073BF48A59D29C4544D6E3CF8480E0107FD15DFBC18FF72BAEB47B8E"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_physical_constraints\\files\\judge.py",
+    "Hash": "4E5783ABF652741A8B151F18366FD42160C7C8926CF0F92906D9A09E7FADC160"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_physical_constraints\\files\\prompt.md",
+    "Hash": "3D07B8CEA7EF89482BE3851AB43D440CF6F0E54F66CADC6721C74AE00D1DDC97"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_physical_constraints\\files\\route.py",
+    "Hash": "F83D24044568BAE6DC610E9A2416B9C18B4C29731808B5BE39AFA8D001D9E4C9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_physical_constraints\\files\\visible_tests.py",
+    "Hash": "B2C93ABEC916FCC830C274C1CC781C8264A5E579F4993D94369A9541733F3BB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_schema_sync\\config.yaml",
+    "Hash": "8E97FE8A077E604128E931627B723C5BCF2572AF7501179FAEAC97A4EF9F1ECF"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_schema_sync\\files\\judge.py",
+    "Hash": "DFB06C14BF4A80766E41EB15F339979D3CC7879A970D4E67FBE7D3AEC2919DDA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_schema_sync\\files\\migration.py",
+    "Hash": "A4F776B8041B6B44B47BFFAA231C56AB9C454828EC21087DBE1174125855751E"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_schema_sync\\files\\prompt.md",
+    "Hash": "AE5F7503CD0557AC190282683E1BEE22F02E2411989E8F04B62B9F9800DAD471"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\sheaf\\sheaf_schema_sync\\files\\visible_tests.py",
+    "Hash": "DEC0A3F34217A486B071103A1A86ABD6670D45C71CBDEDCB71EF80646DF9B979"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\stochastic_monad\\config.yaml",
+    "Hash": "EBCCA74898EEE2E814DFDE9B805E69272F7CEA863786B042D6915DCCCF8EA83B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\stochastic_monad\\files\\judge.py",
+    "Hash": "6986BEFAD5D0F06548EC7A72B39718C2945A20FA59C157B9EDDE40A4628D02BB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\stochastic_monad\\files\\monad.py",
+    "Hash": "5257D9FCFF53FEE4D8AF4A0607B4B9849102BBDD1B2F61076E44521F5B707AC7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\stochastic_monad\\files\\prompt.md",
+    "Hash": "3F7B9676959855008731CEF3257DE4104196AD4E14B728889BE6FED5941A8BB4"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\stochastic_monad\\files\\visible_tests.py",
+    "Hash": "E5C4C51FDAA1A9F2DF21927E0AA1B4A7CE9530C774F936DDF22B0DA85EF2E688"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tensor_functor\\config.yaml",
+    "Hash": "D4C292852BDC8272F1D8382843D32279AB3F945C9C8F584665E2FED394620BAF"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tensor_functor\\files\\judge.py",
+    "Hash": "E07A8DCD9CBBEC628886D00EE2837725602B4A5F70CA07650335DAB6BC035A49"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tensor_functor\\files\\model.py",
+    "Hash": "842A0DD2DEE03F11BD12F4C6E648D1559B2C4651261041F7AFA25C2AD7B621BF"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tensor_functor\\files\\prompt.md",
+    "Hash": "F0FDEF78ECC9A8DC6FA16FDF63B651DDF66ECD091AC46937607B68EDFF664B83"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tensor_functor\\files\\visible_tests.py",
+    "Hash": "072BE1C874F2B76896E297610B382566E1259F326EBD699ED6EB61A3EB182277"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tokenizer_adjunction\\config.yaml",
+    "Hash": "0AFA81E744A5DC93DD050DB29E22951E4B6F1B11DB6471EEC349EE90721198EA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tokenizer_adjunction\\files\\detokenizer.py",
+    "Hash": "81D36821D0F44385A9A6FD3FD22685302C90BB56B93F74DBB7AB4E0B1D843551"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tokenizer_adjunction\\files\\judge.py",
+    "Hash": "C84BA242CD26E51F5AEB50BA780129A8248F804C80ECF1D396ABECDE5BCEC1ED"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tokenizer_adjunction\\files\\prompt.md",
+    "Hash": "2DEE88053EDD921AB78C3AD6F984CB998B2E2761731659BEE81CF5A729FA5B21"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tokenizer_adjunction\\files\\tokenizer.py",
+    "Hash": "E5181F297FF6AE67566246F00421796A7BF91B8864260A8499346F8A2DEA5855"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\tokenizer_adjunction\\files\\visible_tests.py",
+    "Hash": "E1E48B80BDFAC35199152A0385BF3AA952A7A63C0E157FF8118B56A27D2CDF8C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\transformer_ssm_lift\\config.yaml",
+    "Hash": "DA25F326644D461AEB5106EB11DD51960B71DA5AC00AB95F8D5172293B472FDB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\transformer_ssm_lift\\files\\judge.py",
+    "Hash": "324ED9E142664EDA3A1FDE390EFDB4A7DF7DA967C54BD8E379E1B730FEB31F45"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\transformer_ssm_lift\\files\\lifter.py",
+    "Hash": "37F69259872894FEDDFB09CA2E858E097F206DCEB7ACB7B3BEA04A11E1411F82"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\transformer_ssm_lift\\files\\prompt.md",
+    "Hash": "6382356DA838FBBC35051A398B7E04D8AED422C4E3508D6DC30CF18472F624D2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\cat_theo\\transformer_ssm_lift\\files\\visible_tests.py",
+    "Hash": "B33DEB01EEDC7F7DC3FFB60B83DB45D140205ABAF9A15B8BDC7796B59380C4ED"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\config.yaml",
+    "Hash": "2297AE428DC98074C8B8AEC09276F5B89E221A1CDE17114BC8FF7EDA8777DDBB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\files\\answer.py",
+    "Hash": "65C310D3C811804A1C817B6296C8D00F2B20F0905A9F8FF4A8B8411F8A664AA2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\files\\core.py",
+    "Hash": "699A0CFBB1098D9FF0842A102E9DEDAFDDCAFB533E544C2B97E777DC6C9DD604"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\files\\Dockerfile.agent",
+    "Hash": "D64AE97A1C2DFE455B620638FB5051F1ABFFE8847DBDA5E3A88E74B4A618EC5B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\files\\Dockerfile.judge",
+    "Hash": "16FA7363516A58D82ABA4815B2BF2C91D40AD6B8D5C3121312A5A022266BB61B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\files\\instance_spec.py",
+    "Hash": "33617DDC5520136B157925B63D3302FC5DDC3FCDA9ABE83968A2881D59FB97A8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\files\\judge.py",
+    "Hash": "9A1B06A8C65EAC10D7FA43D48AA6C61F99786E2239FEFBC40216A03A89E52DAA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\files\\renderer.py",
+    "Hash": "95125C4D377633BA5861BB495D209F98C4779FE27C7D90B7364F50DAAB227D33"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\files\\task.md",
+    "Hash": "04A36328780ECC185EEC388DD5498AA338551EE746321A5334E6D78E6C976887"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_announcements\\files\\visible_tests.py",
+    "Hash": "B4E8CCB5CF2A87125A5A9232E0FEE0F423087B30CC16E41B4AC114031FA33A70"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\config.yaml",
+    "Hash": "4F610AA76F292A0D6A44C140C6936A964062B1BB220FD6F70682A35C8FA91C00"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\files\\answer.py",
+    "Hash": "05FEF061CC67D20D9EDBA12AF74C745091BB06D035C752DAE05C62C6608F4577"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\files\\core.py",
+    "Hash": "F1E2890ACDBE51D23990AEE1E46324514B2B8562661E564412229A2AC861F949"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\files\\Dockerfile.agent",
+    "Hash": "84E2A686C88BE0E27372413403E6DDFA29698B837E5EC0CA8E37015B29CA3612"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\files\\Dockerfile.judge",
+    "Hash": "30AF7A5698660392212722B2F00A7D91E19E7839DC5B0FA080951AAD0A7DA1D8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\files\\instance_spec.py",
+    "Hash": "B4828E8CC1CA381921B2CAF612D59902D6E65962D4C830FA1725653F41C1F22B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\files\\judge.py",
+    "Hash": "BE4C498A94C59B4626E75B112E23EB84B34AFDCBAE323F51CC37118CA8FEBEBA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\files\\renderer.py",
+    "Hash": "3EF3E087E2D62E53EA770B3297D0148059B099A845CC728A5A9359C87CBDF277"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\files\\task.md",
+    "Hash": "4B2C8E81B1E3DBCF64E27C86C5D52BD7AA4092CAAACF6AA521AEB23FE14FD9F9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_deception\\files\\visible_tests.py",
+    "Hash": "FBD9059F895F47C11F07A72D70C01B11E022AC95D486CDD5F9B5627DFC268249"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\adaptive_agents.yaml",
+    "Hash": "36293A9E7FCDC49449CC0A0C6AABF1FDAE748B63B562D5568FFB83EB4BFB42F7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\agent_reconstruction.yaml",
+    "Hash": "A9AB7BC42858E14D9D506A37E43CCB7A491B11D7318D4360319F211151128DB8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\belief_revision.yaml",
+    "Hash": "A92B266D8ADA1B5F684AB14413B0F60DE5FE244CBA3CC7BCB5128CE9CE6D9EB6"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\evaluator_prediction.yaml",
+    "Hash": "F168C3211820063ECCD56E7DDA102B968343FE25A86D9D7120174673FD2079A0"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\evidence_process.yaml",
+    "Hash": "98F4AA0CE441E7BC8B78F0A4C1C67AEA4B770547306A05C15DF1684E93D58955"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\hypothesis_discovery.yaml",
+    "Hash": "36DE54C9FB825EDC90A8B81229B07E20A6A997658855F88CF0C8F07C06F20850"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\inquiry_control.yaml",
+    "Hash": "B49A92BB811BD027320E3E4B3D86EEC5148708057A582B46915970006AD3154F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\memory_inquiry.yaml",
+    "Hash": "B79D22199F074629C8F0919A791C818A9CA87B6975360FE04EB445A132B5EF43"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\README.md",
+    "Hash": "EFBCDEAC302D03E8ED87BA51D207076B67ACEEDE62ECAC3D5A28FD28848E4AD3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\recursive_delegation.yaml",
+    "Hash": "66AE229AD3223165D5CEC28321F918E7A0D38857D7E0795F41B6B78A36BBBF42"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_families\\registry.json",
+    "Hash": "201150B42E462BE86F99E49F2415AAE172B3DE5AB57A8FD130B0FB697CBFFCBC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\config.yaml",
+    "Hash": "B0400628D93172BB6E6282E0F2D56932241610941047FF196B0C3E2E7E7E988C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\files\\answer.py",
+    "Hash": "65C310D3C811804A1C817B6296C8D00F2B20F0905A9F8FF4A8B8411F8A664AA2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\files\\core.py",
+    "Hash": "786AA34FA424245029C94FF8C7BC403A279BBD641FEE2E9A2B833F48BE4C2766"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\files\\Dockerfile.agent",
+    "Hash": "CC8AEAE45ABF0EEF662AC71ECE1A21E86952FC33076F33D2DCE8F0A3406DE9F1"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\files\\Dockerfile.judge",
+    "Hash": "16FA7363516A58D82ABA4815B2BF2C91D40AD6B8D5C3121312A5A022266BB61B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\files\\instance_spec.py",
+    "Hash": "4489F41A4065795E091C3FEF7D07F4D9DCEB795420A5ED570F891B3D1C699CB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\files\\judge.py",
+    "Hash": "1B6881247F84F5D320BF0531CBEAB67E82E06EF6814A2D4BCE702A31ADDBF425"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\files\\renderer.py",
+    "Hash": "CB08D1995CB28F1E1A0C07F3061D8B055295125AC28386FC94D11A83B2937119"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\files\\task.md",
+    "Hash": "04A36328780ECC185EEC388DD5498AA338551EE746321A5334E6D78E6C976887"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_fragmented_observation\\files\\visible_tests.py",
+    "Hash": "B4E8CCB5CF2A87125A5A9232E0FEE0F423087B30CC16E41B4AC114031FA33A70"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\config.yaml",
+    "Hash": "2A39EC133C8466E9D321AEB7705088999583A697E5E54754C0675F818A00BA8B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\answer.py",
+    "Hash": "C072CD1AD60F63E1B12B93F552F295AE92D20F52A0A2DE3F2FFEB47B97A39B02"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\core.py",
+    "Hash": "3F3AF7C4E8FF100EFDEB456D316F1FAC64B96B7D90C15216A39CFBA35D254EEA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\Dockerfile.agent",
+    "Hash": "FB20B862BF062AAE880E994F401FD1CB2819B8FC0ABE40870D5B2FD376883402"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\Dockerfile.judge",
+    "Hash": "607DBC9BF39D6D1825B32C2811E0A0A273339C317F4D999DDADA6AA15A8A97F1"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\information_policy.py",
+    "Hash": "CA9556B0354371507056DC76E2630FF8BEEECF6D559C7F8DD9EF7AA2AC7338F1"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\instance_spec.py",
+    "Hash": "92C2F29324A3090F3F0F7F3B6F25A6DB7A048580BF0A711346F058308DC72F36"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\judge.py",
+    "Hash": "3C6DCE7D102F006E62E6CC6DFF773C224CCE2DE794947E3345C83E6698415CFC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\renderer.py",
+    "Hash": "426E3B3729F904F9234BC325705B12C65F11F6607B8EE9F5EA13B232EEBC85BD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\task.md",
+    "Hash": "04A36328780ECC185EEC388DD5498AA338551EE746321A5334E6D78E6C976887"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_games\\files\\visible_tests.py",
+    "Hash": "F5D822B441374E8CB3EEFFF83872A1CFB3809A6DF7237B16F61F5E5A3F62C71C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\config.yaml",
+    "Hash": "C7D6F622335CF56A4CF855894D6C95729C487178D9D2192CD20F6C67353A1987"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\files\\answer.py",
+    "Hash": "65C310D3C811804A1C817B6296C8D00F2B20F0905A9F8FF4A8B8411F8A664AA2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\files\\core.py",
+    "Hash": "B2C1B8804EBA2182E0BCFEAC6235B39C7BA6731991ED64FC5FBCE268A1C92826"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\files\\Dockerfile.agent",
+    "Hash": "B022995CDD282224A7AD49308338DF049651AE044F0E3F7DF333B922ACB07E01"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\files\\Dockerfile.judge",
+    "Hash": "16FA7363516A58D82ABA4815B2BF2C91D40AD6B8D5C3121312A5A022266BB61B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\files\\instance_spec.py",
+    "Hash": "4489F41A4065795E091C3FEF7D07F4D9DCEB795420A5ED570F891B3D1C699CB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\files\\judge.py",
+    "Hash": "20FE4D5B6359F3D463B67A1C6261996DF84E4930AF18A951E22EFB649F031A09"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\files\\renderer.py",
+    "Hash": "EC5D30DE5599C0F16F182093ACD91B286DC1EAFD3F3B526C9EA53B939E57B035"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\files\\task.md",
+    "Hash": "04A36328780ECC185EEC388DD5498AA338551EE746321A5334E6D78E6C976887"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_nested_knowledge\\files\\visible_tests.py",
+    "Hash": "B4E8CCB5CF2A87125A5A9232E0FEE0F423087B30CC16E41B4AC114031FA33A70"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\config.yaml",
+    "Hash": "CF5142896D66D7AE983D2C7773442E3E013DDCA8094962CB313C5A82EA099CB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\files\\answer.py",
+    "Hash": "094290F3E3E2B3A6BC4FF53CA1A90694D10AEEC2FEB4610F7448A2189BB553FE"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\files\\core.py",
+    "Hash": "9CE605047FAA108C2842EC006D6C38CCED7620E1AC2A6CDC410FCF25FEDAE874"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\files\\Dockerfile.agent",
+    "Hash": "84E2A686C88BE0E27372413403E6DDFA29698B837E5EC0CA8E37015B29CA3612"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\files\\Dockerfile.judge",
+    "Hash": "30AF7A5698660392212722B2F00A7D91E19E7839DC5B0FA080951AAD0A7DA1D8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\files\\instance_spec.py",
+    "Hash": "B4828E8CC1CA381921B2CAF612D59902D6E65962D4C830FA1725653F41C1F22B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\files\\judge.py",
+    "Hash": "FCE44B6233F15BC384EB83B478282FDDC0D318B04450C1F804EAF9A98DE9B470"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\files\\renderer.py",
+    "Hash": "16CB434BFE5E6531E55DDC25ED09F32BB32F54873A520778DFFD1458470056BD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\files\\task.md",
+    "Hash": "4B2C8E81B1E3DBCF64E27C86C5D52BD7AA4092CAAACF6AA521AEB23FE14FD9F9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_signaling\\files\\visible_tests.py",
+    "Hash": "95BB4D02DE471A7EA3BD85DF1D89B34DDCBC6C6A1328175AC08069DEEA09287B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\config.yaml",
+    "Hash": "72603E338B9443334BA7CD79FBABC5845E10400CB1F68CE6ED68FB73D956635E"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\files\\answer.py",
+    "Hash": "64BF8D67E4A3F431AE307ABF4DB6981BB036366EFF94A070C629C94C2B471B12"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\files\\core.py",
+    "Hash": "2CF14A46782679F540FAFE9772D10417A508FC0448F4ACFC70E1334D3F9FD601"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\files\\Dockerfile.agent",
+    "Hash": "C799E95C4B858AC6E6D377072B4EA78E807312C39C79A282849F3738EB65169B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\files\\Dockerfile.judge",
+    "Hash": "16FA7363516A58D82ABA4815B2BF2C91D40AD6B8D5C3121312A5A022266BB61B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\files\\instance_spec.py",
+    "Hash": "4489F41A4065795E091C3FEF7D07F4D9DCEB795420A5ED570F891B3D1C699CB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\files\\judge.py",
+    "Hash": "D9853216995735403FD167177041314DA3C39365B81E76AFAFD1F4EF3EE76DAB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\files\\renderer.py",
+    "Hash": "0DBC65F63D57F94FBDCE89056B49BE4CA9D5D49B8C4DE4D4E37E32A4B43867EE"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\files\\task.md",
+    "Hash": "04A36328780ECC185EEC388DD5498AA338551EE746321A5334E6D78E6C976887"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_silence\\files\\visible_tests.py",
+    "Hash": "DEE42E188598222EA01A39AF3BD3EBC512E9888BA1029599CCC3BE0FE499DBCD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\config.yaml",
+    "Hash": "DED6F1701161CAC512E8905AF67BC5ECC0FEF1ED390B4FEA115C283E2E61146B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\files\\answer.py",
+    "Hash": "DCDD2E96BB5BEEFCE45B6BD661AFAE2B1CD9346D92E05A8CD1B69CE270A2A3BF"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\files\\core.py",
+    "Hash": "54E1C2F32E1C1E02342533281BDAD57AFC4A8CE1F1393A3609D9D9AF5B337E0F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\files\\Dockerfile.agent",
+    "Hash": "C7E1264F66E6D7BE05D1CC9F8D0B8D7F83A51850A6411254DC0E70CBD7AB0FB8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\files\\Dockerfile.judge",
+    "Hash": "16FA7363516A58D82ABA4815B2BF2C91D40AD6B8D5C3121312A5A022266BB61B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\files\\instance_spec.py",
+    "Hash": "4489F41A4065795E091C3FEF7D07F4D9DCEB795420A5ED570F891B3D1C699CB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\files\\judge.py",
+    "Hash": "8964F45B952131F72492C641A2E034E613E0CC9578BC4563A89FD0B5A782D2BD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\files\\renderer.py",
+    "Hash": "0DC8D50B0D5CFC58218E0D4AAF458FD26B0A664FC349A13580FB9FC30BE6E309"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\files\\task.md",
+    "Hash": "04A36328780ECC185EEC388DD5498AA338551EE746321A5334E6D78E6C976887"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\epistemic_type_games\\files\\visible_tests.py",
+    "Hash": "E1C7ACAE422D774BEF24227E3C5B11BBAE7672E7A76E81DC3CB5A2B60B6E8250"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\glyph\\config.yaml",
+    "Hash": "F7E0DDFEDD100D64265950883EF75665B979FDB5B14E8B57EDDA99D37243ECE7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\glyph\\files\\dataset.py",
+    "Hash": "9EB1451B63646B9EB38704F64C1293C22DE58379D0DD1DA6E8963892343A3828"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\glyph\\files\\judge.py",
+    "Hash": "C9EDFAF42022C7995A288DC79D85804AA7D469628B1C2F54FAC554AF7516E733"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\glyph\\files\\model.py",
+    "Hash": "E1BC426B5C662F1D547590E283151658B2C0CD07BEB966E9C3D26CD35B92D307"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\glyph\\files\\prompt.md",
+    "Hash": "324600A0AF828F73B28C024D8D41E38CD008933DE8D0B153E590204228F3ABA2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\glyph\\files\\train.py",
+    "Hash": "0C49F94CDDA6F8692AFB8BA445CB2221F90FC5F9DACF1ECA4CBCB1967AC8D417"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\glyph\\files\\visible_tests.py",
+    "Hash": "709007464623D612CB226D28B9C4A54BDDCFA6DCB5FD557853D2DD538FDD91AB"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\interventions.yaml",
+    "Hash": "924DB1F990375430F90532E034E7CC8EFE0812DCC935CB38AA5175DA6A6D8A6F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\config.yaml",
+    "Hash": "EB99268DAC63895A45C1B7E369639099BB3F10F0B80A359884432E287D9752FD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\files\\dataset.py",
+    "Hash": "C5B42A0FE379497F11981B69D69BE94C0F20CD0B38AE9D3115432CA263C54080"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\files\\eval.py",
+    "Hash": "CAC7EE97C0A9484B0B26902D81EBE175F13EC175CB62B1739244D55A3B55FFE7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\files\\judge.py",
+    "Hash": "83FF4DD62561F2726109A0171E26E6839107068901F3CB6549B4AF726C358A00"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\files\\model.py",
+    "Hash": "6A7392BDDBA84BD9181FE32F96EEAC284F2AD716DB11A26C161C799CC0C1B899"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\files\\prompt.md",
+    "Hash": "330933DA1AC48507729B61D4B96546407248099C52347E4659CD32EEABD5A09F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\files\\queue_ops.py",
+    "Hash": "C508C4DAA84B4C2ED51E8E0896F9FFD79B45504D706D19B739EF178865A37F42"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\files\\train.py",
+    "Hash": "199965AD983F0771FD691EC5F1214C4B769590708E4DCD2986B8D373E8E9BA44"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\files\\visible_tests.py",
+    "Hash": "EAD65C5FD1D41C2A56CC43C6711C8BDF8F07EEAC1959368FD91C985591D1B429"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\shortcuts\\index.yaml",
+    "Hash": "90D78DD9FCA2DA81597CCE41951DBCD6D2D3954889B0D240B2D7DE8833F9B8F1"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\shortcuts\\queue-always-at-head.md",
+    "Hash": "D452215EE8947F593DCB64CF382A8DEF1DF12950C3BD771E9D6714AC41F07827"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\moco\\shortcuts\\tau-rescaled-at-logits.md",
+    "Hash": "87327DEBC5398F0D0BF2A5D19C7AE4FE75CA1A346A22DB1B9370F3D8E304410C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\adaptive_halting\\config.yaml",
+    "Hash": "1F7D85A6AC2A819B3C132D19378AD9DEFBA8A2318D49F8C9406776043F5DAF52"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\adaptive_halting\\files\\halting.py",
+    "Hash": "C163F414E28318BCA47AD0F971C93D6C7E2E8916AC552C65E18E0D28C6365EB5"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\adaptive_halting\\files\\judge.py",
+    "Hash": "1A02DAF8A2182780B132958DCBF538D871D4EE999F3C0C7A3452B15B58AE9DF6"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\adaptive_halting\\files\\prompt.md",
+    "Hash": "95446E990E158C0573C02B33F461F61E5796327B418098E9B3BD887C05E0EE88"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\adaptive_halting\\files\\train.py",
+    "Hash": "BA663EC8A1542F6C093B993CDFD00EDE66D81AF75BCBCEEF00313DE8048FED55"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\adaptive_halting\\files\\visible_tests.py",
+    "Hash": "5263CA34095A67A2128DB4DF83B547513CE692FC87AA6E4DF1EA43D4CB53C0D4"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\gradient_credit\\config.yaml",
+    "Hash": "4ABE4C03DBD24CE96FD1017C13911B0A72BFD84A7BE6C5B7C56FC7267B88493B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\gradient_credit\\files\\judge.py",
+    "Hash": "7DDAE9CCBB8F09D2952DCB5462ED14E8A2B911757B5B3EFAFF9CC8580A2D4D07"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\gradient_credit\\files\\prompt.md",
+    "Hash": "DDADA721CB07A3665C96372B2DAACF09231C69AA2205BEE92CCAC13C92725CA7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\gradient_credit\\files\\recurrent_block.py",
+    "Hash": "5B4355FBAB51E8B229589BFED042F34024D7C425DDD2774EABED80FA0D485DC2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\gradient_credit\\files\\train.py",
+    "Hash": "6AB0E4D21EA68E3D62D17C30C445E2C29CEA5E7A5EFC935C5E0C887C4F26ED48"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\gradient_credit\\files\\visible_tests.py",
+    "Hash": "E5742C1272C95EDEBC8A87C93667907B13C4A36310DC784A629C5D57064C6148"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\state_carry\\config.yaml",
+    "Hash": "D6C2A6A034FF38A2B951DD8EFADA5F7347B94C11B4F64E5C113D3C1A09BFDD19"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\state_carry\\files\\judge.py",
+    "Hash": "FECC1025B96578F1B267CB58EF097091C69E8116B26AF90178ECC70F330907B9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\state_carry\\files\\prompt.md",
+    "Hash": "61A7FACA4D98691BEFB13DF2760FADEB4E92661ECB26FF4A135F6B5841B95011"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\state_carry\\files\\recurrent_block.py",
+    "Hash": "13364D010195F5587DD4F5524A3239C9617BE67C0E3B23BA034BBB557D811408"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\state_carry\\files\\train.py",
+    "Hash": "B6E488EF7FB5FAFA49C128B9A388B615BBA5BCA712B9AC252D953D2B0A3F4E13"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\recurrent_depth\\state_carry\\files\\visible_tests.py",
+    "Hash": "4488F89482672E641A12640EF2C5AD59531DF86FEF338F8C8294EB1A6C7DFF1F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\registry.yaml",
+    "Hash": "5EB6D9D5BBF881408DAB7CC7B053256255C51C26AAACE2E4C86AB76401C0598F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\config.yaml",
+    "Hash": "DA198C14BFE3449503F2339FC839FE3BD6E1D5F78A97955B01410F0E7D533540"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\attention.py",
+    "Hash": "9B3C163533EC969F3C6FAF4826EF0744D84A80BC197DE57817DD1F53003147CF"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\cache.py",
+    "Hash": "7D4899C351C357D9EBE2CB3EAE6EBE182598EBEF0EFECC027322BCDC72F034B4"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\eval.py",
+    "Hash": "88DBFE513AB14725A9676C7A3CE2400F9CDB9F4CD74CAADDAFA1D02B3569625C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\extract_pdf.py",
+    "Hash": "2EC181358840FCA23D74328F031035DC353BAEEAB66C97813B51FE4812B868EC"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\inspect_logs.py",
+    "Hash": "39A44B980C46EECFEBD62EFA863FECA02217EF175B59BF9ECCEFF02A701D430F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\judge.py",
+    "Hash": "4773F8AA0DCF90E476F6E286E07183BFD876FA1C1B921ED3C15AA0DBCCC39B85"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\model.py",
+    "Hash": "3CB691C7F7B5DD588F36BB7F3C06B8A3EC7A7E80661364AA20A485030320D054"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\prompt.md",
+    "Hash": "1710E1BE688EA9759FEF56580195EE2B78A44C08D5640C9EC1C936418E72BF50"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\read_paper.py",
+    "Hash": "B723FD6397312577B75303D60D48B10E3914435DA29683020D6876E479F8E979"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\rope.py",
+    "Hash": "FFFD55E006DB4F4EF7D048857D5B1CF68EF9CA5C263E6EA8E7660777A06E2721"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\run_eval.py",
+    "Hash": "3C43681BA6B7D4201AF6A930EA90AF4E330870D54C9D2A48C66A19765A9F68C7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\run_train.py",
+    "Hash": "543C2E6F7D6ACC5DC729C17B49ED241B5C7E36FFAEC1DBB96AD2D66D07C2ACC8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\tool_state.py",
+    "Hash": "261CFE8CF61A9F83B34D5E67796CD7E2150F381E798E16B0E377D64E46481F14"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\train.py",
+    "Hash": "6FD9D8B31C102A6EF46604AEA19671FDAABCD78244018634011787AF878CE679"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\rope\\files\\visible_tests.py",
+    "Hash": "855977E39488CE764B3B4D37B0BDF11000EE2719EA381B9B2B12D5808273BC3C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\one_step\\config.yaml",
+    "Hash": "18090B908ED23EC6C4D329F70524F370E8750D12C6A0A41E91E4A69FD9E96E57"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\one_step\\files\\judge.py",
+    "Hash": "21F8E05E7FC1CCB85DDCF31E12A0DE2002ADA66E520701185A86F663B43AAF6F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\one_step\\files\\prompt.md",
+    "Hash": "B2212632E23239F850FA052587ADCC0CAAB9760E311FE59D2681B822B1D9B979"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\one_step\\files\\solution.py",
+    "Hash": "03A26028177BAD0AF7B90A471DC8E96CAB41A908DA909477864AE1ABA078AC25"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\one_step\\files\\task.py",
+    "Hash": "79EB3E88A581642124CB36B4B424C01EF809E9092B74C691BAC2F78FC060BC2C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\one_step\\files\\visible_tests.py",
+    "Hash": "394BDDDA6DA880167C194F8C39CB6F89A0260D595A79C8F502B1F2D113CD50DD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\parse_only\\config.yaml",
+    "Hash": "2539FC0F5B1916683EE4D44912B2E9B9603004AE4F3E767E790079A2FC722EC3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\parse_only\\files\\judge.py",
+    "Hash": "3EB1D508D02FE021D8E3E5F7077A87B722E59A8307A1B76D2803924871324249"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\parse_only\\files\\prompt.md",
+    "Hash": "75916B527F8455A7CF3C987BEA9C76E34ACD42FB8019B2629DD378DBC5F4B79E"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\parse_only\\files\\solution.py",
+    "Hash": "D963C56DF54B14D376967A8F16B235D6D621B708A58AF3D19B110247732B6B35"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\parse_only\\files\\task.py",
+    "Hash": "EC5068FAFE2F39AA63ADD3866C1F2B8D4A54D9E8BBC28E74E2E52BDE462D9AA7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\parse_only\\files\\visible_tests.py",
+    "Hash": "8D5C8D0CD957DE9E280DFBFACC6383B9DAAA004231188ACDB5DC5EF489AAEE84"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\trajectory\\config.yaml",
+    "Hash": "18090B908ED23EC6C4D329F70524F370E8750D12C6A0A41E91E4A69FD9E96E57"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\trajectory\\files\\judge.py",
+    "Hash": "7A661C0F5F4D83EB499815098389068A66957B23A2A0E477D4C2A758D9A0FDB9"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\trajectory\\files\\prompt.md",
+    "Hash": "C29873C7746D7F4E1075647403971279C4CDCE5DBB95AFA83DF8D82844898459"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\trajectory\\files\\solution.py",
+    "Hash": "FB720A09C1CBB5C57A98B7E0D1D6917EFE8CF3A4EF3B1B95E4F26A3DADE33608"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\trajectory\\files\\task.py",
+    "Hash": "3E7E8E2DE04EB3A6EDE6F72937E8913C4BF0FA486E94D055B02F1D0B015DD4DD"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\trajectory_semantics\\trajectory\\files\\visible_tests.py",
+    "Hash": "C0794B431B495E730C0C90F83A5307583B6C42E16083BCE38CC4E1774CCA24B4"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\ci_dependency_graph\\config.yaml",
+    "Hash": "A41D8857FEB2252635F20AAA036984543458F42CF2BB0FEF3D8ABD9C60E5920A"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\ci_dependency_graph\\files\\ci_machine.py",
+    "Hash": "7B54E609E8B7E89ED9F09EA88A545A3EF3EFA7B49093E048AA743A4F0EC0721E"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\ci_dependency_graph\\files\\judge.py",
+    "Hash": "EEC9357438D5D187F386368465DD4DE547FEB712DF1E1F421B472719D96F8154"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\ci_dependency_graph\\files\\prompt.md",
+    "Hash": "9223544D9C5C56BDA1295691B92F81EAE76A9D445B3CF80922EAACFD44178814"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\ci_dependency_graph\\files\\visible_tests.py",
+    "Hash": "9B065A63A7190715041CCE853FF648A5F543A2381355E23A7767DDB2BDD55F24"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\css_state_machine\\config.yaml",
+    "Hash": "E14156E1A66DAB9F74A2D367D2620A2289890BCBD5D5257B7D7701E312D68C9A"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\css_state_machine\\files\\css_logic.py",
+    "Hash": "87F035A68ECD54FC5D404AB37D96C12D6918562AB137178B22341358DE3D4536"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\css_state_machine\\files\\judge.py",
+    "Hash": "DF6B313169829E3D5C46961E8D16A62F5F6929CC1E435CE443B74D28E7A16646"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\css_state_machine\\files\\prompt.md",
+    "Hash": "9F731F70B5487EACD839E17924AC2F0ED352E6432B674304B19ECE6E860DAF15"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\css_state_machine\\files\\visible_tests.py",
+    "Hash": "24A06C17492CE30450C5764588391B45C97C9E3D86798B671F76A634F2C3323C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\regex_state_machine\\config.yaml",
+    "Hash": "408880A7ADBC11C4E2F8ECE2C8AA0F2AD5F8F7CFC5A8B0140C0117C499EB152F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\regex_state_machine\\files\\judge.py",
+    "Hash": "4FC90ED4DC707A143AA92F9A10BB037D4AB5252817B51B13266D37C52E887217"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\regex_state_machine\\files\\prompt.md",
+    "Hash": "5C7166653468E3E9B47724E0E40C34654AD4D70BADE04DACA9C0AD6542DF20EF"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\regex_state_machine\\files\\regex_machine.py",
+    "Hash": "94F7394600673ED4153A48CCC877083949F7FB357341DFECF61073503F46EF71"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\regex_state_machine\\files\\visible_tests.py",
+    "Hash": "1B392551B6C8547BFF84723D17B5816592E35C8B92DB11A9ED8DF15577859370"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\spreadsheet_dataflow\\config.yaml",
+    "Hash": "E8A80F862367826ABAD01C41D71434B947B9DAE584B01A83C05C000CC80CDE54"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\spreadsheet_dataflow\\files\\judge.py",
+    "Hash": "6B5FB6321595E6A9310014E4C031E83E82975B1800D24E7DD5016826DE346F75"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\spreadsheet_dataflow\\files\\prompt.md",
+    "Hash": "31DEFBA43FC0A979E3DAA99C2A26A701FCC80CC4E8E24026E5F4D40A3E69C28F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\spreadsheet_dataflow\\files\\sheet_model.py",
+    "Hash": "12DF6470E8662DE0E2F421916750C116EB157EAB5ACA03598923FE295F148A8B"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\spreadsheet_dataflow\\files\\visible_tests.py",
+    "Hash": "85C85FA75C31E1DC9969362E2ABD710AE17C3E2E69F37487BF029DCAB7BF36A7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\sql_fixed_point\\config.yaml",
+    "Hash": "29937FD53EB1EB21D029567ECCBEA1F4EFF0ADFFCA62019F5F9E0D074711F329"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\sql_fixed_point\\files\\judge.py",
+    "Hash": "DCB4B49AF30555CAF1BC623A77C680577111BDF23AFF30BCA3AF1EC99401B196"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\sql_fixed_point\\files\\prompt.md",
+    "Hash": "3E5D2F7994522F1F84E1F82ACD0E23A0C1E69051E331882141751C40685713E2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\sql_fixed_point\\files\\query_module.py",
+    "Hash": "BF4D13B6BE295D83167B069C7C16D8803B69809B587541D884E55EAF89591C41"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\sql_fixed_point\\files\\visible_tests.py",
+    "Hash": "CCD7FEE689D6C15EEAE8A2084F256128C023C8D455055F29AD9BA7812E365395"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\template_interpreter\\config.yaml",
+    "Hash": "E1C0B46F1C7ABBDD69F946788778C76CBF1FBB1FBC0C8F8A7A9BC9882D6A545C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\template_interpreter\\files\\judge.py",
+    "Hash": "079B01DB3B26A5F7572BA691FC206638759907D1869316053ABAA76364BD0D8A"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\template_interpreter\\files\\prompt.md",
+    "Hash": "BB23FEE7BDC3AF26EB4EBBDDDB9C50FF579B95ED31196499314EC2B0B754DF52"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\template_interpreter\\files\\template_machine.py",
+    "Hash": "931DA9F9B5CEF264CD1C8B175EF7A97B4377D80F5C40F0E8C0A311482BEA2426"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\envs\\weird_machine\\template_interpreter\\files\\visible_tests.py",
+    "Hash": "3207A7C56B4096CBED48C55B42FE2CF3754C81B5B2F2518A578B8284D24964E2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\generate_env.py",
+    "Hash": "E89D1C03BAEC7BFEAA23BB349E69C829D429617FE7B2F7B1D92792276E1AA762"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\deception_game.py",
+    "Hash": "2052E96DC8610CAEFD859F7D29CBB8C49917D0D83FB724C669BFE414F0F59B90"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\Dockerfile.agent",
+    "Hash": "D73A81AE97A612B2EA3FFF34DB9D420AFAB8CC9EC8251475D991578E8BB73722"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\Dockerfile.gpu",
+    "Hash": "95F5DCFCD783684B400B96D1878CF8659089A85B291F22C8FDB69EC436B00949"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\Dockerfile.judge",
+    "Hash": "48846E2EA6F76C89CC28F3174F7476EB586B9B3A43D3BF947F02B8B7746BC3B3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\__init__.py",
+    "Hash": "A76F7AA486E42DC75A3775F743391AF4FC283F1BFCBAFF160F7547A0EA0FF215"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\APPROVED_SOURCES.md",
+    "Hash": "C4032B301F5221D9D08723AE5D4C169CC3007418E312FDCFAFE18D64FCD6AEB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\bayes.py",
+    "Hash": "9B43AA2DD71B67181FBD49AD904E4D50B03B89E35C489FC7D088FFBA46354E62"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\common_knowledge.py",
+    "Hash": "4F8D2C1EFB0E0625B792DFA77F3658B4B4671126F9400B45C7D2CE36ED1AEAFA"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\epistemic_relations.py",
+    "Hash": "552F3C039918B76BCFFA3EC64457821D75D972A2F0D1E8BFA2BC0FE21599BDD4"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\event_bayes.py",
+    "Hash": "1147F7BF0EBB942CF81C3CCC9AA579B0B20E90FBACD53ADA33C518684F856364"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\fragmented_observation.py",
+    "Hash": "7ED2F23DCC7EBE4C5CB14895ACDFC9CB81E15B673A3743F56268C5D0A1AF737C"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\leakage.py",
+    "Hash": "973CBE10023E361FDF0D3B7D4CBA1331228EA472EEB27742F31752BDF23BCDA0"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\packets.py",
+    "Hash": "37B6F3B48101A60823222A3A6B5693CEAEA8B20532F089002FE08C5C5C0BDBD1"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\public_announcements.py",
+    "Hash": "6FEC1A0A94D16DCA2DF5D522079C4665DEFE52FFA81E71C5FF4116CDAA6AA30D"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\silence.py",
+    "Hash": "3FE07DFC40A21360A4244AA9DEFD2E2B5F72D9F4DFBCFF1415D6B5A987B78AF5"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\epistemic_semantics\\supplied_policy.py",
+    "Hash": "EB600C412FA2D3AAFFFCA11D67D1ACD883429AD48B366235BE5D51FEB5FA2612"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\evaluator_views.py",
+    "Hash": "11C80D3BDF4FA622985B90B3693C90D71D784E227FE8FE15AEBEFCEE7D5A1D82"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\experiment_arms.py",
+    "Hash": "E84597A86D6F8B893AC4FB868045E6ECC52D9F517789A9C246056B3BD25D83B1"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\experiment_spec.py",
+    "Hash": "E63BDD2370180FE3CD4ABD121AAE21FC0D58A03ECE856E62D6EFAE89E29BC532"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\generation_manifest.py",
+    "Hash": "3573FC39F44572BA31BCDAB1CAA329C8DB4A1814EE44B37AA337EA038F72AD36"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\information_policy.py",
+    "Hash": "A711A264C81D8E748EF5DF8AD1EA09F930EDE4D5FE66F432EAFA7C9DBB6F6EE2"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\inspect_logs.py",
+    "Hash": "6EA8BA7B719CB0853E562707906418BD3C9424D69343C0EA014C8BB9E65139C7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\judge_lib.py",
+    "Hash": "E394579DE0F084F4C0084EF33BBEAA09E7554B1B30FEBB6F06B40953D5632A45"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\latent_spec.py",
+    "Hash": "308A8722D04DF49570E5DDF388F779C7A6AEF81A2D47C02719C739FDFEE27EB6"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\patch_validator.py",
+    "Hash": "3E29AB5514BA2102DD89EBFECEC3358603F525DB8426819803C9A65165ED981F"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\presentation_identity.py",
+    "Hash": "D6D06219812F8C42B7BBACE4DBC2D9F96F28E37F07F0B25FEA88DB3CA05BBB6E"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\run_eval.py",
+    "Hash": "B166E954FEBBA35C04C7B0036261CCF1E1CFD355D15B849B61A769B534F28ED1"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\run_train.py",
+    "Hash": "3CE8F703F6FE06711AC334307E117B3FD96C9C0AB00A11BE447D1F50E4F0A110"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\source_validator.py",
+    "Hash": "8CF693CF1031E0EF541A0BF6D04F1BAFE0FA43FF59A8CF3EAEBCD1D5377A6973"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\submit.py",
+    "Hash": "982F5FFE726B80634388BD27EE0D674CBF2C29314D1093D32507211EB46AC68D"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\tool_state.py",
+    "Hash": "89D12D5161401A495928A29C8B5E21FB2EFBDD1AC8BBEE103AB2CFF1718C2009"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\__init__.py",
+    "Hash": "69662B19154C6829DA40C28193EEB1E0AFB53029ABE31557125E7D4C6BE1B597"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\abstract_semantics.py",
+    "Hash": "75345817C0DE5B370DDB47F3C0F56689B28CC1BC82BF199DA2F99084F5A2F748"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\certify.py",
+    "Hash": "9A75E433CEE13501D6CD910994C477CB1EE5120C3815374EE59518F5940845C6"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\generate_case.py",
+    "Hash": "9B4E16E800EE400A45AFDF81D5BA10062B5C1D1ADD0114A70B5C06A197741FB7"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\relabel.py",
+    "Hash": "C352B54D11CB27B4DB1BA84D0C9D5A60E94E092330C58B04E918DA70FE05FF67"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\render_flat.py",
+    "Hash": "8B3A7682D85D2228C2EBC0CE183920676683D6EE161D7748651DB006A0756B16"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\render_reflective.py",
+    "Hash": "8BBF81EFECE3E11B3B1DCDE45A3286B8D5953DF27BFBD5FFCC70C50C0FCD1EA8"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\rendered_parser.py",
+    "Hash": "BD784A5369A156244F4BA7B9E603E568189237260177F1CB6C53B3E533D743F3"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\schema.py",
+    "Hash": "F94840CEAECD06CFEBC32524A0856A72FC0BFC20172C57C8B18CB425936D7754"
+  },
+  {
+    "Path": "C:\\Users\\hatgu\\rl_eval_generator\\shared\\trajectory_semantics\\witness.py",
+    "Hash": "693194BCC95ADE7A0DB874BF421C9C11C75A09A5EC285844A98E73EA1CFD7D6A"
+  }
+]

@@ -1,0 +1,946 @@
+[
+  {
+    "model": "mercury",
+    "environment": "architecture_naturality",
+    "case_id": "architecture_naturality__naming=easy_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ba7fffcc26cb9f3d9d5265c43eaae9409740d76c9e3608c58391e3ccfd7b18cf",
+    "generation_id": "G06e6708b4cda88bd",
+    "archive_member_prefix": "episodes/architecture_naturality__naming=easy_symptom_mask=easy__seed-0/architecture_naturality-20261013T123119Z-9b1eac63/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Natural Architecture Transformations\n\nYour task is to correct the representation mapping layer `HiddenStateNaturalTransformation` in `converter.py`.\n\nA transformation $\\alpha$ between two model architectures $F$ and $G$ is strictly natural if it commutes with any sequence-length morphing operation $h: X \\to Y$ (such as temporal slicing):\n$$\\alpha_Y \\circ F(h) \\equiv G(h) \\circ \\alpha_X$$\n\nThe current implementation of the conversion mapping in `converter.py` runs, but fails this naturality commutativity condition. Correct the implementation to ensure the conversion is strictly natural under sequence-length transformations.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass HiddenStateNaturalTransformation(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -12,1 +12,1 @@\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+        },
+        "observation": "patching file converter.py\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass HiddenStateNaturalTransformation(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom converter import HiddenStateNaturalTransformation\n\ndef test_shape():\n    tfm = HiddenStateNaturalTransformation()\n    x = torch.randn(2, 8, 16)\n    out = tfm(x)\n    assert out.shape == x.shape\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "naturality_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "converter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "architecture_naturality",
+    "case_id": "architecture_naturality__naming=easy_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ba7fffcc26cb9f3d9d5265c43eaae9409740d76c9e3608c58391e3ccfd7b18cf",
+    "generation_id": "G27228078051087a1",
+    "archive_member_prefix": "episodes/architecture_naturality__naming=easy_symptom_mask=hard__seed-0/architecture_naturality-20261013T123145Z-ba5c8515/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Natural Architecture Transformations\n\nYour task is to correct the representation mapping layer `HiddenStateNaturalTransformation` in `converter.py`.\n\nA transformation $\\alpha$ between two model architectures $F$ and $G$ is strictly natural if it commutes with any sequence-length morphing operation $h: X \\to Y$ (such as temporal slicing):\n$$\\alpha_Y \\circ F(h) \\equiv G(h) \\circ \\alpha_X$$\n\nThe current implementation of the conversion mapping in `converter.py` runs, but fails this naturality commutativity condition. Correct the implementation to ensure the conversion is strictly natural under sequence-length transformations.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass HiddenStateNaturalTransformation(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -12,4 +12,4 @@ class HiddenStateNaturalTransformation(nn.Module):\n     self.scale = nn.Parameter(torch.tensor(2.0))\n\n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+        },
+        "observation": "patching file converter.py\nHunk #1 succeeded at 9 with fuzz 1 (offset -3 lines).\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "naturality_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "converter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "architecture_naturality",
+    "case_id": "architecture_naturality__naming=easy_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ba7fffcc26cb9f3d9d5265c43eaae9409740d76c9e3608c58391e3ccfd7b18cf",
+    "generation_id": "G0adf21d4e80ea20c",
+    "archive_member_prefix": "episodes/architecture_naturality__naming=easy_symptom_mask=medium__seed-0/architecture_naturality-20261013T123201Z-f7f172df/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Natural Architecture Transformations\n\nYour task is to correct the representation mapping layer `HiddenStateNaturalTransformation` in `converter.py`.\n\nA transformation $\\alpha$ between two model architectures $F$ and $G$ is strictly natural if it commutes with any sequence-length morphing operation $h: X \\to Y$ (such as temporal slicing):\n$$\\alpha_Y \\circ F(h) \\equiv G(h) \\circ \\alpha_X$$\n\nThe current implementation of the conversion mapping in `converter.py` runs, but fails this naturality commutativity condition. Correct the implementation to ensure the conversion is strictly natural under sequence-length transformations.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass HiddenStateNaturalTransformation(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -12,4 +12,4 @@ class HiddenStateNaturalTransformation(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n\n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+        },
+        "observation": "patching file converter.py\nHunk #1 succeeded at 9 (offset -3 lines).\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "naturality_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "converter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "architecture_naturality",
+    "case_id": "architecture_naturality__naming=hard_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ba7fffcc26cb9f3d9d5265c43eaae9409740d76c9e3608c58391e3ccfd7b18cf",
+    "generation_id": "G361b5828440b08cd",
+    "archive_member_prefix": "episodes/architecture_naturality__naming=hard_symptom_mask=easy__seed-0/architecture_naturality-20261013T123214Z-31aeb422/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Natural Architecture Transformations\n\nYour task is to correct the representation mapping layer `ComponentNaturalTransform` in `converter.py`.\n\nA transformation $\\alpha$ between two model architectures $F$ and $G$ is strictly natural if it commutes with any sequence-length morphing operation $h: X \\to Y$ (such as temporal slicing):\n$$\\alpha_Y \\circ F(h) \\equiv G(h) \\circ \\alpha_X$$\n\nThe current implementation of the conversion mapping in `converter.py` runs, but fails this naturality commutativity condition. Correct the implementation to ensure the conversion is strictly natural under sequence-length transformations.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass ComponentNaturalTransform(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -14,5 +14,5 @@ class ComponentNaturalTransform(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+        },
+        "observation": "patching file converter.py\nHunk #1 FAILED at 14.\n1 out of 1 hunk FAILED -- saving rejects to file converter.py.rej\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass ComponentNaturalTransform(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@ class ComponentNaturalTransform(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+        },
+        "observation": "patching file converter.py\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass ComponentNaturalTransform(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "naturality_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "converter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "architecture_naturality",
+    "case_id": "architecture_naturality__naming=hard_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ba7fffcc26cb9f3d9d5265c43eaae9409740d76c9e3608c58391e3ccfd7b18cf",
+    "generation_id": "G0f2c2889f6d64f37",
+    "archive_member_prefix": "episodes/architecture_naturality__naming=hard_symptom_mask=hard__seed-0/architecture_naturality-20261013T123236Z-8fedd620/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Natural Architecture Transformations\n\nYour task is to correct the representation mapping layer `ComponentNaturalTransform` in `converter.py`.\n\nA transformation $\\alpha$ between two model architectures $F$ and $G$ is strictly natural if it commutes with any sequence-length morphing operation $h: X \\to Y$ (such as temporal slicing):\n$$\\alpha_Y \\circ F(h) \\equiv G(h) \\circ \\alpha_X$$\n\nThe current implementation of the conversion mapping in `converter.py` runs, but fails this naturality commutativity condition. Correct the implementation to ensure the conversion is strictly natural under sequence-length transformations.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass ComponentNaturalTransform(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@ class ComponentNaturalTransform(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n\n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x"
+        },
+        "observation": "patching file converter.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 7:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -11,4 +11,4 @@ class ComponentNaturalTransform(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n\n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+        },
+        "observation": "patching file converter.py\nHunk #1 succeeded at 9 (offset -2 lines).\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass ComponentNaturalTransform(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "naturality_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "converter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "architecture_naturality",
+    "case_id": "architecture_naturality__naming=hard_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ba7fffcc26cb9f3d9d5265c43eaae9409740d76c9e3608c58391e3ccfd7b18cf",
+    "generation_id": "G13798edf7b4815dc",
+    "archive_member_prefix": "episodes/architecture_naturality__naming=hard_symptom_mask=medium__seed-0/architecture_naturality-20261013T123253Z-046319a7/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Natural Architecture Transformations\n\nYour task is to correct the representation mapping layer `ComponentNaturalTransform` in `converter.py`.\n\nA transformation $\\alpha$ between two model architectures $F$ and $G$ is strictly natural if it commutes with any sequence-length morphing operation $h: X \\to Y$ (such as temporal slicing):\n$$\\alpha_Y \\circ F(h) \\equiv G(h) \\circ \\alpha_X$$\n\nThe current implementation of the conversion mapping in `converter.py` runs, but fails this naturality commutativity condition. Correct the implementation to ensure the conversion is strictly natural under sequence-length transformations.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass ComponentNaturalTransform(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -12,4 +12,4 @@ class ComponentNaturalTransform(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n\n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+        },
+        "observation": "patching file converter.py\nHunk #1 succeeded at 9 (offset -3 lines).\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "naturality_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "converter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "architecture_naturality",
+    "case_id": "architecture_naturality__naming=medium_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ba7fffcc26cb9f3d9d5265c43eaae9409740d76c9e3608c58391e3ccfd7b18cf",
+    "generation_id": "G1093e68e3bdb71fd",
+    "archive_member_prefix": "episodes/architecture_naturality__naming=medium_symptom_mask=easy__seed-0/architecture_naturality-20261013T123305Z-0fca4239/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Natural Architecture Transformations\n\nYour task is to correct the representation mapping layer `MorphismMap` in `converter.py`.\n\nA transformation $\\alpha$ between two model architectures $F$ and $G$ is strictly natural if it commutes with any sequence-length morphing operation $h: X \\to Y$ (such as temporal slicing):\n$$\\alpha_Y \\circ F(h) \\equiv G(h) \\circ \\alpha_X$$\n\nThe current implementation of the conversion mapping in `converter.py` runs, but fails this naturality commutativity condition. Correct the implementation to ensure the conversion is strictly natural under sequence-length transformations.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MorphismMap(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "@@ -10,4 +10,4 @@ class MorphismMap(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x"
+        },
+        "observation": "patch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -11,4 +11,4 @@ class MorphismMap(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x"
+        },
+        "observation": "patching file converter.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 7:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "converter.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass MorphismMap(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x\n"
+        },
+        "observation": "--- before/converter.py\n+++ after/converter.py\n@@ -5,8 +5,7 @@\n     def __init__(self, dim: int = 16):\n         super().__init__()\n         # The natural transformation should scale the hidden state uniformly.\n-        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "naturality_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "converter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/converter.py\n+++ b/converter.py\n@@ -5,8 +5,7 @@\n     def __init__(self, dim: int = 16):\n         super().__init__()\n         # The natural transformation should scale the hidden state uniformly.\n-        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "architecture_naturality",
+    "case_id": "architecture_naturality__naming=medium_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ba7fffcc26cb9f3d9d5265c43eaae9409740d76c9e3608c58391e3ccfd7b18cf",
+    "generation_id": "G19d07a83985c8cee",
+    "archive_member_prefix": "episodes/architecture_naturality__naming=medium_symptom_mask=hard__seed-0/architecture_naturality-20261013T123326Z-76742bff/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Natural Architecture Transformations\n\nYour task is to correct the representation mapping layer `MorphismMap` in `converter.py`.\n\nA transformation $\\alpha$ between two model architectures $F$ and $G$ is strictly natural if it commutes with any sequence-length morphing operation $h: X \\to Y$ (such as temporal slicing):\n$$\\alpha_Y \\circ F(h) \\equiv G(h) \\circ \\alpha_X$$\n\nThe current implementation of the conversion mapping in `converter.py` runs, but fails this naturality commutativity condition. Correct the implementation to ensure the conversion is strictly natural under sequence-length transformations.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MorphismMap(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -16,4 +16,4 @@ class MorphismMap(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+        },
+        "observation": "patching file converter.py\nHunk #1 succeeded at 9 (offset -7 lines).\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "naturality_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "converter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "architecture_naturality",
+    "case_id": "architecture_naturality__naming=medium_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ba7fffcc26cb9f3d9d5265c43eaae9409740d76c9e3608c58391e3ccfd7b18cf",
+    "generation_id": "G26f9766f8386421f",
+    "archive_member_prefix": "episodes/architecture_naturality__naming=medium_symptom_mask=medium__seed-0/architecture_naturality-20261013T123337Z-a21f981c/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Natural Architecture Transformations\n\nYour task is to correct the representation mapping layer `MorphismMap` in `converter.py`.\n\nA transformation $\\alpha$ between two model architectures $F$ and $G$ is strictly natural if it commutes with any sequence-length morphing operation $h: X \\to Y$ (such as temporal slicing):\n$$\\alpha_Y \\circ F(h) \\equiv G(h) \\circ \\alpha_X$$\n\nThe current implementation of the conversion mapping in `converter.py` runs, but fails this naturality commutativity condition. Correct the implementation to ensure the conversion is strictly natural under sequence-length transformations.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MorphismMap(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x[:, :8, :]\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -14,4 +14,4 @@ class MorphismMap(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x"
+        },
+        "observation": "patching file converter.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 7:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/converter.py\n+++ b/converter.py\n@@ -17,4 +17,4 @@ class MorphismMap(nn.Module):\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+        },
+        "observation": "patching file converter.py\nHunk #1 succeeded at 9 (offset -8 lines).\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "converter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MorphismMap(nn.Module):\n    def __init__(self, dim: int = 16):\n        super().__init__()\n        # The natural transformation should scale the hidden state uniformly.\n        # BUG: Hardcoded sequence length slice, which violates naturality under temporal slicing.\n        self.scale = nn.Parameter(torch.tensor(2.0))\n\n    def forward(self, x: torch.Tensor) -> torch.Tensor:\n        return self.scale * x\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "naturality_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "converter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/converter.py\n+++ b/converter.py\n@@ -9,4 +9,4 @@\n         self.scale = nn.Parameter(torch.tensor(2.0))\n \n     def forward(self, x: torch.Tensor) -> torch.Tensor:\n-        return self.scale * x[:, :8, :]\n+        return self.scale * x\n"
+  }
+]

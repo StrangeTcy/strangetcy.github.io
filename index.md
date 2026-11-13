@@ -33,3 +33,9 @@ This is my blogging site on **GitHub Pages**. This should contain notes on paper
 [Two Judge Guarantees, Two Environment Pools](https://strangetcy.github.io/2026/11/10/two-judge-guarantees-two-environment-pools.html)
 
 [What a 68.4% Pass Rate Hides: Mercury-2.5 Across 38 Environments](https://strangetcy.github.io/2026/11/10/what-a-68-4-pass-rate-hides-mercury-2-5-across-38-environments.html)
+
+[What Mercury & Atria Can Do with Compositional Mathematics](https://strangetcy.github.io/2026/11/11/what-mercury-and-atria-can-do-with-compositional-mathematics.html)
+
+[Mercury & Atria: Reasoning, Repairs & Broken Programs](https://strangetcy.github.io/2026/11/11/mercury-and-atria-reasoning-repairs-and-broken-programs.html)
+
+[Current Environment Audit: 50 Configured Tasks and 9 Interactive Families](https://strangetcy.github.io/2026/11/11/current-environment-audit-50-configured-tasks-and-9-interactive-families.html)

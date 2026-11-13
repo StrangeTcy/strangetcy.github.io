@@ -1,0 +1,1149 @@
+[
+  {
+    "model": "reasoning_atria",
+    "environment": "stochastic_monad",
+    "case_id": "stochastic_monad__naming=easy_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "0157282cbd2647c9154cd407bfab01e42968cf897294531c5b143820dda40e6b",
+    "generation_id": "G04490654cd80cee4",
+    "archive_member_prefix": "episodes/stochastic_monad__naming=easy_symptom_mask=easy__seed-0/stochastic_monad-20261017T104645Z-a8b5bddc/",
+    "events": [
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Correct Composition of Stochastic Mappers\n\nYour task is to correct the monadic class `ProbabilityMonad` in `monad.py`.\n\nTo allow sequential stochastic computations to compose correctly, the monadic class must satisfy the standard algebraic monad laws:\n1. **Left Identity:** `return x >>= f == f x`\n2. **Right Identity:** `m >>= return == m`\n3. **Associativity:** `(m >>= f) >>= g == m >>= (\\x. f(x) >>= g)`\n\nThe current implementation in `monad.py` runs, but fails these laws. Correct the `bind` and `unit` methods to ensure they compose functionally and satisfy all three laws under dynamic sampling.\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass ProbabilityMonad:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return ProbabilityMonad(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom monad import ProbabilityMonad\n\ndef test_unit():\n    m = ProbabilityMonad.unit(42)\n    assert m.sample_fn() == 42\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/monad.py\n+++ b/monad.py\n@@ -6,10 +6,8 @@ class ProbabilityMonad:\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return ProbabilityMonad(lambda: f(val).sample_fn())\n+        # Sample lazily, so each draw of the bound distribution re-runs both the\n+        # outer sampler and the continuation f on the freshly drawn value.\n+        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "patching file monad.py\n\n[stderr]\npatch: **** malformed patch at line 13:  \n\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "write_file",
+          "path": "monad.py",
+          "content": "import torch\n\nclass ProbabilityMonad:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Sample lazily, so every draw of the bound distribution re-runs both the\n        # outer sampler and the continuation f on the freshly drawn value.\n        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "--- before/monad.py\n+++ after/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return ProbabilityMonad(lambda: f(val).sample_fn())\n+        # Sample lazily, so every draw of the bound distribution re-runs both the\n+        # outer sampler and the continuation f on the freshly drawn value.\n+        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())"
+      },
+      {
+        "step": 12,
+        "action": {
+          "type": "read_file",
+          "path": "/tmp/exit.txt"
+        },
+        "observation": "ERROR: Path escapes workspace: /tmp/exit.txt"
+      },
+      {
+        "step": 14,
+        "action": {
+          "type": "read_file",
+          "path": "out.txt"
+        },
+        "observation": "ERROR: [Errno 2] No such file or directory: '/home/runner/work/rl_eval_generator/rl_eval_generator/.episodes/arena_stochastic_monad_20261017T104645Z_a8b5bddc/env/agent/workspace/out.txt'"
+      },
+      {
+        "step": 16,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass ProbabilityMonad:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Sample lazily, so every draw of the bound distribution re-runs both the\n        # outer sampler and the continuation f on the freshly drawn value.\n        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "left_identity": true,
+        "right_identity": true,
+        "independence": true
+      },
+      "metrics": {
+        "changed_files": [
+          "monad.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/monad.py\n+++ b/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return ProbabilityMonad(lambda: f(val).sample_fn())\n+        # Sample lazily, so every draw of the bound distribution re-runs both the\n+        # outer sampler and the continuation f on the freshly drawn value.\n+        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+  },
+  {
+    "model": "reasoning_atria",
+    "environment": "stochastic_monad",
+    "case_id": "stochastic_monad__naming=easy_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "0157282cbd2647c9154cd407bfab01e42968cf897294531c5b143820dda40e6b",
+    "generation_id": "G0dd010b89489d618",
+    "archive_member_prefix": "episodes/stochastic_monad__naming=easy_symptom_mask=hard__seed-0/stochastic_monad-20261017T104821Z-a716fe26/",
+    "events": [
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Correct Composition of Stochastic Mappers\n\nYour task is to correct the monadic class `ProbabilityMonad` in `monad.py`.\n\nTo allow sequential stochastic computations to compose correctly, the monadic class must satisfy the standard algebraic monad laws:\n1. **Left Identity:** `return x >>= f == f x`\n2. **Right Identity:** `m >>= return == m`\n3. **Associativity:** `(m >>= f) >>= g == m >>= (\\x. f(x) >>= g)`\n\nThe current implementation in `monad.py` runs, but fails these laws. Correct the `bind` and `unit` methods to ensure they compose functionally and satisfy all three laws under dynamic sampling.\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass ProbabilityMonad:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return ProbabilityMonad(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom monad import ProbabilityMonad\n\ndef test_unit():\n    m = ProbabilityMonad.unit(42)\n    assert m.sample_fn() == 42\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/monad.py\n+++ b/monad.py\n@@ -9,9 +9,8 @@ class ProbabilityMonad:\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return ProbabilityMonad(lambda: f(val).sample_fn())\n+        # Defer sampling until the resulting monad is itself sampled, so that\n+        # each draw re-runs self and f (dynamic/lazy composition).\n+        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "patching file monad.py\nHunk #1 FAILED at 9.\n1 out of 1 hunk FAILED -- saving rejects to file monad.py.rej\n"
+      },
+      {
+        "step": 8,
+        "action": {
+          "type": "write_file",
+          "path": "monad.py",
+          "content": "import torch\n\nclass ProbabilityMonad:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Defer sampling until the resulting monad is itself sampled, so that\n        # each draw re-runs both self and f (dynamic/lazy composition).\n        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "--- before/monad.py\n+++ after/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return ProbabilityMonad(lambda: f(val).sample_fn())\n+        # Defer sampling until the resulting monad is itself sampled, so that\n+        # each draw re-runs both self and f (dynamic/lazy composition).\n+        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())"
+      },
+      {
+        "step": 12,
+        "action": {
+          "type": "read_file",
+          "path": "/tmp/out.txt"
+        },
+        "observation": "ERROR: Path escapes workspace: /tmp/out.txt"
+      },
+      {
+        "step": 14,
+        "action": {
+          "type": "read_file",
+          "path": "out.txt"
+        },
+        "observation": "ERROR: [Errno 2] No such file or directory: '/home/runner/work/rl_eval_generator/rl_eval_generator/.episodes/arena_stochastic_monad_20261017T104821Z_a716fe26/env/agent/workspace/out.txt'"
+      },
+      {
+        "step": 17,
+        "action": {
+          "type": "write_file",
+          "path": "verify_tmp.py",
+          "content": "import random\nimport statistics\nfrom monad import ProbabilityMonad\n\nm = ProbabilityMonad(lambda: random.random())\nf = lambda x: ProbabilityMonad.unit(x + 1)\ng = lambda x: ProbabilityMonad.unit(x * 2)\n\n# Left identity (exact)\nfor _ in range(200):\n    x = random.random()\n    lhs = ProbabilityMonad.unit(x).bind(f).sample_fn()\n    rhs = f(x).sample_fn()\n    assert lhs == rhs, (lhs, rhs)\n\n# Right identity (distributional + exact for unit-valued)\nfor _ in range(200):\n    v = m.sample_fn()\n    assert m.bind(ProbabilityMonad.unit).sample_fn() is not None\n\nlhs = [m.bind(ProbabilityMonad.unit).sample_fn() for _ in range(20000)]\ncheck = [m.sample_fn() for _ in range(20000)]\nassert 0.0 <= min(lhs) and max(lhs) <= 1.0\nassert abs(statistics.mean(lhs) - statistics.mean(check)) < 0.05\n\n# Associativity (exact under deterministic f, g given sampled x)\nfor _ in range(200):\n    a = m.bind(f).bind(g).sample_fn()\n    assert 1.0 <= a <= 3.0\n\n# stochastic f too\nsf = lambda x: ProbabilityMonad(lambda: x + random.random())\nlhs = [m.bind(sf).bind(g).sample_fn() for _ in range(20000)]\nrhs = [m.bind(lambda x: sf(x).bind(g)).sample_fn() for _ in range(20000)]\nassert abs(statistics.mean(lhs) - statistics.mean(rhs)) < 0.05\n\n# torch tensor sanity\nimport torch\ntm = ProbabilityMonad(lambda: torch.randn(3))\ntf = lambda t: ProbabilityMonad.unit(t * 2)\nout = tm.bind(tf).sample_fn()\nassert out.shape == (3,)\n\nprint(\"ALL CHECKS PASSED\")\n"
+        },
+        "observation": "--- before/verify_tmp.py\n+++ after/verify_tmp.py\n@@ -0,0 +1,44 @@\n+import random\n+import statistics\n+from monad import ProbabilityMonad\n+\n+m = ProbabilityMonad(lambda: random.random())\n+f = lambda x: ProbabilityMonad.unit(x + 1)\n+g = lambda x: ProbabilityMonad.unit(x * 2)\n+\n+# Left identity (exact)\n+for _ in range(200):\n+    x = random.random()\n+    lhs = ProbabilityMonad.unit(x).bind(f).sample_fn()\n+    rhs = f(x).sample_fn()\n+    assert lhs == rhs, (lhs, rhs)\n+\n+# Right identity (distributional + exact for unit-valued)\n+for _ in range(200):\n+    v = m.sample_fn()\n+    assert m.bind(ProbabilityMonad.unit).sample_fn() is not None\n+\n+lhs = [m.bind(ProbabilityMonad.unit).sample_fn() for _ in range(20000)]\n+check = [m.sample_fn() for _ in range(20000)]\n+assert 0.0 <= min(lhs) and max(lhs) <= 1.0\n+assert abs(statistics.mean(lhs) - statistics.mean(check)) < 0.05\n+\n+# Associativity (exact under deterministic f, g given sampled x)\n+for _ in range(200):\n+    a = m.bind(f).bind(g).sample_fn()\n+    assert 1.0 <= a <= 3.0\n+\n+# stochastic f too\n+sf = lambda x: ProbabilityMonad(lambda: x + random.random())\n+lhs = [m.bind(sf).bind(g).sample_fn() for _ in range(20000)]\n+rhs = [m.bind(lambda x: sf(x).bind(g)).sample_fn() for _ in range(20000)]\n+assert abs(statistics.mean(lhs) - statistics.mean(rhs)) < 0.05\n+\n+# torch tensor sanity\n+import torch\n+tm = ProbabilityMonad(lambda: torch.randn(3))\n+tf = lambda t: ProbabilityMonad.unit(t * 2)\n+out = tm.bind(tf).sample_fn()\n+assert out.shape == (3,)\n+\n+print(\"ALL CHECKS PASSED\")"
+      },
+      {
+        "step": 18,
+        "action": {
+          "type": "read_file",
+          "path": "verify_tmp.py"
+        },
+        "observation": "import random\nimport statistics\nfrom monad import ProbabilityMonad\n\nm = ProbabilityMonad(lambda: random.random())\nf = lambda x: ProbabilityMonad.unit(x + 1)\ng = lambda x: ProbabilityMonad.unit(x * 2)\n\n# Left identity (exact)\nfor _ in range(200):\n    x = random.random()\n    lhs = ProbabilityMonad.unit(x).bind(f).sample_fn()\n    rhs = f(x).sample_fn()\n    assert lhs == rhs, (lhs, rhs)\n\n# Right identity (distributional + exact for unit-valued)\nfor _ in range(200):\n    v = m.sample_fn()\n    assert m.bind(ProbabilityMonad.unit).sample_fn() is not None\n\nlhs = [m.bind(ProbabilityMonad.unit).sample_fn() for _ in range(20000)]\ncheck = [m.sample_fn() for _ in range(20000)]\nassert 0.0 <= min(lhs) and max(lhs) <= 1.0\nassert abs(statistics.mean(lhs) - statistics.mean(check)) < 0.05\n\n# Associativity (exact under deterministic f, g given sampled x)\nfor _ in range(200):\n    a = m.bind(f).bind(g).sample_fn()\n    assert 1.0 <= a <= 3.0\n\n# stochastic f too\nsf = lambda x: ProbabilityMonad(lambda: x + random.random())\nlhs = [m.bind(sf).bind(g).sample_fn() for _ in range(20000)]\nrhs = [m.bind(lambda x: sf(x).bind(g)).sample_fn() for _ in range(20000)]\nassert abs(statistics.mean(lhs) - statistics.mean(rhs)) < 0.05\n\n# torch tensor sanity\nimport torch\ntm = ProbabilityMonad(lambda: torch.randn(3))\ntf = lambda t: ProbabilityMonad.unit(t * 2)\nout = tm.bind(tf).sample_fn()\nassert out.shape == (3,)\n\nprint(\"ALL CHECKS PASSED\")\n"
+      },
+      {
+        "step": 19,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/verify_tmp.py\n+++ b/verify_tmp.py\n@@ -1,3 +1,4 @@\n+import sys\n import random\n import statistics\n from monad import ProbabilityMonad\n@@ -41,3 +42,6 @@\n out = tm.bind(tf).sample_fn()\n assert out.shape == (3,)\n \n+sys.stderr.write=\"ALL CHECKS PASSED\\\\n\"\n print(\"ALL CHECKS PASSED\")\n"
+        },
+        "observation": "patching file verify_tmp.py\n\n[stderr]\npatch: **** malformed patch at line 13:  print(\"ALL CHECKS PASSED\")\n\n"
+      },
+      {
+        "step": 20,
+        "action": {
+          "type": "write_file",
+          "content": "from monad import ProbabilityMonad\nimport random, statistics\n\nm = ProbabilityMonad(lambda: random.random())\nf = lambda x: ProbabilityMonad.unit(x + 1)\ng = lambda x: ProbabilityMonad.unit(x * 2)\n\nlines = []\n\n# Left identity\nok = all(ProbabilityMonad.unit(x).bind(f).sample_fn() == f(x).sample_fn()\n         for x in (random.random() for _ in range(200)))\nlines.append(f\"left_identity={ok}\")\n\n# Right identity (distributional)\nlhs = [m.bind(ProbabilityMonad.unit).sample_fn() for _ in range(20000)]\nrhs = [m.sample_fn() for _ in range(20000)]\nlines.append(f\"right_identity_mean_diff={abs(statistics.mean(lhs)-statistics.mean(rhs)):.4f}\")\nlines.append(f\"right_identity_range=({min(lhs):.3f},{max(lhs):.3f})\")\n\n# Associativity (distributional with stochastic f)\nsf = lambda x: ProbabilityMonad(lambda: x + random.random())\nlhs = [m.bind(sf).bind(g).sample_fn() for _ in range(20000)]\nrhs = [m.bind(lambda x: sf(x).bind(g)).sample_fn() for _ in range(20000)]\nlines.append(f\"assoc_lhs_mean={statistics.mean(lhs):.4f}\")\nlines.append(f\"assoc_rhs_mean={statistics.mean(rhs):.4f}\")\n\n# torch sanity\nimport torch\ntm = ProbabilityMonad(lambda: torch.randn(3))\nout = tm.bind(lambda t: ProbabilityMonad.unit(t * 2)).sample_fn()\nlines.append(f\"torch_shape={tuple(out.shape)}\")\n\nwith open(\"result.txt\", \"w\") as fh:\n    fh.write(\"\\n\".join(lines) + \"\\n\")\n",
+          "path": "verify_tmp.py"
+        },
+        "observation": "--- before/verify_tmp.py\n+++ after/verify_tmp.py\n@@ -1,44 +1,35 @@\n-import random\n-import statistics\n from monad import ProbabilityMonad\n+import random, statistics\n \n m = ProbabilityMonad(lambda: random.random())\n f = lambda x: ProbabilityMonad.unit(x + 1)\n g = lambda x: ProbabilityMonad.unit(x * 2)\n \n-# Left identity (exact)\n-for _ in range(200):\n-    x = random.random()\n-    lhs = ProbabilityMonad.unit(x).bind(f).sample_fn()\n-    rhs = f(x).sample_fn()\n-    assert lhs == rhs, (lhs, rhs)\n+lines = []\n \n-# Right identity (distributional + exact for unit-valued)\n-for _ in range(200):\n-    v = m.sample_fn()\n-    assert m.bind(ProbabilityMonad.unit).sample_fn() is not None\n+# Left identity\n+ok = all(ProbabilityMonad.unit(x).bind(f).sample_fn() == f(x).sample_fn()\n+         for x in (random.random() for _ in range(200)))\n+lines.append(f\"left_identity={ok}\")\n \n+# Right identity (distributional)\n lhs = [m.bind(ProbabilityMonad.unit).sample_fn() for _ in range(20000)]\n-check = [m.sample_fn() for _ in range(20000)]\n-assert 0.0 <= min(lhs) and max(lhs) <= 1.0\n-assert abs(statistics.mean(lhs) - statistics.mean(check)) < 0.05\n+rhs = [m.sample_fn() for _ in range(20000)]\n+lines.append(f\"right_identity_mean_diff={abs(statistics.mean(lhs)-statistics.mean(rhs)):.4f}\")\n+lines.append(f\"right_identity_range=({min(lhs):.3f},{max(lhs):.3f})\")\n \n-# Associativity (exact under deterministic f, g given sampled x)\n-for _ in range(200):\n-    a = m.bind(f).bind(g).sample_fn()\n-    assert 1.0 <= a <= 3.0\n-\n-# stochastic f too\n+# Associativity (distributional with stochastic f)\n sf = lambda x: ProbabilityMonad(lambda: x + random.random())\n lhs = [m.bind(sf).bind(g).sample_fn() for _ in range(20000)]\n rhs = [m.bind(lambda x: sf(x).bind(g)).sample_fn() for _ in range(20000)]\n-assert abs(statistics.mean(lhs) - statistics.mean(rhs)) < 0.05\n+lines.append(f\"assoc_lhs_mean={statistics.mean(lhs):.4f}\")\n+lines.append(f\"assoc_rhs_mean={statistics.mean(rhs):.4f}\")\n \n-# torch tensor sanity\n+# torch sanity\n import torch\n tm = ProbabilityMonad(lambda: torch.randn(3))\n-tf = lambda t: ProbabilityMonad.unit(t * 2)\n-out = tm.bind(tf).sample_fn()\n-assert out.shape == (3,)\n+out = tm.bind(lambda t: ProbabilityMonad.unit(t * 2)).sample_fn()\n+lines.append(f\"torch_shape={tuple(out.shape)}\")\n \n-print(\"ALL CHECKS PASSED\")\n+with open(\"result.txt\", \"w\") as fh:\n+    fh.write(\"\\n\".join(lines) + \"\\n\")"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "left_identity": true,
+        "right_identity": true,
+        "independence": true
+      },
+      "metrics": {
+        "changed_files": [
+          "monad.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/monad.py\n+++ b/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return ProbabilityMonad(lambda: f(val).sample_fn())\n+        # Defer sampling until the resulting monad is itself sampled, so that\n+        # each draw re-runs both self and f (dynamic/lazy composition).\n+        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+  },
+  {
+    "model": "reasoning_atria",
+    "environment": "stochastic_monad",
+    "case_id": "stochastic_monad__naming=easy_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "0157282cbd2647c9154cd407bfab01e42968cf897294531c5b143820dda40e6b",
+    "generation_id": "G083e649ed89344fd",
+    "archive_member_prefix": "episodes/stochastic_monad__naming=easy_symptom_mask=medium__seed-0/stochastic_monad-20261017T105127Z-6fe02968/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Correct Composition of Stochastic Mappers\n\nYour task is to correct the monadic class `ProbabilityMonad` in `monad.py`.\n\nTo allow sequential stochastic computations to compose correctly, the monadic class must satisfy the standard algebraic monad laws:\n1. **Left Identity:** `return x >>= f == f x`\n2. **Right Identity:** `m >>= return == m`\n3. **Associativity:** `(m >>= f) >>= g == m >>= (\\x. f(x) >>= g)`\n\nThe current implementation in `monad.py` runs, but fails these laws. Correct the `bind` and `unit` methods to ensure they compose functionally and satisfy all three laws under dynamic sampling.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass ProbabilityMonad:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return ProbabilityMonad(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom monad import ProbabilityMonad\n\ndef test_unit():\n    m = ProbabilityMonad.unit(42)\n    assert m.sample_fn() == 42\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/monad.py\n+++ b/monad.py\n@@ -11,7 +11,8 @@ class ProbabilityMonad:\n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return ProbabilityMonad(lambda: f(val).sample_fn())\n+        # Lazily sample on each invocation so the composed distribution\n+        # remains dynamic and satisfies the monad laws.\n+        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "patching file monad.py\n\n[stderr]\npatch: **** malformed patch at line 12:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "monad.py",
+          "content": "import torch\n\nclass ProbabilityMonad:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Lazily sample on each invocation so the composed distribution\n        # remains dynamic and satisfies the monad laws.\n        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "--- before/monad.py\n+++ after/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return ProbabilityMonad(lambda: f(val).sample_fn())\n+        # Lazily sample on each invocation so the composed distribution\n+        # remains dynamic and satisfies the monad laws.\n+        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())"
+      },
+      {
+        "step": 11,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass ProbabilityMonad:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Lazily sample on each invocation so the composed distribution\n        # remains dynamic and satisfies the monad laws.\n        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "left_identity": true,
+        "right_identity": true,
+        "independence": true
+      },
+      "metrics": {
+        "changed_files": [
+          "monad.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/monad.py\n+++ b/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return ProbabilityMonad(lambda: f(val).sample_fn())\n+        # Lazily sample on each invocation so the composed distribution\n+        # remains dynamic and satisfies the monad laws.\n+        return ProbabilityMonad(lambda: f(self.sample_fn()).sample_fn())\n"
+  },
+  {
+    "model": "reasoning_atria",
+    "environment": "stochastic_monad",
+    "case_id": "stochastic_monad__naming=hard_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "0157282cbd2647c9154cd407bfab01e42968cf897294531c5b143820dda40e6b",
+    "generation_id": "Gee4dcd59199bbe21",
+    "archive_member_prefix": "episodes/stochastic_monad__naming=hard_symptom_mask=easy__seed-0/stochastic_monad-20261017T105249Z-f33ed681/",
+    "events": [
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Correct Composition of Stochastic Mappers\n\nYour task is to correct the monadic class `StochasticFunctor` in `monad.py`.\n\nTo allow sequential stochastic computations to compose correctly, the monadic class must satisfy the standard algebraic monad laws:\n1. **Left Identity:** `return x >>= f == f x`\n2. **Right Identity:** `m >>= return == m`\n3. **Associativity:** `(m >>= f) >>= g == m >>= (\\x. f(x) >>= g)`\n\nThe current implementation in `monad.py` runs, but fails these laws. Correct the `bind` and `unit` methods to ensure they compose functionally and satisfy all three laws under dynamic sampling.\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass StochasticFunctor:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return StochasticFunctor(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom monad import StochasticFunctor\n\ndef test_unit():\n    m = StochasticFunctor.unit(42)\n    assert m.sample_fn() == 42\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/monad.py\n+++ b/monad.py\n@@ -9,8 +9,7 @@ class StochasticFunctor:\n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return StochasticFunctor(lambda: f(val).sample_fn())\n+        # Sample lazily, so each draw from the resulting stochastic value\n+        # propagates through `f` at sample-time rather than bind-time.\n+        return StochasticFunctor(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "patching file monad.py\nHunk #1 succeeded at 12 with fuzz 2 (offset 3 lines).\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass StochasticFunctor:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Sample lazily, so each draw from the resulting stochastic value\n        # propagates through `f` at sample-time rather than bind-time.\n        return StochasticFunctor(lambda: f(self.sample_fn()).sample_fn())\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "left_identity": true,
+        "right_identity": true,
+        "independence": true
+      },
+      "metrics": {
+        "changed_files": [
+          "monad.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/monad.py\n+++ b/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return StochasticFunctor(lambda: f(val).sample_fn())\n+        # Sample lazily, so each draw from the resulting stochastic value\n+        # propagates through `f` at sample-time rather than bind-time.\n+        return StochasticFunctor(lambda: f(self.sample_fn()).sample_fn())\n"
+  },
+  {
+    "model": "reasoning_atria",
+    "environment": "stochastic_monad",
+    "case_id": "stochastic_monad__naming=hard_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "0157282cbd2647c9154cd407bfab01e42968cf897294531c5b143820dda40e6b",
+    "generation_id": "G06142d274269c7c1",
+    "archive_member_prefix": "episodes/stochastic_monad__naming=hard_symptom_mask=hard__seed-0/stochastic_monad-20261017T105414Z-e972dfd9/",
+    "events": [
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Correct Composition of Stochastic Mappers\n\nYour task is to correct the monadic class `StochasticFunctor` in `monad.py`.\n\nTo allow sequential stochastic computations to compose correctly, the monadic class must satisfy the standard algebraic monad laws:\n1. **Left Identity:** `return x >>= f == f x`\n2. **Right Identity:** `m >>= return == m`\n3. **Associativity:** `(m >>= f) >>= g == m >>= (\\x. f(x) >>= g)`\n\nThe current implementation in `monad.py` runs, but fails these laws. Correct the `bind` and `unit` methods to ensure they compose functionally and satisfy all three laws under dynamic sampling.\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass StochasticFunctor:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return StochasticFunctor(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom monad import StochasticFunctor\n\ndef test_unit():\n    m = StochasticFunctor.unit(42)\n    assert m.sample_fn() == 42\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/monad.py\n+++ b/monad.py\n@@ -8,10 +8,8 @@ class StochasticFunctor:\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return StochasticFunctor(lambda: f(val).sample_fn())\n+        # Lazy: draw a fresh sample from self each time the result is sampled,\n+        # so the distribution stays dynamic and the monad laws hold.\n+        return StochasticFunctor(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "patching file monad.py\n\n[stderr]\npatch: **** malformed patch at line 13:  \n\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "write_file",
+          "path": "monad.py",
+          "content": "import torch\n\nclass StochasticFunctor:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Lazy: draw a fresh sample from self every time the result is sampled,\n        # so the composed distribution stays dynamic and the monad laws hold.\n        return StochasticFunctor(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "--- before/monad.py\n+++ after/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return StochasticFunctor(lambda: f(val).sample_fn())\n+        # Lazy: draw a fresh sample from self every time the result is sampled,\n+        # so the composed distribution stays dynamic and the monad laws hold.\n+        return StochasticFunctor(lambda: f(self.sample_fn()).sample_fn())"
+      },
+      {
+        "step": 12,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass StochasticFunctor:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Lazy: draw a fresh sample from self every time the result is sampled,\n        # so the composed distribution stays dynamic and the monad laws hold.\n        return StochasticFunctor(lambda: f(self.sample_fn()).sample_fn())\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "left_identity": true,
+        "right_identity": true,
+        "independence": true
+      },
+      "metrics": {
+        "changed_files": [
+          "monad.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/monad.py\n+++ b/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return StochasticFunctor(lambda: f(val).sample_fn())\n+        # Lazy: draw a fresh sample from self every time the result is sampled,\n+        # so the composed distribution stays dynamic and the monad laws hold.\n+        return StochasticFunctor(lambda: f(self.sample_fn()).sample_fn())\n"
+  },
+  {
+    "model": "reasoning_atria",
+    "environment": "stochastic_monad",
+    "case_id": "stochastic_monad__naming=hard_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "0157282cbd2647c9154cd407bfab01e42968cf897294531c5b143820dda40e6b",
+    "generation_id": "G39b56a56a9e70e99",
+    "archive_member_prefix": "episodes/stochastic_monad__naming=hard_symptom_mask=medium__seed-0/stochastic_monad-20261017T105522Z-addaf69c/",
+    "events": [
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Correct Composition of Stochastic Mappers\n\nYour task is to correct the monadic class `StochasticFunctor` in `monad.py`.\n\nTo allow sequential stochastic computations to compose correctly, the monadic class must satisfy the standard algebraic monad laws:\n1. **Left Identity:** `return x >>= f == f x`\n2. **Right Identity:** `m >>= return == m`\n3. **Associativity:** `(m >>= f) >>= g == m >>= (\\x. f(x) >>= g)`\n\nThe current implementation in `monad.py` runs, but fails these laws. Correct the `bind` and `unit` methods to ensure they compose functionally and satisfy all three laws under dynamic sampling.\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass StochasticFunctor:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return StochasticFunctor(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/monad.py\n+++ b/monad.py\n@@ -6,10 +6,13 @@ class StochasticFunctor:\n \n     @classmethod\n     def unit(cls, x):\n         \"\"\"Monadic unit (return).\"\"\"\n-        return cls(lambda: x)\n+        return cls(lambda: x)\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return StochasticFunctor(lambda: f(val).sample_fn())\n+        # Keep sampling lazy: each draw from the resulting stochastic value\n+        # draws a fresh value from self, then applies `f` and draws from that.\n+        # This preserves left identity, right identity and associativity.\n+        m = self\n+        return StochasticFunctor(lambda: f(m.sample_fn()).sample_fn())\n"
+        },
+        "observation": "patching file monad.py\n\n[stderr]\npatch: **** malformed patch at line 15: -        val = self.sample_fn()\n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "monad.py",
+          "content": "import torch\n\nclass StochasticFunctor:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\n\n        Sampling stays lazy: every draw from the resulting stochastic value\n        first draws a fresh value from `self`, applies `f`, and then draws\n        from the resulting stochastic value. This keeps the composition\n        dynamic and satisfies the monad laws:\n          - left identity:  unit(x) >>= f  ==  f(x)\n          - right identity: m >>= unit     ==  m\n          - associativity: (m >>= f) >>= g ==  m >>= (lambda x: f(x) >>= g)\n        \"\"\"\n        m = self\n        return StochasticFunctor(lambda: f(m.sample_fn()).sample_fn())\n"
+        },
+        "observation": "--- before/monad.py\n+++ after/monad.py\n@@ -10,8 +10,15 @@\n         return cls(lambda: x)\n \n     def bind(self, f):\n-        \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return StochasticFunctor(lambda: f(val).sample_fn())\n+        \"\"\"Monadic bind (>>=).\n+\n+        Sampling stays lazy: every draw from the resulting stochastic value\n+        first draws a fresh value from `self`, applies `f`, and then draws\n+        from the resulting stochastic value. This keeps the composition\n+        dynamic and satisfies the monad laws:\n+          - left identity:  unit(x) >>= f  ==  f(x)\n+          - right identity: m >>= unit     ==  m\n+          - associativity: (m >>= f) >>= g ==  m >>= (lambda x: f(x) >>= g)\n+        \"\"\"\n+        m = self\n+        return StochasticFunctor(lambda: f(m.sample_fn()).sample_fn())"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom monad import StochasticFunctor\n\ndef test_unit():\n    m = StochasticFunctor.unit(42)\n    assert m.sample_fn() == 42\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "left_identity": true,
+        "right_identity": true,
+        "independence": true
+      },
+      "metrics": {
+        "changed_files": [
+          "monad.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/monad.py\n+++ b/monad.py\n@@ -10,8 +10,15 @@\n         return cls(lambda: x)\n \n     def bind(self, f):\n-        \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return StochasticFunctor(lambda: f(val).sample_fn())\n+        \"\"\"Monadic bind (>>=).\n+\n+        Sampling stays lazy: every draw from the resulting stochastic value\n+        first draws a fresh value from `self`, applies `f`, and then draws\n+        from the resulting stochastic value. This keeps the composition\n+        dynamic and satisfies the monad laws:\n+          - left identity:  unit(x) >>= f  ==  f(x)\n+          - right identity: m >>= unit     ==  m\n+          - associativity: (m >>= f) >>= g ==  m >>= (lambda x: f(x) >>= g)\n+        \"\"\"\n+        m = self\n+        return StochasticFunctor(lambda: f(m.sample_fn()).sample_fn())\n"
+  },
+  {
+    "model": "reasoning_atria",
+    "environment": "stochastic_monad",
+    "case_id": "stochastic_monad__naming=medium_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "0157282cbd2647c9154cd407bfab01e42968cf897294531c5b143820dda40e6b",
+    "generation_id": "Gb7204af4f042b560",
+    "archive_member_prefix": "episodes/stochastic_monad__naming=medium_symptom_mask=easy__seed-0/stochastic_monad-20261017T105623Z-c8a986b9/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Correct Composition of Stochastic Mappers\n\nYour task is to correct the monadic class `KleisliArrow` in `monad.py`.\n\nTo allow sequential stochastic computations to compose correctly, the monadic class must satisfy the standard algebraic monad laws:\n1. **Left Identity:** `return x >>= f == f x`\n2. **Right Identity:** `m >>= return == m`\n3. **Associativity:** `(m >>= f) >>= g == m >>= (\\x. f(x) >>= g)`\n\nThe current implementation in `monad.py` runs, but fails these laws. Correct the `bind` and `unit` methods to ensure they compose functionally and satisfy all three laws under dynamic sampling.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return KleisliArrow(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom monad import KleisliArrow\n\ndef test_unit():\n    m = KleisliArrow.unit(42)\n    assert m.sample_fn() == 42\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/monad.py\n+++ b/monad.py\n@@ -13,7 +13,9 @@ class KleisliArrow:\n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return KleisliArrow(lambda: f(val).sample_fn())\n+        # Deferred composition: sample from self only when the resulting\n+        # arrow is sampled, preserving the dynamic distribution.\n+        return KleisliArrow(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "patching file monad.py\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "monad.py",
+          "content": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Deferred composition: sample from self only when the resulting\n        # arrow is sampled, preserving the dynamic distribution.\n        return KleisliArrow(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "--- before/monad.py\n+++ after/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return KleisliArrow(lambda: f(val).sample_fn())\n+        # Deferred composition: sample from self only when the resulting\n+        # arrow is sampled, preserving the dynamic distribution.\n+        return KleisliArrow(lambda: f(self.sample_fn()).sample_fn())"
+      },
+      {
+        "step": 12,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Deferred composition: sample from self only when the resulting\n        # arrow is sampled, preserving the dynamic distribution.\n        return KleisliArrow(lambda: f(self.sample_fn()).sample_fn())\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "left_identity": true,
+        "right_identity": true,
+        "independence": true
+      },
+      "metrics": {
+        "changed_files": [
+          "monad.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/monad.py\n+++ b/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return KleisliArrow(lambda: f(val).sample_fn())\n+        # Deferred composition: sample from self only when the resulting\n+        # arrow is sampled, preserving the dynamic distribution.\n+        return KleisliArrow(lambda: f(self.sample_fn()).sample_fn())\n"
+  },
+  {
+    "model": "reasoning_atria",
+    "environment": "stochastic_monad",
+    "case_id": "stochastic_monad__naming=medium_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "0157282cbd2647c9154cd407bfab01e42968cf897294531c5b143820dda40e6b",
+    "generation_id": "G2c13d0815fc73626",
+    "archive_member_prefix": "episodes/stochastic_monad__naming=medium_symptom_mask=hard__seed-0/stochastic_monad-20261017T105729Z-d5318ba8/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Correct Composition of Stochastic Mappers\n\nYour task is to correct the monadic class `KleisliArrow` in `monad.py`.\n\nTo allow sequential stochastic computations to compose correctly, the monadic class must satisfy the standard algebraic monad laws:\n1. **Left Identity:** `return x >>= f == f x`\n2. **Right Identity:** `m >>= return == m`\n3. **Associativity:** `(m >>= f) >>= g == m >>= (\\x. f(x) >>= g)`\n\nThe current implementation in `monad.py` runs, but fails these laws. Correct the `bind` and `unit` methods to ensure they compose functionally and satisfy all three laws under dynamic sampling.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return KleisliArrow(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom monad import KleisliArrow\n\ndef test_unit():\n    m = KleisliArrow.unit(42)\n    assert m.sample_fn() == 42\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/monad.py\n+++ b/monad.py\n@@ -10,9 +10,9 @@ class KleisliArrow:\n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return KleisliArrow(lambda: f(val).sample_fn())\n+        # Lazy: only sample from the upstream when the resulting arrow is\n+        # sampled, so the dynamic distribution is preserved.\n+        sample_fn = self.sample_fn\n+        return KleisliArrow(lambda: f(sample_fn()).sample_fn())\n"
+        },
+        "observation": "patching file monad.py\nHunk #1 FAILED at 10.\n1 out of 1 hunk FAILED -- saving rejects to file monad.py.rej\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return KleisliArrow(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "write_file",
+          "path": "monad.py",
+          "content": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Lazy: sample from the upstream only when the resulting arrow is\n        # sampled, so the dynamic distribution is preserved and the monad\n        # laws (left/right identity, associativity) hold under resampling.\n        sample_fn = self.sample_fn\n        return KleisliArrow(lambda: f(sample_fn()).sample_fn())\n"
+        },
+        "observation": "--- before/monad.py\n+++ after/monad.py\n@@ -11,7 +11,8 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return KleisliArrow(lambda: f(val).sample_fn())\n+        # Lazy: sample from the upstream only when the resulting arrow is\n+        # sampled, so the dynamic distribution is preserved and the monad\n+        # laws (left/right identity, associativity) hold under resampling.\n+        sample_fn = self.sample_fn\n+        return KleisliArrow(lambda: f(sample_fn()).sample_fn())"
+      },
+      {
+        "step": 14,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Lazy: sample from the upstream only when the resulting arrow is\n        # sampled, so the dynamic distribution is preserved and the monad\n        # laws (left/right identity, associativity) hold under resampling.\n        sample_fn = self.sample_fn\n        return KleisliArrow(lambda: f(sample_fn()).sample_fn())\n"
+      },
+      {
+        "step": 19,
+        "action": {
+          "type": "write_file",
+          "path": "monad.py.orig",
+          "content": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        val = self.sample_fn()\n        return KleisliArrow(lambda: f(val).sample_fn())\n"
+        },
+        "observation": "--- before/monad.py.orig\n+++ after/monad.py.orig\n@@ -11,7 +11,5 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n         val = self.sample_fn()\n         return KleisliArrow(lambda: f(val).sample_fn())"
+      },
+      {
+        "step": 20,
+        "action": {
+          "type": "write_file",
+          "path": "monad.py.orig",
+          "content": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return KleisliArrow(lambda: f(val).sample_fn())\n"
+        },
+        "observation": "--- before/monad.py.orig\n+++ after/monad.py.orig\n@@ -11,5 +11,7 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n+        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n+        # This collapses the dynamic distribution into a static point value at bind-time.\n         val = self.sample_fn()\n         return KleisliArrow(lambda: f(val).sample_fn())"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "left_identity": true,
+        "right_identity": true,
+        "independence": true
+      },
+      "metrics": {
+        "changed_files": [
+          "monad.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/monad.py\n+++ b/monad.py\n@@ -11,7 +11,8 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return KleisliArrow(lambda: f(val).sample_fn())\n+        # Lazy: sample from the upstream only when the resulting arrow is\n+        # sampled, so the dynamic distribution is preserved and the monad\n+        # laws (left/right identity, associativity) hold under resampling.\n+        sample_fn = self.sample_fn\n+        return KleisliArrow(lambda: f(sample_fn()).sample_fn())\n"
+  },
+  {
+    "model": "reasoning_atria",
+    "environment": "stochastic_monad",
+    "case_id": "stochastic_monad__naming=medium_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "0157282cbd2647c9154cd407bfab01e42968cf897294531c5b143820dda40e6b",
+    "generation_id": "Gab7e45785cdc5b9c",
+    "archive_member_prefix": "episodes/stochastic_monad__naming=medium_symptom_mask=medium__seed-0/stochastic_monad-20261017T112322Z-f932147f/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Correct Composition of Stochastic Mappers\n\nYour task is to correct the monadic class `KleisliArrow` in `monad.py`.\n\nTo allow sequential stochastic computations to compose correctly, the monadic class must satisfy the standard algebraic monad laws:\n1. **Left Identity:** `return x >>= f == f x`\n2. **Right Identity:** `m >>= return == m`\n3. **Associativity:** `(m >>= f) >>= g == m >>= (\\x. f(x) >>= g)`\n\nThe current implementation in `monad.py` runs, but fails these laws. Correct the `bind` and `unit` methods to ensure they compose functionally and satisfy all three laws under dynamic sampling.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n        # This collapses the dynamic distribution into a static point value at bind-time.\n        val = self.sample_fn()\n        return KleisliArrow(lambda: f(val).sample_fn())\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom monad import KleisliArrow\n\ndef test_unit():\n    m = KleisliArrow.unit(42)\n    assert m.sample_fn() == 42\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/monad.py\n+++ b/monad.py\n@@ -14,7 +14,6 @@ class KleisliArrow:\n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return KleisliArrow(lambda: f(val).sample_fn())\n+        # Sample lazily at observation time so each draw re-samples the\n+        # outer computation, preserving the composed (dynamic) distribution.\n+        return KleisliArrow(lambda: f(self.sample_fn()).sample_fn())\n"
+        },
+        "observation": "patching file monad.py\nHunk #1 succeeded at 12 with fuzz 2 (offset -2 lines).\n"
+      },
+      {
+        "step": 9,
+        "action": {
+          "type": "read_file",
+          "path": "monad.py"
+        },
+        "observation": "import torch\n\nclass KleisliArrow:\n    def __init__(self, sample_fn):\n        self.sample_fn = sample_fn\n\n    @classmethod\n    def unit(cls, x):\n        \"\"\"Monadic unit (return).\"\"\"\n        return cls(lambda: x)\n\n    def bind(self, f):\n        \"\"\"Monadic bind (>>=).\"\"\"\n        # Sample lazily at observation time so each draw re-samples the\n        # outer computation, preserving the composed (dynamic) distribution.\n        return KleisliArrow(lambda: f(self.sample_fn()).sample_fn())\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "left_identity": true,
+        "right_identity": true,
+        "independence": true
+      },
+      "metrics": {
+        "changed_files": [
+          "monad.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/monad.py\n+++ b/monad.py\n@@ -11,7 +11,6 @@\n \n     def bind(self, f):\n         \"\"\"Monadic bind (>>=).\"\"\"\n-        # BUG: Evaluates self.sample_fn() immediately instead of lazily.\n-        # This collapses the dynamic distribution into a static point value at bind-time.\n-        val = self.sample_fn()\n-        return KleisliArrow(lambda: f(val).sample_fn())\n+        # Sample lazily at observation time so each draw re-samples the\n+        # outer computation, preserving the composed (dynamic) distribution.\n+        return KleisliArrow(lambda: f(self.sample_fn()).sample_fn())\n"
+  }
+]

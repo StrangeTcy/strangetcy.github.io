@@ -1,0 +1,1010 @@
+[
+  {
+    "model": "mercury",
+    "environment": "sheaf_physical_constraints",
+    "case_id": "sheaf_physical_constraints__naming=easy_symptom_mask=easy__seed-0",
+    "verdict": "FAIL",
+    "score": "0.633333",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "579df36d15f6b42a11414fa4f7a8da7268dfc21b49a6fed0e90ce8b3dc6b5051",
+    "generation_id": "Ga8d6b801fdedd5f2",
+    "archive_member_prefix": "episodes/sheaf_physical_constraints__naming=easy_symptom_mask=easy__seed-0/sheaf_physical_constraints-20261013T170412Z-8be75169/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Distributed Physical Topology Constraint Sync\n\nYour task is to implement a topologically aware load balancer in `route.py` for distributed sequence/gradient communication.\n\nIn distributed GPU clusters, multiple nodes exchange gradients across overlapping local switches. To prevent switch saturation, the communication routing must be strictly bounded by the physical capacity of the switches.\n\nThe task is to complete the `TopologyRouter` class in `route.py` to implement a bandwidth routing function:\n- It allocates bandwidth across Node 1, Node 2, and Node 3.\n- It must ensure that the sum of the allocated bandwidth across all active routes does not exceed the aggregate limit of the central backbone router under high traffic demands.\n\nThe current implementation in `route.py` runs and allocates local node bandwidth correctly, but overflows the global capacity limit of the main backbone router during concurrent communication loops. Correct the load balancing logic to scale routing paths safely.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class TopologyRouter:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 180.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = min(demand, self.local_capacity)\n        return allocations\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -43,7 +43,22 @@ class TopologyRouter:\n         allocations = {}\n-            for path, demand in demands.items():\n-                allocations[path] = min(demand, self.local_capacity)\n+            for _ in range(100):\n+                total = sum(allocations.values())\n+                if total > self.global_capacity:\n+                    scale = self.global_capacity / total\n+                    allocations = {k: v * scale for k, v in allocations.items()}\n+                # S1: A + C\n+                if allocations[\"route_A\"] + allocations[\"route_C\"] > self.local_capacity:\n+                    scale = self.local_capacity / (allocations[\"route_A\"] + allocations[\"route_C\"])\n+                    allocations[\"route_A\"] *= scale\n+                    allocations[\"route_C\"] *= scale\n+                # S2: A + B\n+                if allocations[\"route_A\"] + allocations[\"route_B\"] > self.local_capacity:\n+                    scale = self.local_capacity / (allocations[\"route_A\"] + allocations[\"route_B\"])\n+                    allocations[\"route_A\"] *= scale\n+                    allocations[\"route_B\"] *= scale\n+                # S3: B + C\n+                if allocations[\"route_B\"] + allocations[\"route_C\"] > self.local_capacity:\n+                    scale = self.local_capacity / (allocations[\"route_B\"] + allocations[\"route_C\"])\n+                    allocations[\"route_B\"] *= scale\n+                    allocations[\"route_C\"] *= scale\n             return allocations"
+        },
+        "observation": "patching file route.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 26:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "route.py",
+          "content": "class TopologyRouter:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 180.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # FIXED: Iterative scaling to satisfy local switch and global capacity constraints.\n        allocations = {path: min(demand, self.local_capacity) for path, demand in demands.items()}\n\n        for _ in range(100):\n            # Check global capacity\n            total = sum(allocations.values())\n            if total > self.global_capacity:\n                scale = self.global_capacity / total\n                allocations = {k: v * scale for k, v in allocations.items()}\n\n            # Refresh values\n            a = allocations.get(\"route_A\", 0)\n            b = allocations.get(\"route_B\", 0)\n            c = allocations.get(\"route_C\", 0)\n\n            # Check S1: A + C\n            if a + c > self.local_capacity:\n                scale = self.local_capacity / (a + c)\n                allocations[\"route_A\"] = a * scale\n                allocations[\"route_C\"] = c * scale\n                a, c = allocations[\"route_A\"], allocations[\"route_C\"]\n\n            # Check S2: A + B\n            if a + b > self.local_capacity:\n                scale = self.local_capacity / (a + b)\n                allocations[\"route_A\"] = a * scale\n                allocations[\"route_B\"] = b * scale\n                a, b = allocations[\"route_A\"], allocations[\"route_B\"]\n\n            # Check S3: B + C\n            if b + c > self.local_capacity:\n                scale = self.local_capacity / (b + c)\n                allocations[\"route_B\"] = b * scale\n                allocations[\"route_C\"] = c * scale\n\n        return allocations\n"
+        },
+        "observation": "--- before/route.py\n+++ after/route.py\n@@ -10,9 +10,39 @@\n         # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n         # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n         #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        # FIXED: Iterative scaling to satisfy local switch and global capacity constraints.\n+        allocations = {path: min(demand, self.local_capacity) for path, demand in demands.items()}\n+\n+        for _ in range(100):\n+            # Check global capacity\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                allocations = {k: v * scale for k, v in allocations.items()}\n+\n+            # Refresh values\n+            a = allocations.get(\"route_A\", 0)\n+            b = allocations.get(\"route_B\", 0)\n+            c = allocations.get(\"route_C\", 0)\n+\n+            # Check S1: A + C\n+            if a + c > self.local_capacity:\n+                scale = self.local_capacity / (a + c)\n+                allocations[\"route_A\"] = a * scale\n+                allocations[\"route_C\"] = c * scale\n+                a, c = allocations[\"route_A\"], allocations[\"route_C\"]\n+\n+            # Check S2: A + B\n+            if a + b > self.local_capacity:\n+                scale = self.local_capacity / (a + b)\n+                allocations[\"route_A\"] = a * scale\n+                allocations[\"route_B\"] = b * scale\n+                a, b = allocations[\"route_A\"], allocations[\"route_B\"]\n+\n+            # Check S3: B + C\n+            if b + c > self.local_capacity:\n+                scale = self.local_capacity / (b + c)\n+                allocations[\"route_B\"] = b * scale\n+                allocations[\"route_C\"] = c * scale\n+\n         return allocations"
+      }
+    ],
+    "final": {
+      "score": 0.633333,
+      "raw_accuracy": 0.666667,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "local_routing_ok": true,
+        "local_bounds_ok": true,
+        "global_backbone_ok": false
+      },
+      "metrics": {
+        "changed_files": [
+          "route.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.666667
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "60% - 84%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/route.py\n+++ b/route.py\n@@ -10,9 +10,39 @@\n         # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n         # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n         #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        # FIXED: Iterative scaling to satisfy local switch and global capacity constraints.\n+        allocations = {path: min(demand, self.local_capacity) for path, demand in demands.items()}\n+\n+        for _ in range(100):\n+            # Check global capacity\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                allocations = {k: v * scale for k, v in allocations.items()}\n+\n+            # Refresh values\n+            a = allocations.get(\"route_A\", 0)\n+            b = allocations.get(\"route_B\", 0)\n+            c = allocations.get(\"route_C\", 0)\n+\n+            # Check S1: A + C\n+            if a + c > self.local_capacity:\n+                scale = self.local_capacity / (a + c)\n+                allocations[\"route_A\"] = a * scale\n+                allocations[\"route_C\"] = c * scale\n+                a, c = allocations[\"route_A\"], allocations[\"route_C\"]\n+\n+            # Check S2: A + B\n+            if a + b > self.local_capacity:\n+                scale = self.local_capacity / (a + b)\n+                allocations[\"route_A\"] = a * scale\n+                allocations[\"route_B\"] = b * scale\n+                a, b = allocations[\"route_A\"], allocations[\"route_B\"]\n+\n+            # Check S3: B + C\n+            if b + c > self.local_capacity:\n+                scale = self.local_capacity / (b + c)\n+                allocations[\"route_B\"] = b * scale\n+                allocations[\"route_C\"] = c * scale\n+\n         return allocations\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "sheaf_physical_constraints",
+    "case_id": "sheaf_physical_constraints__naming=easy_symptom_mask=hard__seed-0",
+    "verdict": "FAIL",
+    "score": "0.633333",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "579df36d15f6b42a11414fa4f7a8da7268dfc21b49a6fed0e90ce8b3dc6b5051",
+    "generation_id": "Gc798931a1b5971c9",
+    "archive_member_prefix": "episodes/sheaf_physical_constraints__naming=easy_symptom_mask=hard__seed-0/sheaf_physical_constraints-20261013T170440Z-ba64c668/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Distributed Physical Topology Constraint Sync\n\nYour task is to implement a topologically aware load balancer in `route.py` for distributed sequence/gradient communication.\n\nIn distributed GPU clusters, multiple nodes exchange gradients across overlapping local switches. To prevent switch saturation, the communication routing must be strictly bounded by the physical capacity of the switches.\n\nThe task is to complete the `TopologyRouter` class in `route.py` to implement a bandwidth routing function:\n- It allocates bandwidth across Node 1, Node 2, and Node 3.\n- It must ensure that the sum of the allocated bandwidth across all active routes does not exceed the aggregate limit of the central backbone router under high traffic demands.\n\nThe current implementation in `route.py` runs and allocates local node bandwidth correctly, but overflows the global capacity limit of the main backbone router during concurrent communication loops. Correct the load balancing logic to scale routing paths safely.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class TopologyRouter:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = min(demand, self.local_capacity)\n        return allocations\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -13,7 +13,20 @@ class TopologyRouter:\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n         allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n-        return allocations\n+        a = demands.get(\"route_A\", 0.0)\n+        b = demands.get(\"route_B\", 0.0)\n+        c = demands.get(\"route_C\", 0.0)\n+        for _ in range(10):\n+            total = a + b + c\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                a *= scale\n+                b *= scale\n+                c *= scale\n+            if a + c > self.local_capacity:\n+                scale = self.local_capacity / (a + c)\n+                a *= scale\n+                c *= scale\n+            if a + b > self.local_capacity:\n+                scale = self.local_capacity / (a + b)\n+                a *= scale\n+                b *= scale\n+            if b + c > self.local_capacity:\n+                scale = self.local_capacity / (b + c)\n+                b *= scale\n+                c *= scale\n+        return {\"route_A\": a, \"route_B\": b, \"route_C\": c}"
+        },
+        "observation": "patching file route.py\n\n[stderr]\npatch: **** malformed patch at line 27: +                b *= scale\n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -14,4 +14,22 @@ class TopologyRouter:\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n-        return allocations\n+        a = demands.get(\"route_A\", 0.0)\n+        b = demands.get(\"route_B\", 0.0)\n+        c = demands.get(\"route_C\", 0.0)\n+        for _ in range(50):\n+            if a + b + c > self.global_capacity:\n+                scale = self.global_capacity / (a + b + c)\n+                a *= scale\n+                b *= scale\n+                c *= scale\n+            if a + c > self.local_capacity:\n+                scale = self.local_capacity / (a + c)\n+                a *= scale\n+                c *= scale\n+            if a + b > self.local_capacity:\n+                scale = self.local_capacity / (a + b)\n+                a *= scale\n+                b *= scale\n+            if b + c > self.local_capacity:\n+                scale = self.local_capacity / (b + c)\n+                b *= scale\n+                c *= scale\n+        return {\"route_A\": a, \"route_B\": b, \"route_C\": c}"
+        },
+        "observation": "patching file route.py\n\n[stderr]\npatch: **** malformed patch at line 8: -            allocations[path] = min(demand, self.local_capacity)\n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "route.py",
+          "content": "class TopologyRouter:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        a = demands.get(\"route_A\", 0.0)\n        b = demands.get(\"route_B\", 0.0)\n        c = demands.get(\"route_C\", 0.0)\n\n        for _ in range(100):\n            total = a + b + c\n            if total > self.global_capacity:\n                scale = self.global_capacity / total\n                a *= scale\n                b *= scale\n                c *= scale\n            if a + c > self.local_capacity:\n                scale = self.local_capacity / (a + c)\n                a *= scale\n                c *= scale\n            if a + b > self.local_capacity:\n                scale = self.local_capacity / (a + b)\n                a *= scale\n                b *= scale\n            if b + c > self.local_capacity:\n                scale = self.local_capacity / (b + c)\n                b *= scale\n                c *= scale\n        return {\"route_A\": a, \"route_B\": b, \"route_C\": c}\n"
+        },
+        "observation": "--- before/route.py\n+++ after/route.py\n@@ -12,7 +12,27 @@\n         #\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n-        return allocations\n+        a = demands.get(\"route_A\", 0.0)\n+        b = demands.get(\"route_B\", 0.0)\n+        c = demands.get(\"route_C\", 0.0)\n+\n+        for _ in range(100):\n+            total = a + b + c\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                a *= scale\n+                b *= scale\n+                c *= scale\n+            if a + c > self.local_capacity:\n+                scale = self.local_capacity / (a + c)\n+                a *= scale\n+                c *= scale\n+            if a + b > self.local_capacity:\n+                scale = self.local_capacity / (a + b)\n+                a *= scale\n+                b *= scale\n+            if b + c > self.local_capacity:\n+                scale = self.local_capacity / (b + c)\n+                b *= scale\n+                c *= scale\n+        return {\"route_A\": a, \"route_B\": b, \"route_C\": c}"
+      }
+    ],
+    "final": {
+      "score": 0.633333,
+      "raw_accuracy": 0.666667,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "local_routing_ok": true,
+        "local_bounds_ok": false,
+        "global_backbone_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "route.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.666667
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "60% - 84%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/route.py\n+++ b/route.py\n@@ -12,7 +12,27 @@\n         #\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n-        return allocations\n+        a = demands.get(\"route_A\", 0.0)\n+        b = demands.get(\"route_B\", 0.0)\n+        c = demands.get(\"route_C\", 0.0)\n+\n+        for _ in range(100):\n+            total = a + b + c\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                a *= scale\n+                b *= scale\n+                c *= scale\n+            if a + c > self.local_capacity:\n+                scale = self.local_capacity / (a + c)\n+                a *= scale\n+                c *= scale\n+            if a + b > self.local_capacity:\n+                scale = self.local_capacity / (a + b)\n+                a *= scale\n+                b *= scale\n+            if b + c > self.local_capacity:\n+                scale = self.local_capacity / (b + c)\n+                b *= scale\n+                c *= scale\n+        return {\"route_A\": a, \"route_B\": b, \"route_C\": c}\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "sheaf_physical_constraints",
+    "case_id": "sheaf_physical_constraints__naming=easy_symptom_mask=medium__seed-0",
+    "verdict": "FAIL",
+    "score": "0.633333",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "579df36d15f6b42a11414fa4f7a8da7268dfc21b49a6fed0e90ce8b3dc6b5051",
+    "generation_id": "G84c3c9c799cc7c6a",
+    "archive_member_prefix": "episodes/sheaf_physical_constraints__naming=easy_symptom_mask=medium__seed-0/sheaf_physical_constraints-20261013T170517Z-7637d604/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Distributed Physical Topology Constraint Sync\n\nYour task is to implement a topologically aware load balancer in `route.py` for distributed sequence/gradient communication.\n\nIn distributed GPU clusters, multiple nodes exchange gradients across overlapping local switches. To prevent switch saturation, the communication routing must be strictly bounded by the physical capacity of the switches.\n\nThe task is to complete the `TopologyRouter` class in `route.py` to implement a bandwidth routing function:\n- It allocates bandwidth across Node 1, Node 2, and Node 3.\n- It must ensure that the sum of the allocated bandwidth across all active routes does not exceed the aggregate limit of the central backbone router under high traffic demands.\n\nThe current implementation in `route.py` runs and allocates local node bandwidth correctly, but overflows the global capacity limit of the main backbone router during concurrent communication loops. Correct the load balancing logic to scale routing paths safely.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class TopologyRouter:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = min(demand, self.local_capacity)\n        return allocations\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -22,6 +22,35 @@ class TopologyRouter:\n                 # BUG: Naive allocator that only checks local individual route demands,\n                 # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n-        return allocations\n+        allocations = {k: v for k, v in demands.items()}\n+        for _ in range(100):\n+            changed = False\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                for k in allocations: allocations[k] *= scale\n+                changed = True\n+            if allocations['route_A'] + allocations['route_C'] > self.local_capacity:\n+                s = allocations['route_A'] + allocations['route_C']\n+                scale = self.local_capacity / s\n+                allocations['route_A'] *= scale\n+                allocations['route_C'] *= scale\n+                changed = True\n+            if allocations['route_A'] + allocations['route_B'] > self.local_capacity:\n+                s = allocations['route_A'] + allocations['route_B']\n+                scale = self.local_capacity / s\n+                allocations['route_A'] *= scale\n+                allocations['route_B'] *= scale\n+                changed = True\n+            if allocations['route_B'] + allocations['route_C'] > self.local_capacity:\n+                s = allocations['route_B'] + allocations['route_C']\n+                scale = self.local_capacity / s\n+                allocations['route_B'] *= scale\n+                allocations['route_C'] *= scale\n+                changed = True\n+            if not changed:\n+                break\n+        return allocations"
+        },
+        "observation": "patching file route.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "route.py",
+          "content": "class TopologyRouter:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        allocations = {k: v for k, v in demands.items()}\n        for _ in range(100):\n            changed = False\n            total = sum(allocations.values())\n            if total > self.global_capacity and total > 0:\n                scale = self.global_capacity / total\n                for k in allocations: allocations[k] *= scale\n                changed = True\n            if 'route_A' in allocations and 'route_C' in allocations:\n                s = allocations['route_A'] + allocations['route_C']\n                if s > self.local_capacity and s > 0:\n                    scale = self.local_capacity / s\n                    allocations['route_A'] *= scale\n                    allocations['route_C'] *= scale\n                    changed = True\n            if 'route_A' in allocations and 'route_B' in allocations:\n                s = allocations['route_A'] + allocations['route_B']\n                if s > self.local_capacity and s > 0:\n                    scale = self.local_capacity / s\n                    allocations['route_A'] *= scale\n                    allocations['route_B'] *= scale\n                    changed = True\n            if 'route_B' in allocations and 'route_C' in allocations:\n                s = allocations['route_B'] + allocations['route_C']\n                if s > self.local_capacity and s > 0:\n                    scale = self.local_capacity / s\n                    allocations['route_B'] *= scale\n                    allocations['route_C'] *= scale\n                    changed = True\n            if not changed:\n                break\n        return allocations\n"
+        },
+        "observation": "--- before/route.py\n+++ after/route.py\n@@ -4,15 +4,35 @@\n         self.global_capacity = global_capacity\n \n     def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n-        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n-        # Symmetries and overlapping topologies:\n-        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n-        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n-        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n-        #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        allocations = {k: v for k, v in demands.items()}\n+        for _ in range(100):\n+            changed = False\n+            total = sum(allocations.values())\n+            if total > self.global_capacity and total > 0:\n+                scale = self.global_capacity / total\n+                for k in allocations: allocations[k] *= scale\n+                changed = True\n+            if 'route_A' in allocations and 'route_C' in allocations:\n+                s = allocations['route_A'] + allocations['route_C']\n+                if s > self.local_capacity and s > 0:\n+                    scale = self.local_capacity / s\n+                    allocations['route_A'] *= scale\n+                    allocations['route_C'] *= scale\n+                    changed = True\n+            if 'route_A' in allocations and 'route_B' in allocations:\n+                s = allocations['route_A'] + allocations['route_B']\n+                if s > self.local_capacity and s > 0:\n+                    scale = self.local_capacity / s\n+                    allocations['route_A'] *= scale\n+                    allocations['route_B'] *= scale\n+                    changed = True\n+            if 'route_B' in allocations and 'route_C' in allocations:\n+                s = allocations['route_B'] + allocations['route_C']\n+                if s > self.local_capacity and s > 0:\n+                    scale = self.local_capacity / s\n+                    allocations['route_B'] *= scale\n+                    allocations['route_C'] *= scale\n+                    changed = True\n+            if not changed:\n+                break\n         return allocations"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class TopologyRouter:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        allocations = {k: v for k, v in demands.items()}\n        for _ in range(100):\n            changed = False\n            total = sum(allocations.values())\n            if total > self.global_capacity and total > 0:\n                scale = self.global_capacity / total\n                for k in allocations: allocations[k] *= scale\n                changed = True\n            if 'route_A' in allocations and 'route_C' in allocations:\n                s = allocations['route_A'] + allocations['route_C']\n                if s > self.local_capacity and s > 0:\n                    scale = self.local_capacity / s\n                    allocations['route_A'] *= scale\n                    allocations['route_C'] *= scale\n                    changed = True\n            if 'route_A' in allocations and 'route_B' in allocations:\n                s = allocations['route_A'] + allocations['route_B']\n                if s > self.local_capacity and s > 0:\n                    scale = self.local_capacity / s\n                    allocations['route_A'] *= scale\n                    allocations['route_B'] *= scale\n                    changed = True\n            if 'route_B' in allocations and 'route_C' in allocations:\n                s = allocations['route_B'] + allocations['route_C']\n                if s > self.local_capacity and s > 0:\n                    scale = self.local_capacity / s\n                    allocations['route_B'] *= scale\n                    allocations['route_C'] *= scale\n                    changed = True\n            if not changed:\n                break\n        return allocations\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "from route import TopologyRouter\n\ndef test_allocation_shapes():\n    router = TopologyRouter()\n    demands = {\"node1_2\": 50.0, \"node2_3\": 60.0}\n    allocations = router.allocate_bandwidth(demands)\n    assert len(allocations) == 2\n    assert \"node1_2\" in allocations\n"
+      }
+    ],
+    "final": {
+      "score": 0.633333,
+      "raw_accuracy": 0.666667,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "local_routing_ok": true,
+        "local_bounds_ok": false,
+        "global_backbone_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "route.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.666667
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "60% - 84%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/route.py\n+++ b/route.py\n@@ -4,15 +4,35 @@\n         self.global_capacity = global_capacity\n \n     def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n-        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n-        # Symmetries and overlapping topologies:\n-        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n-        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n-        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n-        #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        allocations = {k: v for k, v in demands.items()}\n+        for _ in range(100):\n+            changed = False\n+            total = sum(allocations.values())\n+            if total > self.global_capacity and total > 0:\n+                scale = self.global_capacity / total\n+                for k in allocations: allocations[k] *= scale\n+                changed = True\n+            if 'route_A' in allocations and 'route_C' in allocations:\n+                s = allocations['route_A'] + allocations['route_C']\n+                if s > self.local_capacity and s > 0:\n+                    scale = self.local_capacity / s\n+                    allocations['route_A'] *= scale\n+                    allocations['route_C'] *= scale\n+                    changed = True\n+            if 'route_A' in allocations and 'route_B' in allocations:\n+                s = allocations['route_A'] + allocations['route_B']\n+                if s > self.local_capacity and s > 0:\n+                    scale = self.local_capacity / s\n+                    allocations['route_A'] *= scale\n+                    allocations['route_B'] *= scale\n+                    changed = True\n+            if 'route_B' in allocations and 'route_C' in allocations:\n+                s = allocations['route_B'] + allocations['route_C']\n+                if s > self.local_capacity and s > 0:\n+                    scale = self.local_capacity / s\n+                    allocations['route_B'] *= scale\n+                    allocations['route_C'] *= scale\n+                    changed = True\n+            if not changed:\n+                break\n         return allocations\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "sheaf_physical_constraints",
+    "case_id": "sheaf_physical_constraints__naming=hard_symptom_mask=easy__seed-0",
+    "verdict": "FAIL",
+    "score": "0.633333",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "579df36d15f6b42a11414fa4f7a8da7268dfc21b49a6fed0e90ce8b3dc6b5051",
+    "generation_id": "Gae7b861fd8e2cfc4",
+    "archive_member_prefix": "episodes/sheaf_physical_constraints__naming=hard_symptom_mask=easy__seed-0/sheaf_physical_constraints-20261013T170556Z-59c21801/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Distributed Physical Topology Constraint Sync\n\nYour task is to implement a topologically aware load balancer in `route.py` for distributed sequence/gradient communication.\n\nIn distributed GPU clusters, multiple nodes exchange gradients across overlapping local switches. To prevent switch saturation, the communication routing must be strictly bounded by the physical capacity of the switches.\n\nThe task is to complete the `GlobalBackboneScheduler` class in `route.py` to implement a bandwidth routing function:\n- It allocates bandwidth across Node 1, Node 2, and Node 3.\n- It must ensure that the sum of the allocated bandwidth across all active routes does not exceed the aggregate limit of the central backbone router under high traffic demands.\n\nThe current implementation in `route.py` runs and allocates local node bandwidth correctly, but overflows the global capacity limit of the main backbone router during concurrent communication loops. Correct the load balancing logic to scale routing paths safely.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class GlobalBackboneScheduler:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 180.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = min(demand, self.local_capacity)\n        return allocations\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "@@ -35,13 +35,31 @@ class GlobalBackboneScheduler:\n     def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n         # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n         # Symmetries and overlapping topologies:\n-        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n-        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n-        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n-        #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        # Extract demands for constraints calculation, defaulting to 0.0 if not present\n+        d_A = demands.get(\"route_A\", 0.0)\n+        d_B = demands.get(\"route_B\", 0.0)\n+        d_C = demands.get(\"route_C\", 0.0)\n+\n+        # Start with demands as initial allocations\n+        allocations = demands.copy()\n+\n+        # Calculate aggregate and pairwise demands for scaling factor calculation\n+        total_demand = d_A + d_B + d_C\n+        scale = 1.0\n+\n+        # Enforce Global Backbone Capacity constraint\n+        if total_demand > 0 and total_demand > self.global_capacity:\n+            scale = min(scale, self.global_capacity / total_demand)\n+\n+        # Enforce Switch S1 constraint: route_A + route_C <= local_capacity\n+        sum_AC = d_A + d_C\n+        if sum_AC > 0 and sum_AC > self.local_capacity:\n+            scale = min(scale, self.local_capacity / sum_AC)\n+\n+        # Enforce Switch S2 constraint: route_A + route_B <= local_capacity\n+        sum_AB = d_A + d_B\n+        if sum_AB > 0 and sum_AB > self.local_capacity:\n+            scale = min(scale, self.local_capacity / sum_AB)\n+\n+        # Enforce Switch S3 constraint: route_B + route_C <= local_capacity\n+        sum_BC = d_B + d_C\n+        if sum_BC > 0 and sum_BC > self.local_capacity:\n+            scale = min(scale, self.local_capacity / sum_BC)\n+\n+        # Apply uniform scaling factor to all allocations to satisfy constraints\n+        for path in allocations:\n+            allocations[path] = allocations[path] * scale\n         return allocations\n"
+        },
+        "observation": "\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -12,7 +12,24 @@ class GlobalBackboneScheduler:\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n         allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        d_A = demands.get(\"route_A\", 0.0)\n+        d_B = demands.get(\"route_B\", 0.0)\n+        d_C = demands.get(\"route_C\", 0.0)\n+\n+        scale = 1.0\n+\n+        if d_A + d_B + d_C > self.global_capacity:\n+            scale = min(scale, self.global_capacity / (d_A + d_B + d_C))\n+\n+        if d_A + d_C > self.local_capacity:\n+            scale = min(scale, self.local_capacity / (d_A + d_C))\n+\n+        if d_A + d_B > self.local_capacity:\n+            scale = min(scale, self.local_capacity / (d_A + d_B))\n+\n+        if d_B + d_C > self.local_capacity:\n+            scale = min(scale, self.local_capacity / (d_B + d_C))\n+\n         for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+            allocations[path] = demand * scale\n         return allocations\n"
+        },
+        "observation": "patching file route.py\n\n[stderr]\npatch: **** malformed patch at line 30:          return allocations\n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "route.py",
+          "content": "class GlobalBackboneScheduler:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 180.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        total_demand = sum(demands.values())\n        scale = 1.0\n        if total_demand > self.global_capacity:\n            scale = min(scale, self.global_capacity / total_demand)\n        s1 = demands.get(\"route_A\", 0.0) + demands.get(\"route_C\", 0.0)\n        if s1 > self.local_capacity:\n            scale = min(scale, self.local_capacity / s1)\n        s2 = demands.get(\"route_A\", 0.0) + demands.get(\"route_B\", 0.0)\n        if s2 > self.local_capacity:\n            scale = min(scale, self.local_capacity / s2)\n        s3 = demands.get(\"route_B\", 0.0) + demands.get(\"route_C\", 0.0)\n        if s3 > self.local_capacity:\n            scale = min(scale, self.local_capacity / s3)\n        for path, demand in demands.items():\n            allocations[path] = demand * scale\n        return allocations\n"
+        },
+        "observation": "--- before/route.py\n+++ after/route.py\n@@ -13,6 +13,19 @@\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n         allocations = {}\n+        total_demand = sum(demands.values())\n+        scale = 1.0\n+        if total_demand > self.global_capacity:\n+            scale = min(scale, self.global_capacity / total_demand)\n+        s1 = demands.get(\"route_A\", 0.0) + demands.get(\"route_C\", 0.0)\n+        if s1 > self.local_capacity:\n+            scale = min(scale, self.local_capacity / s1)\n+        s2 = demands.get(\"route_A\", 0.0) + demands.get(\"route_B\", 0.0)\n+        if s2 > self.local_capacity:\n+            scale = min(scale, self.local_capacity / s2)\n+        s3 = demands.get(\"route_B\", 0.0) + demands.get(\"route_C\", 0.0)\n+        if s3 > self.local_capacity:\n+            scale = min(scale, self.local_capacity / s3)\n         for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+            allocations[path] = demand * scale\n         return allocations"
+      },
+      {
+        "step": 8,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class GlobalBackboneScheduler:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 180.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        total_demand = sum(demands.values())\n        scale = 1.0\n        if total_demand > self.global_capacity:\n            scale = min(scale, self.global_capacity / total_demand)\n        s1 = demands.get(\"route_A\", 0.0) + demands.get(\"route_C\", 0.0)\n        if s1 > self.local_capacity:\n            scale = min(scale, self.local_capacity / s1)\n        s2 = demands.get(\"route_A\", 0.0) + demands.get(\"route_B\", 0.0)\n        if s2 > self.local_capacity:\n            scale = min(scale, self.local_capacity / s2)\n        s3 = demands.get(\"route_B\", 0.0) + demands.get(\"route_C\", 0.0)\n        if s3 > self.local_capacity:\n            scale = min(scale, self.local_capacity / s3)\n        for path, demand in demands.items():\n            allocations[path] = demand * scale\n        return allocations\n"
+      }
+    ],
+    "final": {
+      "score": 0.633333,
+      "raw_accuracy": 0.666667,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "local_routing_ok": true,
+        "local_bounds_ok": false,
+        "global_backbone_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "route.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.666667
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "60% - 84%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/route.py\n+++ b/route.py\n@@ -13,6 +13,19 @@\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n         allocations = {}\n+        total_demand = sum(demands.values())\n+        scale = 1.0\n+        if total_demand > self.global_capacity:\n+            scale = min(scale, self.global_capacity / total_demand)\n+        s1 = demands.get(\"route_A\", 0.0) + demands.get(\"route_C\", 0.0)\n+        if s1 > self.local_capacity:\n+            scale = min(scale, self.local_capacity / s1)\n+        s2 = demands.get(\"route_A\", 0.0) + demands.get(\"route_B\", 0.0)\n+        if s2 > self.local_capacity:\n+            scale = min(scale, self.local_capacity / s2)\n+        s3 = demands.get(\"route_B\", 0.0) + demands.get(\"route_C\", 0.0)\n+        if s3 > self.local_capacity:\n+            scale = min(scale, self.local_capacity / s3)\n         for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+            allocations[path] = demand * scale\n         return allocations\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "sheaf_physical_constraints",
+    "case_id": "sheaf_physical_constraints__naming=hard_symptom_mask=hard__seed-0",
+    "verdict": "FAIL",
+    "score": "0.633333",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "579df36d15f6b42a11414fa4f7a8da7268dfc21b49a6fed0e90ce8b3dc6b5051",
+    "generation_id": "Ga66c3171027963bb",
+    "archive_member_prefix": "episodes/sheaf_physical_constraints__naming=hard_symptom_mask=hard__seed-0/sheaf_physical_constraints-20261013T170633Z-0f4c14f0/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Distributed Physical Topology Constraint Sync\n\nYour task is to implement a topologically aware load balancer in `route.py` for distributed sequence/gradient communication.\n\nIn distributed GPU clusters, multiple nodes exchange gradients across overlapping local switches. To prevent switch saturation, the communication routing must be strictly bounded by the physical capacity of the switches.\n\nThe task is to complete the `GlobalBackboneScheduler` class in `route.py` to implement a bandwidth routing function:\n- It allocates bandwidth across Node 1, Node 2, and Node 3.\n- It must ensure that the sum of the allocated bandwidth across all active routes does not exceed the aggregate limit of the central backbone router under high traffic demands.\n\nThe current implementation in `route.py` runs and allocates local node bandwidth correctly, but overflows the global capacity limit of the main backbone router during concurrent communication loops. Correct the load balancing logic to scale routing paths safely.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class GlobalBackboneScheduler:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = min(demand, self.local_capacity)\n        return allocations\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "@@ -1,7 +1,19 @@\ndef allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n    # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n    # Symmetries and overlapping topologies:\n    # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n    # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n    # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n    #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n-        return allocations\n+        allocations = dict(demands)\n+        for p in [\"route_A\", \"route_B\", \"route_C\"]:\n+            if p not in allocations: allocations[p] = 0.0\n+\n+        while True:\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                for p in allocations: allocations[p] *= self.global_capacity / total\n+                continue\n+\n+            pairs = [\n+                (\"route_A\", \"route_C\"), (\"route_A\", \"route_B\"), (\"route_B\", \"route_C\")\n+            ]\n+            violated = False\n+            for p1, p2 in pairs:\n+                s = allocations[p1] + allocations[p2]\n+                if s > self.local_capacity:\n+                    allocations[p1] *= self.local_capacity / s\n+                    allocations[p2] *= self.local_capacity / s\n+                    violated = True\n+\n+            if not violated: break\n+\n+        return allocations"
+        },
+        "observation": "patch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "route.py",
+          "content": "class GlobalBackboneScheduler:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        allocations = dict(demands)\n        for p in [\"route_A\", \"route_B\", \"route_C\"]:\n            if p not in allocations:\n                allocations[p] = 0.0\n\n        while True:\n            changed = False\n            total = sum(allocations.values())\n            if total > self.global_capacity:\n                for p in allocations:\n                    allocations[p] *= self.global_capacity / total\n                changed = True\n            pairs = [\n                (\"route_A\", \"route_C\"),\n                (\"route_A\", \"route_B\"),\n                (\"route_B\", \"route_C\")\n            ]\n            for p1, p2 in pairs:\n                s = allocations[p1] + allocations[p2]\n                if s > self.local_capacity:\n                    allocations[p1] *= self.local_capacity / s\n                    allocations[p2] *= self.local_capacity / s\n                    changed = True\n            if not changed:\n                break\n        return allocations\n"
+        },
+        "observation": "--- before/route.py\n+++ after/route.py\n@@ -9,10 +9,29 @@\n         # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n         # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n         # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n-        #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        allocations = dict(demands)\n+        for p in [\"route_A\", \"route_B\", \"route_C\"]:\n+            if p not in allocations:\n+                allocations[p] = 0.0\n+\n+        while True:\n+            changed = False\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                for p in allocations:\n+                    allocations[p] *= self.global_capacity / total\n+                changed = True\n+            pairs = [\n+                (\"route_A\", \"route_C\"),\n+                (\"route_A\", \"route_B\"),\n+                (\"route_B\", \"route_C\")\n+            ]\n+            for p1, p2 in pairs:\n+                s = allocations[p1] + allocations[p2]\n+                if s > self.local_capacity:\n+                    allocations[p1] *= self.local_capacity / s\n+                    allocations[p2] *= self.local_capacity / s\n+                    changed = True\n+            if not changed:\n+                break\n         return allocations"
+      }
+    ],
+    "final": {
+      "score": 0.633333,
+      "raw_accuracy": 0.666667,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "local_routing_ok": true,
+        "local_bounds_ok": false,
+        "global_backbone_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "route.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.666667
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "60% - 84%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/route.py\n+++ b/route.py\n@@ -9,10 +9,29 @@\n         # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n         # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n         # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n-        #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        allocations = dict(demands)\n+        for p in [\"route_A\", \"route_B\", \"route_C\"]:\n+            if p not in allocations:\n+                allocations[p] = 0.0\n+\n+        while True:\n+            changed = False\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                for p in allocations:\n+                    allocations[p] *= self.global_capacity / total\n+                changed = True\n+            pairs = [\n+                (\"route_A\", \"route_C\"),\n+                (\"route_A\", \"route_B\"),\n+                (\"route_B\", \"route_C\")\n+            ]\n+            for p1, p2 in pairs:\n+                s = allocations[p1] + allocations[p2]\n+                if s > self.local_capacity:\n+                    allocations[p1] *= self.local_capacity / s\n+                    allocations[p2] *= self.local_capacity / s\n+                    changed = True\n+            if not changed:\n+                break\n         return allocations\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "sheaf_physical_constraints",
+    "case_id": "sheaf_physical_constraints__naming=hard_symptom_mask=medium__seed-0",
+    "verdict": "FAIL",
+    "score": "0.633333",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "579df36d15f6b42a11414fa4f7a8da7268dfc21b49a6fed0e90ce8b3dc6b5051",
+    "generation_id": "G2e58957f254cd7df",
+    "archive_member_prefix": "episodes/sheaf_physical_constraints__naming=hard_symptom_mask=medium__seed-0/sheaf_physical_constraints-20261013T170702Z-54d86cf3/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Distributed Physical Topology Constraint Sync\n\nYour task is to implement a topologically aware load balancer in `route.py` for distributed sequence/gradient communication.\n\nIn distributed GPU clusters, multiple nodes exchange gradients across overlapping local switches. To prevent switch saturation, the communication routing must be strictly bounded by the physical capacity of the switches.\n\nThe task is to complete the `GlobalBackboneScheduler` class in `route.py` to implement a bandwidth routing function:\n- It allocates bandwidth across Node 1, Node 2, and Node 3.\n- It must ensure that the sum of the allocated bandwidth across all active routes does not exceed the aggregate limit of the central backbone router under high traffic demands.\n\nThe current implementation in `route.py` runs and allocates local node bandwidth correctly, but overflows the global capacity limit of the main backbone router during concurrent communication loops. Correct the load balancing logic to scale routing paths safely.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class GlobalBackboneScheduler:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = min(demand, self.local_capacity)\n        return allocations\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -1,18 +1,33 @@\n class GlobalBackboneScheduler:\n     def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n         self.local_capacity = local_capacity\n         self.global_capacity = global_capacity\n \n     def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n-        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n-        # Symmetries and overlapping topologies:\n-        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n-        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n-        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n-        #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n-        return allocations\n+        # Route names\n+        routes = [\"route_A\", \"route_B\", \"route_C\"]\n+        # Initialize allocations with demands (default to 0.0)\n+        allocations = {r: demands.get(r, 0.0) for r in routes}\n+\n+        changed = True\n+        while changed:\n+            changed = False\n+            # Local switch constraints (pairwise)\n+            pairs = [\n+                (\"route_A\", \"route_C\"),\n+                (\"route_A\", \"route_B\"),\n+                (\"route_B\", \"route_C\")\n+            ]\n+            for r1, r2 in pairs:\n+                s = allocations[r1] + allocations[r2]\n+                if s > self.local_capacity and s > 0:\n+                    scale = self.local_capacity / s\n+                    allocations[r1] *= scale\n+                    allocations[r2] *= scale\n+                    changed = True\n+            # Global backbone capacity constraint\n+            total = sum(allocations.values())\n+            if total > self.global_capacity and total > 0:\n+                scale = self.global_capacity / total\n+                for r in routes:\n+                    allocations[r] *= scale\n+                changed = True\n+\n+        return allocations\n"
+        },
+        "observation": "patching file route.py\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class GlobalBackboneScheduler:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Route names\n        routes = [\"route_A\", \"route_B\", \"route_C\"]\n        # Initialize allocations with demands (default to 0.0)\n        allocations = {r: demands.get(r, 0.0) for r in routes}\n\n        changed = True\n        while changed:\n            changed = False\n            # Local switch constraints (pairwise)\n            pairs = [\n                (\"route_A\", \"route_C\"),\n                (\"route_A\", \"route_B\"),\n                (\"route_B\", \"route_C\")\n            ]\n            for r1, r2 in pairs:\n                s = allocations[r1] + allocations[r2]\n                if s > self.local_capacity and s > 0:\n                    scale = self.local_capacity / s\n                    allocations[r1] *= scale\n                    allocations[r2] *= scale\n                    changed = True\n            # Global backbone capacity constraint\n            total = sum(allocations.values())\n            if total > self.global_capacity and total > 0:\n                scale = self.global_capacity / total\n                for r in routes:\n                    allocations[r] *= scale\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -30,3 +30,5 @@ class GlobalBackboneScheduler:\n             if total > self.global_capacity and total > 0:\n                 scale = self.global_capacity / total\n                 for r in routes:\n                     allocations[r] *= scale\n+                    changed = True\n+        return allocations\n"
+        },
+        "observation": "patching file route.py\n\n[stderr]\npatch: **** malformed patch at line 7:                      allocations[r] *= scale\n\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class GlobalBackboneScheduler:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Route names\n        routes = [\"route_A\", \"route_B\", \"route_C\"]\n        # Initialize allocations with demands (default to 0.0)\n        allocations = {r: demands.get(r, 0.0) for r in routes}\n\n        changed = True\n        while changed:\n            changed = False\n            # Local switch constraints (pairwise)\n            pairs = [\n                (\"route_A\", \"route_C\"),\n                (\"route_A\", \"route_B\"),\n                (\"route_B\", \"route_C\")\n            ]\n            for r1, r2 in pairs:\n                s = allocations[r1] + allocations[r2]\n                if s > self.local_capacity and s > 0:\n                    scale = self.local_capacity / s\n                    allocations[r1] *= scale\n                    allocations[r2] *= scale\n                    changed = True\n            # Global backbone capacity constraint\n            total = sum(allocations.values())\n            if total > self.global_capacity and total > 0:\n                scale = self.global_capacity / total\n                for r in routes:\n                    allocations[r] *= scale\n"
+      },
+      {
+        "step": 8,
+        "action": {
+          "type": "write_file",
+          "path": "route.py",
+          "content": "class GlobalBackboneScheduler:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Route names\n        routes = [\"route_A\", \"route_B\", \"route_C\"]\n        # Initialize allocations with demands (default to 0.0)\n        allocations = {r: demands.get(r, 0.0) for r in routes}\n\n        changed = True\n        while changed:\n            changed = False\n            # Local switch constraints (pairwise)\n            pairs = [\n                (\"route_A\", \"route_C\"),\n                (\"route_A\", \"route_B\"),\n                (\"route_B\", \"route_C\")\n            ]\n            for r1, r2 in pairs:\n                s = allocations[r1] + allocations[r2]\n                if s > self.local_capacity and s > 0:\n                    scale = self.local_capacity / s\n                    allocations[r1] *= scale\n                    allocations[r2] *= scale\n                    changed = True\n            # Global backbone capacity constraint\n            total = sum(allocations.values())\n            if total > self.global_capacity and total > 0:\n                scale = self.global_capacity / total\n                for r in routes:\n                    allocations[r] *= scale\n                    changed = True\n        return allocations\n"
+        },
+        "observation": "--- before/route.py\n+++ after/route.py\n@@ -31,3 +31,5 @@\n                 scale = self.global_capacity / total\n                 for r in routes:\n                     allocations[r] *= scale\n+                    changed = True\n+        return allocations"
+      }
+    ],
+    "final": {
+      "score": 0.633333,
+      "raw_accuracy": 0.666667,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "local_routing_ok": true,
+        "local_bounds_ok": true,
+        "global_backbone_ok": false
+      },
+      "metrics": {
+        "changed_files": [
+          "route.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.666667
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "60% - 84%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/route.py\n+++ b/route.py\n@@ -4,15 +4,32 @@\n         self.global_capacity = global_capacity\n \n     def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n-        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n-        # Symmetries and overlapping topologies:\n-        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n-        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n-        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n-        #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        # Route names\n+        routes = [\"route_A\", \"route_B\", \"route_C\"]\n+        # Initialize allocations with demands (default to 0.0)\n+        allocations = {r: demands.get(r, 0.0) for r in routes}\n+\n+        changed = True\n+        while changed:\n+            changed = False\n+            # Local switch constraints (pairwise)\n+            pairs = [\n+                (\"route_A\", \"route_C\"),\n+                (\"route_A\", \"route_B\"),\n+                (\"route_B\", \"route_C\")\n+            ]\n+            for r1, r2 in pairs:\n+                s = allocations[r1] + allocations[r2]\n+                if s > self.local_capacity and s > 0:\n+                    scale = self.local_capacity / s\n+                    allocations[r1] *= scale\n+                    allocations[r2] *= scale\n+                    changed = True\n+            # Global backbone capacity constraint\n+            total = sum(allocations.values())\n+            if total > self.global_capacity and total > 0:\n+                scale = self.global_capacity / total\n+                for r in routes:\n+                    allocations[r] *= scale\n+                    changed = True\n         return allocations\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "sheaf_physical_constraints",
+    "case_id": "sheaf_physical_constraints__naming=medium_symptom_mask=easy__seed-0",
+    "verdict": "FAIL",
+    "score": "0.633333",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "579df36d15f6b42a11414fa4f7a8da7268dfc21b49a6fed0e90ce8b3dc6b5051",
+    "generation_id": "G630585e41d44f671",
+    "archive_member_prefix": "episodes/sheaf_physical_constraints__naming=medium_symptom_mask=easy__seed-0/sheaf_physical_constraints-20261013T170733Z-6fe187c2/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Distributed Physical Topology Constraint Sync\n\nYour task is to implement a topologically aware load balancer in `route.py` for distributed sequence/gradient communication.\n\nIn distributed GPU clusters, multiple nodes exchange gradients across overlapping local switches. To prevent switch saturation, the communication routing must be strictly bounded by the physical capacity of the switches.\n\nThe task is to complete the `SheafPathAllocator` class in `route.py` to implement a bandwidth routing function:\n- It allocates bandwidth across Node 1, Node 2, and Node 3.\n- It must ensure that the sum of the allocated bandwidth across all active routes does not exceed the aggregate limit of the central backbone router under high traffic demands.\n\nThe current implementation in `route.py` runs and allocates local node bandwidth correctly, but overflows the global capacity limit of the main backbone router during concurrent communication loops. Correct the load balancing logic to scale routing paths safely.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class SheafPathAllocator:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 180.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = min(demand, self.local_capacity)\n        return allocations\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "@@ -15,13 +15,27 @@ class SheafPathAllocator:\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        allocations = {k: min(v, self.local_capacity) for k, v in demands.items()}\n+        # Iteratively enforce shared switch and global constraints\n+        for _ in range(10):\n+            changed = False\n+            # Enforce switch constraints (pairwise sums)\n+            pairs = [(\"route_A\", \"route_C\"), (\"route_A\", \"route_B\"), (\"route_B\", \"route_C\")]\n+            for a, b in pairs:\n+                if a in allocations and b in allocations:\n+                    s = allocations[a] + allocations[b]\n+                    if s > self.local_capacity:\n+                        scale = self.local_capacity / s\n+                        allocations[a] *= scale\n+                        allocations[b] *= scale\n+                        changed = True\n+            # Enforce global capacity\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                for k in allocations:\n+                    allocations[k] *= scale\n+                changed = True\n+            if not changed:\n+                break\n         return allocations"
+        },
+        "observation": "patch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -15,7 +15,23 @@ class SheafPathAllocator:\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        allocations = {k: min(v, self.local_capacity) for k, v in demands.items()}\n+        # Iteratively enforce shared switch and global constraints\n+        for _ in range(10):\n+            changed = False\n+            pairs = [(\"route_A\", \"route_C\"), (\"route_A\", \"route_B\"), (\"route_B\", \"route_C\")]\n+            for a, b in pairs:\n+                if a in allocations and b in allocations:\n+                    s = allocations[a] + allocations[b]\n+                    if s > self.local_capacity:\n+                        scale = self.local_capacity / s\n+                        allocations[a] *= scale\n+                        allocations[b] *= scale\n+                        changed = True\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                for k in allocations:\n+                    allocations[k] *= scale\n+                changed = True\n+            if not changed:\n+                break\n         return allocations"
+        },
+        "observation": "patching file route.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 29:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "route.py",
+          "content": "class SheafPathAllocator:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 180.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {k: min(v, self.local_capacity) for k, v in demands.items()}\n        # Iteratively enforce shared switch and global constraints\n        for _ in range(10):\n            changed = False\n            # Enforce switch constraints (pairwise sums)\n            pairs = [(\"route_A\", \"route_C\"), (\"route_A\", \"route_B\"), (\"route_B\", \"route_C\")]\n            for a, b in pairs:\n                if a in allocations and b in allocations:\n                    s = allocations[a] + allocations[b]\n                    if s > self.local_capacity:\n                        scale = self.local_capacity / s\n                        allocations[a] *= scale\n                        allocations[b] *= scale\n                        changed = True\n            # Enforce global capacity\n            total = sum(allocations.values())\n            if total > self.global_capacity:\n                scale = self.global_capacity / total\n                for k in allocations:\n                    allocations[k] *= scale\n                changed = True\n            if not changed:\n                break\n        return allocations\n"
+        },
+        "observation": "--- before/route.py\n+++ after/route.py\n@@ -12,7 +12,27 @@\n         #\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        allocations = {k: min(v, self.local_capacity) for k, v in demands.items()}\n+        # Iteratively enforce shared switch and global constraints\n+        for _ in range(10):\n+            changed = False\n+            # Enforce switch constraints (pairwise sums)\n+            pairs = [(\"route_A\", \"route_C\"), (\"route_A\", \"route_B\"), (\"route_B\", \"route_C\")]\n+            for a, b in pairs:\n+                if a in allocations and b in allocations:\n+                    s = allocations[a] + allocations[b]\n+                    if s > self.local_capacity:\n+                        scale = self.local_capacity / s\n+                        allocations[a] *= scale\n+                        allocations[b] *= scale\n+                        changed = True\n+            # Enforce global capacity\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                for k in allocations:\n+                    allocations[k] *= scale\n+                changed = True\n+            if not changed:\n+                break\n         return allocations"
+      }
+    ],
+    "final": {
+      "score": 0.633333,
+      "raw_accuracy": 0.666667,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "local_routing_ok": true,
+        "local_bounds_ok": true,
+        "global_backbone_ok": false
+      },
+      "metrics": {
+        "changed_files": [
+          "route.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.666667
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "60% - 84%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/route.py\n+++ b/route.py\n@@ -12,7 +12,27 @@\n         #\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        allocations = {k: min(v, self.local_capacity) for k, v in demands.items()}\n+        # Iteratively enforce shared switch and global constraints\n+        for _ in range(10):\n+            changed = False\n+            # Enforce switch constraints (pairwise sums)\n+            pairs = [(\"route_A\", \"route_C\"), (\"route_A\", \"route_B\"), (\"route_B\", \"route_C\")]\n+            for a, b in pairs:\n+                if a in allocations and b in allocations:\n+                    s = allocations[a] + allocations[b]\n+                    if s > self.local_capacity:\n+                        scale = self.local_capacity / s\n+                        allocations[a] *= scale\n+                        allocations[b] *= scale\n+                        changed = True\n+            # Enforce global capacity\n+            total = sum(allocations.values())\n+            if total > self.global_capacity:\n+                scale = self.global_capacity / total\n+                for k in allocations:\n+                    allocations[k] *= scale\n+                changed = True\n+            if not changed:\n+                break\n         return allocations\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "sheaf_physical_constraints",
+    "case_id": "sheaf_physical_constraints__naming=medium_symptom_mask=hard__seed-0",
+    "verdict": "FAIL",
+    "score": "0.633333",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "579df36d15f6b42a11414fa4f7a8da7268dfc21b49a6fed0e90ce8b3dc6b5051",
+    "generation_id": "G548539f5576d6bd1",
+    "archive_member_prefix": "episodes/sheaf_physical_constraints__naming=medium_symptom_mask=hard__seed-0/sheaf_physical_constraints-20261013T170812Z-0008117e/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Distributed Physical Topology Constraint Sync\n\nYour task is to implement a topologically aware load balancer in `route.py` for distributed sequence/gradient communication.\n\nIn distributed GPU clusters, multiple nodes exchange gradients across overlapping local switches. To prevent switch saturation, the communication routing must be strictly bounded by the physical capacity of the switches.\n\nThe task is to complete the `SheafPathAllocator` class in `route.py` to implement a bandwidth routing function:\n- It allocates bandwidth across Node 1, Node 2, and Node 3.\n- It must ensure that the sum of the allocated bandwidth across all active routes does not exceed the aggregate limit of the central backbone router under high traffic demands.\n\nThe current implementation in `route.py` runs and allocates local node bandwidth correctly, but overflows the global capacity limit of the main backbone router during concurrent communication loops. Correct the load balancing logic to scale routing paths safely.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class SheafPathAllocator:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = min(demand, self.local_capacity)\n        return allocations\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -11,7 +11,26 @@ class SheafPathAllocator:\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n         allocations = {}\n+        total_demand = sum(demands.values())\n+\n+        # Start with full capacity\n+        factor = 1.0\n+\n+        # Check global capacity constraint\n+        if total_demand > self.global_capacity:\n+            factor = min(factor, self.global_capacity / total_demand)\n+\n+        # Check local switch constraints\n+        # Switch S1: route_A + route_C\n+        sum_ac = demands.get(\"route_A\", 0) + demands.get(\"route_C\", 0)\n+        if sum_ac > self.local_capacity:\n+            factor = min(factor, self.local_capacity / sum_ac)\n+\n+        # Switch S2: route_A + route_B\n+        sum_ab = demands.get(\"route_A\", 0) + demands.get(\"route_B\", 0)\n+        if sum_ab > self.local_capacity:\n+            factor = min(factor, self.local_capacity / sum_ab)\n+\n+        # Switch S3: route_B + route_C\n+        sum_bc = demands.get(\"route_B\", 0) + demands.get(\"route_C\", 0)\n+        if sum_bc > self.local_capacity:\n+            factor = min(factor, self.local_capacity / sum_bc)\n         for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+            allocations[path] = demand * factor\n         return allocations"
+        },
+        "observation": "patching file route.py\n\n[stderr]\npatch: **** malformed patch at line 30: +            factor = min(factor, self.local_capacity / sum_bc)\n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "route.py",
+          "content": "class SheafPathAllocator:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        total_demand = sum(demands.values())\n        factor = 1.0\n        if total_demand > self.global_capacity:\n            factor = min(factor, self.global_capacity / total_demand)\n        s1 = demands.get(\"route_A\", 0) + demands.get(\"route_C\", 0)\n        if s1 > self.local_capacity:\n            factor = min(factor, self.local_capacity / s1)\n        s2 = demands.get(\"route_A\", 0) + demands.get(\"route_B\", 0)\n        if s2 > self.local_capacity:\n            factor = min(factor, self.local_capacity / s2)\n        s3 = demands.get(\"route_B\", 0) + demands.get(\"route_C\", 0)\n        if s3 > self.local_capacity:\n            factor = min(factor, self.local_capacity / s3)\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = demand * factor\n        return allocations\n"
+        },
+        "observation": "--- before/route.py\n+++ after/route.py\n@@ -4,15 +4,20 @@\n         self.global_capacity = global_capacity\n \n     def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n-        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n-        # Symmetries and overlapping topologies:\n-        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n-        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n-        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n-        #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n+        total_demand = sum(demands.values())\n+        factor = 1.0\n+        if total_demand > self.global_capacity:\n+            factor = min(factor, self.global_capacity / total_demand)\n+        s1 = demands.get(\"route_A\", 0) + demands.get(\"route_C\", 0)\n+        if s1 > self.local_capacity:\n+            factor = min(factor, self.local_capacity / s1)\n+        s2 = demands.get(\"route_A\", 0) + demands.get(\"route_B\", 0)\n+        if s2 > self.local_capacity:\n+            factor = min(factor, self.local_capacity / s2)\n+        s3 = demands.get(\"route_B\", 0) + demands.get(\"route_C\", 0)\n+        if s3 > self.local_capacity:\n+            factor = min(factor, self.local_capacity / s3)\n         allocations = {}\n         for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+            allocations[path] = demand * factor\n         return allocations"
+      }
+    ],
+    "final": {
+      "score": 0.633333,
+      "raw_accuracy": 0.666667,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "local_routing_ok": true,
+        "local_bounds_ok": false,
+        "global_backbone_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "route.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.666667
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "60% - 84%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/route.py\n+++ b/route.py\n@@ -4,15 +4,20 @@\n         self.global_capacity = global_capacity\n \n     def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n-        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n-        # Symmetries and overlapping topologies:\n-        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n-        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n-        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n-        #\n-        # BUG: Naive allocator that only checks local individual route demands,\n-        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n+        total_demand = sum(demands.values())\n+        factor = 1.0\n+        if total_demand > self.global_capacity:\n+            factor = min(factor, self.global_capacity / total_demand)\n+        s1 = demands.get(\"route_A\", 0) + demands.get(\"route_C\", 0)\n+        if s1 > self.local_capacity:\n+            factor = min(factor, self.local_capacity / s1)\n+        s2 = demands.get(\"route_A\", 0) + demands.get(\"route_B\", 0)\n+        if s2 > self.local_capacity:\n+            factor = min(factor, self.local_capacity / s2)\n+        s3 = demands.get(\"route_B\", 0) + demands.get(\"route_C\", 0)\n+        if s3 > self.local_capacity:\n+            factor = min(factor, self.local_capacity / s3)\n         allocations = {}\n         for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+            allocations[path] = demand * factor\n         return allocations\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "sheaf_physical_constraints",
+    "case_id": "sheaf_physical_constraints__naming=medium_symptom_mask=medium__seed-0",
+    "verdict": "FAIL",
+    "score": "0.633333",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "579df36d15f6b42a11414fa4f7a8da7268dfc21b49a6fed0e90ce8b3dc6b5051",
+    "generation_id": "Gdcc994219c1d480c",
+    "archive_member_prefix": "episodes/sheaf_physical_constraints__naming=medium_symptom_mask=medium__seed-0/sheaf_physical_constraints-20261013T170841Z-7b00a5d4/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Distributed Physical Topology Constraint Sync\n\nYour task is to implement a topologically aware load balancer in `route.py` for distributed sequence/gradient communication.\n\nIn distributed GPU clusters, multiple nodes exchange gradients across overlapping local switches. To prevent switch saturation, the communication routing must be strictly bounded by the physical capacity of the switches.\n\nThe task is to complete the `SheafPathAllocator` class in `route.py` to implement a bandwidth routing function:\n- It allocates bandwidth across Node 1, Node 2, and Node 3.\n- It must ensure that the sum of the allocated bandwidth across all active routes does not exceed the aggregate limit of the central backbone router under high traffic demands.\n\nThe current implementation in `route.py` runs and allocates local node bandwidth correctly, but overflows the global capacity limit of the main backbone router during concurrent communication loops. Correct the load balancing logic to scale routing paths safely.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "route.py"
+        },
+        "observation": "class SheafPathAllocator:\n    def __init__(self, local_capacity: float = 100.0, global_capacity: float = 150.0):\n        self.local_capacity = local_capacity\n        self.global_capacity = global_capacity\n\n    def allocate_bandwidth(self, demands: dict[str, float]) -> dict[str, float]:\n        # Demands are mapped over three overlapping paths: \"route_A\", \"route_B\", and \"route_C\".\n        # Symmetries and overlapping topologies:\n        # - Switch S1 is shared by: route_A + route_C (capacity <= local_capacity)\n        # - Switch S2 is shared by: route_A + route_B (capacity <= local_capacity)\n        # - Switch S3 is shared by: route_B + route_C (capacity <= local_capacity)\n        #\n        # BUG: Naive allocator that only checks local individual route demands,\n        # ignoring the overlapping shared switch constraints and the global backbone capacity.\n        allocations = {}\n        for path, demand in demands.items():\n            allocations[path] = min(demand, self.local_capacity)\n        return allocations\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/route.py\n+++ b/route.py\n@@ -12,7 +12,22 @@ class SheafPathAllocator:\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        # FIX: Scale allocations proportionally to respect shared switch and global capacity constraints.\n+        dA = demands.get(\"route_A\", 0.0)\n+        dB = demands.get(\"route_B\", 0.0)\n+        dC = demands.get(\"route_C\", 0.0)\n+\n+        scale = 1.0\n+        if dA + dC > self.local_capacity:\n+            scale = min(scale, self.local_capacity / (dA + dC))\n+        if dA + dB > self.local_capacity:\n+            scale = min(scale, self.local_capacity / (dA + dB))\n+        if dB + dC > self.local_capacity:\n+            scale = min(scale, self.local_capacity / (dB + dC))\n+\n+        total = dA + dB + dC\n+        if total > self.global_capacity:\n+            scale = min(scale, self.global_capacity / total)\n+\n+        allocations = {\"route_A\": dA * scale, \"route_B\": dB * scale, \"route_C\": dC * scale}\n         return allocations\n"
+        },
+        "observation": "patching file route.py\nHunk #1 succeeded at 13 with fuzz 1 (offset 1 line).\n"
+      }
+    ],
+    "final": {
+      "score": 0.633333,
+      "raw_accuracy": 0.666667,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "local_routing_ok": true,
+        "local_bounds_ok": false,
+        "global_backbone_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "route.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.666667
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "60% - 84%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/route.py\n+++ b/route.py\n@@ -12,7 +12,22 @@\n         #\n         # BUG: Naive allocator that only checks local individual route demands,\n         # ignoring the overlapping shared switch constraints and the global backbone capacity.\n-        allocations = {}\n-        for path, demand in demands.items():\n-            allocations[path] = min(demand, self.local_capacity)\n+        # FIX: Scale allocations proportionally to respect shared switch and global capacity constraints.\n+        dA = demands.get(\"route_A\", 0.0)\n+        dB = demands.get(\"route_B\", 0.0)\n+        dC = demands.get(\"route_C\", 0.0)\n+\n+        scale = 1.0\n+        if dA + dC > self.local_capacity:\n+            scale = min(scale, self.local_capacity / (dA + dC))\n+        if dA + dB > self.local_capacity:\n+            scale = min(scale, self.local_capacity / (dA + dB))\n+        if dB + dC > self.local_capacity:\n+            scale = min(scale, self.local_capacity / (dB + dC))\n+\n+        total = dA + dB + dC\n+        if total > self.global_capacity:\n+            scale = min(scale, self.global_capacity / total)\n+\n+        allocations = {\"route_A\": dA * scale, \"route_B\": dB * scale, \"route_C\": dC * scale}\n         return allocations\n"
+  }
+]

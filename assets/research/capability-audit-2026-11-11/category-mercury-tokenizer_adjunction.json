@@ -1,0 +1,1007 @@
+[
+  {
+    "model": "mercury",
+    "environment": "tokenizer_adjunction",
+    "case_id": "tokenizer_adjunction__naming=easy_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "64588babc8e4a763e8c3dc50d05eff27aabf3361848b101ec0d8142424ebe2fa",
+    "generation_id": "Gaffa2ba987929a5a",
+    "archive_member_prefix": "episodes/tokenizer_adjunction__naming=easy_symptom_mask=easy__seed-0/tokenizer_adjunction-20261013T172403Z-2dec8809/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Adjoint Tokenization & Detokenization\n\nYour task is to implement a robust Detokenizer in `detokenizer.py` that forms a mathematically correct adjunction (Galois connection) with the tokenizer in `tokenizer.py`.\n\nLet $T$ be the tokenizer, and $D$ be the detokenizer. To form a valid adjunction, they must satisfy the algebraic unit property:\n$$T \\circ D \\circ T(s) \\equiv T(s)$$\nfor any input string $s$.\n\nThe starting implementation of `GaloisDetokenizer` in `detokenizer.py` runs, but fails this adjunction property on complex boundary inputs. Correct the detokenization logic to ensure it behaves as a mathematically valid adjoint.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "tokenizer.py"
+        },
+        "observation": "def tokenize(text: str) -> list[str]:\n    # Simple subword/character tokenizer replacing space with Ġ (GPT style)\n    tokens = []\n    for char in text:\n        if char == \" \":\n            tokens.append(\"Ġ\")\n        else:\n            tokens.append(char)\n    return tokens\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass GaloisDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(tokens)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -4,5 +4,5 @@ class GaloisDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n         # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)"
+        },
+        "observation": "patching file detokenizer.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 6:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "detokenizer.py",
+          "content": "from tokenizer import tokenize\n\nclass GaloisDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+        },
+        "observation": "--- before/detokenizer.py\n+++ after/detokenizer.py\n@@ -2,5 +2,4 @@\n \n class GaloisDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)"
+      },
+      {
+        "step": 9,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "from tokenizer import tokenize\nfrom detokenizer import GaloisDetokenizer\n\ndef test_basic_reconstruction():\n    detok = GaloisDetokenizer()\n    text = \"hello\"\n    tokens = tokenize(text)\n    reconstructed = detok.detokenize(tokens)\n    assert reconstructed == text\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_reconstruction": true,
+        "spacing_correct": true,
+        "adjunction_unit": true
+      },
+      "metrics": {
+        "changed_files": [
+          "detokenizer.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -2,5 +2,4 @@\n \n class GaloisDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "tokenizer_adjunction",
+    "case_id": "tokenizer_adjunction__naming=easy_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "64588babc8e4a763e8c3dc50d05eff27aabf3361848b101ec0d8142424ebe2fa",
+    "generation_id": "G29894f156e17e2b1",
+    "archive_member_prefix": "episodes/tokenizer_adjunction__naming=easy_symptom_mask=hard__seed-0/tokenizer_adjunction-20261013T172445Z-7f9b45cb/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Adjoint Tokenization & Detokenization\n\nYour task is to implement a robust Detokenizer in `detokenizer.py` that forms a mathematically correct adjunction (Galois connection) with the tokenizer in `tokenizer.py`.\n\nLet $T$ be the tokenizer, and $D$ be the detokenizer. To form a valid adjunction, they must satisfy the algebraic unit property:\n$$T \\circ D \\circ T(s) \\equiv T(s)$$\nfor any input string $s$.\n\nThe starting implementation of `GaloisDetokenizer` in `detokenizer.py` runs, but fails this adjunction property on complex boundary inputs. Correct the detokenization logic to ensure it behaves as a mathematically valid adjoint.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "tokenizer.py"
+        },
+        "observation": "def tokenize(text: str) -> list[str]:\n    # Simple subword/character tokenizer replacing space with Ġ (GPT style)\n    tokens = []\n    for char in text:\n        if char == \" \":\n            tokens.append(\"Ġ\")\n        else:\n            tokens.append(char)\n    return tokens\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass GaloisDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(tokens)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -4,4 +4,5 @@ class GaloisDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n             # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-            return \"\".join(tokens)\n+            # Fix: Convert Ġ back to space to satisfy T(D(T(s))) = T(s)\n+            return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)"
+        },
+        "observation": "patching file detokenizer.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 7:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "detokenizer.py",
+          "content": "from tokenizer import tokenize\n\nclass GaloisDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        # Fix: Convert Ġ back to space to satisfy T(D(T(s))) = T(s)\n        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+        },
+        "observation": "--- before/detokenizer.py\n+++ after/detokenizer.py\n@@ -2,5 +2,5 @@\n \n class GaloisDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        # Fix: Convert Ġ back to space to satisfy T(D(T(s))) = T(s)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_reconstruction": true,
+        "spacing_correct": true,
+        "adjunction_unit": true
+      },
+      "metrics": {
+        "changed_files": [
+          "detokenizer.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -2,5 +2,5 @@\n \n class GaloisDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        # Fix: Convert Ġ back to space to satisfy T(D(T(s))) = T(s)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "tokenizer_adjunction",
+    "case_id": "tokenizer_adjunction__naming=easy_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "64588babc8e4a763e8c3dc50d05eff27aabf3361848b101ec0d8142424ebe2fa",
+    "generation_id": "Gf3496f33ad088889",
+    "archive_member_prefix": "episodes/tokenizer_adjunction__naming=easy_symptom_mask=medium__seed-0/tokenizer_adjunction-20261013T172504Z-9913a2aa/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Adjoint Tokenization & Detokenization\n\nYour task is to implement a robust Detokenizer in `detokenizer.py` that forms a mathematically correct adjunction (Galois connection) with the tokenizer in `tokenizer.py`.\n\nLet $T$ be the tokenizer, and $D$ be the detokenizer. To form a valid adjunction, they must satisfy the algebraic unit property:\n$$T \\circ D \\circ T(s) \\equiv T(s)$$\nfor any input string $s$.\n\nThe starting implementation of `GaloisDetokenizer` in `detokenizer.py` runs, but fails this adjunction property on complex boundary inputs. Correct the detokenization logic to ensure it behaves as a mathematically valid adjoint.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "tokenizer.py"
+        },
+        "observation": "def tokenize(text: str) -> list[str]:\n    # Simple subword/character tokenizer replacing space with Ġ (GPT style)\n    tokens = []\n    for char in text:\n        if char == \" \":\n            tokens.append(\"Ġ\")\n        else:\n            tokens.append(char)\n    return tokens\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass GaloisDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(tokens)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -5,2 +5,2 @@\n         # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)"
+        },
+        "observation": "patching file detokenizer.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 5:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "detokenizer.py",
+          "content": "from tokenizer import tokenize\n\nclass GaloisDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+        },
+        "observation": "--- before/detokenizer.py\n+++ after/detokenizer.py\n@@ -2,5 +2,4 @@\n \n class GaloisDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass GaloisDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_reconstruction": true,
+        "spacing_correct": true,
+        "adjunction_unit": true
+      },
+      "metrics": {
+        "changed_files": [
+          "detokenizer.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -2,5 +2,4 @@\n \n class GaloisDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "tokenizer_adjunction",
+    "case_id": "tokenizer_adjunction__naming=hard_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "64588babc8e4a763e8c3dc50d05eff27aabf3361848b101ec0d8142424ebe2fa",
+    "generation_id": "Gad2c270daa3f348d",
+    "archive_member_prefix": "episodes/tokenizer_adjunction__naming=hard_symptom_mask=easy__seed-0/tokenizer_adjunction-20261013T172533Z-65daee80/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Adjoint Tokenization & Detokenization\n\nYour task is to implement a robust Detokenizer in `detokenizer.py` that forms a mathematically correct adjunction (Galois connection) with the tokenizer in `tokenizer.py`.\n\nLet $T$ be the tokenizer, and $D$ be the detokenizer. To form a valid adjunction, they must satisfy the algebraic unit property:\n$$T \\circ D \\circ T(s) \\equiv T(s)$$\nfor any input string $s$.\n\nThe starting implementation of `UnitCounitDetokenizer` in `detokenizer.py` runs, but fails this adjunction property on complex boundary inputs. Correct the detokenization logic to ensure it behaves as a mathematically valid adjoint.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "tokenizer.py"
+        },
+        "observation": "def tokenize(text: str) -> list[str]:\n    # Simple subword/character tokenizer replacing space with Ġ (GPT style)\n    tokens = []\n    for char in text:\n        if char == \" \":\n            tokens.append(\"Ġ\")\n        else:\n            tokens.append(char)\n    return tokens\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass UnitCounitDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(tokens)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -4,5 +4,5 @@ class UnitCounitDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n         # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if t == \"Ġ\" else t for t in tokens)\n"
+        },
+        "observation": "patching file detokenizer.py\nHunk #1 succeeded at 4 with fuzz 2.\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_reconstruction": true,
+        "spacing_correct": true,
+        "adjunction_unit": true
+      },
+      "metrics": {
+        "changed_files": [
+          "detokenizer.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -3,4 +3,4 @@\n class UnitCounitDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n         # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if t == \"Ġ\" else t for t in tokens)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "tokenizer_adjunction",
+    "case_id": "tokenizer_adjunction__naming=hard_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "64588babc8e4a763e8c3dc50d05eff27aabf3361848b101ec0d8142424ebe2fa",
+    "generation_id": "Gf7a300ff6ad9b766",
+    "archive_member_prefix": "episodes/tokenizer_adjunction__naming=hard_symptom_mask=hard__seed-0/tokenizer_adjunction-20261013T172552Z-34db2024/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Adjoint Tokenization & Detokenization\n\nYour task is to implement a robust Detokenizer in `detokenizer.py` that forms a mathematically correct adjunction (Galois connection) with the tokenizer in `tokenizer.py`.\n\nLet $T$ be the tokenizer, and $D$ be the detokenizer. To form a valid adjunction, they must satisfy the algebraic unit property:\n$$T \\circ D \\circ T(s) \\equiv T(s)$$\nfor any input string $s$.\n\nThe starting implementation of `UnitCounitDetokenizer` in `detokenizer.py` runs, but fails this adjunction property on complex boundary inputs. Correct the detokenization logic to ensure it behaves as a mathematically valid adjoint.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "tokenizer.py"
+        },
+        "observation": "def tokenize(text: str) -> list[str]:\n    # Simple subword/character tokenizer replacing space with Ġ (GPT style)\n    tokens = []\n    for char in text:\n        if char == \" \":\n            tokens.append(\"Ġ\")\n        else:\n            tokens.append(char)\n    return tokens\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass UnitCounitDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(tokens)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -4,3 +4,3 @@ class UnitCounitDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        # Restore \"Ġ\" to \" \" for correct detokenization.\n+        return \"\".join(token.replace(\"Ġ\", \" \") for token in tokens)\n"
+        },
+        "observation": "patching file detokenizer.py\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_reconstruction": true,
+        "spacing_correct": true,
+        "adjunction_unit": true
+      },
+      "metrics": {
+        "changed_files": [
+          "detokenizer.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -2,5 +2,5 @@\n \n class UnitCounitDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        # Restore \"Ġ\" to \" \" for correct detokenization.\n+        return \"\".join(token.replace(\"Ġ\", \" \") for token in tokens)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "tokenizer_adjunction",
+    "case_id": "tokenizer_adjunction__naming=hard_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "64588babc8e4a763e8c3dc50d05eff27aabf3361848b101ec0d8142424ebe2fa",
+    "generation_id": "Ge533655c124caa65",
+    "archive_member_prefix": "episodes/tokenizer_adjunction__naming=hard_symptom_mask=medium__seed-0/tokenizer_adjunction-20261013T172611Z-1dc78950/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Adjoint Tokenization & Detokenization\n\nYour task is to implement a robust Detokenizer in `detokenizer.py` that forms a mathematically correct adjunction (Galois connection) with the tokenizer in `tokenizer.py`.\n\nLet $T$ be the tokenizer, and $D$ be the detokenizer. To form a valid adjunction, they must satisfy the algebraic unit property:\n$$T \\circ D \\circ T(s) \\equiv T(s)$$\nfor any input string $s$.\n\nThe starting implementation of `UnitCounitDetokenizer` in `detokenizer.py` runs, but fails this adjunction property on complex boundary inputs. Correct the detokenization logic to ensure it behaves as a mathematically valid adjoint.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass UnitCounitDetokenizer:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(tokens)\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "tokenizer.py"
+        },
+        "observation": "def tokenize(text: str) -> list[str]:\n    # Simple subword/character tokenizer replacing space with Ġ (GPT style)\n    tokens = []\n    for char in text:\n        if char == \" \":\n            tokens.append(\"Ġ\")\n        else:\n            tokens.append(char)\n    return tokens\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -1,6 +1,6 @@\n from tokenizer import tokenize\n \n class UnitCounitDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        # Convert token 'Ġ' back to space ' ' for proper detokenization\n+        return \"\".join(tokens).replace(\"Ġ\", \" \")\n"
+        },
+        "observation": "patching file detokenizer.py\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_reconstruction": true,
+        "spacing_correct": true,
+        "adjunction_unit": true
+      },
+      "metrics": {
+        "changed_files": [
+          "detokenizer.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -2,5 +2,5 @@\n \n class UnitCounitDetokenizer:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        # Convert token 'Ġ' back to space ' ' for proper detokenization\n+        return \"\".join(tokens).replace(\"Ġ\", \" \")\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "tokenizer_adjunction",
+    "case_id": "tokenizer_adjunction__naming=medium_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "64588babc8e4a763e8c3dc50d05eff27aabf3361848b101ec0d8142424ebe2fa",
+    "generation_id": "Ge42e05fd44513905",
+    "archive_member_prefix": "episodes/tokenizer_adjunction__naming=medium_symptom_mask=easy__seed-0/tokenizer_adjunction-20261013T172629Z-fc0d76ee/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Adjoint Tokenization & Detokenization\n\nYour task is to implement a robust Detokenizer in `detokenizer.py` that forms a mathematically correct adjunction (Galois connection) with the tokenizer in `tokenizer.py`.\n\nLet $T$ be the tokenizer, and $D$ be the detokenizer. To form a valid adjunction, they must satisfy the algebraic unit property:\n$$T \\circ D \\circ T(s) \\equiv T(s)$$\nfor any input string $s$.\n\nThe starting implementation of `AdjunctionDecoder` in `detokenizer.py` runs, but fails this adjunction property on complex boundary inputs. Correct the detokenization logic to ensure it behaves as a mathematically valid adjoint.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "tokenizer.py"
+        },
+        "observation": "def tokenize(text: str) -> list[str]:\n    # Simple subword/character tokenizer replacing space with Ġ (GPT style)\n    tokens = []\n    for char in text:\n        if char == \" \":\n            tokens.append(\"Ġ\")\n        else:\n            tokens.append(char)\n    return tokens\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass AdjunctionDecoder:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(tokens)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -5,4 +5,4 @@ class AdjunctionDecoder:\n     def detokenize(self, tokens: list[str]) -> str:\n         # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+        },
+        "observation": "patching file detokenizer.py\nHunk #1 succeeded at 4 with fuzz 2 (offset -1 lines).\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass AdjunctionDecoder:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_reconstruction": true,
+        "spacing_correct": true,
+        "adjunction_unit": true
+      },
+      "metrics": {
+        "changed_files": [
+          "detokenizer.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -3,4 +3,4 @@\n class AdjunctionDecoder:\n     def detokenize(self, tokens: list[str]) -> str:\n         # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(\" \" if token == \"Ġ\" else token for token in tokens)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "tokenizer_adjunction",
+    "case_id": "tokenizer_adjunction__naming=medium_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "64588babc8e4a763e8c3dc50d05eff27aabf3361848b101ec0d8142424ebe2fa",
+    "generation_id": "G65017bb9ad6ae942",
+    "archive_member_prefix": "episodes/tokenizer_adjunction__naming=medium_symptom_mask=hard__seed-0/tokenizer_adjunction-20261013T172651Z-20746b86/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Adjoint Tokenization & Detokenization\n\nYour task is to implement a robust Detokenizer in `detokenizer.py` that forms a mathematically correct adjunction (Galois connection) with the tokenizer in `tokenizer.py`.\n\nLet $T$ be the tokenizer, and $D$ be the detokenizer. To form a valid adjunction, they must satisfy the algebraic unit property:\n$$T \\circ D \\circ T(s) \\equiv T(s)$$\nfor any input string $s$.\n\nThe starting implementation of `AdjunctionDecoder` in `detokenizer.py` runs, but fails this adjunction property on complex boundary inputs. Correct the detokenization logic to ensure it behaves as a mathematically valid adjoint.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "tokenizer.py"
+        },
+        "observation": "def tokenize(text: str) -> list[str]:\n    # Simple subword/character tokenizer replacing space with Ġ (GPT style)\n    tokens = []\n    for char in text:\n        if char == \" \":\n            tokens.append(\"Ġ\")\n        else:\n            tokens.append(char)\n    return tokens\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass AdjunctionDecoder:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(tokens)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -5,4 +5,4 @@ class AdjunctionDecoder:\n         def detokenize(self, tokens: list[str]) -> str:\n             # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(token.replace(\"Ġ\", \" \") for token in tokens)"
+        },
+        "observation": "patching file detokenizer.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 6:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "detokenizer.py",
+          "content": "from tokenizer import tokenize\n\nclass AdjunctionDecoder:\n    def detokenize(self, tokens: list[str]) -> str:\n        return \"\".join(token.replace(\"Ġ\", \" \") for token in tokens)\n"
+        },
+        "observation": "--- before/detokenizer.py\n+++ after/detokenizer.py\n@@ -2,5 +2,4 @@\n \n class AdjunctionDecoder:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(token.replace(\"Ġ\", \" \") for token in tokens)"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_reconstruction": true,
+        "spacing_correct": true,
+        "adjunction_unit": true
+      },
+      "metrics": {
+        "changed_files": [
+          "detokenizer.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -2,5 +2,4 @@\n \n class AdjunctionDecoder:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        return \"\".join(token.replace(\"Ġ\", \" \") for token in tokens)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "tokenizer_adjunction",
+    "case_id": "tokenizer_adjunction__naming=medium_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "64588babc8e4a763e8c3dc50d05eff27aabf3361848b101ec0d8142424ebe2fa",
+    "generation_id": "G32eaf8103caca660",
+    "archive_member_prefix": "episodes/tokenizer_adjunction__naming=medium_symptom_mask=medium__seed-0/tokenizer_adjunction-20261013T172710Z-bfe36c57/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Adjoint Tokenization & Detokenization\n\nYour task is to implement a robust Detokenizer in `detokenizer.py` that forms a mathematically correct adjunction (Galois connection) with the tokenizer in `tokenizer.py`.\n\nLet $T$ be the tokenizer, and $D$ be the detokenizer. To form a valid adjunction, they must satisfy the algebraic unit property:\n$$T \\circ D \\circ T(s) \\equiv T(s)$$\nfor any input string $s$.\n\nThe starting implementation of `AdjunctionDecoder` in `detokenizer.py` runs, but fails this adjunction property on complex boundary inputs. Correct the detokenization logic to ensure it behaves as a mathematically valid adjoint.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "tokenizer.py"
+        },
+        "observation": "def tokenize(text: str) -> list[str]:\n    # Simple subword/character tokenizer replacing space with Ġ (GPT style)\n    tokens = []\n    for char in text:\n        if char == \" \":\n            tokens.append(\"Ġ\")\n        else:\n            tokens.append(char)\n    return tokens\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "read_file",
+          "path": "detokenizer.py"
+        },
+        "observation": "from tokenizer import tokenize\n\nclass AdjunctionDecoder:\n    def detokenize(self, tokens: list[str]) -> str:\n        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n        return \"\".join(tokens)\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "@@ -1,7 +1,7 @@\n from tokenizer import tokenize\n \n class AdjunctionDecoder:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        # Replace \"Ġ\" with space to restore original text structure.\n+        return \"\".join(\" \" if t == \"Ġ\" else t for t in tokens)"
+        },
+        "observation": "patch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "detokenizer.py",
+          "content": "from tokenizer import tokenize\n\nclass AdjunctionDecoder:\n    def detokenize(self, tokens: list[str]) -> str:\n        # Replace \"Ġ\" with space to restore original text structure.\n        return \"\".join(\" \" if t == \"Ġ\" else t for t in tokens)\n"
+        },
+        "observation": "--- before/detokenizer.py\n+++ after/detokenizer.py\n@@ -2,5 +2,5 @@\n \n class AdjunctionDecoder:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        # Replace \"Ġ\" with space to restore original text structure.\n+        return \"\".join(\" \" if t == \"Ġ\" else t for t in tokens)"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_reconstruction": true,
+        "spacing_correct": true,
+        "adjunction_unit": true
+      },
+      "metrics": {
+        "changed_files": [
+          "detokenizer.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/detokenizer.py\n+++ b/detokenizer.py\n@@ -2,5 +2,5 @@\n \n class AdjunctionDecoder:\n     def detokenize(self, tokens: list[str]) -> str:\n-        # BUG: Naive join that fails to restore the special space character \"Ġ\" back to \" \".\n-        return \"\".join(tokens)\n+        # Replace \"Ġ\" with space to restore original text structure.\n+        return \"\".join(\" \" if t == \"Ġ\" else t for t in tokens)\n"
+  }
+]

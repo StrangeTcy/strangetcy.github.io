@@ -1,0 +1,1022 @@
+[
+  {
+    "model": "mercury",
+    "environment": "ssm_parallel_scan",
+    "case_id": "ssm_parallel_scan__naming=easy_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ab56e888298518b28afc404cdfd72267a9eaccb579ecef053dc96feca4605505",
+    "generation_id": "G4fb45bb7a9c3b8c8",
+    "archive_member_prefix": "episodes/ssm_parallel_scan__naming=easy_symptom_mask=easy__seed-0/ssm_parallel_scan-20261013T165157Z-80565dd5/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Parallel State-Space Scan\n\nYour task is to correct the state composition operator `combine` in `ssm.py`.\n\nIn State-Space Models (SSMs), sequential updates can be computed in parallel using an associative prefix scan over state transitions. For this parallel scan to be mathematically equivalent to a standard sequential recurrent pass, the transition composition operator must be strictly associative:\n$$(s_1 \\otimes s_2) \\otimes s_3 \\equiv s_1 \\otimes (s_2 \\otimes s_3)$$\n\nThe current implementation of the `combine` method in `ssm.py` runs, but fails this associativity requirement, causing parallel scans to diverge from sequential rollouts. Fix the combination logic so that it is strictly associative.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MambaParallelScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -13,8 +13,8 @@ class MambaParallelScan(nn.Module):\n         u2, M2 = state2\n \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        # Corrected associative combine for parallel scan\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+        },
+        "observation": "patching file ssm.py\nHunk #1 FAILED at 13.\n1 out of 1 hunk FAILED -- saving rejects to file ssm.py.rej\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MambaParallelScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -14,7 +14,7 @@ class MambaParallelScan(nn.Module):\n \n         # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+        },
+        "observation": "patching file ssm.py\nHunk #1 succeeded at 15 with fuzz 2 (offset 1 line).\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MambaParallelScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M2 * u1 + u2\n        M_out = M2 * M1\n        return u_out, M_out\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "associativity_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "ssm.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -14,6 +14,6 @@\n         u2, M2 = state2\n         \n         # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "ssm_parallel_scan",
+    "case_id": "ssm_parallel_scan__naming=easy_symptom_mask=hard__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ab56e888298518b28afc404cdfd72267a9eaccb579ecef053dc96feca4605505",
+    "generation_id": "G58fc1f745edc91bc",
+    "archive_member_prefix": "episodes/ssm_parallel_scan__naming=easy_symptom_mask=hard__seed-0/ssm_parallel_scan-20261013T165224Z-ce24ad60/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Parallel State-Space Scan\n\nYour task is to correct the state composition operator `combine` in `ssm.py`.\n\nIn State-Space Models (SSMs), sequential updates can be computed in parallel using an associative prefix scan over state transitions. For this parallel scan to be mathematically equivalent to a standard sequential recurrent pass, the transition composition operator must be strictly associative:\n$$(s_1 \\otimes s_2) \\otimes s_3 \\equiv s_1 \\otimes (s_2 \\otimes s_3)$$\n\nThe current implementation of the `combine` method in `ssm.py` runs, but fails this associativity requirement, causing parallel scans to diverge from sequential rollouts. Fix the combination logic so that it is strictly associative.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MambaParallelScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -16,7 +16,7 @@ class MambaParallelScan(nn.Module):\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        # Correct affine composition (state2 ∘ state1):\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out"
+        },
+        "observation": "patching file ssm.py\npatch unexpectedly ends in middle of line\nHunk #1 FAILED at 16.\n1 out of 1 hunk FAILED -- saving rejects to file ssm.py.rej\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "ssm.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass MambaParallelScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # Fixed: Correct affine composition (state2 ∘ state1) for associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        u_out = M2 @ u1 + u2\n        M_out = M2 @ M1\n        return u_out, M_out\n"
+        },
+        "observation": "--- before/ssm.py\n+++ after/ssm.py\n@@ -9,11 +9,10 @@\n     def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n         # state1: (u1, M1), state2: (u2, M2)\n         # u: input-driven state vector, M: transition matrix\n-        # BUG: Swapped matrix composition order, violating monoid associativity.\n+        # Fixed: Correct affine composition (state2 ∘ state1) for associativity.\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": false,
+        "associativity_commutes": false
+      },
+      "metrics": {
+        "changed_files": [
+          "ssm.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "< 60%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -9,11 +9,10 @@\n     def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n         # state1: (u1, M1), state2: (u2, M2)\n         # u: input-driven state vector, M: transition matrix\n-        # BUG: Swapped matrix composition order, violating monoid associativity.\n+        # Fixed: Correct affine composition (state2 ∘ state1) for associativity.\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "ssm_parallel_scan",
+    "case_id": "ssm_parallel_scan__naming=easy_symptom_mask=medium__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ab56e888298518b28afc404cdfd72267a9eaccb579ecef053dc96feca4605505",
+    "generation_id": "G7edf8a1abd670ebd",
+    "archive_member_prefix": "episodes/ssm_parallel_scan__naming=easy_symptom_mask=medium__seed-0/ssm_parallel_scan-20261013T165246Z-43e6386b/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Parallel State-Space Scan\n\nYour task is to correct the state composition operator `combine` in `ssm.py`.\n\nIn State-Space Models (SSMs), sequential updates can be computed in parallel using an associative prefix scan over state transitions. For this parallel scan to be mathematically equivalent to a standard sequential recurrent pass, the transition composition operator must be strictly associative:\n$$(s_1 \\otimes s_2) \\otimes s_3 \\equiv s_1 \\otimes (s_2 \\otimes s_3)$$\n\nThe current implementation of the `combine` method in `ssm.py` runs, but fails this associativity requirement, causing parallel scans to diverge from sequential rollouts. Fix the combination logic so that it is strictly associative.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MambaParallelScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -15,7 +15,7 @@ class MambaParallelScan(nn.Module):\n \n         # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out\n"
+        },
+        "observation": "patching file ssm.py\nHunk #1 succeeded at 15 with fuzz 2.\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MambaParallelScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M2 @ u1 + u2\n        M_out = M2 @ M1\n        return u_out, M_out\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -14,12 +14,11 @@ class MambaParallelScan(nn.Module):\n     # u: input-driven state vector, M: transition matrix\n-        # BUG: Swapped matrix composition order, violating monoid associativity.\n     u1, M1 = state1\n     u2, M2 = state2\n-        \n-        # Buggy non-associative combine:\n-        u_out = M2 @ u1 + u2\n-        M_out = M2 @ M1\n+        # Correct associative combination (prefix scan monoid):\n+        # (u_out, M_out) = (M2 @ u1 + u2, M2 @ M1)\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n     return u_out, M_out\n"
+        },
+        "observation": "patching file ssm.py\nHunk #1 FAILED at 14.\n1 out of 1 hunk FAILED -- saving rejects to file ssm.py.rej\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MambaParallelScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M2 @ u1 + u2\n        M_out = M2 @ M1\n        return u_out, M_out\n"
+      },
+      {
+        "step": 8,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom ssm import MambaParallelScan\n\ndef test_combine_shapes():\n    scanner = MambaParallelScan()\n    u1 = torch.randn(2, 8)\n    M1 = torch.randn(2, 8)\n    u2 = torch.randn(2, 8)\n    M2 = torch.randn(2, 8)\n    u_out, M_out = scanner.combine((u1, M1), (u2, M2))\n    assert u_out.shape == u1.shape\n    assert M_out.shape == M1.shape\n"
+      },
+      {
+        "step": 9,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -10,11 +10,11 @@ class MambaParallelScan(nn.Module):\n     def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n         # state1: (u1, M1), state2: (u2, M2)\n         # u: input-driven state vector, M: transition matrix\n-        # BUG: Swapped matrix composition order, violating monoid associativity.\n         u1, M1 = state1\n         u2, M2 = state2\n-        \n-        # Buggy non-associative combine:\n+        \n+        # Correct associative combine (prefix scan):\n         u_out = M2 @ u1 + u2\n         M_out = M2 @ M1\n         return u_out, M_out\n"
+        },
+        "observation": "patching file ssm.py\n\n[stderr]\npatch: **** malformed patch at line 16:  \n\n"
+      },
+      {
+        "step": 10,
+        "action": {
+          "type": "write_file",
+          "path": "ssm.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass MambaParallelScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        u1, M1 = state1\n        u2, M2 = state2\n\n        # Correct associative combine (prefix scan)\n        u_out = M2 @ u1 + u2\n        M_out = M2 @ M1\n        return u_out, M_out\n"
+        },
+        "observation": "--- before/ssm.py\n+++ after/ssm.py\n@@ -9,11 +9,10 @@\n     def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n         # state1: (u1, M1), state2: (u2, M2)\n         # u: input-driven state vector, M: transition matrix\n-        # BUG: Swapped matrix composition order, violating monoid associativity.\n         u1, M1 = state1\n         u2, M2 = state2\n-        \n-        # Buggy non-associative combine:\n+\n+        # Correct associative combine (prefix scan)\n         u_out = M2 @ u1 + u2\n         M_out = M2 @ M1\n         return u_out, M_out"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": false,
+        "associativity_commutes": false
+      },
+      "metrics": {
+        "changed_files": [
+          "ssm.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "< 60%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -9,11 +9,10 @@\n     def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n         # state1: (u1, M1), state2: (u2, M2)\n         # u: input-driven state vector, M: transition matrix\n-        # BUG: Swapped matrix composition order, violating monoid associativity.\n         u1, M1 = state1\n         u2, M2 = state2\n-        \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+\n+        # Correct associative combine (prefix scan)\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "ssm_parallel_scan",
+    "case_id": "ssm_parallel_scan__naming=hard_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ab56e888298518b28afc404cdfd72267a9eaccb579ecef053dc96feca4605505",
+    "generation_id": "G542649b3e848d6f1",
+    "archive_member_prefix": "episodes/ssm_parallel_scan__naming=hard_symptom_mask=easy__seed-0/ssm_parallel_scan-20261013T165333Z-8aa49533/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Parallel State-Space Scan\n\nYour task is to correct the state composition operator `combine` in `ssm.py`.\n\nIn State-Space Models (SSMs), sequential updates can be computed in parallel using an associative prefix scan over state transitions. For this parallel scan to be mathematically equivalent to a standard sequential recurrent pass, the transition composition operator must be strictly associative:\n$$(s_1 \\otimes s_2) \\otimes s_3 \\equiv s_1 \\otimes (s_2 \\otimes s_3)$$\n\nThe current implementation of the `combine` method in `ssm.py` runs, but fails this associativity requirement, causing parallel scans to diverge from sequential rollouts. Fix the combination logic so that it is strictly associative.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MonoidalSSMScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1"
+        },
+        "observation": "patch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -18,8 +18,8 @@ class MonoidalSSMScan(nn.Module):\n         u2, M2 = state2\n \n         # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n"
+        },
+        "observation": "patching file ssm.py\nHunk #1 FAILED at 18.\n1 out of 1 hunk FAILED -- saving rejects to file ssm.py.rej\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MonoidalSSMScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "write_file",
+          "path": "ssm.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass MonoidalSSMScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # Fixed: Use correct monoid composition for associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Correct associative combine:\n        u_out = u1 + M1 * u2\n        M_out = M1 * M2\n        return u_out, M_out\n"
+        },
+        "observation": "--- before/ssm.py\n+++ after/ssm.py\n@@ -9,11 +9,11 @@\n     def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n         # state1: (u1, M1), state2: (u2, M2)\n         # u: input-driven state vector, M: transition matrix\n-        # BUG: Swapped matrix composition order, violating monoid associativity.\n+        # Fixed: Use correct monoid composition for associativity.\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n+        # Correct associative combine:\n+        u_out = u1 + M1 * u2\n         M_out = M1 * M2\n         return u_out, M_out"
+      },
+      {
+        "step": 8,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom ssm import MonoidalSSMScan\n\ndef test_combine_shapes():\n    scanner = MonoidalSSMScan()\n    u1 = torch.randn(2, 8)\n    M1 = torch.randn(2, 8)\n    u2 = torch.randn(2, 8)\n    M2 = torch.randn(2, 8)\n    u_out, M_out = scanner.combine((u1, M1), (u2, M2))\n    assert u_out.shape == u1.shape\n    assert M_out.shape == M1.shape\n"
+      },
+      {
+        "step": 9,
+        "action": {
+          "type": "write_file",
+          "path": "ssm.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass MonoidalSSMScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # Fixed: Correct matrix composition order for monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Correct associative combine:\n        u_out = u2 + M2 * u1\n        M_out = M2 * M1\n        return u_out, M_out\n"
+        },
+        "observation": "--- before/ssm.py\n+++ after/ssm.py\n@@ -9,11 +9,11 @@\n     def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n         # state1: (u1, M1), state2: (u2, M2)\n         # u: input-driven state vector, M: transition matrix\n-        # Fixed: Use correct monoid composition for associativity.\n+        # Fixed: Correct matrix composition order for monoid associativity.\n         u1, M1 = state1\n         u2, M2 = state2\n         \n         # Correct associative combine:\n-        u_out = u1 + M1 * u2\n-        M_out = M1 * M2\n+        u_out = u2 + M2 * u1\n+        M_out = M2 * M1\n         return u_out, M_out"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "associativity_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "ssm.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -9,11 +9,11 @@\n     def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n         # state1: (u1, M1), state2: (u2, M2)\n         # u: input-driven state vector, M: transition matrix\n-        # BUG: Swapped matrix composition order, violating monoid associativity.\n+        # Fixed: Correct matrix composition order for monoid associativity.\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        # Correct associative combine:\n+        u_out = u2 + M2 * u1\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "ssm_parallel_scan",
+    "case_id": "ssm_parallel_scan__naming=hard_symptom_mask=hard__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ab56e888298518b28afc404cdfd72267a9eaccb579ecef053dc96feca4605505",
+    "generation_id": "G8275d2d712dd1a12",
+    "archive_member_prefix": "episodes/ssm_parallel_scan__naming=hard_symptom_mask=hard__seed-0/ssm_parallel_scan-20261013T165423Z-05ae7a10/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Parallel State-Space Scan\n\nYour task is to correct the state composition operator `combine` in `ssm.py`.\n\nIn State-Space Models (SSMs), sequential updates can be computed in parallel using an associative prefix scan over state transitions. For this parallel scan to be mathematically equivalent to a standard sequential recurrent pass, the transition composition operator must be strictly associative:\n$$(s_1 \\otimes s_2) \\otimes s_3 \\equiv s_1 \\otimes (s_2 \\otimes s_3)$$\n\nThe current implementation of the `combine` method in `ssm.py` runs, but fails this associativity requirement, causing parallel scans to diverge from sequential rollouts. Fix the combination logic so that it is strictly associative.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MonoidalSSMScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -14,8 +14,8 @@\n     u1, M1 = state1\n     u2, M2 = state2\n     # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n     return u_out, M_out"
+        },
+        "observation": "patching file ssm.py\npatch unexpectedly ends in middle of line\nHunk #1 FAILED at 14.\n1 out of 1 hunk FAILED -- saving rejects to file ssm.py.rej\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "ssm.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass MonoidalSSMScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Fixed associative combine:\n        u_out = M2 @ u1 + u2\n        M_out = M2 @ M1\n        return u_out, M_out\n"
+        },
+        "observation": "--- before/ssm.py\n+++ after/ssm.py\n@@ -13,7 +13,7 @@\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        # Fixed associative combine:\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": false,
+        "associativity_commutes": false
+      },
+      "metrics": {
+        "changed_files": [
+          "ssm.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "< 60%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -13,7 +13,7 @@\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        # Fixed associative combine:\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "ssm_parallel_scan",
+    "case_id": "ssm_parallel_scan__naming=hard_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ab56e888298518b28afc404cdfd72267a9eaccb579ecef053dc96feca4605505",
+    "generation_id": "G61950c06be60a3ad",
+    "archive_member_prefix": "episodes/ssm_parallel_scan__naming=hard_symptom_mask=medium__seed-0/ssm_parallel_scan-20261013T165458Z-ba17a37c/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Parallel State-Space Scan\n\nYour task is to correct the state composition operator `combine` in `ssm.py`.\n\nIn State-Space Models (SSMs), sequential updates can be computed in parallel using an associative prefix scan over state transitions. For this parallel scan to be mathematically equivalent to a standard sequential recurrent pass, the transition composition operator must be strictly associative:\n$$(s_1 \\otimes s_2) \\otimes s_3 \\equiv s_1 \\otimes (s_2 \\otimes s_3)$$\n\nThe current implementation of the `combine` method in `ssm.py` runs, but fails this associativity requirement, causing parallel scans to diverge from sequential rollouts. Fix the combination logic so that it is strictly associative.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MonoidalSSMScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -16,6 +16,6 @@ class MonoidalSSMScan(nn.Module):\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n+        # Fixed associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+        },
+        "observation": "patching file ssm.py\nHunk #1 succeeded at 14 (offset -2 lines).\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass MonoidalSSMScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Fixed associative combine:\n        u_out = M2 * u1 + u2\n        M_out = M2 * M1\n        return u_out, M_out\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "associativity_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "ssm.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -13,7 +13,7 @@\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        # Fixed associative combine:\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "ssm_parallel_scan",
+    "case_id": "ssm_parallel_scan__naming=medium_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ab56e888298518b28afc404cdfd72267a9eaccb579ecef053dc96feca4605505",
+    "generation_id": "G5a47cee63ea46b1e",
+    "archive_member_prefix": "episodes/ssm_parallel_scan__naming=medium_symptom_mask=easy__seed-0/ssm_parallel_scan-20261013T165526Z-67aac997/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Parallel State-Space Scan\n\nYour task is to correct the state composition operator `combine` in `ssm.py`.\n\nIn State-Space Models (SSMs), sequential updates can be computed in parallel using an associative prefix scan over state transitions. For this parallel scan to be mathematically equivalent to a standard sequential recurrent pass, the transition composition operator must be strictly associative:\n$$(s_1 \\otimes s_2) \\otimes s_3 \\equiv s_1 \\otimes (s_2 \\otimes s_3)$$\n\nThe current implementation of the `combine` method in `ssm.py` runs, but fails this associativity requirement, causing parallel scans to diverge from sequential rollouts. Fix the combination logic so that it is strictly associative.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AssociativeStateScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -17,8 +17,8 @@ class AssociativeStateScan(nn.Module):\n         u2, M2 = state2\n \n         # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+        },
+        "observation": "patching file ssm.py\nHunk #1 succeeded at 14 with fuzz 2 (offset -3 lines).\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "associativity_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "ssm.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -14,6 +14,6 @@\n         u2, M2 = state2\n         \n         # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "ssm_parallel_scan",
+    "case_id": "ssm_parallel_scan__naming=medium_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ab56e888298518b28afc404cdfd72267a9eaccb579ecef053dc96feca4605505",
+    "generation_id": "G01d4f5c3f3e69bb3",
+    "archive_member_prefix": "episodes/ssm_parallel_scan__naming=medium_symptom_mask=hard__seed-0/ssm_parallel_scan-20261013T165547Z-1bd7e178/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Parallel State-Space Scan\n\nYour task is to correct the state composition operator `combine` in `ssm.py`.\n\nIn State-Space Models (SSMs), sequential updates can be computed in parallel using an associative prefix scan over state transitions. For this parallel scan to be mathematically equivalent to a standard sequential recurrent pass, the transition composition operator must be strictly associative:\n$$(s_1 \\otimes s_2) \\otimes s_3 \\equiv s_1 \\otimes (s_2 \\otimes s_3)$$\n\nThe current implementation of the `combine` method in `ssm.py` runs, but fails this associativity requirement, causing parallel scans to diverge from sequential rollouts. Fix the combination logic so that it is strictly associative.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AssociativeStateScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -14,5 +14,5 @@\n         # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+        },
+        "observation": "patching file ssm.py\nHunk #1 succeeded at 16 with fuzz 1 (offset 2 lines).\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AssociativeStateScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M2 * u1 + u2\n        M_out = M2 * M1\n        return u_out, M_out\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom ssm import AssociativeStateScan\n\ndef test_combine_shapes():\n    scanner = AssociativeStateScan()\n    u1 = torch.randn(2, 8)\n    M1 = torch.randn(2, 8)\n    u2 = torch.randn(2, 8)\n    M2 = torch.randn(2, 8)\n    u_out, M_out = scanner.combine((u1, M1), (u2, M2))\n    assert u_out.shape == u1.shape\n    assert M_out.shape == M1.shape\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "associativity_commutes": true
+      },
+      "metrics": {
+        "changed_files": [
+          "ssm.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -14,6 +14,6 @@\n         u2, M2 = state2\n         \n         # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        u_out = M2 * u1 + u2\n+        M_out = M2 * M1\n         return u_out, M_out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "ssm_parallel_scan",
+    "case_id": "ssm_parallel_scan__naming=medium_symptom_mask=medium__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "underfit",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ab56e888298518b28afc404cdfd72267a9eaccb579ecef053dc96feca4605505",
+    "generation_id": "G94a1aa6fedf746fd",
+    "archive_member_prefix": "episodes/ssm_parallel_scan__naming=medium_symptom_mask=medium__seed-0/ssm_parallel_scan-20261013T165642Z-bce48fb1/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Parallel State-Space Scan\n\nYour task is to correct the state composition operator `combine` in `ssm.py`.\n\nIn State-Space Models (SSMs), sequential updates can be computed in parallel using an associative prefix scan over state transitions. For this parallel scan to be mathematically equivalent to a standard sequential recurrent pass, the transition composition operator must be strictly associative:\n$$(s_1 \\otimes s_2) \\otimes s_3 \\equiv s_1 \\otimes (s_2 \\otimes s_3)$$\n\nThe current implementation of the `combine` method in `ssm.py` runs, but fails this associativity requirement, causing parallel scans to diverge from sequential rollouts. Fix the combination logic so that it is strictly associative.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "ssm.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AssociativeStateScan(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def combine(self, state1: tuple[torch.Tensor, torch.Tensor], state2: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:\n        # state1: (u1, M1), state2: (u2, M2)\n        # u: input-driven state vector, M: transition matrix\n        # BUG: Swapped matrix composition order, violating monoid associativity.\n        u1, M1 = state1\n        u2, M2 = state2\n        \n        # Buggy non-associative combine:\n        u_out = M1 * u2 + u1\n        M_out = M1 * M2\n        return u_out, M_out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "@@ -16,8 +16,8 @@ class AssociativeStateScan(nn.Module):\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        # Corrected associative combine (apply state2 after state1):\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out\n"
+        },
+        "observation": "\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -13,9 +13,9 @@ class AssociativeStateScan(nn.Module):\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        # Corrected associative combine:\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out\n"
+        },
+        "observation": "patching file ssm.py\nHunk #1 succeeded at 13 with fuzz 2.\n"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "underfit",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": false,
+        "associativity_commutes": false
+      },
+      "metrics": {
+        "changed_files": [
+          "ssm.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 0.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_fail",
+          "code": "behavioral_criteria_not_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": "< 60%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/ssm.py\n+++ b/ssm.py\n@@ -13,7 +13,7 @@\n         u1, M1 = state1\n         u2, M2 = state2\n         \n-        # Buggy non-associative combine:\n-        u_out = M1 * u2 + u1\n-        M_out = M1 * M2\n+        # Corrected associative combine:\n+        u_out = M2 @ u1 + u2\n+        M_out = M2 @ M1\n         return u_out, M_out\n"
+  }
+]

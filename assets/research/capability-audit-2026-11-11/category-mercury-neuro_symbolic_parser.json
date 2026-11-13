@@ -1,0 +1,926 @@
+[
+  {
+    "model": "mercury",
+    "environment": "neuro_symbolic_parser",
+    "case_id": "neuro_symbolic_parser__naming=easy_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ec5926cb2af03f945e7f799866ca5e087cf211722b650d7ab2577330c0e6a85f",
+    "generation_id": "G90ea1a8658461a81",
+    "archive_member_prefix": "episodes/neuro_symbolic_parser__naming=easy_symptom_mask=easy__seed-0/neuro_symbolic_parser-20261013T164926Z-bc106c9c/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Differentiable Parsing Step\n\nYour task is to correct the transition minimization step in `parser.py`.\n\nTo allow backpropagation of gradients through dynamic programming layers, hard minimum operations must be replaced with a smooth, differentiable minimum. \n\nThe current implementation of `smooth_min` in `parser.py` is non-differentiable, causing gradients to be zeroed out. Correct the function using a smooth Log-Sum-Exp (LSE) formulation so that non-trivial gradients flow perfectly back to the input parameters.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass SemiringViterbiParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return torch.minimum(x, y).detach()\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/parser.py\n+++ b/parser.py\n@@ -10,4 +10,4 @@ class SemiringViterbiParser(nn.Module):\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+        },
+        "observation": "patching file parser.py\nHunk #1 succeeded at 12 with fuzz 2 (offset 2 lines).\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass SemiringViterbiParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "gradient_flow_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "parser.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "neuro_symbolic_parser",
+    "case_id": "neuro_symbolic_parser__naming=easy_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ec5926cb2af03f945e7f799866ca5e087cf211722b650d7ab2577330c0e6a85f",
+    "generation_id": "Gb6d0a88fd52b792e",
+    "archive_member_prefix": "episodes/neuro_symbolic_parser__naming=easy_symptom_mask=hard__seed-0/neuro_symbolic_parser-20261013T164942Z-012c131e/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Differentiable Parsing Step\n\nYour task is to correct the transition minimization step in `parser.py`.\n\nTo allow backpropagation of gradients through dynamic programming layers, hard minimum operations must be replaced with a smooth, differentiable minimum. \n\nThe current implementation of `smooth_min` in `parser.py` is non-differentiable, causing gradients to be zeroed out. Correct the function using a smooth Log-Sum-Exp (LSE) formulation so that non-trivial gradients flow perfectly back to the input parameters.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass SemiringViterbiParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return torch.minimum(x, y).detach()\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/parser.py\n+++ b/parser.py\n@@ -12,3 +12,3 @@ class SemiringViterbiParser(nn.Module):\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+        },
+        "observation": "patching file parser.py\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "gradient_flow_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "parser.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "neuro_symbolic_parser",
+    "case_id": "neuro_symbolic_parser__naming=easy_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ec5926cb2af03f945e7f799866ca5e087cf211722b650d7ab2577330c0e6a85f",
+    "generation_id": "Gc2daf2d21bb03822",
+    "archive_member_prefix": "episodes/neuro_symbolic_parser__naming=easy_symptom_mask=medium__seed-0/neuro_symbolic_parser-20261013T164959Z-17d3aa74/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Differentiable Parsing Step\n\nYour task is to correct the transition minimization step in `parser.py`.\n\nTo allow backpropagation of gradients through dynamic programming layers, hard minimum operations must be replaced with a smooth, differentiable minimum. \n\nThe current implementation of `smooth_min` in `parser.py` is non-differentiable, causing gradients to be zeroed out. Correct the function using a smooth Log-Sum-Exp (LSE) formulation so that non-trivial gradients flow perfectly back to the input parameters.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass SemiringViterbiParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return torch.minimum(x, y).detach()\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@ class SemiringViterbiParser(nn.Module):\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+        },
+        "observation": "patching file parser.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 7:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "parser.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass SemiringViterbiParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+        },
+        "observation": "--- before/parser.py\n+++ after/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass SemiringViterbiParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "gradient_flow_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "parser.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "neuro_symbolic_parser",
+    "case_id": "neuro_symbolic_parser__naming=hard_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ec5926cb2af03f945e7f799866ca5e087cf211722b650d7ab2577330c0e6a85f",
+    "generation_id": "Gef05c0d62a768d41",
+    "archive_member_prefix": "episodes/neuro_symbolic_parser__naming=hard_symptom_mask=easy__seed-0/neuro_symbolic_parser-20261013T165019Z-a0509aae/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Differentiable Parsing Step\n\nYour task is to correct the transition minimization step in `parser.py`.\n\nTo allow backpropagation of gradients through dynamic programming layers, hard minimum operations must be replaced with a smooth, differentiable minimum. \n\nThe current implementation of `smooth_min` in `parser.py` is non-differentiable, causing gradients to be zeroed out. Correct the function using a smooth Log-Sum-Exp (LSE) formulation so that non-trivial gradients flow perfectly back to the input parameters.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass DifferentiableSymbolicParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return torch.minimum(x, y).detach()\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/parser.py\n+++ b/parser.py\n@@ -12,4 +12,4 @@ class DifferentiableSymbolicParser(nn.Module):\n          # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n          # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+        },
+        "observation": "patching file parser.py\nHunk #1 succeeded at 12 with fuzz 2.\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "gradient_flow_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "parser.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "neuro_symbolic_parser",
+    "case_id": "neuro_symbolic_parser__naming=hard_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ec5926cb2af03f945e7f799866ca5e087cf211722b650d7ab2577330c0e6a85f",
+    "generation_id": "Ge6b1ce5a0bdc3ed4",
+    "archive_member_prefix": "episodes/neuro_symbolic_parser__naming=hard_symptom_mask=hard__seed-0/neuro_symbolic_parser-20261013T165036Z-47e9f987/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Differentiable Parsing Step\n\nYour task is to correct the transition minimization step in `parser.py`.\n\nTo allow backpropagation of gradients through dynamic programming layers, hard minimum operations must be replaced with a smooth, differentiable minimum. \n\nThe current implementation of `smooth_min` in `parser.py` is non-differentiable, causing gradients to be zeroed out. Correct the function using a smooth Log-Sum-Exp (LSE) formulation so that non-trivial gradients flow perfectly back to the input parameters.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass DifferentiableSymbolicParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return torch.minimum(x, y).detach()\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@ class DifferentiableSymbolicParser(nn.Module):\n     # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n     # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-    return torch.minimum(x, y).detach()\n+    return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+        },
+        "observation": "patching file parser.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 6:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "parser.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass DifferentiableSymbolicParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+        },
+        "observation": "--- before/parser.py\n+++ after/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "gradient_flow_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "parser.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "neuro_symbolic_parser",
+    "case_id": "neuro_symbolic_parser__naming=hard_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ec5926cb2af03f945e7f799866ca5e087cf211722b650d7ab2577330c0e6a85f",
+    "generation_id": "G11eb5ebb6113a290",
+    "archive_member_prefix": "episodes/neuro_symbolic_parser__naming=hard_symptom_mask=medium__seed-0/neuro_symbolic_parser-20261013T165051Z-3662fb34/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Differentiable Parsing Step\n\nYour task is to correct the transition minimization step in `parser.py`.\n\nTo allow backpropagation of gradients through dynamic programming layers, hard minimum operations must be replaced with a smooth, differentiable minimum. \n\nThe current implementation of `smooth_min` in `parser.py` is non-differentiable, causing gradients to be zeroed out. Correct the function using a smooth Log-Sum-Exp (LSE) formulation so that non-trivial gradients flow perfectly back to the input parameters.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass DifferentiableSymbolicParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return torch.minimum(x, y).detach()\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@ class DifferentiableSymbolicParser(nn.Module):\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+        },
+        "observation": "patching file parser.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 6:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "parser.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass DifferentiableSymbolicParser(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+        },
+        "observation": "--- before/parser.py\n+++ after/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "gradient_flow_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "parser.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "neuro_symbolic_parser",
+    "case_id": "neuro_symbolic_parser__naming=medium_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ec5926cb2af03f945e7f799866ca5e087cf211722b650d7ab2577330c0e6a85f",
+    "generation_id": "G159be8ab865ca1a0",
+    "archive_member_prefix": "episodes/neuro_symbolic_parser__naming=medium_symptom_mask=easy__seed-0/neuro_symbolic_parser-20261013T165111Z-cf8d2e34/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Differentiable Parsing Step\n\nYour task is to correct the transition minimization step in `parser.py`.\n\nTo allow backpropagation of gradients through dynamic programming layers, hard minimum operations must be replaced with a smooth, differentiable minimum. \n\nThe current implementation of `smooth_min` in `parser.py` is non-differentiable, causing gradients to be zeroed out. Correct the function using a smooth Log-Sum-Exp (LSE) formulation so that non-trivial gradients flow perfectly back to the input parameters.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass LogSumExpMorphism(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return torch.minimum(x, y).detach()\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/parser.py\n+++ b/parser.py\n@@ -10,4 +10,4 @@ class LogSumExpMorphism(nn.Module):\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+        },
+        "observation": "patching file parser.py\nHunk #1 succeeded at 12 with fuzz 2 (offset 2 lines).\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass LogSumExpMorphism(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "gradient_flow_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "parser.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "neuro_symbolic_parser",
+    "case_id": "neuro_symbolic_parser__naming=medium_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ec5926cb2af03f945e7f799866ca5e087cf211722b650d7ab2577330c0e6a85f",
+    "generation_id": "G5639994a59fdbe8e",
+    "archive_member_prefix": "episodes/neuro_symbolic_parser__naming=medium_symptom_mask=hard__seed-0/neuro_symbolic_parser-20261013T165127Z-4375aeb5/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Differentiable Parsing Step\n\nYour task is to correct the transition minimization step in `parser.py`.\n\nTo allow backpropagation of gradients through dynamic programming layers, hard minimum operations must be replaced with a smooth, differentiable minimum. \n\nThe current implementation of `smooth_min` in `parser.py` is non-differentiable, causing gradients to be zeroed out. Correct the function using a smooth Log-Sum-Exp (LSE) formulation so that non-trivial gradients flow perfectly back to the input parameters.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass LogSumExpMorphism(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return torch.minimum(x, y).detach()\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/parser.py\n+++ b/parser.py\n@@ -12,4 +12,4 @@ class LogSumExpMorphism(nn.Module):\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+        },
+        "observation": "patching file parser.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 6:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "parser.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass LogSumExpMorphism(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+        },
+        "observation": "--- before/parser.py\n+++ after/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "gradient_flow_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "parser.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "neuro_symbolic_parser",
+    "case_id": "neuro_symbolic_parser__naming=medium_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "ec5926cb2af03f945e7f799866ca5e087cf211722b650d7ab2577330c0e6a85f",
+    "generation_id": "G2a787ab0fee6839d",
+    "archive_member_prefix": "episodes/neuro_symbolic_parser__naming=medium_symptom_mask=medium__seed-0/neuro_symbolic_parser-20261013T165143Z-e48f4bd1/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Differentiable Parsing Step\n\nYour task is to correct the transition minimization step in `parser.py`.\n\nTo allow backpropagation of gradients through dynamic programming layers, hard minimum operations must be replaced with a smooth, differentiable minimum. \n\nThe current implementation of `smooth_min` in `parser.py` is non-differentiable, causing gradients to be zeroed out. Correct the function using a smooth Log-Sum-Exp (LSE) formulation so that non-trivial gradients flow perfectly back to the input parameters.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "parser.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass LogSumExpMorphism(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return torch.minimum(x, y).detach()\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/parser.py\n+++ b/parser.py\n@@ -12,4 +12,4 @@ class LogSumExpMorphism(nn.Module):\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+        },
+        "observation": "patching file parser.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 7:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "parser.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass LogSumExpMorphism(nn.Module):\n    def __init__(self, temperature: float = 1.0):\n        super().__init__()\n        self.temp = temperature\n\n    def smooth_min(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive hard minimum with detachment.\n        # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n        # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n        # -temp * log( exp(-x/temp) + exp(-y/temp) )\n        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+        },
+        "observation": "--- before/parser.py\n+++ after/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "gradient_flow_ok": true
+      },
+      "metrics": {
+        "changed_files": [
+          "parser.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/parser.py\n+++ b/parser.py\n@@ -11,4 +11,4 @@\n         # This breaks gradient flow (producing zero gradients) back to the parameter inputs.\n         # Replace this with the smooth Log-Sum-Exp semiring addition operator:\n         # -temp * log( exp(-x/temp) + exp(-y/temp) )\n-        return torch.minimum(x, y).detach()\n+        return -self.temp * torch.log(torch.exp(-x / self.temp) + torch.exp(-y / self.temp))\n"
+  }
+]

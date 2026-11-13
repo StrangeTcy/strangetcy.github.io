@@ -1,0 +1,1006 @@
+[
+  {
+    "model": "mercury",
+    "environment": "transformer_ssm_lift",
+    "case_id": "transformer_ssm_lift__naming=easy_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "5ec59c0d98f0ccefbc5c29fc544f7c8c6fe1245a7cf0240529faf66460673bfd",
+    "generation_id": "G5c3cea4d83abef42",
+    "archive_member_prefix": "episodes/transformer_ssm_lift__naming=easy_symptom_mask=easy__seed-0/transformer_ssm_lift-20261013T172729Z-db6a1223/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Stateful Attention-to-Recurrence Lift\n\nYour task is to correct the state lifting function `AttentionSSMLifter` in `lifter.py`.\n\nIn sequential sequence modeling, converting history-dependent self-attention key/values into a recurrent state matrix represents a state-space transformation. For the transformation to be correct and lossless, reading the lifted recurrent state must produce the exact same attention outputs as the original sequence history under composition.\n\nThe starting implementation in `lifter.py` runs, but performs a lossy transformation that violates this stateful equivalence. Correct the lifting function so that the state conversion is mathematically correct and lossless.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AttentionSSMLifter(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -11,8 +11,10 @@ class AttentionSSMLifter(nn.Module):\n         # This collapses the associative sequence context into a simple diagonal vector,\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Accumulate outer products K^T V across time to capture KV associations.\n+        # This represents the linear attention state: S = \\sum_t k_t^T v_t.\n+        return torch.matmul(K.transpose(1, 2), V)"
+        },
+        "observation": "patching file lifter.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AttentionSSMLifter(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "lifter.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass AttentionSSMLifter(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # Correct: Accumulate outer products K^T V across time to capture KV associations.\n        # This represents the linear attention state: S = \\sum_t k_t^T v_t.\n        return torch.matmul(K.transpose(1, 2), V)\n"
+        },
+        "observation": "--- before/lifter.py\n+++ after/lifter.py\n@@ -7,12 +7,6 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n-        B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Correct: Accumulate outer products K^T V across time to capture KV associations.\n+        # This represents the linear attention state: S = \\sum_t k_t^T v_t.\n+        return torch.matmul(K.transpose(1, 2), V)"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "isomorphism_preserves_attention": true
+      },
+      "metrics": {
+        "changed_files": [
+          "lifter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -7,12 +7,6 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n-        B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Correct: Accumulate outer products K^T V across time to capture KV associations.\n+        # This represents the linear attention state: S = \\sum_t k_t^T v_t.\n+        return torch.matmul(K.transpose(1, 2), V)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "transformer_ssm_lift",
+    "case_id": "transformer_ssm_lift__naming=easy_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "5ec59c0d98f0ccefbc5c29fc544f7c8c6fe1245a7cf0240529faf66460673bfd",
+    "generation_id": "Gc4968df84e781094",
+    "archive_member_prefix": "episodes/transformer_ssm_lift__naming=easy_symptom_mask=hard__seed-0/transformer_ssm_lift-20261013T172752Z-8b5d751a/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Stateful Attention-to-Recurrence Lift\n\nYour task is to correct the state lifting function `AttentionSSMLifter` in `lifter.py`.\n\nIn sequential sequence modeling, converting history-dependent self-attention key/values into a recurrent state matrix represents a state-space transformation. For the transformation to be correct and lossless, reading the lifted recurrent state must produce the exact same attention outputs as the original sequence history under composition.\n\nThe starting implementation in `lifter.py` runs, but performs a lossy transformation that violates this stateful equivalence. Correct the lifting function so that the state conversion is mathematically correct and lossless.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AttentionSSMLifter(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -10,14 +10,9 @@ class AttentionSSMLifter(nn.Module):\n         self.dim = dim\n\n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n-        B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Correct: Accumulate K^T V over time to preserve associative context.\n+        # This enables lossless state-space transformation for linear attention.\n+        # State = sum_t K_t^T V_t, so Q @ State computes the attention numerator.\n+        return torch.matmul(K.transpose(1, 2), V)"
+        },
+        "observation": "patching file lifter.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** malformed patch at line 18:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AttentionSSMLifter(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "lifter.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass AttentionSSMLifter(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # Correct: Accumulate K^T V over time to preserve associative context.\n        # This enables lossless state-space transformation for linear attention.\n        # State = sum_t K_t^T V_t, so Q @ State computes the attention numerator.\n        return torch.matmul(K.transpose(1, 2), V)\n"
+        },
+        "observation": "--- before/lifter.py\n+++ after/lifter.py\n@@ -7,12 +7,7 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n-        B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Correct: Accumulate K^T V over time to preserve associative context.\n+        # This enables lossless state-space transformation for linear attention.\n+        # State = sum_t K_t^T V_t, so Q @ State computes the attention numerator.\n+        return torch.matmul(K.transpose(1, 2), V)"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "isomorphism_preserves_attention": true
+      },
+      "metrics": {
+        "changed_files": [
+          "lifter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -7,12 +7,7 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n-        B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Correct: Accumulate K^T V over time to preserve associative context.\n+        # This enables lossless state-space transformation for linear attention.\n+        # State = sum_t K_t^T V_t, so Q @ State computes the attention numerator.\n+        return torch.matmul(K.transpose(1, 2), V)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "transformer_ssm_lift",
+    "case_id": "transformer_ssm_lift__naming=easy_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "5ec59c0d98f0ccefbc5c29fc544f7c8c6fe1245a7cf0240529faf66460673bfd",
+    "generation_id": "Gd117cd31e6c30bdb",
+    "archive_member_prefix": "episodes/transformer_ssm_lift__naming=easy_symptom_mask=medium__seed-0/transformer_ssm_lift-20261013T172815Z-7902742f/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Stateful Attention-to-Recurrence Lift\n\nYour task is to correct the state lifting function `AttentionSSMLifter` in `lifter.py`.\n\nIn sequential sequence modeling, converting history-dependent self-attention key/values into a recurrent state matrix represents a state-space transformation. For the transformation to be correct and lossless, reading the lifted recurrent state must produce the exact same attention outputs as the original sequence history under composition.\n\nThe starting implementation in `lifter.py` runs, but performs a lossy transformation that violates this stateful equivalence. Correct the lifting function so that the state conversion is mathematically correct and lossless.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AttentionSSMLifter(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -15,11 +15,9 @@ class AttentionSSMLifter(nn.Module):\n         # This collapses the associative sequence context into a simple diagonal vector,\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Compute sum of K^T V over time dimension to preserve KV correlations\n+        # This enables lossless reconstruction of attention outputs via Q @ State\n+        return K.transpose(1, 2) @ V\n"
+        },
+        "observation": "patching file lifter.py\nHunk #1 FAILED at 15.\n1 out of 1 hunk FAILED -- saving rejects to file lifter.py.rej\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass AttentionSSMLifter(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -9,11 +9,8 @@ class AttentionSSMLifter(nn.Module):\n\n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n-        B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Compute sum of K^T V over time dimension to preserve KV correlations\n+        # This enables lossless reconstruction of attention outputs via Q @ State\n+        return K.transpose(1, 2) @ V"
+        },
+        "observation": "patching file lifter.py\npatch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "write_file",
+          "path": "lifter.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass AttentionSSMLifter(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # Compute sum of K^T V over time dimension to preserve KV correlations\n        # This enables lossless reconstruction of attention outputs via Q @ State\n        return K.transpose(1, 2) @ V\n"
+        },
+        "observation": "--- before/lifter.py\n+++ after/lifter.py\n@@ -7,12 +7,6 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n-        B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Compute sum of K^T V over time dimension to preserve KV correlations\n+        # This enables lossless reconstruction of attention outputs via Q @ State\n+        return K.transpose(1, 2) @ V"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "isomorphism_preserves_attention": true
+      },
+      "metrics": {
+        "changed_files": [
+          "lifter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -7,12 +7,6 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n-        B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Compute sum of K^T V over time dimension to preserve KV correlations\n+        # This enables lossless reconstruction of attention outputs via Q @ State\n+        return K.transpose(1, 2) @ V\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "transformer_ssm_lift",
+    "case_id": "transformer_ssm_lift__naming=hard_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "5ec59c0d98f0ccefbc5c29fc544f7c8c6fe1245a7cf0240529faf66460673bfd",
+    "generation_id": "G610991509f667e36",
+    "archive_member_prefix": "episodes/transformer_ssm_lift__naming=hard_symptom_mask=easy__seed-0/transformer_ssm_lift-20261013T172847Z-6797b7de/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Stateful Attention-to-Recurrence Lift\n\nYour task is to correct the state lifting function `FunctorialStateLift` in `lifter.py`.\n\nIn sequential sequence modeling, converting history-dependent self-attention key/values into a recurrent state matrix represents a state-space transformation. For the transformation to be correct and lossless, reading the lifted recurrent state must produce the exact same attention outputs as the original sequence history under composition.\n\nThe starting implementation in `lifter.py` runs, but performs a lossy transformation that violates this stateful equivalence. Correct the lifting function so that the state conversion is mathematically correct and lossless.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass FunctorialStateLift(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -13,12 +13,8 @@ class FunctorialStateLift(nn.Module):\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Correct lift: accumulate outer products K^T V over time.\n+        # This preserves historical correlations for lossless state recurrence.\n+        return torch.einsum('btd,btd->bdd', K, V)\n"
+        },
+        "observation": "patching file lifter.py\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "write_file",
+          "path": "lifter.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass FunctorialStateLift(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # Correct lift: accumulate outer products K^T V over time.\n        # This preserves historical correlations for lossless state recurrence.\n        B, T, D = K.shape\n        return torch.einsum('btd,btj->bdj', K, V)\n"
+        },
+        "observation": "--- before/lifter.py\n+++ after/lifter.py\n@@ -7,12 +7,7 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n+        # Correct lift: accumulate outer products K^T V over time.\n+        # This preserves historical correlations for lossless state recurrence.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        return torch.einsum('btd,btj->bdj', K, V)"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "isomorphism_preserves_attention": true
+      },
+      "metrics": {
+        "changed_files": [
+          "lifter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -7,12 +7,7 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n+        # Correct lift: accumulate outer products K^T V over time.\n+        # This preserves historical correlations for lossless state recurrence.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        return torch.einsum('btd,btj->bdj', K, V)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "transformer_ssm_lift",
+    "case_id": "transformer_ssm_lift__naming=hard_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "5ec59c0d98f0ccefbc5c29fc544f7c8c6fe1245a7cf0240529faf66460673bfd",
+    "generation_id": "G074af70bed62c768",
+    "archive_member_prefix": "episodes/transformer_ssm_lift__naming=hard_symptom_mask=hard__seed-0/transformer_ssm_lift-20261013T172911Z-d04a0987/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Stateful Attention-to-Recurrence Lift\n\nYour task is to correct the state lifting function `FunctorialStateLift` in `lifter.py`.\n\nIn sequential sequence modeling, converting history-dependent self-attention key/values into a recurrent state matrix represents a state-space transformation. For the transformation to be correct and lossless, reading the lifted recurrent state must produce the exact same attention outputs as the original sequence history under composition.\n\nThe starting implementation in `lifter.py` runs, but performs a lossy transformation that violates this stateful equivalence. Correct the lifting function so that the state conversion is mathematically correct and lossless.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass FunctorialStateLift(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -8,12 +8,9 @@ class FunctorialStateLift(nn.Module):\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Correct state lifting: accumulate outer products of K and V over time.\n+        # This preserves the linear attention state S = sum(K^T V).\n+        out = torch.einsum('bti,btj->bij', K, V)\n+        return out\n"
+        },
+        "observation": "patching file lifter.py\n\n[stderr]\npatch: **** malformed patch at line 18:  \n\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -8,12 +8,9 @@ class FunctorialStateLift(nn.Module):\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Correct state lifting: accumulate outer products of K and V over time.\n+        # This preserves the linear attention state S = sum(K^T V).\n+        out = torch.einsum('bti,btj->bij', K, V)\n+        return out\n"
+        },
+        "observation": "patching file lifter.py\n\n[stderr]\npatch: **** malformed patch at line 18:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass FunctorialStateLift(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -8,12 +8,9 @@ class FunctorialStateLift(nn.Module):\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Correct state lifting: accumulate outer products of K and V over time.\n+        # This preserves the linear attention state S = sum(K^T V).\n+        out = torch.einsum('bti,btj->bij', K, V)\n+        return out\n"
+        },
+        "observation": "patching file lifter.py\n\n[stderr]\npatch: **** malformed patch at line 18:  \n\n"
+      },
+      {
+        "step": 8,
+        "action": {
+          "type": "write_file",
+          "path": "lifter.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass FunctorialStateLift(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # Correct state lifting: accumulate outer products of K and V over time.\n        # This preserves the linear attention state S = sum(K^T V).\n        B, T, D = K.shape\n        out = torch.einsum('bti,btj->bij', K, V)\n        return out\n"
+        },
+        "observation": "--- before/lifter.py\n+++ after/lifter.py\n@@ -7,12 +7,8 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n+        # Correct state lifting: accumulate outer products of K and V over time.\n+        # This preserves the linear attention state S = sum(K^T V).\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n+        out = torch.einsum('bti,btj->bij', K, V)\n         return out"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "isomorphism_preserves_attention": true
+      },
+      "metrics": {
+        "changed_files": [
+          "lifter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -7,12 +7,8 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n+        # Correct state lifting: accumulate outer products of K and V over time.\n+        # This preserves the linear attention state S = sum(K^T V).\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n+        out = torch.einsum('bti,btj->bij', K, V)\n         return out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "transformer_ssm_lift",
+    "case_id": "transformer_ssm_lift__naming=hard_symptom_mask=medium__seed-0",
+    "verdict": "FAIL",
+    "score": "0.0",
+    "status": "scored",
+    "failure": "source_invalid",
+    "guarantee": "compile_only",
+    "disposition": "rejected",
+    "eligibility": "True",
+    "config_hash": "5ec59c0d98f0ccefbc5c29fc544f7c8c6fe1245a7cf0240529faf66460673bfd",
+    "generation_id": "Gbcbd322e443da333",
+    "archive_member_prefix": "episodes/transformer_ssm_lift__naming=hard_symptom_mask=medium__seed-0/transformer_ssm_lift-20261013T172934Z-277b05da/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Stateful Attention-to-Recurrence Lift\n\nYour task is to correct the state lifting function `FunctorialStateLift` in `lifter.py`.\n\nIn sequential sequence modeling, converting history-dependent self-attention key/values into a recurrent state matrix represents a state-space transformation. For the transformation to be correct and lossless, reading the lifted recurrent state must produce the exact same attention outputs as the original sequence history under composition.\n\nThe starting implementation in `lifter.py` runs, but performs a lossy transformation that violates this stateful equivalence. Correct the lifting function so that the state conversion is mathematically correct and lossless.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass FunctorialStateLift(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -18,10 +18,6 @@ class FunctorialStateLift(nn.Module):\n             B, T, D = K.shape\n-            out = torch.zeros(B, D, D, device=K.device)\n-            for b in range(B):\n-                m_v = V[b].mean(dim=0)\n-                out[b] = torch.diag(m_v)\n+            out = torch.einsum('btd,bte->bde', K, V)\n             return out\n"
+        },
+        "observation": "patching file lifter.py\n\n[stderr]\npatch: **** malformed patch at line 10:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -13,5 +13,2 @@ class FunctorialStateLift(nn.Module):\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n+        out = torch.einsum('btd,bte->bde', K, V)\n         return out\n"
+        },
+        "observation": "patching file lifter.py\nHunk #1 succeeded at 12 with fuzz 2 (offset -1 lines).\n"
+      }
+    ],
+    "final": {
+      "score": 0.0,
+      "raw_accuracy": 0.0,
+      "failure_mode": "source_invalid",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": false,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": false,
+        "anti_gaming_passed": false
+      },
+      "metrics": {},
+      "notes": [
+        "Source validation failed:\nVIOLATIONS:\n  lifter.py: SyntaxError: unexpected indent (lifter.py, line 14)\n\nNOTE: This validator is NOT a security sandbox. Docker isolation is.\nSome bypasses (getattr, string concat, etc.) are not caught here.\n\n"
+      ],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "failed",
+          "code": "syntax_error"
+        }
+      },
+      "training_completed": false,
+      "model_saved": false,
+      "accuracy_bin": "0%",
+      "patch_found": true,
+      "patch_valid": true,
+      "verdict": "FAIL"
+    },
+    "submission_patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -11,8 +11,5 @@\n         # This collapses the associative sequence context into a simple diagonal vector,\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n             out[b] = torch.diag(m_v)\n         return out\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "transformer_ssm_lift",
+    "case_id": "transformer_ssm_lift__naming=medium_symptom_mask=easy__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "5ec59c0d98f0ccefbc5c29fc544f7c8c6fe1245a7cf0240529faf66460673bfd",
+    "generation_id": "Gf44a78af14e0f1cf",
+    "archive_member_prefix": "episodes/transformer_ssm_lift__naming=medium_symptom_mask=easy__seed-0/transformer_ssm_lift-20261013T173020Z-5441e3ce/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Stateful Attention-to-Recurrence Lift\n\nYour task is to correct the state lifting function `RecurrentStateIsomorphism` in `lifter.py`.\n\nIn sequential sequence modeling, converting history-dependent self-attention key/values into a recurrent state matrix represents a state-space transformation. For the transformation to be correct and lossless, reading the lifted recurrent state must produce the exact same attention outputs as the original sequence history under composition.\n\nThe starting implementation in `lifter.py` runs, but performs a lossy transformation that violates this stateful equivalence. Correct the lifting function so that the state conversion is mathematically correct and lossless.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass RecurrentStateIsomorphism(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -14,9 +14,7 @@ class RecurrentStateIsomorphism(nn.Module):\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Accumulate K^T V over time to maintain exact recurrence state for linearized attention.\n+        return torch.bmm(K.transpose(1, 2), V)\n"
+        },
+        "observation": "patching file lifter.py\n\n[stderr]\npatch: **** unexpected end of file in patch\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -12,11 +12,7 @@ class RecurrentStateIsomorphism(nn.Module):\n         # This collapses the associative sequence context into a simple diagonal vector,\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Accumulate K^T V over time to maintain exact recurrence state for linearized attention.\n+        return torch.bmm(K.transpose(1, 2), V)\n"
+        },
+        "observation": "patching file lifter.py\n\n[stderr]\npatch: **** malformed patch at line 13:  \n\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -11,8 +11,5 @@ class RecurrentStateIsomorphism(nn.Module):\n         # This collapses the associative sequence context into a simple diagonal vector,\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        return torch.bmm(K.transpose(1, 2), V)\n"
+        },
+        "observation": "patching file lifter.py\n\n[stderr]\npatch: **** malformed patch at line 12:  \n\n"
+      },
+      {
+        "step": 7,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass RecurrentStateIsomorphism(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 8,
+        "action": {
+          "type": "write_file",
+          "path": "lifter.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass RecurrentStateIsomorphism(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        return torch.bmm(K.transpose(1, 2), V)\n"
+        },
+        "observation": "--- before/lifter.py\n+++ after/lifter.py\n@@ -11,8 +11,4 @@\n         # This collapses the associative sequence context into a simple diagonal vector,\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        return torch.bmm(K.transpose(1, 2), V)"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "isomorphism_preserves_attention": true
+      },
+      "metrics": {
+        "changed_files": [
+          "lifter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -11,8 +11,4 @@\n         # This collapses the associative sequence context into a simple diagonal vector,\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        return torch.bmm(K.transpose(1, 2), V)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "transformer_ssm_lift",
+    "case_id": "transformer_ssm_lift__naming=medium_symptom_mask=hard__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "5ec59c0d98f0ccefbc5c29fc544f7c8c6fe1245a7cf0240529faf66460673bfd",
+    "generation_id": "G288711eca05faa2a",
+    "archive_member_prefix": "episodes/transformer_ssm_lift__naming=medium_symptom_mask=hard__seed-0/transformer_ssm_lift-20261013T173057Z-02c5498f/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Stateful Attention-to-Recurrence Lift\n\nYour task is to correct the state lifting function `RecurrentStateIsomorphism` in `lifter.py`.\n\nIn sequential sequence modeling, converting history-dependent self-attention key/values into a recurrent state matrix represents a state-space transformation. For the transformation to be correct and lossless, reading the lifted recurrent state must produce the exact same attention outputs as the original sequence history under composition.\n\nThe starting implementation in `lifter.py` runs, but performs a lossy transformation that violates this stateful equivalence. Correct the lifting function so that the state conversion is mathematically correct and lossless.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass RecurrentStateIsomorphism(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "@@ -12,11 +12,8 @@ class RecurrentStateIsomorphism(nn.Module):\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Accumulate outer products over sequence dimension for lossless recurrence.\n+        # This computes sum_t K_t^T V_t for each batch element.\n+        return torch.bmm(K.transpose(1, 2), V)"
+        },
+        "observation": "patch unexpectedly ends in middle of line\n\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "apply_patch",
+          "patch": "@@ -9,13 +9,7 @@ class RecurrentStateIsomorphism(nn.Module):\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Compute sum of outer products K^T V over time dimension for lossless accumulation.\n+        return torch.bmm(K.transpose(1, 2), V)\n"
+        },
+        "observation": "\n[stderr]\npatch: **** Only garbage was found in the patch input.\n"
+      },
+      {
+        "step": 6,
+        "action": {
+          "type": "write_file",
+          "path": "lifter.py",
+          "content": "import torch\nimport torch.nn as nn\n\nclass RecurrentStateIsomorphism(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # Accumulate K^T V over time dimension for lossless recurrence.\n        B, T, D = K.shape\n        return torch.bmm(K.transpose(1, 2), V)\n"
+        },
+        "observation": "--- before/lifter.py\n+++ after/lifter.py\n@@ -7,12 +7,6 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n+        # Accumulate K^T V over time dimension for lossless recurrence.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        return torch.bmm(K.transpose(1, 2), V)"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "isomorphism_preserves_attention": true
+      },
+      "metrics": {
+        "changed_files": [
+          "lifter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -7,12 +7,6 @@\n         self.dim = dim\n \n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n-        # BUG: Naive temporal mean pooling.\n-        # This collapses the associative sequence context into a simple diagonal vector,\n-        # losing historical temporal correlations.\n+        # Accumulate K^T V over time dimension for lossless recurrence.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        return torch.bmm(K.transpose(1, 2), V)\n"
+  },
+  {
+    "model": "mercury",
+    "environment": "transformer_ssm_lift",
+    "case_id": "transformer_ssm_lift__naming=medium_symptom_mask=medium__seed-0",
+    "verdict": "PASS",
+    "score": "1.0",
+    "status": "scored",
+    "failure": "pass",
+    "guarantee": "compile_only",
+    "disposition": "scored",
+    "eligibility": "True",
+    "config_hash": "5ec59c0d98f0ccefbc5c29fc544f7c8c6fe1245a7cf0240529faf66460673bfd",
+    "generation_id": "G8663eb0fb424c7b0",
+    "archive_member_prefix": "episodes/transformer_ssm_lift__naming=medium_symptom_mask=medium__seed-0/transformer_ssm_lift-20261013T173124Z-7f55d1a6/",
+    "events": [
+      {
+        "step": 2,
+        "action": {
+          "type": "read_file",
+          "path": "prompt.md"
+        },
+        "observation": "# Stateful Attention-to-Recurrence Lift\n\nYour task is to correct the state lifting function `RecurrentStateIsomorphism` in `lifter.py`.\n\nIn sequential sequence modeling, converting history-dependent self-attention key/values into a recurrent state matrix represents a state-space transformation. For the transformation to be correct and lossless, reading the lifted recurrent state must produce the exact same attention outputs as the original sequence history under composition.\n\nThe starting implementation in `lifter.py` runs, but performs a lossy transformation that violates this stateful equivalence. Correct the lifting function so that the state conversion is mathematically correct and lossless.\n"
+      },
+      {
+        "step": 3,
+        "action": {
+          "type": "read_file",
+          "path": "lifter.py"
+        },
+        "observation": "import torch\nimport torch.nn as nn\n\nclass RecurrentStateIsomorphism(nn.Module):\n    def __init__(self, dim: int = 8):\n        super().__init__()\n        self.dim = dim\n\n    def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n        # BUG: Naive temporal mean pooling.\n        # This collapses the associative sequence context into a simple diagonal vector,\n        # losing historical temporal correlations.\n        B, T, D = K.shape\n        out = torch.zeros(B, D, D, device=K.device)\n        for b in range(B):\n            m_v = V[b].mean(dim=0)\n            out[b] = torch.diag(m_v)\n        return out\n"
+      },
+      {
+        "step": 4,
+        "action": {
+          "type": "apply_patch",
+          "patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -15,10 +15,10 @@ class RecurrentStateIsomorphism(nn.Module):\n     def lift_state(self, K: torch.Tensor, V: torch.Tensor) -> torch.Tensor:\n         # BUG: Naive temporal mean pooling.\n         # This collapses the associative sequence context into a simple diagonal vector,\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n-        return out\n+        # Accumulate outer products of K and V across temporal dimension\n+        # This preserves the sufficient statistics for linear attention composition\n+        K_transposed = K.transpose(1, 2)  # (B, D, T)\n+        out = torch.bmm(K_transposed, V)  # (B, D, D)\n+        return out\n"
+        },
+        "observation": "patching file lifter.py\nHunk #1 succeeded at 9 (offset -6 lines).\n"
+      },
+      {
+        "step": 5,
+        "action": {
+          "type": "read_file",
+          "path": "visible_tests.py"
+        },
+        "observation": "import torch\nfrom lifter import RecurrentStateIsomorphism\n\ndef test_shape():\n    lifter = RecurrentStateIsomorphism(dim=8)\n    K = torch.randn(2, 4, 8)\n    V = torch.randn(2, 4, 8)\n    out = lifter.lift_state(K, V)\n    assert out.shape == (2, 8, 8)\n"
+      }
+    ],
+    "final": {
+      "score": 1.0,
+      "raw_accuracy": 1.0,
+      "failure_mode": "pass",
+      "checks": {
+        "patch_found": true,
+        "patch_valid": true,
+        "sources_valid": true,
+        "training_completed": false,
+        "artifact_found": false,
+        "hidden_metric_passed": true,
+        "anti_gaming_passed": true,
+        "required_multifile_edit": true,
+        "basic_run": true,
+        "isomorphism_preserves_attention": true
+      },
+      "metrics": {
+        "changed_files": [
+          "lifter.py"
+        ],
+        "missing_required_files": [],
+        "trusted_score": 1.0
+      },
+      "notes": [],
+      "events": [],
+      "stage_outcomes": {
+        "patch_validation": {
+          "status": "passed",
+          "code": "patch_applied"
+        },
+        "source_validation": {
+          "status": "passed",
+          "code": "sources_accepted"
+        },
+        "required_artifacts": {
+          "status": "passed",
+          "code": "required_artifacts_present",
+          "missing_files": []
+        },
+        "behavioral_evaluation": {
+          "status": "scored_pass",
+          "code": "behavioral_criteria_met"
+        }
+      },
+      "training_completed": true,
+      "model_saved": true,
+      "accuracy_bin": ">= 85%",
+      "patch_found": true,
+      "patch_valid": true,
+      "sources_valid": true,
+      "_required_files_ok": true,
+      "verdict": "PASS"
+    },
+    "submission_patch": "--- a/lifter.py\n+++ b/lifter.py\n@@ -11,8 +11,8 @@\n         # This collapses the associative sequence context into a simple diagonal vector,\n         # losing historical temporal correlations.\n         B, T, D = K.shape\n-        out = torch.zeros(B, D, D, device=K.device)\n-        for b in range(B):\n-            m_v = V[b].mean(dim=0)\n-            out[b] = torch.diag(m_v)\n+        # Accumulate outer products of K and V across temporal dimension\n+        # This preserves the sufficient statistics for linear attention composition\n+        K_transposed = K.transpose(1, 2)  # (B, D, T)\n+        out = torch.bmm(K_transposed, V)  # (B, D, D)\n         return out\n"
+  }
+]
